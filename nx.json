@@ -1,0 +1,131 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
+    ],
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+  },
+  "targetDefaults": {
+    "@nx/esbuild:esbuild": {
+      "executor": "@nx/esbuild:esbuild",
+      "inputs": ["production", "^production"],
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "cache": true,
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/{projectRoot}",
+        "format": ["cjs"],
+        "bundle": true,
+        "main": "{projectRoot}/src/main.ts",
+        "thirdParty": true,
+        "tsConfig": "{projectRoot}/tsconfig.app.json",
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "@nx/webpack:webpack": {
+      "cache": true,
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/{projectRoot}",
+        "main": "{projectRoot}/src/main.ts",
+        "tsConfig": "{projectRoot}/tsconfig.app.json",
+        "webpackConfig": "{projectRoot}/webpack.config.js",
+        "target": "node",
+        "compiler": "tsc",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "development": {
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "optimization": true,
+          "sourceMap": false
+        }
+      }
+    },
+    "@nx/js:node": {
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "{projectName}:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "{projectName}:build:development"
+        },
+        "production": {
+          "buildTarget": "{projectName}:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "configurations": {
+        "fix": {
+          "fix": true
+        }
+      },
+      "options": {
+        "lintFilePatterns": ["{projectRoot}/src/**/*.ts"]
+      }
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/{projectRoot}",
+        "main": "{projectRoot}/src/index.ts",
+        "tsConfig": "{projectRoot}/tsconfig.json",
+        "assets": ["{projectRoot}/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "cache": true,
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.cjs",
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "forceExit": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true
+        }
+      }
+    }
+  },
+  "workspaceLayout": {
+    "appsDir": "apps",
+    "libsDir": "libs"
+  }
+}

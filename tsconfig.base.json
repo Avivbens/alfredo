@@ -9,9 +9,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "esnext",
-    "lib": [
-      "ES2023"
-    ],
+    "lib": ["ES2023"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "noImplicitAny": true,
@@ -27,8 +25,5 @@
     "baseUrl": ".",
     "paths": {}
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

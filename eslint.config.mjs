@@ -1,6 +1,8 @@
-const nx = require('@nx/eslint-plugin');
+import prettierPlugin from 'eslint-plugin-prettier/recommended';
+import { defineConfig } from 'eslint/config';
+import nx from '@nx/eslint-plugin';
 
-module.exports = [
+export default defineConfig([
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
@@ -26,15 +28,8 @@ module.exports = [
     },
   },
   {
-    files: [
-      '**/*.ts',
-      '**/*.tsx',
-      '**/*.js',
-      '**/*.jsx',
-      '**/*.cjs',
-      '**/*.mjs',
-    ],
-    // Override or add rules here
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs'],
     rules: {},
   },
-];
+  prettierPlugin,
+]);

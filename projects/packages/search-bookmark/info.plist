@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.find-bookmark</string>
+    <key>category</key>
+    <string>Internet</string>
+    <key>connections</key>
+    <dict>
+      <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+      <key>FA64DD3E-B353-4804-9783-DB856D8D2C4C</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>C389B829-F331-4C17-8965-A505B0251B7E</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Search across your bookmarks from all your Chrome profiles and open them in a new tab</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Search Bookmarks</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/open-chrome-profile-by-url.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>bm</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/bookmarks.js "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Search for Bookmarks...</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>2</integer>
+          <key>keyword</key>
+          <string>bmclear</string>
+          <key>subtext</key>
+          <string>Clear bookmarks cache</string>
+          <key>text</key>
+          <string>Clear Cache</string>
+          <key>withspace</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.keyword</string>
+        <key>uid</key>
+        <string>FA64DD3E-B353-4804-9783-DB856D8D2C4C</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/clear-cache.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>C389B829-F331-4C17-8965-A505B0251B7E</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Search Bookmark! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+Search browser bookmarks via the keyword 'bm'. Once you select a bookmark, it will be opened in the dedicated browser.
+
+Incognito mode will be opened with the dedicated browser as well.
+
+## Usage
+
+1. Open Alfred and type 'bm' followed by a space
+1. Type the name of the bookmark you want to search for (e.g., 'bm google')
+1. The list of bookmarks will be displayed along with the corresponding bookmark directories structure
+1. Select the bookmark from the list of results
+1. Press Enter to open the bookmark in the dedicated browser
+1. To open the bookmark in incognito mode, press Command + Enter
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>C389B829-F331-4C17-8965-A505B0251B7E</key>
+      <dict>
+        <key>xpos</key>
+        <integer>455</integer>
+        <key>ypos</key>
+        <integer>350</integer>
+      </dict>
+      <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>80</integer>
+      </dict>
+      <key>FA64DD3E-B353-4804-9783-DB856D8D2C4C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>90</integer>
+        <key>ypos</key>
+        <integer>350</integer>
+      </dict>
+      <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
+      <dict>
+        <key>xpos</key>
+        <integer>450</integer>
+        <key>ypos</key>
+        <integer>80</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>Default</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Add your profiles separateed by a comma (,). Exists under `~/Library/Application Support/Google/Chrome`. Would be `Profile {number}` or `Default`</string>
+        <key>label</key>
+        <string>Profiles to look for</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>lookfor_profiles</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>10</integer>
+          <key>markercount</key>
+          <integer>20</integer>
+          <key>maxvalue</key>
+          <integer>50</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Select amount of results to show</string>
+        <key>label</key>
+        <string>Number of results</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>slice_amount</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>4</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>0</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>A number between 1-10. A higher number would be less accurate, but more dynamic.</string>
+        <key>label</key>
+        <string>Fuzzy search accuracy</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>fuzzy_threshold</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>2.3.2</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

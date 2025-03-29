@@ -1,5 +1,5 @@
 {
-  "name": "@alfredo/<%= name %>",
+  "name": "<%= name %>",
   "version": "1.0.0",
   "description": "TODO",
   "keywords": [

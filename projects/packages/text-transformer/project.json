@@ -3,56 +3,13 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "projects/packages/text-transformer/src",
   "projectType": "application",
+  "tags": ["spell-check", "translate", "ai"],
   "targets": {
     "build": {
-      "executor": "@nx/esbuild:esbuild",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
-      "options": {
-        "platform": "node",
-        "outputPath": "dist/projects/packages/text-transformer",
-        "format": ["cjs"],
-        "bundle": false,
-        "main": "projects/packages/text-transformer/src/main.ts",
-        "tsConfig": "projects/packages/text-transformer/tsconfig.app.json",
-        "assets": ["projects/packages/text-transformer/src/assets"],
-        "generatePackageJson": true,
-        "esbuildOptions": {
-          "sourcemap": true,
-          "outExtension": {
-            ".js": ".js"
-          }
-        }
-      },
-      "configurations": {
-        "development": {},
-        "production": {
-          "esbuildOptions": {
-            "sourcemap": false,
-            "outExtension": {
-              ".js": ".js"
-            }
-          }
-        }
-      }
+      "defaultConfiguration": "local"
     },
-    "serve": {
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
-      "dependsOn": ["build"],
-      "options": {
-        "buildTarget": "text-transformer:build",
-        "runBuildTargetDependencies": false
-      },
-      "configurations": {
-        "development": {
-          "buildTarget": "text-transformer:build:development"
-        },
-        "production": {
-          "buildTarget": "text-transformer:build:production"
-        }
-      }
-    }
-  },
-  "tags": []
+    "serve": {},
+    "test": {},
+    "lint": {}
+  }
 }

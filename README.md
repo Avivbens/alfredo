@@ -12,7 +12,6 @@
       <img src="https://img.shields.io/github/stars/avivbens/alfredo" alt="GitHub Stars">
     </a>
   </p>
-  <!-- <img src="https://via.placeholder.com/500x300?text=Alfredo+Workflows" alt="Alfredo Logo" width="500"> -->
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/kcao7snkgx)
 

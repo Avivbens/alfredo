@@ -20,9 +20,9 @@ Search through your operating system's processes by name, port, PID, or path –
 
 ## Options
 
-'!' - Search for processes by name, port, PID, or path.
-'!!' - Same, but kill with 'sudo' permission.
-'!!!' - Search & show by port
+'!' - Search for processes by name, port, PID, or path.   
+'!!' - Same, but kill with 'sudo' permission.   
+'!!!' - Search & show by port   
 
 To view the workflow codebase, click here:
 ${homepage}

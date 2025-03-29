@@ -1,0 +1,15 @@
+{
+  "name": "text-transformer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/packages/text-transformer/src",
+  "projectType": "application",
+  "tags": ["spell-check", "translate", "ai"],
+  "targets": {
+    "build": {
+      "defaultConfiguration": "local"
+    },
+    "serve": {},
+    "test": {},
+    "lint": {}
+  }
+}

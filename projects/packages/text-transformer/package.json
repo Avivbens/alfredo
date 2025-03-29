@@ -1,0 +1,16 @@
+{
+  "name": "alfred-text-transformer",
+  "version": "0.0.1",
+  "description": "Transform text using Alfred - translate, spell-check, and more!",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "spell-check",
+    "translate"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

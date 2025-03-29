@@ -42,6 +42,12 @@ nx g @alfredo/workspace:generate-workflow
 
 > **Note:** The generator CLI is designed to simplify the process of creating new libraries and workflows, ensuring that they are compatible with the FastAlfred framework. It handles the boilerplate code and configuration, allowing you to focus on building your workflow's functionality.
 
+### Important Notes
+
+- Resolve all TODOs in the generated code
+- Add the `info.plist` file of your workflow
+- Test the workflow with the `nx run <your-workflow-name>:serve` command
+
 ---
 
 ## Reporting Issues

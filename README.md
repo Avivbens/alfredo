@@ -70,6 +70,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Kudos to [Nx](https://nx.dev) for their powerful monorepo capabilities.
 - A huge thank you to all our [contributors](https://github.com/avivbens/alfredo/graphs/contributors) who help make Alfredo and FastAlfred better every day.
 
+![Alfredo Logo](docs/logos/logo-full.png)
+
 ---
 
 <div align="center">

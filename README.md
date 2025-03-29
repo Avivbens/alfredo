@@ -1,109 +1,74 @@
-# Alfredo
+<div align="center">
+  <h1>Alfredo 🍝 - Your Alfred Workflow's Best Collection</h1>
+  <p><strong>A powerful collection of workflows for seamless development automation</strong></p>
+  <p>
+    <a href="https://github.com/avivbens/alfredo/releases">
+      <img src="https://img.shields.io/github/v/release/avivbens/alfredo" alt="GitHub Release">
+    </a>
+    <a href="https://github.com/avivbens/alfredo/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/avivbens/alfredo" alt="License">
+    </a>
+    <a href="https://github.com/avivbens/alfredo/stargazers">
+      <img src="https://img.shields.io/github/stars/avivbens/alfredo" alt="GitHub Stars">
+    </a>
+  </p>
+  <!-- <img src="https://via.placeholder.com/500x300?text=Alfredo+Workflows" alt="Alfredo Logo" width="500"> -->
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/kcao7snkgx)
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+</div>
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Workflows
 
-## Generate a library
+<div align="center">
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
+<!-- TABLE_START -->
 
-## Run tasks
+| Workflow                                                           | Description                                                                                                               | Latest Release                                                                            | Download Link                                                                                                                                   | Downloads                                                                                                                                                             |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Text Transformer](./projects/packages/text-transformer/README.md) | Transform your text with Alfred—translate, check spelling, correct grammar, explain, extract action items, and much more! | [v0.0.1](https://github.com/avivbens/alfredo/releases/tag/release/text-transformer/0.0.1) | [Download Workflow](https://github.com/avivbens/alfredo/releases/download/release/text-transformer/0.0.1/text-transformer_0.0.1.alfredworkflow) | [![Total Downloads](https://img.shields.io/github/downloads/avivbens/alfredo/total?label=Total%20Downloads&color=blue)](https://github.com/avivbens/alfredo/releases) |
 
-To build the library use:
+<!-- TABLE_END -->
 
-```sh
-npx nx build pkg1
-```
+</div>
 
-To run any task with Nx use:
+## 🚀 Overview
 
-```sh
-npx nx <target> <project-name>
-```
+Alfredo is a picked out collection of managed workflows designed to automate and standardize development tasks. Each workflow comes with built-in versioning, an aligned process for approval and monitoring, and is seamlessly managed under one roof—all powered by the custom [**FastAlfred**](https://github.com/Avivbens/fast-alfred#readme) framework.
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+**What Does Alfredo Offer?**
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- 📦 **Managed Workflows:** Enjoy workflows that are versioned and monitored through a consistent approval process.
+- 🔄 **Streamlined Automation:** Leverage workflows that reduce manual overhead and integrate best practices out-of-the-box.
+- 🛠️ **Built on FastAlfred:** Benefit from the robust capabilities of FastAlfred, which handles bundling, configuration, and dependency management so you can focus solely on functionality.
 
-## Versioning and releasing
+## 🔥 Introducing FastAlfred
 
-To version and release the library use
+[**FastAlfred**](https://github.com/Avivbens/fast-alfred#readme) is the innovative automation framework that powers Alfredo. It lets you think about the functionality, rather than the boilerplate. Here’s what FastAlfred brings to the table:
 
-```
-npx nx release
-```
+- **Simplified Workflow Management:** It bundles your production code and its dependencies into a single, portable `.alfredworkflow` file, perfect for the Alfred Gallery.
+- **No More Boilerplate:** By handling the configuration and bundling process, FastAlfred lets you concentrate on writing the core functionality.
+- **Optimized for Alfred:** Given Alfred’s recommendation against including external dependencies at installation time, FastAlfred ensures that all necessary code is bundled within your workflow file.
+- **Declarative & Intuitive:** Configure and manage your workflows in a clear, declarative manner, reducing complexity and ensuring consistency.
+- **Performance-Focused:** Engineered for rapid task execution, FastAlfred minimizes overhead to accelerate your workflows.
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+For more detailed information, visit the [FastAlfred GitHub page](https://github.com/Avivbens/fast-alfred#readme).
 
-[Learn more about Nx release &raquo;](hhttps://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 🤝 Contributing
 
-## Keep TypeScript project references up to date
+We welcome contributions! Please check out our [Contributing Guide](CONTRIBUTING.md) for detailed instructions on how to get involved.
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+## 📜 License
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for further details.
 
-```sh
-npx nx sync
-```
+## 🙏 Acknowledgments
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+- Kudos to [Nx](https://nx.dev) for their powerful monorepo capabilities.
+- A huge thank you to all our [contributors](https://github.com/avivbens/alfredo/graphs/contributors) who help make Alfredo and FastAlfred better every day.
 
-```sh
-npx nx sync:check
-```
+---
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+<div align="center">
+  <sub>Built with ❤️ by the Alfredo Team</sub>
+</div>

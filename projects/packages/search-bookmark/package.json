@@ -1,6 +1,6 @@
 {
   "name": "search-bookmark",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "description": "Search across your bookmarks from all your Chrome profiles and open them in a new tab",
   "keywords": [
     "alfred",

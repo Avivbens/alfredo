@@ -1,0 +1,9 @@
+{
+  "name": "@alfredo/workspace",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@nx/devkit": "20.3.2"
+  },
+  "generators": "./generators.json"
+}

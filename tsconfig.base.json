@@ -23,7 +23,9 @@
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@alfredo/workspace": ["./projects/workspace"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -32,11 +32,15 @@ To get started, follow these steps:
 
 ---
 
-## Generating New Libraries/Workflows
+## Generating New Workflows
 
 To help you get started with creating a new library or workflow app within Alfredo, we provide an Nx generator CLI. This generator scaffolds out a new project with all the necessary configuration to work seamlessly with FastAlfred.
 
-> **Placeholder:** Detailed instructions on generating new libraries or workflow apps using the Nx generator CLI will be added here soon. Stay tuned for updates!
+```bash
+nx g @alfredo/workspace:generate-workflow
+```
+
+> **Note:** The generator CLI is designed to simplify the process of creating new libraries and workflows, ensuring that they are compatible with the FastAlfred framework. It handles the boilerplate code and configuration, allowing you to focus on building your workflow's functionality.
 
 ---
 

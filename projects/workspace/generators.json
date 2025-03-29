@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "generate-workflow": {
+      "factory": "./src/generators/generate-workflow/generate-workflow.generator",
+      "schema": "./src/generators/generate-workflow/generate-workflow.schema.json",
+      "description": "generate-workflow generator"
+    }
+  }
+}

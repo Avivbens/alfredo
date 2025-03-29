@@ -42,7 +42,7 @@ Alfredo is a picked out collection of managed workflows designed to automate and
 - 🔄 **Streamlined Automation:** Leverage workflows that reduce manual overhead and integrate best practices out-of-the-box.
 - 🛠️ **Built on FastAlfred:** Benefit from the robust capabilities of FastAlfred, which handles bundling, configuration, and dependency management so you can focus solely on functionality.
 
-## 🔥 Introducing FastAlfred
+## 🔥 Introducing [FastAlfred](https://github.com/Avivbens/fast-alfred#readme)
 
 [**FastAlfred**](https://github.com/Avivbens/fast-alfred#readme) is the innovative automation framework that powers Alfredo. It lets you think about the functionality, rather than the boilerplate. Here’s what FastAlfred brings to the table:
 

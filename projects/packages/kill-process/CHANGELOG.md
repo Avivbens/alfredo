@@ -1,3 +1,13 @@
+## 2.0.1 (2025-03-29)
+
+### 🩹 Fixes
+
+- readme break lines ([0a89af4](https://github.com/Avivbens/alfredo/commit/0a89af4))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 2.0.0 (2025-03-29)
 
 ### 🚀 Features

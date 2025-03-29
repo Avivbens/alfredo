@@ -35,7 +35,7 @@
     "@langchain/core": "^0.3.43",
     "@langchain/google-genai": "^0.2.0",
     "@langchain/openai": "^0.5.1",
-    "fast-alfred": "^2.2.0"
+    "fast-alfred": "^2.3.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

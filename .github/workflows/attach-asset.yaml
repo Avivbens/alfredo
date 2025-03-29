@@ -1,0 +1,77 @@
+name: Upload Workflow as an Asset 📝
+
+on:
+  release:
+    types:
+      - released
+
+permissions:
+  contents: write
+  actions: read
+  deployments: write
+
+jobs:
+  build-and-attach:
+    runs-on: ubuntu-latest
+    name: Attach Workflow File 📝 - ${{ github.event.release.tag_name }}
+    steps:
+      - name: 📀 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Git Config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: 🖥️ Setup Env
+        uses: ./.github/workflows/install
+
+      # Extract Project Name from Release Tag
+      - name: Extract Project Name
+        id: extract-project
+        run: |
+          # Extract the tag name (e.g., "release/projectName/version")
+          TAG_NAME="${{ github.event.release.tag_name }}"
+
+          # Split the tag name to get the project name
+          PROJECT_NAME=$(echo "$TAG_NAME" | cut -d'/' -f2)
+          PROJECT_VERSION=$(echo "$TAG_NAME" | cut -d'/' -f3)
+
+          # Export project name for later steps
+          echo "PROJECT_NAME=$PROJECT_NAME"
+          echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
+
+          # Export project version for later steps
+          echo "PROJECT_VERSION=$PROJECT_VERSION"
+          echo "PROJECT_VERSION=$PROJECT_VERSION" >> $GITHUB_ENV
+
+      # Build the Nx project dynamically
+      - name: Build Nx Project
+        run: npx nx build $PROJECT_NAME
+
+      # Find the alfredworkflow file
+      - name: Find Alfredworkflow File
+        id: find-file
+        run: |
+          WORKFLOW_FILE=$(find ./dist/$PROJECT_NAME -name "*.alfredworkflow" -type f | head -n 1)
+          echo "Found workflow file: $WORKFLOW_FILE"
+          echo "WORKFLOW_FILE=$WORKFLOW_FILE" >> $GITHUB_ENV
+
+          if [ -z "$WORKFLOW_FILE" ]; then
+            echo "No .alfredworkflow file found!"
+            exit 1
+          fi
+
+      # Upload build output as release asset
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ env.WORKFLOW_FILE }}
+          asset_name: '${{ env.PROJECT_NAME }}_${{env.PROJECT_VERSION}}.alfredworkflow'
+          asset_content_type: 'application/zip'

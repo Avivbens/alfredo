@@ -1,0 +1,49 @@
+name: Sync README Links 🔗
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/sync-readme.yaml
+  release:
+    types:
+      - released
+
+permissions:
+  contents: write
+  actions: read
+  deployments: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-attach:
+    runs-on: ubuntu-latest
+    name: Sync README Links 🔗
+    steps:
+      - name: 📀 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Git Config
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: 🖥️ Setup Env
+        uses: ./.github/workflows/install
+
+      - name: Update README links 🔗
+        run: |
+          git reset --hard
+          git checkout master
+          git pull
+          node scripts/update-readme-file.js
+          git add README.md package*.json
+          git commit -m "fix: update README links [skip ci]"
+          git push

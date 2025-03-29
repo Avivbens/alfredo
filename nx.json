@@ -87,6 +87,29 @@
         }
       }
     },
+    "build": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "local": {
+          "command": "npx fast-alfred -t 0.0.1 --no-package-json"
+        },
+        "ci": {
+          "command": "npx fast-alfred -t {args.version} --no-package-json"
+        }
+      },
+      "options": {
+        "cwd": "{projectRoot}"
+      }
+    },
+    "serve": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{workspaceRoot}/dist/{projectName}",
+        "command": "open ./**/*.alfredworkflow",
+        "parallel": false
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "configurations": {
@@ -96,16 +119,6 @@
       },
       "options": {
         "lintFilePatterns": ["{projectRoot}/src/**/*.ts"]
-      }
-    },
-    "@nx/js:tsc": {
-      "cache": true,
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/{projectRoot}",
-        "main": "{projectRoot}/src/index.ts",
-        "tsConfig": "{projectRoot}/tsconfig.json",
-        "assets": ["{projectRoot}/*.md"]
       }
     },
     "test": {

@@ -1,0 +1,16 @@
+{
+  "name": "kill-process",
+  "version": "1.3.0",
+  "description": "Efficiently search and kill processes on your Mac ⚔️",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "process",
+    "kill"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

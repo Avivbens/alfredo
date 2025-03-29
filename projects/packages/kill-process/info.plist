@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.kill-process</string>
+    <key>category</key>
+    <string>Tools</string>
+    <key>connections</key>
+    <dict>
+      <key>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+      <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <array></array>
+      <key>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+      <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+      <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
+      <array></array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Efficiently search and kill processes on your Mac ⚔️</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Kill Process</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>kill "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>!</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Kill a process</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>!!</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Force kill a process</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>!!!</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/find-port.js "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Kill port</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Kill Process! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+Search through your operating system's processes by name, port, PID, or path – and terminate them if necessary.
+
+## Usage
+
+1. Type "!" in Alfred to activate the workflow.
+1. Enter the name of the process you want to search for.
+1. Select the desired process from the list.
+1. Press Enter to kill the selected process.
+
+## Options
+
+'!' - Search for processes by name, port, PID, or path.
+'!!' - Same, but kill with 'sudo' permission.
+'!!!' - Search &amp; show by port
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
+      <dict>
+        <key>note</key>
+        <string>Kill port</string>
+        <key>xpos</key>
+        <integer>65</integer>
+        <key>ypos</key>
+        <integer>435</integer>
+      </dict>
+      <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <dict>
+        <key>xpos</key>
+        <integer>420</integer>
+        <key>ypos</key>
+        <integer>240</integer>
+      </dict>
+      <key>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
+      <dict>
+        <key>note</key>
+        <string>Force `Kill -9` process</string>
+        <key>xpos</key>
+        <integer>65</integer>
+        <key>ypos</key>
+        <integer>240</integer>
+      </dict>
+      <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <dict>
+        <key>note</key>
+        <string>Kill process</string>
+        <key>xpos</key>
+        <integer>65</integer>
+        <key>ypos</key>
+        <integer>50</integer>
+      </dict>
+      <key>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</key>
+      <dict>
+        <key>xpos</key>
+        <integer>420</integer>
+        <key>ypos</key>
+        <integer>435</integer>
+      </dict>
+      <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
+      <dict>
+        <key>xpos</key>
+        <integer>420</integer>
+        <key>ypos</key>
+        <integer>50</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>10</integer>
+          <key>markercount</key>
+          <integer>20</integer>
+          <key>maxvalue</key>
+          <integer>50</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Select amount of results to show</string>
+        <key>label</key>
+        <string>Number of results</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>slice_amount</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>4</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>0</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>A number between 1-10. A higher number would be less accurate, but more dynamic.</string>
+        <key>label</key>
+        <string>Fuzzy search accuracy</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>fuzzy_threshold</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>1.3.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

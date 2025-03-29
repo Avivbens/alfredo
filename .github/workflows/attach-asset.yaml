@@ -50,7 +50,7 @@ jobs:
 
       # Build the Nx project dynamically
       - name: Build Nx Project
-        run: npx nx build $PROJECT_NAME
+        run: npx nx run ${{ env.PROJECT_NAME }}:build:ci -- --version ${{env.PROJECT_VERSION}}
 
       # Find the alfredworkflow file
       - name: Find Alfredworkflow File

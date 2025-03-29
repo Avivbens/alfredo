@@ -77,10 +77,16 @@ We’re always open to new ideas that can help improve Alfredo. If you have an i
 When you’re ready to submit your changes, follow these guidelines:
 
 1. **Create a Branch:** Branch off from `master` with a descriptive name.
-2. **Commit Changes:** Make atomic commits with clear commit messages (see guidelines below).
-3. **Push and Open a PR:** Push your branch to your fork and open a pull request against the `master` branch.
-4. **Describe Your Changes:** Include a summary of the changes, motivation, and any relevant issue numbers.
-5. **Review Process:** Your pull request will be reviewed by a maintainer. You may be asked to make additional changes before it can be merged.
+1. **Commit Changes:** Make atomic commits with clear commit messages (see guidelines below).
+1. **Push and Open a PR:** Push your branch to your fork and open a pull request against the `master` branch.
+1. **Describe Your Changes:** Include a summary of the changes, motivation, and any relevant issue numbers.
+1. **Review Process:** Your pull request will be reviewed by a maintainer. You may be asked to make additional changes before it can be merged.
+
+### Important Notes
+
+- Please divide each commit into a single logical change. This helps reviewers grasp your modifications more easily.
+- When installing dependencies, the impact will extend to all workflows. Therefore, please separate this commit with a `chore` resolution, unless we intend to update all workflows.
+- No need to update the root `README` file - it is automatically generated.
 
 ---
 

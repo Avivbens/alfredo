@@ -1,0 +1,18 @@
+{
+  "name": "search-bookmark",
+  "version": "2.3.2",
+  "description": "Search across your bookmarks from all your Chrome profiles and open them in a new tab",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "bookmark",
+    "chrome",
+    "search",
+    "multi-profile"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

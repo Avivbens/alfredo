@@ -30,7 +30,7 @@ jobs:
       - name: 🔬 Check Semantic Versioning
         id: semantic-release
         run: |
-          npx nx release --dry-run > output.txt
+          npx nx release --dry-run --first-release > output.txt
           REPORT=$(cat output.txt | base64 -w 0)
 
           echo "releaseNote=$REPORT" >> $GITHUB_OUTPUT

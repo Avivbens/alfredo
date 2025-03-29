@@ -43,7 +43,7 @@ jobs:
           git reset --hard
           git checkout master
           git pull
-          node scripts/update-readme-file.js
+          npm run sync-readme
           git add README.md package*.json
-          git commit -m "fix: update README links [skip ci]"
+          git commit -m "docs: update README links [skip ci]"
           git push

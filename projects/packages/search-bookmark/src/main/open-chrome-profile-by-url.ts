@@ -1,8 +1,5 @@
 import { FastAlfred } from 'fast-alfred';
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
-
-const execPrm = promisify(exec);
+import { $ } from 'zurk';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -13,8 +10,6 @@ const execPrm = promisify(exec);
     incognito = false,
   }: { profile: string; url: string; incognito: boolean } = JSON.parse(alfredClient.input);
 
-  const command = `open -g -na 'Google Chrome' --args ${
-    incognito ? '--incognito' : ''
-  } --profile-directory='${profile}' '${url}'`;
-  await execPrm(command);
+  const incognitoStr = incognito ? '--incognito' : '';
+  await $`open -g -na 'Google Chrome' --args ${incognitoStr} --profile-directory=${profile} ${url}`;
 })();

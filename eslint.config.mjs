@@ -27,9 +27,5 @@ export default defineConfig([
       ],
     },
   },
-  {
-    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs'],
-    rules: {},
-  },
   prettierPlugin,
 ]);

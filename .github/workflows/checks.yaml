@@ -35,7 +35,7 @@ jobs:
         with:
           run-tests: false
           run-tests-command: 'npx nx affected --target=test --parallel'
-          run-lint: false
+          run-lint: true
           run-lint-command: 'npx nx affected --target=lint --parallel'
           run-build: true
           run-build-command: 'npx nx affected --target=build --parallel'

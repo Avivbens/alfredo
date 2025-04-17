@@ -1,3 +1,13 @@
+## 3.2.0 (2025-04-17)
+
+### 🚀 Features
+
+- **text-transformer:** support commit styling flow ([046d284](https://github.com/Avivbens/alfredo/commit/046d284))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.1.0 (2025-03-29)
 
 ### 🚀 Features

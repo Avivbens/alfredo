@@ -40,6 +40,12 @@ To help you get started with creating a new library or workflow app within Alfre
 nx g @alfredo/workspace:generate-workflow
 ```
 
+### Generate a new Library
+
+```bash
+nx generate @nx/js:library projects/libs/<your-library-name>
+```
+
 > **Note:** The generator CLI is designed to simplify the process of creating new libraries and workflows, ensuring that they are compatible with the FastAlfred framework. It handles the boilerplate code and configuration, allowing you to focus on building your workflow's functionality.
 
 ### Important Notes

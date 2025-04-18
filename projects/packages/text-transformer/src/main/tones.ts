@@ -1,6 +1,7 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
+import { getActiveApp } from '@alfredo/active-app';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { TONE_SYSTEM_PROMPT } from '../common/prompts/tone.prompt';
 import { Variables } from '../common/variables.enum';
@@ -38,12 +39,23 @@ import { callModel } from '../services/llm.service';
       throw new Error(`Not allowed tone! Please use one of: ${Object.values(AvailableTone).join(', ')}`);
     }
 
+    const useApplicationContext: boolean = alfredClient.env.getEnv(Variables.USE_APPLICATION_CONTEXT, {
+      defaultValue: false,
+      parser: (value) => (value as '0' | '1') === '1',
+    });
+
+    const applicationContext = useApplicationContext && (await getActiveApp());
+    alfredClient.log(JSON.stringify({ useApplicationContext, applicationContext }, null, 2));
+
     /**
      * Debounce time to wait for the user to finish typing
      */
     await setTimeout(denounceTime);
 
-    const system = await TONE_SYSTEM_PROMPT(tone as AvailableTone).format({});
+    const system = await TONE_SYSTEM_PROMPT(tone as AvailableTone, useApplicationContext).format({
+      applicationContext,
+    });
+
     const res = await callModel(token, model, { system, user: query });
 
     const items: AlfredListItem[] = [

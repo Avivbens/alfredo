@@ -24,6 +24,7 @@
     "allowUnreachableCode": false,
     "baseUrl": ".",
     "paths": {
+      "@alfredo/active-app": ["./projects/libs/active-app/src/index.ts"],
       "@alfredo/workspace": ["./projects/workspace"]
     }
   },

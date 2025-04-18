@@ -1,3 +1,17 @@
+## 3.3.0 (2025-04-18)
+
+### 🚀 Features
+
+- **text-transformer:** support current app context and use `PipelinePromptTemplate` as the template pipeline ([602d630](https://github.com/Avivbens/alfredo/commit/602d630))
+
+### 🩹 Fixes
+
+- **text-transformer:** add new features to readme page ([2e66cc8](https://github.com/Avivbens/alfredo/commit/2e66cc8))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.2.0 (2025-04-17)
 
 ### 🚀 Features

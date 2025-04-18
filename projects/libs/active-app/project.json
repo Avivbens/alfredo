@@ -1,0 +1,11 @@
+{
+  "name": "active-app",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/libs/active-app/src",
+  "projectType": "library",
+  "tags": ["os:macos", "lib:util"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

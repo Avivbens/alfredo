@@ -1,6 +1,7 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
+import { getActiveApp } from '@alfredo/active-app';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { SPELL_CHECK_SYSTEM_PROMPT } from '../common/prompts/spell-check.prompt';
 import { Variables } from '../common/variables.enum';
@@ -22,6 +23,14 @@ import { callModel } from '../services/llm.service';
       throw new Error('Token or model is not defined!');
     }
 
+    const useApplicationContext: boolean = alfredClient.env.getEnv(Variables.USE_APPLICATION_CONTEXT, {
+      defaultValue: false,
+      parser: (value) => (value as '0' | '1') === '1',
+    });
+
+    const applicationContext = useApplicationContext && (await getActiveApp());
+    alfredClient.log(JSON.stringify({ useApplicationContext, applicationContext }, null, 2));
+
     /**
      * Debounce time to wait for the user to finish typing
      */
@@ -31,7 +40,8 @@ import { callModel } from '../services/llm.service';
       throw new Error('Input is required');
     }
 
-    const system = await SPELL_CHECK_SYSTEM_PROMPT.format({});
+    const system = await SPELL_CHECK_SYSTEM_PROMPT(useApplicationContext).format({ applicationContext });
+
     const res = await callModel(token, model, { system, user: alfredClient.input });
 
     const items: AlfredListItem[] = [

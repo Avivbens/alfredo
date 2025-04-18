@@ -771,6 +771,11 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 - Tones: Change the tone of the text be giving input
 - Summarize: Summarize the text to be more concise
 - Explain: Explain the text in a more understandable way
+- Commit Styling: Format commit messages to be more readable
+
+#### Use Active App Context
+Enable the `Use Application Context` option to utilize the current app context for your workflow.  
+This feature enhances text styling and formatting, customizing them to meet your specific needs.
 
 ## Usage
 

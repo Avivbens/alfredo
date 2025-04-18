@@ -1,3 +1,13 @@
+## 3.0.2 (2025-04-18)
+
+### 🩹 Fixes
+
+- bump up `fast-alfred` ([91e9020](https://github.com/Avivbens/alfredo/commit/91e9020))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.0.1 (2025-03-30)
 
 ### 🩹 Fixes

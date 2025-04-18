@@ -1,6 +1,6 @@
 {
   "name": "advance-fs-search",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Search files in the file system & open them with a variety of applications",
   "keywords": [
     "alfred",

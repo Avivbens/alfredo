@@ -1,3 +1,13 @@
+## 3.3.2 (2025-05-07)
+
+### 🩹 Fixes
+
+- **commit-formatting:** improve support for better commit formatting based on official conventional commits ([ccc8b84](https://github.com/Avivbens/alfredo/commit/ccc8b84))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.3.1 (2025-04-18)
 
 ### 🩹 Fixes

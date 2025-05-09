@@ -20,6 +20,9 @@ const TONES_PROMPT_MAP: Record<AvailableTone, string> = {
   You can use emojis and exclamation marks to make the text more engaging.`,
   [AvailableTone.HAPPY]: `happier. Make sure the text is upbeat and positive.
   Use cheerful language and exclamation marks to convey happiness.`,
+  [AvailableTone.SIMPLE]: `simpler and more regular. Make sure the text is clear, 
+  concise, and easy to understand for everyday readers, while maintaining a professional and well-written style. 
+  Avoid jargon and overly complex sentences. Aim for the tone of a well-written LinkedIn post or high-quality documentation.`,
 };
 
 export const TONE_SYSTEM_PROMPT = (tone: AvailableTone, useApplicationContext: boolean) =>

@@ -3,4 +3,5 @@ export enum AvailableTone {
   PROFESSIONAL = 'professional',
   FRIENDLY = 'friendly',
   HAPPY = 'happy',
+  SIMPLE = 'simple',
 }

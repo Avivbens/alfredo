@@ -1,3 +1,13 @@
+## 3.4.0 (2025-05-09)
+
+### 🚀 Features
+
+- **tones:** add support for the `simple` tone ([cf26fa8](https://github.com/Avivbens/alfredo/commit/cf26fa8))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.3.2 (2025-05-07)
 
 ### 🩹 Fixes

@@ -19,6 +19,7 @@ Transform your text with Alfred — translate, check spelling, correct grammar, 
 - Tones: Change the tone of the text be giving input
 - Summarize: Summarize the text to be more concise
 - Explain: Explain the text in a more understandable way
+- Commit Styling: Format commit messages to be more readable
 
 ## Usage
 

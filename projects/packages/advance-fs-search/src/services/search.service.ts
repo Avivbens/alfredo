@@ -2,9 +2,10 @@ import { glob } from 'glob';
 import { readdir, stat } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { basename } from 'node:path';
-import { $ } from 'zurk';
+import { $, quote } from 'zurk';
 import { FileSearch } from '../models/file-search.model';
 import { SearchOptions } from '../models/search-options.model';
+import { FILE_TYPE_TO_QUERY_STRING } from './search.config';
 
 export async function searchInFileSystem(options: SearchOptions): Promise<FileSearch[]> {
   const {
@@ -34,20 +35,32 @@ export async function searchInFileSystem(options: SearchOptions): Promise<FileSe
   const filteredRootPaths = onlyIn?.filter(filterFunction) ?? [];
 
   /**
-   * -------------------------------
+   * Handle search locations
    */
+  const parsedOnlyIn = (onlyIn ?? []).map((path) => path.replace('~', homedir()));
+  const onlyInFlags = parsedOnlyIn.map((path) => `-onlyin '${path}'`);
+  const onlyInLocationsQuery = onlyInFlags.join(' ');
 
-  const kind = type === 'file' ? 'kind:file' : type === 'folder' ? 'kind:folder' : '';
-  const onlyInStr = (onlyIn ?? [])?.map((path) => `-onlyin ${path}`).map((path) => path.replace('~', homedir()));
+  /**
+   * Handle file types
+   */
+  const fileTypeQuery = FILE_TYPE_TO_QUERY_STRING[type];
 
+  const nameFilterQuery = `'kMDItemFSName == "*${quote(name)}*" ${fileTypeQuery ? `&& ${fileTypeQuery}` : ``}'`;
   const { stdout } = await $({
-    args: onlyInStr,
     spawnOpts: { maxBuffer: 10_000_000 },
-  })`mdfind ${kind} -name "${name}"`;
+    args: [onlyInLocationsQuery, nameFilterQuery],
+  })`mdfind`;
 
+  /**
+   * Parse the output of mdfind command
+   */
   const parsedQueryRes = stdout.split('\n').filter(Boolean);
   const uniqueParsedQueryRes = Array.from(new Set([...filteredForced, ...filteredRootPaths, ...parsedQueryRes]));
 
+  /**
+   * Apply smart filtering
+   */
   const filtered = uniqueParsedQueryRes.filter((path) => {
     /**
      * Force include the path even if it's bypassing exclude settings

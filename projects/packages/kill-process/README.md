@@ -22,3 +22,8 @@ Search through your operating system's processes by `name`, `port`, `PID`, or `p
 `!` - Search for processes by name, port, PID, or path  
 `!!` - Same, but kill with `sudo` permission  
 `!!!` - Search & show by port
+
+## Demo
+
+![By Port](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/kill-process/kill-port.png)
+![By Name](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/kill-process/kill-by-name.png)

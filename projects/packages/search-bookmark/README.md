@@ -22,3 +22,21 @@ Incognito mode will be opened with the dedicated browser as well.
 1. Select the bookmark from the list of results
 1. Press Enter to open the bookmark in the dedicated browser
 1. To open the bookmark in incognito mode, press Command + Enter
+
+## Examples
+
+### Search bookmarks with keyword `bm`:
+
+![Alfred Search Bookmark](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/search-bookmark/list.png)
+
+<br>
+
+### Search bookmarks across multiple profiles:
+
+![Alfred Search Bookmark](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/search-bookmark/profiles.png)
+
+<br>
+
+### Enter a bookmark via incognito mode:
+
+![Alfred Search Bookmark](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/search-bookmark/incognito.png)

@@ -22,3 +22,7 @@ Search over your file system with [Alfred](https://www.alfredapp.com/).
 
 1. Configure your search settings over the workflow settings.
 1. Use the keywords you've configured to open the results via VSCode / your selected Terminal ✨
+
+## Configuration
+
+![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/advance-fs-search/settings.png)

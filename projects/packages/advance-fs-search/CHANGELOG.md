@@ -1,3 +1,13 @@
+## 2.1.1 (2025-06-06)
+
+### 🩹 Fixes
+
+- use new `quote` helper utility for command-injection safety ([3dc0d50](https://github.com/Avivbens/alfredo/commit/3dc0d50))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.1.0 (2025-05-17)
 
 ### 🚀 Features

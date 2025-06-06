@@ -1,0 +1,11 @@
+{
+  "name": "command-injection",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/libs/command-injection/src",
+  "projectType": "library",
+  "tags": ["os:macos", "lib:util"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

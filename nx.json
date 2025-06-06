@@ -125,7 +125,7 @@
       "executor": "@nx/jest:jest",
       "cache": true,
       "options": {
-        "jestConfig": "{projectRoot}/jest.config.cjs",
+        "jestConfig": "{projectRoot}/jest.config.ts",
         "passWithNoTests": true,
         "codeCoverage": true,
         "forceExit": true

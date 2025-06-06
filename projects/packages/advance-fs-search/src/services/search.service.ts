@@ -2,7 +2,8 @@ import { glob } from 'glob';
 import { readdir, stat } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { basename } from 'node:path';
-import { $, quote } from 'zurk';
+import { $ } from 'zurk';
+import { quote } from '@alfredo/command-injection';
 import { FileSearch } from '../models/file-search.model';
 import { SearchOptions } from '../models/search-options.model';
 import { FILE_TYPE_TO_QUERY_STRING } from './search.config';
@@ -46,7 +47,7 @@ export async function searchInFileSystem(options: SearchOptions): Promise<FileSe
    */
   const fileTypeQuery = FILE_TYPE_TO_QUERY_STRING[type];
 
-  const nameFilterQuery = `'kMDItemFSName == "*${quote(name)}*" ${fileTypeQuery ? `&& ${fileTypeQuery}` : ``}'`;
+  const nameFilterQuery = `"kMDItemFSName == '*${quote(name)}*' ${fileTypeQuery ? `&& ${fileTypeQuery}` : ``}"`;
   const { stdout } = await $({
     spawnOpts: { maxBuffer: 10_000_000 },
     args: [onlyInLocationsQuery, nameFilterQuery],

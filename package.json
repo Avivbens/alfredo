@@ -39,6 +39,7 @@
     "fuse.js": "^7.1.0",
     "glob": "^11.0.1",
     "occupied-ports": "^1.0.0",
+    "plist": "^3.1.0",
     "ps-list": "^8.1.1",
     "zurk": "^0.11.2"
   },
@@ -60,6 +61,7 @@
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.14",
+    "@types/plist": "^3.0.5",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.5",

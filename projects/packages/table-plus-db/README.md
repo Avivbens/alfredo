@@ -33,4 +33,4 @@ The workflow uses the following configurable variables:
 
 ## Demo
 
-![TablePlus Db Demo](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/table-plus-db/search-connection)
+![TablePlus Db Demo](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/table-plus-db/search-connection.png)

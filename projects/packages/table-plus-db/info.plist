@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.text-transformer</string>
+    <key>category</key>
+    <string>Tools</string>
+    <key>connections</key>
+    <dict>
+      <key>1A6C8DAD-F3AB-4061-B7A4-44D4843DE33C</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>8362E2B7-C157-41C3-86B6-063E69BCB0AB</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Launch your saved TablePlus connections</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>TablePlus Db</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:table_plus_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string></string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/get-connections.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Search a saved connection</string>
+          <key>title</key>
+          <string>Search &amp; Open TablePlus connection</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>1A6C8DAD-F3AB-4061-B7A4-44D4843DE33C</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>browser</key>
+          <string></string>
+          <key>skipqueryencode</key>
+          <false></false>
+          <key>skipvarencode</key>
+          <false></false>
+          <key>spaces</key>
+          <string></string>
+          <key>url</key>
+          <string></string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.openurl</string>
+        <key>uid</key>
+        <string>8362E2B7-C157-41C3-86B6-063E69BCB0AB</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using TablePlus Db! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+- Search through all your saved TablePlus connections
+- Fuzzy search support for quick connection finding
+- Direct launch of connections via TablePlus protocol
+
+## Usage
+
+1. Open Alfred and type your configured keyword (default: `db`) followed by a space
+2. Type the name of the database connection you want to search for (e.g., `db my-prod-db some-env`)
+3. The list of matching connections will be displayed with their database names and environments
+4. Press Enter to launch the connection directly in TablePlus
+
+## Configuration
+
+The workflow uses the following configurable variables:
+- **Connection keyword**: Set your preferred keyword to trigger the workflow (default: `db`)
+- **Slice amount**: Maximum number of results to display (default: 10)
+- **Fuzzy threshold**: Search sensitivity from 1-10, where lower values are more strict (default: 4)
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>1A6C8DAD-F3AB-4061-B7A4-44D4843DE33C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+      </dict>
+      <key>8362E2B7-C157-41C3-86B6-063E69BCB0AB</key>
+      <dict>
+        <key>xpos</key>
+        <integer>530</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>db</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Open connection keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>table_plus_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>7</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>0</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>A number between 1-10. A higher number would be less accurate, but more dynamic.</string>
+        <key>label</key>
+        <string>Fuzzy search accuracy</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>fuzzy_threshold</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>10</integer>
+          <key>markercount</key>
+          <integer>20</integer>
+          <key>maxvalue</key>
+          <integer>50</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Select amount of results to show</string>
+        <key>label</key>
+        <string>Number of results</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>slice_amount</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>0.0.1</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

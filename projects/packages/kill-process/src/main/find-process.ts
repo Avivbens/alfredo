@@ -1,4 +1,4 @@
-import type { AlfredScriptFilter } from 'fast-alfred';
+import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import psList from 'ps-list';
 import { Variables } from '../common/variables.enum';
@@ -20,7 +20,7 @@ import { searchProcess } from '../services/search.service';
 
     const filteredProcesses = await searchProcess(processes, alfredClient.input, sliceAmount, fuzzyThreshold);
 
-    const items: AlfredScriptFilter['items'] = filteredProcesses.map(({ name, pid, cmd }) => {
+    const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd }) => {
       const subtitle = `PID: ${pid} | CMD: ${cmd}`;
 
       return {

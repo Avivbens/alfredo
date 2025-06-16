@@ -1,0 +1,17 @@
+{
+  "name": "table-plus-db",
+  "version": "1.0.0",
+  "description": "Launch your saved TablePlus connections",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "tableplus",
+    "database",
+    "connections"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

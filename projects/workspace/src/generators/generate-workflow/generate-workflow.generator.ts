@@ -17,7 +17,6 @@ export async function generateWorkflowGenerator(tree: Tree, options: GenerateWor
         defaultConfiguration: 'local',
       },
       serve: {},
-      test: {},
       lint: {},
     },
   });

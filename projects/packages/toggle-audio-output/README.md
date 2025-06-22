@@ -32,3 +32,7 @@ AirPods Pro
 ```
 
 Once set up, you can use the assigned hotkey to switch between them seamlessly ✨
+
+## Configuration
+
+![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/toggle-audio-output/settings.png)

@@ -1,0 +1,19 @@
+{
+  "name": "toggle-audio-output",
+  "version": "1.0.0",
+  "description": "Rapidly change your audio output between your Bluetooth devices and your Mac's speakers",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "audio",
+    "output",
+    "toggle",
+    "bluetooth",
+    "AirPods"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

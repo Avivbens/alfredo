@@ -31,10 +31,10 @@
     "test": "nx run-many --target=test --all --parallel 7"
   },
   "dependencies": {
-    "@langchain/anthropic": "^0.3.15",
-    "@langchain/core": "^0.3.43",
-    "@langchain/google-genai": "^0.2.0",
-    "@langchain/openai": "^0.5.1",
+    "@langchain/anthropic": "^0.3.23",
+    "@langchain/core": "^0.3.61",
+    "@langchain/google-genai": "^0.2.13",
+    "@langchain/openai": "^0.5.15",
     "fast-alfred": "^2.3.1",
     "fuse.js": "^7.1.0",
     "glob": "^11.0.1",

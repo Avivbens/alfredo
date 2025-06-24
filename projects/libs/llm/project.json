@@ -1,0 +1,11 @@
+{
+  "name": "llm",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/libs/llm/src",
+  "projectType": "library",
+  "tags": ["os:agnostic", "lib:ai"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

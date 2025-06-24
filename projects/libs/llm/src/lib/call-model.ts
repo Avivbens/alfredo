@@ -37,13 +37,18 @@ const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> =
     new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_5_PRO }),
 
   // ---- OpenAI (GPT variants) ----
-  [AvailableModels.GPT_O3]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_O3 }),
-  [AvailableModels.GPT_O3_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_O3_MINI }),
-
-  [AvailableModels.GPT_4O_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O_MINI }),
+  [AvailableModels.GPT_4_1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1 }),
+  [AvailableModels.GPT_4_1_MINI]: (apiKey: string) =>
+    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1_MINI }),
+  [AvailableModels.GPT_4_1_NANO]: (apiKey: string) =>
+    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1_NANO }),
   [AvailableModels.GPT_4O]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O }),
-  [AvailableModels.GPT_O1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_O1 }),
-  [AvailableModels.GPT_O1_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_O1_MINI }),
+  [AvailableModels.GPT_4O_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O_MINI }),
+  [AvailableModels.GPT_4_TURBO]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_TURBO }),
+  [AvailableModels.O1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O1 }),
+  [AvailableModels.O1_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O1_MINI }),
+  [AvailableModels.O3]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3 }),
+  [AvailableModels.O3_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3_MINI }),
 };
 
 function initializeModel(userApiKey: string, selectedModel: AvailableModels) {

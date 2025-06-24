@@ -1,0 +1,11 @@
+{
+  "name": "run-applescript",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/libs/run-applescript/src",
+  "projectType": "library",
+  "tags": ["os:macos", "lib:util"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

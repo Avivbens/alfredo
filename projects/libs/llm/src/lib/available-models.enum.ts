@@ -24,7 +24,6 @@ export enum AvailableModels {
   GPT_4O_MINI = 'gpt-4o-mini',
   GPT_4_TURBO = 'gpt-4-turbo',
   O1 = 'o1',
-  O1_MINI = 'o1-mini',
   O3 = 'o3',
   O3_MINI = 'o3-mini',
 }

@@ -46,7 +46,6 @@ const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> =
   [AvailableModels.GPT_4O_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O_MINI }),
   [AvailableModels.GPT_4_TURBO]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_TURBO }),
   [AvailableModels.O1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O1 }),
-  [AvailableModels.O1_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O1_MINI }),
   [AvailableModels.O3]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3 }),
   [AvailableModels.O3_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3_MINI }),
 };

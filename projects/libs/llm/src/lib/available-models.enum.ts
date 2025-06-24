@@ -5,9 +5,13 @@ export enum AvailableModels {
   CLAUDE_35_HAIKU = 'claude-3.5-haiku',
 
   /* Google */
-  GOOGLE_GEMINI_FLASH = 'gemini-1.5-flash',
-  GOOGLE_GEMINI_FLASH_2 = 'gemini-2.0-flash',
-  GOOGLE_GEMINI_FLASH_2_LITE = 'gemini-2.0-flash-lite',
+  GOOGLE_GEMINI_2_5_PRO = 'gemini-2.5-pro',
+  GOOGLE_GEMINI_2_5_FLASH = 'gemini-2.5-flash',
+  GOOGLE_GEMINI_2_0_FLASH = 'gemini-2.0-flash',
+  GOOGLE_GEMINI_2_0_FLASH_LITE = 'gemini-2.0-flash-lite',
+  GOOGLE_GEMINI_1_5_PRO = 'gemini-1.5-pro',
+  GOOGLE_GEMINI_1_5_FLASH = 'gemini-1.5-flash',
+  GOOGLE_GEMINI_1_5_FLASH_8B = 'gemini-1.5-flash-8b',
 
   /* OpenAI */
   GPT_O3 = 'o3-mini-high',

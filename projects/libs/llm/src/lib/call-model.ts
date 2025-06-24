@@ -13,12 +13,20 @@ const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> =
     new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_35_HAIKU }),
 
   // ---- Google (Gemini variants) ----
-  [AvailableModels.GOOGLE_GEMINI_FLASH]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_FLASH }),
-  [AvailableModels.GOOGLE_GEMINI_FLASH_2]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_FLASH_2 }),
-  [AvailableModels.GOOGLE_GEMINI_FLASH_2_LITE]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_FLASH_2_LITE }),
+  [AvailableModels.GOOGLE_GEMINI_1_5_FLASH]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_FLASH }),
+  [AvailableModels.GOOGLE_GEMINI_1_5_FLASH_8B]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_FLASH_8B }),
+  [AvailableModels.GOOGLE_GEMINI_1_5_PRO]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_PRO }),
+  [AvailableModels.GOOGLE_GEMINI_2_0_FLASH]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_0_FLASH }),
+  [AvailableModels.GOOGLE_GEMINI_2_0_FLASH_LITE]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_0_FLASH_LITE }),
+  [AvailableModels.GOOGLE_GEMINI_2_5_FLASH]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_5_FLASH }),
+  [AvailableModels.GOOGLE_GEMINI_2_5_PRO]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_5_PRO }),
 
   // ---- OpenAI (GPT variants) ----
   [AvailableModels.GPT_O3]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_O3 }),

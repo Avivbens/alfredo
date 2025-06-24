@@ -7,10 +7,18 @@ import { AvailableModels } from './available-models.enum';
 
 const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> = {
   // ---- Anthropic (Claude variants) ----
-  [AvailableModels.CLAUDE_35]: (apiKey: string) => new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_35 }),
-  [AvailableModels.CLAUDE_37]: (apiKey: string) => new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_37 }),
-  [AvailableModels.CLAUDE_35_HAIKU]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_35_HAIKU }),
+  [AvailableModels.CLAUDE_OPUS_4]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_OPUS_4 }),
+  [AvailableModels.CLAUDE_SONNET_4]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_4 }),
+  [AvailableModels.CLAUDE_SONNET_3_7]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_3_7 }),
+  [AvailableModels.CLAUDE_SONNET_3_5]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_3_5 }),
+  [AvailableModels.CLAUDE_HAIKU_3_5]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_HAIKU_3_5 }),
+  [AvailableModels.CLAUDE_OPUS_3]: (apiKey: string) =>
+    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_OPUS_3 }),
 
   // ---- Google (Gemini variants) ----
   [AvailableModels.GOOGLE_GEMINI_1_5_FLASH]: (apiKey: string) =>

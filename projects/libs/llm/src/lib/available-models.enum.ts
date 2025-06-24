@@ -1,8 +1,11 @@
 export enum AvailableModels {
   /* Anthropic */
-  CLAUDE_37 = 'claude-3.7-sonnet',
-  CLAUDE_35 = 'claude-3.5-sonnet',
-  CLAUDE_35_HAIKU = 'claude-3.5-haiku',
+  CLAUDE_OPUS_4 = 'claude-opus-4-0',
+  CLAUDE_SONNET_4 = 'claude-sonnet-4-0',
+  CLAUDE_SONNET_3_7 = 'claude-3-7-sonnet-latest',
+  CLAUDE_SONNET_3_5 = 'claude-3-5-sonnet-latest',
+  CLAUDE_HAIKU_3_5 = 'claude-3-5-haiku-latest',
+  CLAUDE_OPUS_3 = 'claude-3-opus-latest',
 
   /* Google */
   GOOGLE_GEMINI_2_5_PRO = 'gemini-2.5-pro',

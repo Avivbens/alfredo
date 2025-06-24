@@ -1,3 +1,4 @@
+import type { ZodSchema, z } from 'zod';
 import { ChatAnthropic } from '@langchain/anthropic';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
@@ -72,4 +73,21 @@ export async function callModel(
 
   const res = response.content.toString();
   return res;
+}
+
+export async function callModelWithStructuredResponse<Results extends ZodSchema>(
+  token: string,
+  modelName: AvailableModels,
+  { system, user }: { system: string; user: string },
+  schema: Results,
+): Promise<z.infer<Results>> {
+  const model = initializeModel(token, modelName);
+
+  const messages = [new SystemMessage(system.trim()), new HumanMessage(user.trim())];
+
+  const withSchema = model.withStructuredOutput(schema);
+  const response = await withSchema.invoke(messages);
+
+  const parsed = schema.parse(response);
+  return parsed;
 }

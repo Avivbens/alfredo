@@ -16,14 +16,14 @@
           <key>modifiersubtext</key>
           <string></string>
           <key>vitoclose</key>
-          <false></false>
+          <true></true>
         </dict>
       </array>
     </dict>
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string>TODO</string>
+    <string>Effortlessly create calendar events using natural language with AI Calendar Assistant ✨</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -110,11 +110,16 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Features
 
-// TODO
+- **Natural Language Processing:** Create events using everyday language.
+- **Automatic Detail Extraction:** Intelligently extracts the event title, date, time, and duration.
+- **Timezone Correction:** Automatically adjusts for your local timezone.
+- **Flexible Time Input:** Understands relative dates like "next Monday" or "tomorrow morning."
 
 ## Usage
 
-// TODO
+1. Type `ca` in Alfred to activate the workflow (configurable in the workflow settings).
+2. Enter the event details in natural language (e.g., "Meeting with John next Friday at 2pm for like 2-3 hours").
+3. Press Enter to create the event in your calendar.
 
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>

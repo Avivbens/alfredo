@@ -4,7 +4,7 @@ import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { EXTRACT_EVENT_SYSTEM_PROMPT } from '../common/prompts/extract-event-name.prompt';
 import { Variables } from '../common/variables.enum';
-import { GeminiCalendarEventSchema, OpenAICalendarEventSchema } from '../models/calendar-event.model';
+import { GeminiCalendarEventsSchema, OpenAICalendarEventsSchema } from '../models/calendar-event.model';
 import { adjustForTimezone, beautifyDate } from '../services/date.service';
 
 (async () => {
@@ -37,17 +37,15 @@ import { adjustForTimezone, beautifyDate } from '../services/date.service';
     /**
      * Select schema based on the model
      */
-    const calendarEventSchema = model.includes('gemini') ? GeminiCalendarEventSchema : OpenAICalendarEventSchema;
+    const calendarEventsSchema = model.includes('gemini') ? GeminiCalendarEventsSchema : OpenAICalendarEventsSchema;
 
     const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate: new Date().toISOString() });
-    const event = await callModelWithStructuredResponse(
+    const events = await callModelWithStructuredResponse(
       token,
       model,
       { system, user: alfredClient.input },
-      calendarEventSchema,
+      calendarEventsSchema,
     );
-
-    const events = [event];
 
     const items: AlfredListItem[] = events.map((currEvent) => {
       const { allDayEvent, endDate, startDate, summary, description, location, url } = currEvent;

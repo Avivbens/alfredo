@@ -50,6 +50,8 @@ export const OpenAICalendarEventSchema = z
   })
   .transform(eventTransform);
 
+export const OpenAICalendarEventsSchema = z.array(OpenAICalendarEventSchema);
+
 // Schema for Gemini models: uses .optional() for optional fields
 export const GeminiCalendarEventSchema = z
   .object({
@@ -63,4 +65,7 @@ export const GeminiCalendarEventSchema = z
   })
   .transform(eventTransform);
 
+export const GeminiCalendarEventsSchema = z.array(GeminiCalendarEventSchema);
+
 export type CalendarEvent = z.infer<typeof GeminiCalendarEventSchema>;
+export type CalendarEvents = z.infer<typeof GeminiCalendarEventsSchema>;

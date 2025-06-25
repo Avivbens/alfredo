@@ -913,52 +913,92 @@ https://github.com/Avivbens/alfredo</string>
           <key>pairs</key>
           <array>
             <array>
-              <string>GPT 4o</string>
-              <string>gpt-4o</string>
+              <string>Anthropic Claude Opus 4</string>
+              <string>claude-opus-4-0</string>
             </array>
             <array>
-              <string>GPT 4o mini</string>
-              <string>gpt-4o-mini</string>
+              <string>Anthropic Claude Sonnet 4</string>
+              <string>claude-sonnet-4-0</string>
             </array>
             <array>
-              <string>GPT o3 mini high</string>
-              <string>o3-mini-high</string>
+              <string>Anthropic Claude Sonnet 3.7</string>
+              <string>claude-3-7-sonnet-latest</string>
             </array>
             <array>
-              <string>GPT o3 mini</string>
-              <string>o3-mini</string>
+              <string>Anthropic Claude Sonnet 3.5</string>
+              <string>claude-3-5-sonnet-latest</string>
             </array>
             <array>
-              <string>GPT o1 mini</string>
-              <string>o1-mini</string>
+              <string>Anthropic Claude Haiku 3.5</string>
+              <string>claude-3-5-haiku-latest</string>
             </array>
             <array>
-              <string>GPT o1</string>
-              <string>o1</string>
+              <string>Anthropic Claude Opus 3</string>
+              <string>claude-3-opus-latest</string>
             </array>
             <array>
-              <string>Google gemini 1.5</string>
-              <string>gemini-1.5-flash</string>
+              <string>Google Gemini 2.5 Pro</string>
+              <string>gemini-2.5-pro</string>
             </array>
             <array>
-              <string>Google gemini 2.0</string>
+              <string>Google Gemini 2.5 Flash</string>
+              <string>gemini-2.5-flash</string>
+            </array>
+            <array>
+              <string>Google Gemini 2.0 Flash</string>
               <string>gemini-2.0-flash</string>
             </array>
             <array>
-              <string>Google gemini 2.0 lite</string>
+              <string>Google Gemini 2.0 Flash Lite</string>
               <string>gemini-2.0-flash-lite</string>
             </array>
             <array>
-              <string>Anthropic claude 3.7 sonnet</string>
-              <string>claude-3.7-sonnet</string>
+              <string>Google Gemini 1.5 Pro</string>
+              <string>gemini-1.5-pro</string>
             </array>
             <array>
-              <string>Anthropic claude 3.5 sonnet</string>
-              <string>claude-3.5-sonnet</string>
+              <string>Google Gemini 1.5 Flash</string>
+              <string>gemini-1.5-flash</string>
             </array>
             <array>
-              <string>Anthropic claude 3.5 haiku</string>
-              <string>claude-3.5-haiku</string>
+              <string>Google Gemini 1.5 Flash 8B</string>
+              <string>gemini-1.5-flash-8b</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1</string>
+              <string>gpt-4.1</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1 mini</string>
+              <string>gpt-4.1-mini</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1 nano</string>
+              <string>gpt-4.1-nano</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4o</string>
+              <string>gpt-4o</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4o mini</string>
+              <string>gpt-4o-mini</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4 Turbo</string>
+              <string>gpt-4-turbo</string>
+            </array>
+            <array>
+              <string>OpenAI O1</string>
+              <string>o1</string>
+            </array>
+            <array>
+              <string>OpenAI O3</string>
+              <string>o3</string>
+            </array>
+            <array>
+              <string>OpenAI O3 mini</string>
+              <string>o3-mini</string>
             </array>
           </array>
         </dict>

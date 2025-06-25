@@ -2,11 +2,10 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
+import { AvailableModels, callModel } from '@alfredo/llm';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { TRANSLATE_SYSTEM_PROMPT } from '../common/prompts/translate.prompt';
 import { Variables } from '../common/variables.enum';
-import { AvailableModels } from '../models/available-models.enum';
-import { callModel } from '../services/llm.service';
 
 (async () => {
   const alfredClient = new FastAlfred();

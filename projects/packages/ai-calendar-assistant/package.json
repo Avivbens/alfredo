@@ -1,0 +1,20 @@
+{
+  "name": "ai-calendar-assistant",
+  "version": "1.0.0",
+  "description": "Effortlessly create calendar events using natural language with AI Calendar Assistant ✨",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "calendar",
+    "assistant",
+    "natural language",
+    "event creation",
+    "productivity",
+    "automation"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

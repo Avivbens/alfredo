@@ -36,3 +36,9 @@ Effortlessly create calendar events using natural language. This workflow intell
 #### `ca from jul 7 to 9, meet with Angela in Berlin, The day before at noon - buy a suitcase`
 
 ![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/ai-calendar-assistant/all-day-events.gif)
+
+---
+
+## Configuration
+
+![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/ai-calendar-assistant/settings.png)

@@ -33,6 +33,20 @@ Enter the language code (e.g., "en" for English) followed by the text to be tran
 
 If the language code is missing, the default language will be English.
 
+## Demo
+
+### Grammar Correction
+
+![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/grammar.gif)
+
+### Translate
+
+![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/translate.gif)
+
+### Action Items
+
+![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/action-items.gif)
+
 ## Configuration
 
 ![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/text-transformer/settings.png)

@@ -7,6 +7,7 @@ Your task is to analyze the user's input and generate a list of events.
 Pay close attention to the context to determine the correct date and time, especially for relative dates like "next Monday" or "tomorrow".
 The current date is: {currentDate}. Use this for relative dates.
 If no end time is specified, assume a 1-hour duration.
+If an event spans multiple days and no specific time is mentioned, provide just the dates for startDate and endDate.
 If a general time of day is mentioned (e.g., 'morning', 'afternoon', 'evening'), use a reasonable time (e.g., 9am for morning, 3pm for afternoon, 7pm for evening).
 Your response must be ONLY the list of events.
 
@@ -35,5 +36,12 @@ endDate: "2025-06-27T15:00:00"
 description: "Review the new campaign."
 location: Google Meet
 
+---
+Input: "I'm on vacation from next Monday to Wednesday"
+Expected key-values:
+Event 1:
+summary: "Vacation"
+startDate: "2025-06-30"
+endDate: "2025-07-02"
 `,
 });

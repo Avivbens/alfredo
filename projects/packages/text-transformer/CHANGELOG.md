@@ -1,3 +1,17 @@
+# 4.0.0 (2025-06-25)
+
+### 🚀 Features
+
+- ⚠️ **models:** support more ai models ([918a081](https://github.com/Avivbens/alfredo/commit/918a081))
+
+### ⚠️ Breaking Changes
+
+- **models:** dropped old ai models, see the new models list
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.4.0 (2025-05-09)
 
 ### 🚀 Features

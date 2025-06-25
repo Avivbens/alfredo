@@ -22,3 +22,17 @@ Effortlessly create calendar events using natural language. This workflow intell
 1. Type `ca` in Alfred to activate the workflow (configurable in the workflow settings).
 1. Enter the event details in natural language (e.g., "Meeting with John next Friday at 2pm for like 2-3 hours").
 1. Press Enter to create the event in your calendar.
+
+## Demo
+
+### Relative Time
+
+#### `ca Meet with Joseph tomorrow around 11 for like 2-3 hours, then go to the gym, would take me 1.5 hours`
+
+![Relative Time](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/ai-calendar-assistant/relative-time-events.gif)
+
+### All Day Events
+
+#### `ca from jul 7 to 9, meet with Angela in Berlin, The day before at noon - buy a suitcase`
+
+![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/ai-calendar-assistant/all-day-events.gif)

@@ -1,3 +1,13 @@
+## 1.0.1 (2025-06-26)
+
+### 🩹 Fixes
+
+- **timezone:** better handling for timezone of relative hours / days times ([60bf348](https://github.com/Avivbens/alfredo/commit/60bf348))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 1.0.0 (2025-06-25)
 
 ### 🚀 Features

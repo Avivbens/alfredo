@@ -1,11 +1,10 @@
 import { AlfredListItem, FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
-import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
+import { AvailableModels } from '@alfredo/llm';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
-import { EXTRACT_EVENT_SYSTEM_PROMPT } from '../common/prompts/extract-event-name.prompt';
 import { Variables } from '../common/variables.enum';
-import { GeminiCalendarEventsSchema, OpenAICalendarEventsSchema } from '../models/calendar-event.model';
-import { beautifyDate, dateTimezoneNatural, dropTimezone } from '../services/date.service';
+import { beautifyDate, dropTimezone } from '../services/date.service';
+import { extractEvent } from '../services/event-extractor.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -34,20 +33,7 @@ import { beautifyDate, dateTimezoneNatural, dropTimezone } from '../services/dat
       return;
     }
 
-    /**
-     * Select schema based on the model
-     */
-    const calendarEventsSchema = model.includes('gemini') ? GeminiCalendarEventsSchema : OpenAICalendarEventsSchema;
-
-    const currentDate = dateTimezoneNatural(new Date());
-    const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate });
-
-    const events = await callModelWithStructuredResponse(
-      token,
-      model,
-      { system, user: alfredClient.input },
-      calendarEventsSchema,
-    );
+    const events = await extractEvent(token, model, alfredClient.input);
 
     if (!events.length) {
       alfredClient.output({ items: [{ title: 'No events found', subtitle: 'Try rephrasing your input.' }] });

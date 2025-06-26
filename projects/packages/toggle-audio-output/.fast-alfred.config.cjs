@@ -20,7 +20,7 @@ You can set up multiple devices, such as your Mac's built-in speakers, external 
 
 ### Example
 
-Separate audio outputs with a line break. in the settings, like this:
+Separate audio outputs in the settings with a line break, like this:
 
 \`\`\`
 MacBook Pro Speakers

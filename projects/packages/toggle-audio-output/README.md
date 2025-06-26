@@ -23,7 +23,7 @@ _The list should be sorted in the order you want to switch between them_
 
 ### Example
 
-Separate audio outputs with a line break. in the settings, like this:
+Separate audio outputs in the settings with a line break, like this:
 
 ```
 MacBook Pro Speakers

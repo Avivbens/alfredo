@@ -6,11 +6,23 @@ export function formatDateToAppleScript(date: Date): string {
   return `date "${day} ${month} ${year} ${time}"`;
 }
 
-export function adjustForTimezone(date: Date): Date {
+export function dropTimezone(date: Date): Date {
   const timezoneOffset = new Date().getTimezoneOffset() / -60;
   const adjustedDate = new Date(date);
   adjustedDate.setHours(adjustedDate.getHours() - timezoneOffset);
   return adjustedDate;
+}
+
+export function dateTimezoneNatural(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  const currentDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+
+  return currentDate;
 }
 
 export function beautifyDate(date: Date): string {

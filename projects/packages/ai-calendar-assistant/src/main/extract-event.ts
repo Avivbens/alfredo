@@ -5,7 +5,7 @@ import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { EXTRACT_EVENT_SYSTEM_PROMPT } from '../common/prompts/extract-event-name.prompt';
 import { Variables } from '../common/variables.enum';
 import { GeminiCalendarEventsSchema, OpenAICalendarEventsSchema } from '../models/calendar-event.model';
-import { adjustForTimezone, beautifyDate } from '../services/date.service';
+import { beautifyDate, dateTimezoneNatural, dropTimezone } from '../services/date.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -39,7 +39,9 @@ import { adjustForTimezone, beautifyDate } from '../services/date.service';
      */
     const calendarEventsSchema = model.includes('gemini') ? GeminiCalendarEventsSchema : OpenAICalendarEventsSchema;
 
-    const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate: new Date().toISOString() });
+    const currentDate = dateTimezoneNatural(new Date());
+    const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate });
+
     const events = await callModelWithStructuredResponse(
       token,
       model,
@@ -47,11 +49,16 @@ import { adjustForTimezone, beautifyDate } from '../services/date.service';
       calendarEventsSchema,
     );
 
+    if (!events.length) {
+      alfredClient.output({ items: [{ title: 'No events found', subtitle: 'Try rephrasing your input.' }] });
+      return;
+    }
+
     const items: AlfredListItem[] = events.map((currEvent) => {
       const { allDayEvent, endDate, startDate, summary, description, location, url } = currEvent;
 
       const title = `${summary}${location ? ` | at ${location}` : ''}${url ? ` (${url})` : ''}`;
-      const subtitle = `${allDayEvent ? 'All-day event' : `From ${beautifyDate(adjustForTimezone(startDate))} to ${beautifyDate(adjustForTimezone(endDate))}`} | ${description || 'No description'}`;
+      const subtitle = `${allDayEvent ? 'All-day event' : `From ${beautifyDate(dropTimezone(startDate))} to ${beautifyDate(dropTimezone(endDate))}`} | ${description || 'No description'}`;
       const arg = JSON.stringify(currEvent);
       const uid = `${startDate}-${summary}`;
 

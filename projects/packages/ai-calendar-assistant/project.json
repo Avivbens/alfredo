@@ -9,6 +9,7 @@
       "defaultConfiguration": "local"
     },
     "serve": {},
+    "test": {},
     "lint": {}
   }
 }

@@ -1,5 +1,5 @@
 import { CalendarEvent } from '../models/calendar-event.model';
-import { adjustForTimezone, formatDateToAppleScript } from './date.service';
+import { dropTimezone, formatDateToAppleScript } from './date.service';
 
 export const eventCreatorScript = (calendarName: string, event: CalendarEvent): string => {
   const { summary, startDate, endDate, location, description, url, allDayEvent } = event;
@@ -7,8 +7,8 @@ export const eventCreatorScript = (calendarName: string, event: CalendarEvent): 
   const properties = [
     /*  */
     `summary:"${summary}"`,
-    `start date:${formatDateToAppleScript(adjustForTimezone(startDate))}`,
-    `end date:${formatDateToAppleScript(adjustForTimezone(endDate))}`,
+    `start date:${formatDateToAppleScript(dropTimezone(startDate))}`,
+    `end date:${formatDateToAppleScript(dropTimezone(endDate))}`,
   ];
 
   /**

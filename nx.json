@@ -91,7 +91,7 @@
       "executor": "nx:run-commands",
       "configurations": {
         "local": {
-          "command": "npx fast-alfred -t 0.0.1 --no-package-json"
+          "command": "npx fast-alfred -t $(jq '.version' package.json) --no-package-json"
         },
         "ci": {
           "command": "npx fast-alfred -t {args.version} --no-package-json"

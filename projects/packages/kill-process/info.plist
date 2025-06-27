@@ -300,9 +300,9 @@ Search through your operating system's processes by name, port, PID, or path –
 
 ## Options
 
-'!' - Search for processes by name, port, PID, or path.
-'!!' - Same, but kill with 'sudo' permission.
-'!!!' - Search &amp; show by port
+'!' - Search for processes by name, port, PID, or path.   
+'!!' - Same, but kill with 'sudo' permission.   
+'!!!' - Search &amp; show by port   
 
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
@@ -411,7 +411,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.3.0</string>
+    <string>2.0.2</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

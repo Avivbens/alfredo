@@ -1,3 +1,14 @@
+## 4.1.0 (2025-06-28)
+
+### 🚀 Features
+
+- include updater componenets ([7e27037](https://github.com/Avivbens/alfredo/commit/7e27037))
+- support `fast-alfred` auto-updater ✨🥷 ([70e209c](https://github.com/Avivbens/alfredo/commit/70e209c))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 4.0.0 (2025-06-25)
 
 ### 🚀 Features

@@ -1,6 +1,7 @@
 import { AlfredListItem, FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { AvailableModels } from '@alfredo/llm';
+import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { Variables } from '../common/variables.enum';
 import { beautifyDate, dropTimezone } from '../services/date.service';
@@ -8,6 +9,7 @@ import { extractEvent } from '../services/event-extractor.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('ai-calendar-assistant'));
 
   try {
     const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number });

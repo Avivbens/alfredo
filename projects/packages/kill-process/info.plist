@@ -11,14 +11,14 @@
       <key>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
       <array>
         <dict>
-          <key>destinationuid</key>
-          <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
           <key>modifiers</key>
           <integer>0</integer>
           <key>modifiersubtext</key>
           <string></string>
           <key>vitoclose</key>
           <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__conditional_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
         </dict>
       </array>
       <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
@@ -26,31 +26,142 @@
       <key>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
       <array>
         <dict>
-          <key>destinationuid</key>
-          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>modifiers</key>
           <integer>0</integer>
           <key>modifiersubtext</key>
           <string></string>
           <key>vitoclose</key>
           <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__conditional_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
         </dict>
       </array>
       <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
       <array>
         <dict>
-          <key>destinationuid</key>
-          <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
           <key>modifiers</key>
           <integer>0</integer>
           <key>modifiersubtext</key>
           <string></string>
           <key>vitoclose</key>
           <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__conditional_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
         </dict>
       </array>
       <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
       <array></array>
+      <key>__fast-alfred_managed__conditional_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__conditional_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__conditional_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__condition_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__updater_snooze</string>
+        </dict>
+      </array>
     </dict>
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
@@ -281,6 +392,148 @@
         <key>version</key>
         <integer>2</integer>
       </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__conditional_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__condition_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__conditional_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__condition_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__conditional_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__condition_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
     </array>
     <key>readme</key>
     <string>#### Thank you for using Kill Process! ✨
@@ -355,6 +608,51 @@ https://github.com/Avivbens/alfredo</string>
         <integer>420</integer>
         <key>ypos</key>
         <integer>50</integer>
+      </dict>
+      <key>__fast-alfred_managed__updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1800</integer>
+        <key>ypos</key>
+        <integer>450</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1800</integer>
+        <key>ypos</key>
+        <integer>600</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__conditional_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>215</integer>
+        <key>ypos</key>
+        <integer>50</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__conditional_8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
+      <dict>
+        <key>xpos</key>
+        <integer>215</integer>
+        <key>ypos</key>
+        <integer>240</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__conditional_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
+      <dict>
+        <key>xpos</key>
+        <integer>215</integer>
+        <key>ypos</key>
+        <integer>435</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
       </dict>
     </dict>
     <key>userconfigurationconfig</key>

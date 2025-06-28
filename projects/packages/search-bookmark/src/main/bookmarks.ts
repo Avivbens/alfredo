@@ -1,5 +1,6 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
+import { registerUpdater } from '@alfredo/updater';
 import { CACHE_BOOKMARKS_KEY, CACHE_TTL } from '../common/constants';
 import { Variables } from '../common/variables';
 import { IUIBookmark } from '../models/bookmark.model';
@@ -8,6 +9,7 @@ import { searchBookmarks } from '../services/search.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('search-bookmark'));
 
   const profilesConfig: string = alfredClient.env.getEnv(Variables.PROFILES_LOOKUP, { defaultValue: '' });
   const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, {

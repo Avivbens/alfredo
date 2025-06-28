@@ -33,6 +33,9 @@ module.exports = {
   bundlerOptions: {
     targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
   },
+  updates: {
+    bundleHelpers: true,
+  },
   workflowMetadata: {
     name: 'Search Bookmarks',
     category: 'Internet',

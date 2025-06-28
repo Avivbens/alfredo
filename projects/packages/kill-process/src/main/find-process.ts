@@ -1,12 +1,14 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import psList from 'ps-list';
+import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables.enum';
 import { CallbackPayload } from '../models/callback-payload.model';
 import { searchProcess } from '../services/search.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('kill-process'));
 
   const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number });
 

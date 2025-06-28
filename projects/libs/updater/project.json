@@ -1,0 +1,11 @@
+{
+  "name": "updater",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/libs/updater/src",
+  "projectType": "library",
+  "tags": ["os:agnostic", "lib:util"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

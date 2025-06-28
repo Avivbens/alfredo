@@ -50,6 +50,9 @@ module.exports = {
     rootAssets: ['List Filter Images'],
     targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
   },
+  updates: {
+    bundleHelpers: true,
+  },
   workflowMetadata: {
     name: 'Text Transformer',
     createdby: author.name,

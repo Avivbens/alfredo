@@ -1,3 +1,13 @@
+## 2.1.1 (2025-06-28)
+
+### 🩹 Fixes
+
+- bump up `fast-alfred` ([bcbd6fa](https://github.com/Avivbens/alfredo/commit/bcbd6fa))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.1.0 (2025-06-28)
 
 ### 🚀 Features

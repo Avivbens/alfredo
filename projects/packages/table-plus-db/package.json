@@ -1,6 +1,6 @@
 {
   "name": "table-plus-db",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Launch your saved TablePlus connections",
   "keywords": [
     "alfred",

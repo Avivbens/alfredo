@@ -37,6 +37,9 @@ module.exports = {
     esmHelpers: true,
     outputFormat: 'esm',
   },
+  updates: {
+    bundleHelpers: true,
+  },
   workflowMetadata: {
     name: 'Kill Process',
     category: 'Tools',

@@ -3,6 +3,7 @@ import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
 import { AvailableModels, callModel } from '@alfredo/llm';
+import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { TONE_SYSTEM_PROMPT } from '../common/prompts/tone.prompt';
 import { Variables } from '../common/variables.enum';
@@ -10,6 +11,7 @@ import { AvailableTone } from '../models/tones.enum';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('text-transformer'));
 
   try {
     const denounceTime = alfredClient.env.getEnv(Variables.DEBOUNCE_TIME, {

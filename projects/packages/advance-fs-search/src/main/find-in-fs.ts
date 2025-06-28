@@ -2,12 +2,14 @@ import type { AlfredScriptFilter } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { homedir } from 'node:os';
 import { basename } from 'node:path';
+import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables';
 import { SearchOptions } from '../models/search-options.model';
 import { searchInFileSystem } from '../services/search.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('advance-fs-search'));
 
   const sliceAmount = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number });
   const targetType = alfredClient.env.getEnv<SearchOptions['type']>(Variables.TARGET_TYPE, { defaultValue: 'all' });

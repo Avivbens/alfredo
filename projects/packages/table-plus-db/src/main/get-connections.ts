@@ -1,10 +1,12 @@
 import { AlfredListItem, FastAlfred } from 'fast-alfred';
+import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables.enum';
 import { getTablePlusConnections } from '../services/get-connections.service';
 import { searchConnection } from '../services/search-connection.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('table-plus-db'));
 
   const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number });
 

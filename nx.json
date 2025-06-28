@@ -89,8 +89,13 @@
     },
     "build": {
       "executor": "nx:run-commands",
+      "defaultConfiguration": "local",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "configurations": {
         "local": {
+          "command": "npx fast-alfred -t $(jq '.version' package.json) --no-package-json --drop-update-helpers"
+        },
+        "local-updates": {
           "command": "npx fast-alfred -t $(jq '.version' package.json) --no-package-json"
         },
         "ci": {
@@ -102,8 +107,19 @@
       }
     },
     "serve": {
-      "dependsOn": ["build"],
       "executor": "nx:run-commands",
+      "defaultConfiguration": "local",
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self",
+          "params": "forward"
+        }
+      ],
+      "configurations": {
+        "local": {},
+        "local-updates": {}
+      },
       "options": {
         "cwd": "{workspaceRoot}/dist/{projectName}",
         "command": "open ./**/*.alfredworkflow",

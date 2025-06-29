@@ -1,3 +1,13 @@
+## 1.0.4 (2025-06-29)
+
+### 🩹 Fixes
+
+- bump up `fast-alfred` - updater helper changes ([fb4b9a5](https://github.com/Avivbens/alfredo/commit/fb4b9a5))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.0.3 (2025-06-29)
 
 ### 🩹 Fixes

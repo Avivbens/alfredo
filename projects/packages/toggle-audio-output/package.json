@@ -1,6 +1,6 @@
 {
   "name": "toggle-audio-output",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Rapidly change your audio output between your Bluetooth devices and your Mac's speakers",
   "keywords": [
     "alfred",

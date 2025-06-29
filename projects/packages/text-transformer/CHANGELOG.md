@@ -1,3 +1,13 @@
+## 4.1.2 (2025-06-29)
+
+### 🩹 Fixes
+
+- bump up `fast-alfred` - updates fix ([c3098e2](https://github.com/Avivbens/alfredo/commit/c3098e2))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 4.1.1 (2025-06-28)
 
 ### 🩹 Fixes

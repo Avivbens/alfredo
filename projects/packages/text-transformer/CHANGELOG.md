@@ -1,3 +1,17 @@
+# 5.0.0 (2025-06-29)
+
+### 🩹 Fixes
+
+- ⚠️  drop preview option with `cmd` ([463fa8f](https://github.com/Avivbens/alfredo/commit/463fa8f))
+
+### ⚠️  Breaking Changes
+
+- drop preview option
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 4.1.2 (2025-06-29)
 
 ### 🩹 Fixes

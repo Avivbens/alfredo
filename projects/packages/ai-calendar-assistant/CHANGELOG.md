@@ -1,3 +1,13 @@
+## 1.1.4 (2025-06-29)
+
+### 🩹 Fixes
+
+- **schema:** issue with schema - OpenAI requires an object ([4d78842](https://github.com/Avivbens/alfredo/commit/4d78842))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.3 (2025-06-29)
 
 ### 🩹 Fixes

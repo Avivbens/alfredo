@@ -35,7 +35,7 @@ import { extractEvent } from '../services/event-extractor.service';
       return;
     }
 
-    const events = await extractEvent(token, model, alfredClient.input);
+    const { events } = await extractEvent(token, model, alfredClient.input);
 
     if (!events.length) {
       alfredClient.output({ items: [{ title: 'No events found', subtitle: 'Try rephrasing your input.' }] });

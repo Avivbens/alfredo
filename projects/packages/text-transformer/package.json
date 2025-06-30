@@ -1,6 +1,6 @@
 {
   "name": "text-transformer",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Transform your text with Alfred—translate, check spelling, correct grammar, explain, extract action items, and much more!",
   "keywords": [
     "alfred",

@@ -1,3 +1,13 @@
+## 2.2.0 (2025-06-30)
+
+### 🚀 Features
+
+- add user configuration for updates ✨ ([7eb78a6](https://github.com/Avivbens/alfredo/commit/7eb78a6))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.1.3 (2025-06-29)
 
 ### 🩹 Fixes

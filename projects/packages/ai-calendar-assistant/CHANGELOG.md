@@ -1,3 +1,14 @@
+## 1.2.0 (2025-06-30)
+
+### 🚀 Features
+
+- add user configuration for updates ✨ ([7eb78a6](https://github.com/Avivbens/alfredo/commit/7eb78a6))
+- **external-calendar:** add support for opening new events in external calendars (google / apple) ✨ ([2fd87c6](https://github.com/Avivbens/alfredo/commit/2fd87c6))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.4 (2025-06-29)
 
 ### 🩹 Fixes

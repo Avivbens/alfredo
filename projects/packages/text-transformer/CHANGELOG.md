@@ -1,3 +1,13 @@
+## 5.1.0 (2025-06-30)
+
+### 🚀 Features
+
+- add user configuration for updates ✨ ([7eb78a6](https://github.com/Avivbens/alfredo/commit/7eb78a6))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.0.1 (2025-06-29)
 
 ### 🩹 Fixes

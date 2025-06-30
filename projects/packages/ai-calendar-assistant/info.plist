@@ -330,6 +330,51 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <false></false>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Open in calendar</string>
+        </dict>
+        <key>description</key>
+        <string>Select this option if you want to create the event in your preferred calendar.</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>should_open_new_event</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>apple_calendar</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Google Calendar</string>
+              <string>google_calendar</string>
+            </array>
+            <array>
+              <string>Apple Native Calendar</string>
+              <string>apple_calendar</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>Will take action only if the `Open in calendar` marked</string>
+        <key>label</key>
+        <string>Open event in:</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>open_new_event_platform</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <string></string>
           <key>required</key>
           <true></true>
@@ -505,7 +550,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.1.3</string>
+    <string>1.1.4</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

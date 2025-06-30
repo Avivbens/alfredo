@@ -2,7 +2,8 @@ import { FastAlfred } from 'fast-alfred';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { Variables } from '../common/variables.enum';
 import { CalendarEvent, GeminiCalendarEventSchema } from '../models/calendar-event.model';
-import { eventCreatorScript } from '../services/event-creator.service';
+import { OpenEventPlatform } from '../models/open-event-platform.enum';
+import { createInCalendar, eventCreatorAppleScript } from '../services/event-creator.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -13,10 +14,22 @@ import { eventCreatorScript } from '../services/event-creator.service';
     return;
   }
 
+  const openNewEvent: boolean = alfredClient.env.getEnv(Variables.SHOULD_OPEN_NEW_EVENT, {
+    defaultValue: false,
+    parser: (value) => (value as '0' | '1') === '1',
+  });
+
+  const openEventPlatform: OpenEventPlatform = alfredClient.env.getEnv(Variables.OPEN_NEW_EVENT_PLATFORM, {
+    defaultValue: OpenEventPlatform.APPLE_CALENDAR,
+  });
+
   const event: CalendarEvent = JSON.parse(alfredClient.input);
   const parsedEvent = GeminiCalendarEventSchema.parse(event);
 
-  const creationScript = eventCreatorScript(calendarName, parsedEvent);
+  if (openNewEvent) {
+    return await createInCalendar(openEventPlatform, calendarName, parsedEvent);
+  }
 
+  const creationScript = eventCreatorAppleScript(calendarName, parsedEvent, false);
   await runAppleScript(creationScript);
 })();

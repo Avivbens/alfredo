@@ -1,3 +1,13 @@
+## 1.2.1 (2025-06-30)
+
+### 🩹 Fixes
+
+- user configuration typo ([681d8f4](https://github.com/Avivbens/alfredo/commit/681d8f4))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.0 (2025-06-30)
 
 ### 🚀 Features

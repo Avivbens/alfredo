@@ -365,7 +365,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>description</key>
         <string>Will take action only if the `Open in calendar` marked</string>
         <key>label</key>
-        <string>Open event in:</string>
+        <string>Open event in</string>
         <key>type</key>
         <string>popupbutton</string>
         <key>variable</key>

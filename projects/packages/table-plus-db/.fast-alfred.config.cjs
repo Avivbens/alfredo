@@ -40,6 +40,9 @@ module.exports = {
   },
   updates: {
     bundleHelpers: true,
+    userConfiguration: {
+      checkUpdatesCheckbox: true,
+    },
   },
   workflowMetadata: {
     name: 'TablePlus Db',

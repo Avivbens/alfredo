@@ -6,6 +6,39 @@ export function formatDateToAppleScript(date: Date): string {
   return `date "${day} ${month} ${year} ${time}"`;
 }
 
+export function formatGoogleDate(date: Date, allDay: boolean): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    timeZone: 'UTC',
+  };
+
+  if (!allDay) {
+    options.hour = '2-digit';
+    options.minute = '2-digit';
+    options.second = '2-digit';
+    options.hour12 = false;
+  }
+
+  const parts = new Intl.DateTimeFormat('en-US', options).formatToParts(date);
+  const partValue = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value ?? '';
+
+  const year = partValue('year');
+  const month = partValue('month');
+  const day = partValue('day');
+
+  if (allDay) {
+    return `${year}${month}${day}`;
+  }
+
+  const hour = partValue('hour');
+  const minute = partValue('minute');
+  const second = partValue('second');
+
+  return `${year}${month}${day}T${hour}${minute}${second}`;
+}
+
 export function dropTimezone(date: Date): Date {
   const timezoneOffset = new Date().getTimezoneOffset() / -60;
   const adjustedDate = new Date(date);

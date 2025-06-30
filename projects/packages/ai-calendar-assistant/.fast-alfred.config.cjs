@@ -33,6 +33,9 @@ module.exports = {
   },
   updates: {
     bundleHelpers: true,
+    userConfiguration: {
+      checkUpdatesCheckbox: true,
+    },
   },
   workflowMetadata: {
     name: 'AI Calendar Assistant',

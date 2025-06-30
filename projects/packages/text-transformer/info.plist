@@ -1894,9 +1894,28 @@ https://github.com/Avivbens/alfredo</string>
         <key>variable</key>
         <string>use_application_context</string>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
     </array>
     <key>version</key>
-    <string>4.1.2</string>
+    <string>5.0.1</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

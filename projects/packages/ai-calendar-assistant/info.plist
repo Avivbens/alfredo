@@ -548,6 +548,25 @@ https://github.com/Avivbens/alfredo</string>
         <key>variable</key>
         <string>debounce_time</string>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
     </array>
     <key>version</key>
     <string>1.1.4</string>

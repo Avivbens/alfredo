@@ -1,3 +1,26 @@
+## 5.2.0 (2025-07-01)
+
+### 🚀 Features
+
+- **spell-check:** create a strict, single-purpose spell-checking prompt ([d80c85e](https://github.com/Avivbens/alfredo/commit/d80c85e))
+- **translate:** improve prompt to handle language names and codes ([317febd](https://github.com/Avivbens/alfredo/commit/317febd))
+- **tone:** improve prompt with structured, role-driven instructions ([34a2b3d](https://github.com/Avivbens/alfredo/commit/34a2b3d))
+- **summarize:** structure prompt for clear, bulleted summaries ([72eff16](https://github.com/Avivbens/alfredo/commit/72eff16))
+- **grammar:** focus prompt on proofreading and correcting errors only ([f659911](https://github.com/Avivbens/alfredo/commit/f659911))
+- **commit:** streamline prompt for conventional commit messages ([2216a04](https://github.com/Avivbens/alfredo/commit/2216a04))
+- **beautify:** specialize prompt as an expert copyeditor and stylist ([3274d21](https://github.com/Avivbens/alfredo/commit/3274d21))
+- **action-items:** refine prompt for structured markdown output ([08cee1d](https://github.com/Avivbens/alfredo/commit/08cee1d))
+- add tldr feature for easy tldr writing ([39dc9f8](https://github.com/Avivbens/alfredo/commit/39dc9f8))
+
+### 🩹 Fixes
+
+- **explain:** align prompt to provide explanations, not rewrites ([4993bd6](https://github.com/Avivbens/alfredo/commit/4993bd6))
+- improve base prompts - prevent user instruction injection; handle "cannot respond to this request" errors ([bed9624](https://github.com/Avivbens/alfredo/commit/bed9624))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.1.0 (2025-06-30)
 
 ### 🚀 Features

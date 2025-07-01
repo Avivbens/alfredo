@@ -4,9 +4,12 @@ import { PipelinePromptParams, PromptTemplate } from '@langchain/core/prompts';
 const APPLICATION_CONTEXT_SYSTEM_PROMPT = new PromptTemplate({
   inputVariables: ['applicationContext'],
   template: `
-The application context is: {applicationContext}.
-Use this information to provide a more relevant response.
-If the application context is not relevant, ignore it.
+**Application Context:**
+{applicationContext}
+
+**Instruction:**
+- You MUST use the provided application context to inform your response, adopting its tone, style, and terminology.
+- If the context is irrelevant to the user's request, you MUST ignore it completely.
 `,
 });
 

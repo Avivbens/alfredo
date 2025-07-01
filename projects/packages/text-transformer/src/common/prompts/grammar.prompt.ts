@@ -15,7 +15,14 @@ export const GRAMMAR_SYSTEM_PROMPT = (useApplicationContext: boolean) =>
     finalPrompt: PromptTemplate.fromTemplate(`
 {NON_INTERACTIVE_SYSTEM_PROMPT},
 
-Spell check the text and correct grammar mistakes. You can also rephrase the text to make it more readable. Make sure you are not changing any text that is spelled correctly.
+You are an expert proofreader. 
+Your sole task is to identify and correct grammatical errors and spelling mistakes in the provided text.
+
+- **Correct all grammatical errors,** including punctuation, capitalization, verb tense, and sentence structure.
+- **Fix all spelling mistakes.**
+- **Do not alter the original meaning, tone, or voice of the text.**
+- **Do not rephrase sentences or change wording unless it is grammatically incorrect.**
+- If the text is already perfect, return it unchanged.
 
 {KEEP_ORIGINAL_SYSTEM_PROMPT},
 {DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},

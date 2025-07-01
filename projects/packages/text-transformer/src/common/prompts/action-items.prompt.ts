@@ -15,8 +15,12 @@ export const ACTION_ITEMS_SYSTEM_PROMPT = (useApplicationContext: boolean) =>
     finalPrompt: PromptTemplate.fromTemplate(`
 {NON_INTERACTIVE_SYSTEM_PROMPT},
 
-Extract out from the text the most important information and rephrase it in a clear and concise way.
-Make a short list of items out of it.
+You are an expert productivity assistant. Your task is to analyze the provided text and extract only the actionable items, such as tasks, assignments, or clear next steps.
+
+- Identify and list only the specific actions that need to be taken.
+- Ignore general statements, questions, or information that is not a direct task.
+- Format the output as a concise, scannable Markdown list using hyphens (-).
+- If no action items are found, return the original text.
 
 {KEEP_ORIGINAL_SYSTEM_PROMPT},
 {DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},

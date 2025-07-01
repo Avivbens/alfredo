@@ -21,6 +21,19 @@
           <string>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
         </dict>
       </array>
+      <key>51E26301-EF4F-4798-A7BB-A0E960219851</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        </dict>
+      </array>
       <key>63CC1099-CED7-4DE9-982B-41AEBBF7F81B</key>
       <array>
         <dict>
@@ -430,6 +443,43 @@
           <false></false>
           <key>sourceoutputuid</key>
           <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -904,6 +954,56 @@
       <dict>
         <key>config</key>
         <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:tldr_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>TL;DRing...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/tldr "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Get an instant short summary</string>
+          <key>title</key>
+          <string>TL;DR</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>51E26301-EF4F-4798-A7BB-A0E960219851</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
           <key>argumenttrimmode</key>
           <integer>0</integer>
           <key>argumenttype</key>
@@ -1286,6 +1386,38 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
         <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
         <key>version</key>
         <integer>1</integer>
@@ -1368,6 +1500,13 @@ https://github.com/Avivbens/alfredo</string>
         <integer>755</integer>
         <key>ypos</key>
         <integer>880</integer>
+      </dict>
+      <key>51E26301-EF4F-4798-A7BB-A0E960219851</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>1285</integer>
       </dict>
       <key>63CC1099-CED7-4DE9-982B-41AEBBF7F81B</key>
       <dict>
@@ -1519,6 +1658,15 @@ https://github.com/Avivbens/alfredo</string>
         <integer>295</integer>
         <key>ypos</key>
         <integer>1125</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>1285</integer>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
@@ -1858,6 +2006,27 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <string>tldr</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Get an instant 2 lines TL;DR of any content</string>
+        <key>label</key>
+        <string>TL;DR Styling Keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>tldr_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <string>aci</string>
           <key>placeholder</key>
           <string></string>
@@ -1915,7 +2084,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>5.0.1</string>
+    <string>5.1.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

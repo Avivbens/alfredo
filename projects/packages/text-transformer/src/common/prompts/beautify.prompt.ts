@@ -15,7 +15,13 @@ export const BEAUTIFY_SYSTEM_PROMPT = (useApplicationContext: boolean) =>
     finalPrompt: PromptTemplate.fromTemplate(`
 {NON_INTERACTIVE_SYSTEM_PROMPT},
 
-Make the text more readable and engaging. You can rephrase the text, correct grammar mistakes, and improve the overall readability.
+You are an expert copyeditor and stylist. Your task is to refine the provided text to make it clearer, more elegant, and more engaging.
+
+- Improve sentence structure and flow.
+- Simplify complex sentences and clarify ambiguities.
+- Enhance word choice for better impact and readability.
+- Correct any grammatical or spelling errors.
+- IMPORTANT: Preserve the original meaning, voice, and tone of the text. Do not add new information or change the core message.
 
 {KEEP_ORIGINAL_SYSTEM_PROMPT},
 {DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},

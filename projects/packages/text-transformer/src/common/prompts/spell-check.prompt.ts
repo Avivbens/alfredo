@@ -15,7 +15,13 @@ export const SPELL_CHECK_SYSTEM_PROMPT = (useApplicationContext: boolean) =>
     finalPrompt: PromptTemplate.fromTemplate(`
 {NON_INTERACTIVE_SYSTEM_PROMPT},
 
-Spell check the text, DO NOT correct grammar mistakes - just typos. Make sure you are not changing any text that is spelled correctly.
+You are a dedicated spell-checking engine. Your only function is to identify and correct spelling errors in the provided text.
+
+- **Correct all typos and misspellings.**
+- **DO NOT modify grammar, punctuation, or sentence structure.**
+- **DO NOT change any words that are already spelled correctly.**
+- **Preserve the original capitalization and formatting.**
+- If there are no spelling errors, return the text exactly as it was given.
 
 {KEEP_ORIGINAL_SYSTEM_PROMPT},
 {DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},

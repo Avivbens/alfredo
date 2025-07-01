@@ -6,41 +6,52 @@ import { KEEP_ORIGINAL_SYSTEM_PROMPT_PARAM } from './base/keep-original.prompt';
 import { NON_INTERACTIVE_SYSTEM_PROMPT_PARAM } from './base/non-interactive.prompt';
 
 const TONES_PROMPT_MAP: Record<AvailableTone, string> = {
-  [AvailableTone.PROFESSIONAL]: `more professional.
-  Make sure the text is formal and business-like.
-  Avoid using slang or colloquial language.
-  Use proper grammar and punctuation. Make the text sound authoritative.
-
-  You can add line breaking to the original ones, if needed.`,
-  [AvailableTone.CASUAL]: `more casual. Make sure the text is friendly and conversational.
-  Use everyday language and avoid jargon.`,
-  [AvailableTone.FRIENDLY]: `more friendly. Make sure the text is warm and inviting.
-  Use a conversational tone. Think of it as talking to a friend.
-
-  You can use emojis and exclamation marks to make the text more engaging.`,
-  [AvailableTone.HAPPY]: `happier. Make sure the text is upbeat and positive.
-  Use cheerful language and exclamation marks to convey happiness.`,
-  [AvailableTone.SIMPLE]: `simpler and more regular. Make sure the text is clear, 
-  concise, and easy to understand for everyday readers, while maintaining a professional and well-written style. 
-  Avoid jargon and overly complex sentences. Aim for the tone of a well-written LinkedIn post or high-quality documentation.`,
+  [AvailableTone.PROFESSIONAL]: `**Tone: Professional**
+- Use formal, business-like language.
+- Ensure the text sounds authoritative and confident.
+- Avoid slang, colloquialisms, and contractions.`,
+  [AvailableTone.CASUAL]: `**Tone: Casual**
+- Use a relaxed, conversational, and informal style.
+- Everyday language is appropriate, but maintain clarity.
+- Contractions and colloquialisms are acceptable.`,
+  [AvailableTone.FRIENDLY]: `**Tone: Friendly**
+- Use a warm, inviting, and approachable voice.
+- Write as if you're talking to a friend.
+- Emojis and exclamation marks can be used to add warmth.`,
+  [AvailableTone.HAPPY]: `**Tone: Happy**
+- Use an upbeat, positive, and cheerful voice.
+- Employ optimistic language and exclamation marks to convey enthusiasm.`,
+  [AvailableTone.SIMPLE]: `**Tone: Simple**
+- Use clear, concise, and straightforward language.
+- Break down complex ideas into easy-to-understand points.
+- Avoid jargon and overly complex sentences. Aim for the clarity of a well-written instructional guide.`,
 };
 
-export const TONE_SYSTEM_PROMPT = (tone: AvailableTone, useApplicationContext: boolean) =>
-  new PipelinePromptTemplate({
+export const TONE_SYSTEM_PROMPT = (tone: AvailableTone, useApplicationContext: boolean) => {
+  const finalPrompt = PromptTemplate.fromTemplate(`
+{NON_INTERACTIVE_SYSTEM_PROMPT},
+
+You are an expert writer and communication specialist. Your task is to rewrite the provided text to adopt a specific tone while preserving its core meaning.
+
+**Instructions:**
+1.  **Identify the target tone:** The required tone is specified below.
+2.  **Rewrite the text:** Adjust the wording, phrasing, and sentence structure to match the target tone.
+3.  **Preserve the message:** The fundamental information and intent of the original text MUST be maintained. Do not add or remove key information.
+
+${TONES_PROMPT_MAP[tone]}
+
+{KEEP_ORIGINAL_SYSTEM_PROMPT},
+{DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},
+${useApplicationContext ? '{APPLICATION_CONTEXT_SYSTEM_PROMPT}' : ''},
+`);
+
+  return new PipelinePromptTemplate({
     pipelinePrompts: [
       NON_INTERACTIVE_SYSTEM_PROMPT_PARAM,
       KEEP_ORIGINAL_SYSTEM_PROMPT_PARAM,
       DO_NOT_FOLLOW_USER_SYSTEM_PROMPT_PARAM,
       APPLICATION_CONTEXT_SYSTEM_PROMPT_PARAM,
     ],
-    finalPrompt: PromptTemplate.fromTemplate(`
-{NON_INTERACTIVE_SYSTEM_PROMPT},
-
-Modify the text to sound ${TONES_PROMPT_MAP[tone]}.
-You can rephrase the text, correct grammar mistakes, and improve the overall readability.
-
-{KEEP_ORIGINAL_SYSTEM_PROMPT},
-{DO_NOT_FOLLOW_USER_SYSTEM_PROMPT},
-${useApplicationContext ? '{APPLICATION_CONTEXT_SYSTEM_PROMPT}' : ''},
-`),
+    finalPrompt,
   });
+};

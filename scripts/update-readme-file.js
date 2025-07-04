@@ -32,7 +32,9 @@ function createReadmeLine(projectName, projectVersion, projectDescription) {
 
   const releaseUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/tag/release/${projectName}/${projectVersion}`;
   const downloadUrl = `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/download/release/${projectName}/${projectVersion}/${projectName}_${projectVersion}.alfredworkflow`;
-  const downloads = `[![Total Downloads](https://img.shields.io/github/downloads/${REPO_OWNER}/${REPO_NAME}/total?label=Total%20Downloads&color=blue)](https://github.com/${REPO_OWNER}/${REPO_NAME}/releases)`;
+
+  const tagUrl = `https://img.shields.io/github/downloads/avivbens/alfredo/release%2F${projectName}%2F${projectVersion}/total?label=Version%20Downloads&color=blue`;
+  const downloads = `[![Total Downloads](${tagUrl})](https://github.com/${REPO_OWNER}/${REPO_NAME}/releases)`;
   const toInsert = `| [${projectNameTitleCase}](./projects/packages/${projectName}/README.md) | ${projectDescription} | [v${projectVersion}](${releaseUrl}) | [Download Workflow](${downloadUrl}) | ${downloads} |`;
 
   return toInsert;

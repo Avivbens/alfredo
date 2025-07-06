@@ -1,3 +1,13 @@
+## 1.1.1 (2025-07-06)
+
+### 🩹 Fixes
+
+- use `SwitchAudioSource` for devices list instead of `system_profiler` ([9907aed](https://github.com/Avivbens/alfredo/commit/9907aed))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.0 (2025-06-30)
 
 ### 🚀 Features

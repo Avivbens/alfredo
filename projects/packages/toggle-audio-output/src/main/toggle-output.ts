@@ -1,7 +1,7 @@
 import { FastAlfred } from 'fast-alfred';
 import { Variables } from '../common/variables.enum';
 import { DEFAULT_OUTPUTS_LIST } from '../config/constants';
-import { getConnectedAudioOutputs, getCurrentAudioOutput, setAudioOutput } from '../services/audio-connection.service';
+import { getConnectedAudioDevices, getCurrentAudioOutput, setAudioOutput } from '../services/audio-connection.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -14,13 +14,13 @@ import { getConnectedAudioOutputs, getCurrentAudioOutput, setAudioOutput } from 
   const outputListMap = new Set(outputList);
 
   try {
-    const [connectedOutputs, currentOutput] = await Promise.all([
+    const [connectedDevices, currentOutput] = await Promise.all([
       /*  */
-      getConnectedAudioOutputs(),
+      getConnectedAudioDevices(),
       getCurrentAudioOutput(),
     ]);
 
-    if (!connectedOutputs.length || !currentOutput) {
+    if (!connectedDevices.length || !currentOutput) {
       alfredClient.error(new Error('No audio outputs found'));
       return;
     }
@@ -28,7 +28,11 @@ import { getConnectedAudioOutputs, getCurrentAudioOutput, setAudioOutput } from 
     /**
      * Filter connected outputs to only include those in the output list
      */
-    const toggleList = connectedOutputs.filter((output) => outputListMap.has(output));
+    const connectedOutputsNames = connectedDevices
+      .filter((device) => device.type === 'output')
+      .map((output) => output.name);
+
+    const toggleList = connectedOutputsNames.filter((output) => outputListMap.has(output));
     const uniqueToggleList = Array.from(new Set(toggleList));
     alfredClient.log(`uniqueToggleList: ${uniqueToggleList}\n`);
 

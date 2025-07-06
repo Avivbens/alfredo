@@ -1,13 +1,16 @@
 import { $ } from 'zurk';
-import { SystemProfilerOutput } from '../models/system-profiler-output.model';
+import { AudioSource } from '../models/audio-source-all.model';
 
-export async function getConnectedAudioOutputs(): Promise<string[]> {
-  const { stdout } = await $`system_profiler SPAudioDataType -json`;
+export async function getConnectedAudioDevices(): Promise<AudioSource[]> {
+  const { stdout } = await $`SwitchAudioSource -a -f json`;
 
-  const audioData = JSON.parse(stdout) as SystemProfilerOutput;
-  const connectedOutputs: string[] | undefined = audioData.SPAudioDataType.at(0)?._items.map(({ _name }) => _name);
+  const audioData = stdout
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => JSON.parse(line)) as AudioSource[];
 
-  return connectedOutputs || [];
+  return audioData || [];
 }
 
 export async function getCurrentAudioOutput(): Promise<string | undefined> {

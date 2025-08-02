@@ -37,15 +37,19 @@ If the language code is missing, the default language will be English.
 
 ### Grammar Correction
 
-![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/grammar.gif)
+![Grammar](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/grammar.gif)
 
 ### Translate
 
-![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/translate.gif)
+![Translate](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/translate.gif)
 
 ### Action Items
 
-![All Day](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/action-items.gif)
+![Action Items](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/action-items.gif)
+
+### Table
+
+![Table](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/text-transformer/table.gif)
 
 ## Configuration
 

@@ -17,6 +17,7 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 - Summarize: Summarize the text to be more concise
 - Explain: Explain the text in a more understandable way
 - Commit Styling: Format commit messages to be more readable
+- Table: Transform text into well-formatted markdown tables
 
 #### Use Active App Context
 Enable the \`Use Application Context\` option to utilize the current app context for your workflow.  

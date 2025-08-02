@@ -1,3 +1,13 @@
+## 5.3.0 (2025-08-02)
+
+### 🚀 Features
+
+- **table:** support new `table` output ([43dacd2](https://github.com/Avivbens/alfredo/commit/43dacd2))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.2.0 (2025-07-01)
 
 ### 🚀 Features

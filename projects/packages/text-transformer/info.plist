@@ -112,6 +112,19 @@
           <false></false>
         </dict>
       </array>
+      <key>B8B394C4-6075-4F0C-B8C2-01E31B8550DF</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        </dict>
+      </array>
       <key>B9150C05-6465-4A8C-91F7-D6929176F398</key>
       <array>
         <dict>
@@ -480,6 +493,43 @@
           <false></false>
           <key>sourceoutputuid</key>
           <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -1004,6 +1054,56 @@
       <dict>
         <key>config</key>
         <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:table_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Tabling...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/table "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Create a formatted table</string>
+          <key>title</key>
+          <string>Table</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>B8B394C4-6075-4F0C-B8C2-01E31B8550DF</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
           <key>argumenttrimmode</key>
           <integer>0</integer>
           <key>argumenttype</key>
@@ -1418,6 +1518,38 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
         <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
         <key>version</key>
         <integer>1</integer>
@@ -1462,6 +1594,7 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 - Summarize: Summarize the text to be more concise
 - Explain: Explain the text in a more understandable way
 - Commit Styling: Format commit messages to be more readable
+- Table: Transform text into well-formatted markdown tables
 
 #### Use Active App Context
 Enable the `Use Application Context` option to utilize the current app context for your workflow.  
@@ -1513,7 +1646,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>xpos</key>
         <integer>365</integer>
         <key>ypos</key>
-        <integer>1530</integer>
+        <integer>1640</integer>
       </dict>
       <key>6F2D236E-D961-42DC-ACF2-7C025CA92966</key>
       <dict>
@@ -1548,7 +1681,14 @@ https://github.com/Avivbens/alfredo</string>
         <key>xpos</key>
         <integer>75</integer>
         <key>ypos</key>
-        <integer>1530</integer>
+        <integer>1640</integer>
+      </dict>
+      <key>B8B394C4-6075-4F0C-B8C2-01E31B8550DF</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>1440</integer>
       </dict>
       <key>B9150C05-6465-4A8C-91F7-D6929176F398</key>
       <dict>
@@ -1670,12 +1810,21 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>1440</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
       <key>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</key>
       <dict>
         <key>xpos</key>
         <integer>585</integer>
         <key>ypos</key>
-        <integer>1530</integer>
+        <integer>1640</integer>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
@@ -2048,6 +2197,27 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <string>table</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Create a table out of any data input</string>
+        <key>label</key>
+        <string>Table Creation Keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>table_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <false></false>
           <key>required</key>
           <false></false>
@@ -2084,7 +2254,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>5.1.0</string>
+    <string>5.2.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

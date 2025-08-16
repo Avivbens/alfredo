@@ -1,3 +1,13 @@
+## 1.3.1 (2025-08-16)
+
+### 🩹 Fixes
+
+- **search:** better search results for partial query ([0081527](https://github.com/Avivbens/alfredo/commit/0081527))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.0 (2025-06-30)
 
 ### 🚀 Features

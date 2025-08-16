@@ -4,8 +4,6 @@
   <dict>
     <key>bundleid</key>
     <string>com.alfredapp.kill-process</string>
-    <key>category</key>
-    <string>Tools</string>
     <key>connections</key>
     <dict>
       <key>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</key>
@@ -208,7 +206,7 @@
           <key>argumenttrimmode</key>
           <integer>0</integer>
           <key>argumenttype</key>
-          <integer>0</integer>
+          <integer>1</integer>
           <key>escaping</key>
           <integer>102</integer>
           <key>keyword</key>
@@ -258,7 +256,7 @@
           <key>argumenttrimmode</key>
           <integer>0</integer>
           <key>argumenttype</key>
-          <integer>0</integer>
+          <integer>1</integer>
           <key>escaping</key>
           <integer>102</integer>
           <key>keyword</key>
@@ -331,7 +329,7 @@
           <key>argumenttrimmode</key>
           <integer>0</integer>
           <key>argumenttype</key>
-          <integer>0</integer>
+          <integer>1</integer>
           <key>escaping</key>
           <integer>102</integer>
           <key>keyword</key>
@@ -711,6 +709,36 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <string>none</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Memory</string>
+              <string>memory</string>
+            </array>
+            <array>
+              <string>CPU</string>
+              <string>cpu</string>
+            </array>
+            <array>
+              <string>None</string>
+              <string>none</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>Choose which resource consumption you would like to sort by</string>
+        <key>label</key>
+        <string>Sort By Consumption</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>sort_by_resource</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <true></true>
           <key>required</key>
           <false></false>
@@ -728,8 +756,10 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>2.1.3</string>
+    <string>2.2.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
+    <key>category</key>
+    <string>Tools</string>
   </dict>
 </plist>

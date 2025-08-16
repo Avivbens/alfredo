@@ -4,6 +4,7 @@ import psList from 'ps-list';
 import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables.enum';
 import { CallbackPayload } from '../models/callback-payload.model';
+import { SortByResource, getSortByResource } from '../models/sort-by-resources.model';
 import { searchProcess } from '../services/search.service';
 
 (async () => {
@@ -17,13 +18,26 @@ import { searchProcess } from '../services/search.service';
     parser: (input) => Number(input) / 10,
   });
 
+  const sortByResource: SortByResource = alfredClient.env.getEnv(Variables.SORT_BY_RESOURCE, {
+    defaultValue: 'none',
+    parser: getSortByResource,
+  });
+
   try {
     const processes = await psList();
 
-    const filteredProcesses = await searchProcess(processes, alfredClient.input, sliceAmount, fuzzyThreshold);
+    const filteredProcesses = await searchProcess(
+      processes,
+      alfredClient.input,
+      sliceAmount,
+      fuzzyThreshold,
+      sortByResource,
+    );
 
-    const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd }) => {
-      const subtitle = `PID: ${pid} | CMD: ${cmd}`;
+    const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd, cpu, memory }) => {
+      const cpuInfo = cpu !== undefined ? `${cpu.toFixed(1)}%` : 'N/A';
+      const memoryInfo = memory !== undefined ? `${memory.toFixed(1)}%` : 'N/A';
+      const subtitle = `PID: ${pid} | CPU: ${cpuInfo} | Memory: ${memoryInfo} | CMD: ${cmd}`;
 
       return {
         title: name,

@@ -13,6 +13,8 @@ export async function searchBookmarks(
     keys: SEARCH_FIELDS_CONFIG,
     isCaseSensitive: false,
     shouldSort: true,
+    findAllMatches: true,
+    ignoreLocation: true,
     threshold,
   });
 

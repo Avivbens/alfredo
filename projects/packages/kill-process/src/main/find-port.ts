@@ -17,6 +17,11 @@ import { searchPort } from '../services/search.service';
     parser: (input) => Number(input) / 10,
   });
 
+  const rerunInterval: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL, {
+    defaultValue: 1,
+    parser: (input) => Math.round(Number(input)),
+  });
+
   try {
     const ports = await getPorts();
 
@@ -25,17 +30,23 @@ import { searchPort } from '../services/search.service';
     const items: AlfredScriptFilter['items'] = filteredPorts.map(({ name, pid, port }) => {
       const subtitle = `Port: ${port} | PID: ${pid}`;
 
+      const payload: CallbackPayload = {
+        pid,
+        name,
+        shouldForceKill: false,
+      };
+
       return {
         title: name,
         subtitle,
-        arg: String(pid) satisfies CallbackPayload,
+        arg: JSON.stringify(payload, null, 2),
         uid: subtitle,
       };
     });
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun: 1 });
+    alfredClient.output({ items: sliced, rerun: rerunInterval });
   } catch (error) {
     alfredClient.error(error);
   }

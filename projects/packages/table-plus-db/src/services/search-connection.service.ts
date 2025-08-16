@@ -16,6 +16,8 @@ export async function searchConnection(
     keys: SEARCH_DB_CONNECTION_CONFIG,
     isCaseSensitive: false,
     shouldSort: true,
+    findAllMatches: true,
+    ignoreLocation: true,
     threshold,
   });
 

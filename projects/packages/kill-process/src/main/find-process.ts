@@ -23,6 +23,11 @@ import { searchProcess } from '../services/search.service';
     parser: getSortByResource,
   });
 
+  const rerunInterval: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL, {
+    defaultValue: 1,
+    parser: (input) => Math.round(Number(input)),
+  });
+
   try {
     const processes = await psList();
 
@@ -49,7 +54,7 @@ import { searchProcess } from '../services/search.service';
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun: 1 });
+    alfredClient.output({ items: sliced, rerun: rerunInterval });
   } catch (error) {
     alfredClient.error(error);
   }

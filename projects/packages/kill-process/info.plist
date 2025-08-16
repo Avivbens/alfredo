@@ -174,29 +174,6 @@
       <dict>
         <key>config</key>
         <dict>
-          <key>concurrently</key>
-          <false></false>
-          <key>escaping</key>
-          <integer>102</integer>
-          <key>script</key>
-          <string>kill "$1"</string>
-          <key>scriptargtype</key>
-          <integer>1</integer>
-          <key>scriptfile</key>
-          <string></string>
-          <key>type</key>
-          <integer>11</integer>
-        </dict>
-        <key>type</key>
-        <string>alfred.workflow.action.script</string>
-        <key>uid</key>
-        <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
-        <key>version</key>
-        <integer>2</integer>
-      </dict>
-      <dict>
-        <key>config</key>
-        <dict>
           <key>alfredfiltersresults</key>
           <false></false>
           <key>alfredfiltersresultsmatchmode</key>
@@ -243,6 +220,29 @@
         <string>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
         <key>version</key>
         <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>kill "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+        <key>version</key>
+        <integer>2</integer>
       </dict>
       <dict>
         <key>config</key>
@@ -320,6 +320,29 @@
       <dict>
         <key>config</key>
         <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
           <key>alfredfiltersresults</key>
           <false></false>
           <key>alfredfiltersresultsmatchmode</key>
@@ -366,29 +389,6 @@
         <string>11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE</string>
         <key>version</key>
         <integer>3</integer>
-      </dict>
-      <dict>
-        <key>config</key>
-        <dict>
-          <key>concurrently</key>
-          <false></false>
-          <key>escaping</key>
-          <integer>102</integer>
-          <key>script</key>
-          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
-          <key>scriptargtype</key>
-          <integer>1</integer>
-          <key>scriptfile</key>
-          <string></string>
-          <key>type</key>
-          <integer>11</integer>
-        </dict>
-        <key>type</key>
-        <string>alfred.workflow.action.script</string>
-        <key>uid</key>
-        <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
-        <key>version</key>
-        <integer>2</integer>
       </dict>
       <dict>
         <key>type</key>
@@ -704,6 +704,31 @@ https://github.com/Avivbens/alfredo</string>
         <string>slider</string>
         <key>variable</key>
         <string>fuzzy_threshold</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>1</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Amount of seconds to wait before reevaluate and check for processes</string>
+        <key>label</key>
+        <string>Rerun Interval</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>rerun_interval</string>
       </dict>
       <dict>
         <key>config</key>

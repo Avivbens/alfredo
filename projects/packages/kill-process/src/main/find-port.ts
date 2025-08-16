@@ -17,6 +17,11 @@ import { searchPort } from '../services/search.service';
     parser: (input) => Number(input) / 10,
   });
 
+  const rerunInterval: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL, {
+    defaultValue: 1,
+    parser: (input) => Math.round(Number(input)),
+  });
+
   try {
     const ports = await getPorts();
 
@@ -35,7 +40,7 @@ import { searchPort } from '../services/search.service';
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun: 1 });
+    alfredClient.output({ items: sliced, rerun: rerunInterval });
   } catch (error) {
     alfredClient.error(error);
   }

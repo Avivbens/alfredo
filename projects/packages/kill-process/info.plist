@@ -16,7 +16,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+          <string>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         </dict>
       </array>
       <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
@@ -44,12 +44,10 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <string>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         </dict>
       </array>
-      <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
-      <array></array>
-      <key>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
+      <key>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -59,7 +57,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -69,7 +67,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -81,7 +79,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+          <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -123,7 +121,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</key>
+      <key>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -133,7 +131,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -143,7 +141,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+          <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -155,7 +153,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+          <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -199,7 +197,7 @@
           <key>runningsubtext</key>
           <string>Searching...</string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "$1"
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "false" "$1"
 </string>
           <key>scriptargtype</key>
           <integer>1</integer>
@@ -220,29 +218,6 @@
         <string>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</string>
         <key>version</key>
         <integer>3</integer>
-      </dict>
-      <dict>
-        <key>config</key>
-        <dict>
-          <key>concurrently</key>
-          <false></false>
-          <key>escaping</key>
-          <integer>102</integer>
-          <key>script</key>
-          <string>kill "$1"</string>
-          <key>scriptargtype</key>
-          <integer>1</integer>
-          <key>scriptfile</key>
-          <string></string>
-          <key>type</key>
-          <integer>11</integer>
-        </dict>
-        <key>type</key>
-        <string>alfred.workflow.action.script</string>
-        <key>uid</key>
-        <string>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
-        <key>version</key>
-        <integer>2</integer>
       </dict>
       <dict>
         <key>config</key>
@@ -272,7 +247,7 @@
           <key>runningsubtext</key>
           <string>Searching...</string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "$1"
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "true" "$1"
 </string>
           <key>scriptargtype</key>
           <integer>1</integer>
@@ -302,7 +277,7 @@
           <key>escaping</key>
           <integer>102</integer>
           <key>script</key>
-          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
+          <string>./esbuild/assets/run-node.sh esbuild/kill-process.js "$1"</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
@@ -314,29 +289,6 @@
         <string>alfred.workflow.action.script</string>
         <key>uid</key>
         <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
-        <key>version</key>
-        <integer>2</integer>
-      </dict>
-      <dict>
-        <key>config</key>
-        <dict>
-          <key>concurrently</key>
-          <false></false>
-          <key>escaping</key>
-          <integer>102</integer>
-          <key>script</key>
-          <string>kill -9 "$1" || sudo kill -9 "$1"</string>
-          <key>scriptargtype</key>
-          <integer>1</integer>
-          <key>scriptfile</key>
-          <string></string>
-          <key>type</key>
-          <integer>11</integer>
-        </dict>
-        <key>type</key>
-        <string>alfred.workflow.action.script</string>
-        <key>uid</key>
-        <string>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
         <key>version</key>
         <integer>2</integer>
       </dict>
@@ -440,7 +392,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+        <string>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -459,7 +411,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
+              <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -504,7 +456,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+        <string>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -523,7 +475,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</string>
+              <string>__fast-alfred_managed__v2_condition_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -571,7 +523,7 @@ https://github.com/Avivbens/alfredo</string>
       <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <dict>
         <key>xpos</key>
-        <integer>420</integer>
+        <integer>495</integer>
         <key>ypos</key>
         <integer>240</integer>
       </dict>
@@ -593,20 +545,6 @@ https://github.com/Avivbens/alfredo</string>
         <key>ypos</key>
         <integer>50</integer>
       </dict>
-      <key>DA5ABB55-883C-4C1A-87A5-2F01A864A07B</key>
-      <dict>
-        <key>xpos</key>
-        <integer>420</integer>
-        <key>ypos</key>
-        <integer>435</integer>
-      </dict>
-      <key>FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
-      <dict>
-        <key>xpos</key>
-        <integer>420</integer>
-        <key>ypos</key>
-        <integer>50</integer>
-      </dict>
       <key>__fast-alfred_managed__v2_updater_workflow-update</key>
       <dict>
         <key>xpos</key>
@@ -625,7 +563,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Snooze Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</key>
+      <key>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <dict>
         <key>xpos</key>
         <integer>285</integer>
@@ -643,7 +581,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_DA5ABB55-883C-4C1A-87A5-2F01A864A07B</key>
+      <key>__fast-alfred_managed__v2_conditional_from_11F8D42E-3487-41D5-90A1-0F7D2A3ED9DE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <dict>
         <key>xpos</key>
         <integer>285</integer>

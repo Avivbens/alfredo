@@ -30,10 +30,16 @@ import { searchPort } from '../services/search.service';
     const items: AlfredScriptFilter['items'] = filteredPorts.map(({ name, pid, port }) => {
       const subtitle = `Port: ${port} | PID: ${pid}`;
 
+      const payload: CallbackPayload = {
+        pid,
+        name,
+        shouldForceKill: false,
+      };
+
       return {
         title: name,
         subtitle,
-        arg: String(pid) satisfies CallbackPayload,
+        arg: JSON.stringify(payload, null, 2),
         uid: subtitle,
       };
     });

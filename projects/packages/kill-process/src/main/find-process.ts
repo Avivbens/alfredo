@@ -28,12 +28,15 @@ import { searchProcess } from '../services/search.service';
     parser: (input) => Math.round(Number(input)),
   });
 
+  const [forceKill, searchTerm] = alfredClient.inputs;
+  const shouldForceKill: boolean = forceKill === 'true';
+
   try {
     const processes = await psList();
 
     const filteredProcesses = await searchProcess(
       processes,
-      alfredClient.input,
+      searchTerm ?? '',
       sliceAmount,
       fuzzyThreshold,
       sortByResource,
@@ -44,10 +47,17 @@ import { searchProcess } from '../services/search.service';
       const memoryInfo = memory !== undefined ? `${memory.toFixed(1)}%` : 'N/A';
       const subtitle = `PID: ${pid} | CPU: ${cpuInfo} | Memory: ${memoryInfo} | CMD: ${cmd}`;
 
+      const payload: CallbackPayload = {
+        pid,
+        name,
+        shouldForceKill,
+        cmd,
+      };
+
       return {
         title: name,
         subtitle,
-        arg: String(pid) satisfies CallbackPayload,
+        arg: JSON.stringify(payload, null, 2),
         uid: subtitle,
       };
     });

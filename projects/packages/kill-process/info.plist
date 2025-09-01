@@ -21,6 +21,32 @@
       </array>
       <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <array></array>
+      <key>5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        </dict>
+      </array>
+      <key>82191581-45FB-4070-83E3-E9E5D8D9A5AC</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        </dict>
+      </array>
       <key>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
       <array>
         <dict>
@@ -80,6 +106,80 @@
           <false></false>
           <key>sourceoutputuid</key>
           <string>__fast-alfred_managed__v2_condition_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -197,7 +297,7 @@
           <key>runningsubtext</key>
           <string>Searching...</string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "false" "$1"
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "false" "none" "$1"
 </string>
           <key>scriptargtype</key>
           <integer>1</integer>
@@ -235,7 +335,7 @@
           <key>escaping</key>
           <integer>102</integer>
           <key>keyword</key>
-          <string>!!</string>
+          <string>!m</string>
           <key>queuedelaycustom</key>
           <integer>3</integer>
           <key>queuedelayimmediatelyinitially</key>
@@ -247,7 +347,7 @@
           <key>runningsubtext</key>
           <string>Searching...</string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "true" "$1"
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "false" "memory" "$1"
 </string>
           <key>scriptargtype</key>
           <integer>1</integer>
@@ -256,7 +356,7 @@
           <key>subtext</key>
           <string></string>
           <key>title</key>
-          <string>Force kill a process</string>
+          <string>Kill a process</string>
           <key>type</key>
           <integer>11</integer>
           <key>withspace</key>
@@ -265,7 +365,7 @@
         <key>type</key>
         <string>alfred.workflow.input.scriptfilter</string>
         <key>uid</key>
-        <string>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+        <string>82191581-45FB-4070-83E3-E9E5D8D9A5AC</string>
         <key>version</key>
         <integer>3</integer>
       </dict>
@@ -291,6 +391,106 @@
         <string>14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         <key>version</key>
         <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>!c</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "false" "cpu" "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Kill a process</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>!!</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/find-process.js "true" "none" "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string>Force kill a process</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</string>
+        <key>version</key>
+        <integer>3</integer>
       </dict>
       <dict>
         <key>config</key>
@@ -424,6 +624,70 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
         <string>__fast-alfred_managed__v2_conditional_from_8A785DFD-30FA-43E2-BF07-9B1B46F29B63_to_14799482-DEFB-419D-8A33-CE6F4B12614B</string>
         <key>version</key>
         <integer>1</integer>
@@ -503,9 +767,15 @@ Search through your operating system's processes by name, port, PID, or path –
 
 ## Options
 
-'!' - Search for processes by name, port, PID, or path.   
-'!!' - Same, but kill with 'sudo' permission.   
-'!!!' - Search &amp; show by port   
+`!` - Search for processes by name, port, PID, or path.   
+`!!` - Same, but kill with `sudo` permission.   
+`!!!` - Search &amp; show by port   
+
+#### With resource consumption sorting
+
+`!m` - Search for processes, sorted by memory usage.   
+`!c` - Search for processes, sorted by CPU usage.   
+
 
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
@@ -518,7 +788,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>xpos</key>
         <integer>65</integer>
         <key>ypos</key>
-        <integer>435</integer>
+        <integer>780</integer>
       </dict>
       <key>14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <dict>
@@ -527,6 +797,24 @@ https://github.com/Avivbens/alfredo</string>
         <key>ypos</key>
         <integer>240</integer>
       </dict>
+      <key>5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE</key>
+      <dict>
+        <key>note</key>
+        <string>Kill process (CPU sort)</string>
+        <key>xpos</key>
+        <integer>65</integer>
+        <key>ypos</key>
+        <integer>415</integer>
+      </dict>
+      <key>82191581-45FB-4070-83E3-E9E5D8D9A5AC</key>
+      <dict>
+        <key>note</key>
+        <string>Kill process (Memory sort)</string>
+        <key>xpos</key>
+        <integer>65</integer>
+        <key>ypos</key>
+        <integer>230</integer>
+      </dict>
       <key>8A785DFD-30FA-43E2-BF07-9B1B46F29B63</key>
       <dict>
         <key>note</key>
@@ -534,7 +822,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>xpos</key>
         <integer>65</integer>
         <key>ypos</key>
-        <integer>240</integer>
+        <integer>600</integer>
       </dict>
       <key>CE84ED38-CD11-4B81-9E07-91C9D10EEE3C</key>
       <dict>
@@ -572,12 +860,30 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_82191581-45FB-4070-83E3-E9E5D8D9A5AC_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <dict>
+        <key>xpos</key>
+        <integer>285</integer>
+        <key>ypos</key>
+        <integer>230</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_5237AB6B-76A7-4B1E-80E4-C3CE1D5F52FE_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
+      <dict>
+        <key>xpos</key>
+        <integer>285</integer>
+        <key>ypos</key>
+        <integer>415</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
       <key>__fast-alfred_managed__v2_conditional_from_8A785DFD-30FA-43E2-BF07-9B1B46F29B63_to_14799482-DEFB-419D-8A33-CE6F4B12614B</key>
       <dict>
         <key>xpos</key>
         <integer>285</integer>
         <key>ypos</key>
-        <integer>240</integer>
+        <integer>600</integer>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
@@ -586,7 +892,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>xpos</key>
         <integer>285</integer>
         <key>ypos</key>
-        <integer>435</integer>
+        <integer>780</integer>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
@@ -671,32 +977,27 @@ https://github.com/Avivbens/alfredo</string>
       <dict>
         <key>config</key>
         <dict>
-          <key>default</key>
-          <string>none</string>
-          <key>pairs</key>
-          <array>
-            <array>
-              <string>Memory</string>
-              <string>memory</string>
-            </array>
-            <array>
-              <string>CPU</string>
-              <string>cpu</string>
-            </array>
-            <array>
-              <string>None</string>
-              <string>none</string>
-            </array>
-          </array>
+          <key>defaultvalue</key>
+          <integer>3</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
         </dict>
         <key>description</key>
-        <string>Choose which resource consumption you would like to sort by</string>
+        <string>Amount of seconds to wait before reevaluating and checking for processes sorted by resource consumption</string>
         <key>label</key>
-        <string>Sort By Consumption</string>
+        <string>Rerun Interval resources</string>
         <key>type</key>
-        <string>popupbutton</string>
+        <string>slider</string>
         <key>variable</key>
-        <string>sort_by_resource</string>
+        <string>rerun_interval_resources</string>
       </dict>
       <dict>
         <key>config</key>
@@ -719,7 +1020,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>2.2.0</string>
+    <string>2.3.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
     <key>category</key>

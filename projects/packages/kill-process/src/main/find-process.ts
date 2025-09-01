@@ -4,7 +4,7 @@ import psList from 'ps-list';
 import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables.enum';
 import { CallbackPayload } from '../models/callback-payload.model';
-import { SortByResource, getSortByResource } from '../models/sort-by-resources.model';
+import { getSortByResource } from '../models/sort-by-resources.model';
 import { searchProcess } from '../services/search.service';
 
 (async () => {
@@ -18,29 +18,30 @@ import { searchProcess } from '../services/search.service';
     parser: (input) => Number(input) / 10,
   });
 
-  const sortByResource: SortByResource = alfredClient.env.getEnv(Variables.SORT_BY_RESOURCE, {
-    defaultValue: 'none',
-    parser: getSortByResource,
-  });
-
   const rerunInterval: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL, {
     defaultValue: 1,
     parser: (input) => Math.round(Number(input)),
   });
 
-  const [forceKill, searchTerm] = alfredClient.inputs;
+  const rerunIntervalResources: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL_RESOURCES, {
+    defaultValue: 3,
+    parser: (input) => Math.round(Number(input)),
+  });
+
+  /**
+   * Prepare inputs
+   * Sorting & force kill
+   */
+  const [forceKill, order, searchTerm] = alfredClient.inputs;
   const shouldForceKill: boolean = forceKill === 'true';
+  const sortOrder = getSortByResource(order ?? 'none');
+
+  const rerun = sortOrder === 'none' ? rerunInterval : rerunIntervalResources;
 
   try {
     const processes = await psList();
 
-    const filteredProcesses = await searchProcess(
-      processes,
-      searchTerm ?? '',
-      sliceAmount,
-      fuzzyThreshold,
-      sortByResource,
-    );
+    const filteredProcesses = await searchProcess(processes, searchTerm ?? '', sliceAmount, fuzzyThreshold, sortOrder);
 
     const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd, cpu, memory }) => {
       const cpuInfo = cpu !== undefined ? `${cpu.toFixed(1)}%` : 'N/A';
@@ -64,7 +65,7 @@ import { searchProcess } from '../services/search.service';
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun: rerunInterval });
+    alfredClient.output({ items: sliced, rerun });
   } catch (error) {
     alfredClient.error(error);
   }

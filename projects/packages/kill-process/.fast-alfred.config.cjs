@@ -20,9 +20,15 @@ Search through your operating system's processes by name, port, PID, or path –
 
 ## Options
 
-'!' - Search for processes by name, port, PID, or path.   
-'!!' - Same, but kill with 'sudo' permission.   
-'!!!' - Search & show by port   
+\`!\` - Search for processes by name, port, PID, or path.   
+\`!!\` - Same, but kill with \`sudo\` permission.   
+\`!!!\` - Search & show by port   
+
+#### With resource consumption sorting
+
+\`!m\` - Search for processes, sorted by memory usage.   
+\`!c\` - Search for processes, sorted by CPU usage.   
+
 
 To view the workflow codebase, click here:
 ${homepage}

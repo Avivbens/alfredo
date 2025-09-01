@@ -1,3 +1,17 @@
+# 3.0.0 (2025-09-01)
+
+### 🚀 Features
+
+- ⚠️  **resources:** support new commands for sorting resources ([58e9c3b](https://github.com/Avivbens/alfredo/commit/58e9c3b))
+
+### ⚠️  Breaking Changes
+
+- **resources:** old rerun configuration would be applied to regular command, new config for resources order
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.3.0 (2025-08-16)
 
 ### 🚀 Features

@@ -1,3 +1,13 @@
+## 5.4.0 (2025-10-23)
+
+### 🚀 Features
+
+- **languages:** support pre-defined languages for quick access ([69686c5](https://github.com/Avivbens/alfredo/commit/69686c5))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.3.0 (2025-08-02)
 
 ### 🚀 Features

@@ -4,13 +4,18 @@ import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
 import { AvailableModels, callModel } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
-import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
-import { TRANSLATE_SYSTEM_PROMPT } from '../common/prompts/translate.prompt';
-import { Variables } from '../common/variables.enum';
+import { DEFAULT_DEBOUNCE_TIME } from '../../common/defaults.constants';
+import { TRANSLATE_SYSTEM_PROMPT } from '../../common/prompts/translate.prompt';
+import { Variables } from '../../common/variables.enum';
 
 (async () => {
   const alfredClient = new FastAlfred();
   alfredClient.updates(registerUpdater('text-transformer'));
+
+  const input = alfredClient.input;
+  if (!input) {
+    return;
+  }
 
   try {
     const denounceTime = alfredClient.env.getEnv(Variables.DEBOUNCE_TIME, {
@@ -37,13 +42,9 @@ import { Variables } from '../common/variables.enum';
      */
     await setTimeout(denounceTime);
 
-    if (!alfredClient.input) {
-      throw new Error('Input is required');
-    }
-
     const system = await TRANSLATE_SYSTEM_PROMPT(useApplicationContext).format({ applicationContext });
 
-    const res = await callModel(token, model, { system, user: alfredClient.input });
+    const res = await callModel(token, model, { system, user: input });
 
     const items: AlfredListItem[] = [
       {

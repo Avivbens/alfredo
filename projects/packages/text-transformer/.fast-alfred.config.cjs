@@ -50,6 +50,7 @@ module.exports = {
   bundlerOptions: {
     rootAssets: ['List Filter Images'],
     targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
+    productionScripts: ['src/main/**/*.ts'],
   },
   updates: {
     bundleHelpers: true,

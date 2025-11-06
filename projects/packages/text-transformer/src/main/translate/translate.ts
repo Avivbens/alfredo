@@ -4,9 +4,42 @@ import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
 import { AvailableModels, callModel } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
-import { DEFAULT_DEBOUNCE_TIME } from '../../common/defaults.constants';
+import { DEFAULT_DEBOUNCE_TIME, LANGUAGE_DELIMITER } from '../../common/defaults.constants';
 import { TRANSLATE_SYSTEM_PROMPT } from '../../common/prompts/translate.prompt';
 import { Variables } from '../../common/variables.enum';
+
+interface ParsedTranslationInput {
+  targetLanguage: string;
+  textToTranslate: string;
+}
+
+/**
+ * Parses the input to extract target language and text to translate.
+ * Format: "Language§ text to translate"
+ * @param input - The raw input string
+ * @returns Object containing the target language and text to translate
+ */
+function parseLanguageFromInput(input: string): ParsedTranslationInput {
+  const trimmedInput = input.trim();
+
+  const pattern = new RegExp(`^([^${LANGUAGE_DELIMITER}]+)${LANGUAGE_DELIMITER}\\s*(.*)$`);
+  const match = trimmedInput.match(pattern);
+
+  if (match && match[1] && match[2]) {
+    return {
+      targetLanguage: match[1].trim(),
+      textToTranslate: match[2],
+    };
+  }
+
+  /**
+   * Default: translate to English if no language delimiter found
+   */
+  return {
+    targetLanguage: 'English',
+    textToTranslate: trimmedInput,
+  };
+}
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -42,9 +75,15 @@ import { Variables } from '../../common/variables.enum';
      */
     await setTimeout(denounceTime);
 
-    const system = await TRANSLATE_SYSTEM_PROMPT(useApplicationContext).format({ applicationContext });
+    // Parse the input to extract target language and text
+    const { targetLanguage, textToTranslate } = parseLanguageFromInput(input);
 
-    const res = await callModel(token, model, { system, user: input });
+    const system = await TRANSLATE_SYSTEM_PROMPT(useApplicationContext).format({
+      applicationContext,
+      targetLanguage,
+    });
+
+    const res = await callModel(token, model, { system, user: textToTranslate });
 
     const items: AlfredListItem[] = [
       {

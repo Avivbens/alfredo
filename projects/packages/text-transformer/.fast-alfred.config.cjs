@@ -35,9 +35,22 @@ https://platform.openai.com/settings/organization/api-keys
 
 ### Translate
 
-Enter the language code (e.g., "en" for English) followed by the text to be translated, like "en Hello, how are you?"
+The translation feature supports two methods:
 
-If the language code is missing, the default language will be English.
+**Method 1: Quick Select (Recommended)**
+Use the language selector command to choose from predefined languages (you can customize these in the workflow settings).
+After selecting a language, enter or paste the text you want to translate.
+
+**Method 2: Manual Language Specification**
+Enter the target language followed by the \`§\` delimiter and your text.
+
+Examples:
+- \`Spanish§ Hello, how are you?\` - Translates to Spanish
+- \`French§ Good morning\` - Translates to French
+- \`de§ Thank you\` - Translates to German (using language code)
+- \`Hello, how are you?\` - Translates to English (default when no language is specified)
+
+**Important:** The \`§\` character separates the language from the text. Without it, the entire input will be translated to English by default.
 
 To view the workflow codebase, click here:
 ${homepage}

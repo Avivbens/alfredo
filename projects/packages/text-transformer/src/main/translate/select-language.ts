@@ -1,6 +1,7 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { registerUpdater } from '@alfredo/updater';
+import { LANGUAGE_DELIMITER } from '../../common/defaults.constants';
 import { Variables } from '../../common/variables.enum';
 
 (async () => {
@@ -23,7 +24,7 @@ import { Variables } from '../../common/variables.enum';
   const items: AlfredListItem[] = languages.map((language) => ({
     title: language,
     subtitle: `Translate to ${language}`,
-    arg: `${language} `,
+    arg: `${language}${LANGUAGE_DELIMITER} `,
   }));
 
   alfredClient.output({ items });

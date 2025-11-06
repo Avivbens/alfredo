@@ -1,3 +1,13 @@
+## 5.4.1 (2025-11-06)
+
+### 🩹 Fixes
+
+- **translate:** better language extraction, using the `§` as delimiter ([ea96142](https://github.com/Avivbens/alfredo/commit/ea96142))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.4.0 (2025-10-23)
 
 ### 🚀 Features

@@ -1,3 +1,13 @@
+## 5.4.2 (2025-11-12)
+
+### 🩹 Fixes
+
+- **translate:** issue with extracting target language ([a85751a](https://github.com/Avivbens/alfredo/commit/a85751a))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.4.1 (2025-11-06)
 
 ### 🩹 Fixes

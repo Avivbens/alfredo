@@ -22,13 +22,16 @@ interface ParsedTranslationInput {
 function parseLanguageFromInput(input: string): ParsedTranslationInput {
   const trimmedInput = input.trim();
 
-  const pattern = new RegExp(`^([^${LANGUAGE_DELIMITER}]+)${LANGUAGE_DELIMITER}\\s*(.*)$`);
-  const match = trimmedInput.match(pattern);
+  const hasDelimiter = trimmedInput.includes(LANGUAGE_DELIMITER);
+  const [targetLanguage, ...textParts] = trimmedInput.split(LANGUAGE_DELIMITER);
 
-  if (match && match[1] && match[2]) {
+  /**
+   * If delimiter is found and target language is specified
+   */
+  if (hasDelimiter && targetLanguage) {
     return {
-      targetLanguage: match[1].trim(),
-      textToTranslate: match[2],
+      targetLanguage: targetLanguage.trim(),
+      textToTranslate: textParts.join(LANGUAGE_DELIMITER).trim(),
     };
   }
 
@@ -77,6 +80,8 @@ function parseLanguageFromInput(input: string): ParsedTranslationInput {
 
     // Parse the input to extract target language and text
     const { targetLanguage, textToTranslate } = parseLanguageFromInput(input);
+
+    alfredClient.log(`Translating to: ${targetLanguage}`);
 
     const system = await TRANSLATE_SYSTEM_PROMPT(useApplicationContext).format({
       applicationContext,

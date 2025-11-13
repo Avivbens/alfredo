@@ -2,11 +2,12 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
-import { AvailableModels, callModel } from '@alfredo/llm';
+import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME, LANGUAGE_DELIMITER } from '../../common/defaults.constants';
 import { TRANSLATE_SYSTEM_PROMPT } from '../../common/prompts/translate.prompt';
 import { Variables } from '../../common/variables.enum';
+import { translateResultSchema } from '../../models/translate-results.schema';
 
 interface ParsedTranslationInput {
   targetLanguage: string;
@@ -88,13 +89,22 @@ function parseLanguageFromInput(input: string): ParsedTranslationInput {
       targetLanguage,
     });
 
-    const res = await callModel(token, model, { system, user: textToTranslate });
+    /**
+     * Call the model with structured response parsing
+     */
+    const { translation, sourceLanguage } = await callModelWithStructuredResponse(
+      token,
+      model,
+      { system, user: textToTranslate },
+      translateResultSchema,
+    );
 
+    const subtitle = `${sourceLanguage} => ${targetLanguage}`;
     const items: AlfredListItem[] = [
       {
-        title: res,
-        subtitle: 'Translate',
-        arg: res,
+        title: translation,
+        subtitle,
+        arg: translation,
       },
     ];
 

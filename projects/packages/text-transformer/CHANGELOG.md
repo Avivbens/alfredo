@@ -1,3 +1,13 @@
+## 5.5.0 (2025-11-13)
+
+### 🚀 Features
+
+- **translate:** support source language detection ([6086696](https://github.com/Avivbens/alfredo/commit/6086696))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.4.2 (2025-11-12)
 
 ### 🩹 Fixes

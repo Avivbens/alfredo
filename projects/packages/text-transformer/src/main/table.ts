@@ -52,6 +52,9 @@ import { formatMarkdownTable } from '../utils/format-table.util';
         title: formatted,
         subtitle: 'Markdown Table',
         arg: formatted,
+        text: {
+          largetype: res,
+        },
       },
     ];
 

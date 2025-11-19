@@ -1,0 +1,20 @@
+{
+  "name": "jira-master",
+  "version": "1.0.0",
+  "description": "AI-powered Alfred workflow to create Jira tickets from Slack threads or text input",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "jira",
+    "ai",
+    "llm",
+    "productivity",
+    "ticket",
+    "slack"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

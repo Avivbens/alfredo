@@ -1,0 +1,71 @@
+import { FastAlfred } from 'fast-alfred';
+import { setTimeout } from 'node:timers/promises';
+import type { AvailableModels } from '@alfredo/llm';
+import { registerUpdater } from '@alfredo/updater';
+import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
+import { Variables } from '../common/variables.enum';
+import { extractTicket } from '../services/ticket-extractor.service';
+
+(async () => {
+  const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('jira-master'));
+
+  try {
+    if (!alfredClient.input || alfredClient.input.trim().length === 0) {
+      alfredClient.output({
+        items: [
+          {
+            title: 'No input provided',
+            subtitle: 'Please paste the Slack thread or issue description',
+            valid: false,
+          },
+        ],
+      });
+      return;
+    }
+
+    const llmToken = alfredClient.env.getEnv<string>(Variables.LLM_TOKEN);
+    const selectedModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL) as AvailableModels;
+
+    if (!llmToken || !selectedModel) {
+      throw new Error(
+        'LLM configuration missing. Please set llm_token and selected_model in Alfred workflow variables.',
+      );
+    }
+
+    const debounceTime = alfredClient.env.getEnv(Variables.DEBOUNCE_TIME, {
+      defaultValue: DEFAULT_DEBOUNCE_TIME,
+      parser: Number,
+    });
+
+    const titleExample = alfredClient.env.getEnv(Variables.TITLE_EXAMPLE, {
+      defaultValue: undefined,
+    });
+
+    await setTimeout(debounceTime);
+
+    const ticket = await extractTicket(llmToken, selectedModel, alfredClient.input, titleExample);
+
+    const storyPointsText =
+      ticket.storyPoints !== null && ticket.storyPoints !== undefined ? ` • ${ticket.storyPoints} points` : '';
+
+    const priorityText = ticket.priority ? ` • ${ticket.priority}` : '';
+    const subtitle = `${ticket.title} | ${ticket.issueType}${storyPointsText}${priorityText} | Press Enter to create`;
+
+    alfredClient.output({
+      items: [
+        {
+          title: ticket.title,
+          subtitle,
+          arg: JSON.stringify(ticket),
+          valid: true,
+          text: {
+            largetype: `Title: ${ticket.title}\n\nType: ${ticket.issueType}\nStory Points: ${ticket.storyPoints || 'N/A'}\nPriority: ${ticket.priority || 'N/A'}\n\nDescription:\n${ticket.description}`,
+          },
+        },
+      ],
+    });
+  } catch (error) {
+    alfredClient.error(error);
+  }
+})();

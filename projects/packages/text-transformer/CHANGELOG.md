@@ -1,3 +1,13 @@
+## 5.5.1 (2025-11-19)
+
+### 🩹 Fixes
+
+- **text-transformer:** add `largetype` for all workflow results - better preview of results ([c71abd2](https://github.com/Avivbens/alfredo/commit/c71abd2))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.5.0 (2025-11-13)
 
 ### 🚀 Features

@@ -41,4 +41,16 @@ export const GeminiJiraTicketSchema = z.object({
   priority: priority.optional(),
 });
 
+// Array wrapper schemas for multiple ticket extraction
+export const OpenAIJiraTicketsSchema = z.object({
+  tickets: z.array(JiraTicketSchema),
+});
+
+export const GeminiJiraTicketsSchema = z.object({
+  tickets: z.array(GeminiJiraTicketSchema),
+});
+
 export type JiraTicket = z.infer<typeof JiraTicketSchema>;
+export type JiraTickets = {
+  tickets: JiraTicket[];
+};

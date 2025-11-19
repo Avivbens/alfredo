@@ -44,24 +44,37 @@ import { extractTicket } from '../services/ticket-extractor.service';
 
     await setTimeout(debounceTime);
 
-    const ticket = await extractTicket(llmToken, selectedModel, alfredClient.input, titleExample);
+    const { tickets } = await extractTicket(llmToken, selectedModel, alfredClient.input, titleExample);
 
-    const storyPointsText =
-      ticket.storyPoints !== null && ticket.storyPoints !== undefined ? ` • ${ticket.storyPoints} points` : '';
+    if (!tickets.length) {
+      alfredClient.output({
+        items: [
+          {
+            title: 'No tickets found',
+            subtitle: 'Could not extract ticket information. Try rephrasing or providing more details.',
+            valid: false,
+          },
+        ],
+      });
+      return;
+    }
 
-    const priorityText = ticket.priority ? ` • ${ticket.priority}` : '';
-    const subtitle = `${ticket.title} | ${ticket.issueType}${storyPointsText}${priorityText} | Press Enter to create`;
+    const items = tickets.map((ticket, index) => {
+      const storyPointsText =
+        ticket.storyPoints !== null && ticket.storyPoints !== undefined ? ` • ${ticket.storyPoints} points` : '';
 
-    alfredClient.output({
-      items: [
-        {
-          title: ticket.title,
-          subtitle,
-          arg: JSON.stringify(ticket),
-          valid: true,
-        },
-      ],
+      const priorityText = ticket.priority ? ` • ${ticket.priority}` : '';
+      const subtitle = `${ticket.issueType}${storyPointsText}${priorityText} | Press Enter to create`;
+
+      return {
+        title: ticket.title,
+        subtitle,
+        arg: JSON.stringify(ticket),
+        valid: true,
+      };
     });
+
+    alfredClient.output({ items });
   } catch (error) {
     alfredClient.error(error);
   }

@@ -6,10 +6,13 @@ export const EXTRACT_TICKET_SYSTEM_PROMPT = (useTitleFormat: boolean) =>
     pipelinePrompts: [TITLE_FORMAT_SYSTEM_PROMPT_PARAM],
     finalPrompt:
       PromptTemplate.fromTemplate(`You are an AI assistant that extracts structured Jira ticket information from Slack threads, issue descriptions, or any text input.
+Your task is to analyze the provided text and generate a list of tickets.
+When multiple distinct issues or tasks are mentioned, create separate tickets for each.
+When details span a single cohesive issue, keep them in one ticket.
 
 Current date: {currentDate}
 
-Your task is to analyze the provided text and extract:
+For each ticket, extract:
 1. **Title**: A concise, one-liner summary that captures the essence of the issue
 2. **Description**: A concise, to-the-point description of the issue
 3. **Story Points**: An estimate of the work effort (use Fibonacci scale: 1, 2, 3, 5, 8, 13, or null if uncertain)
@@ -25,6 +28,8 @@ Guidelines:
 - For story points, consider complexity and effort. Use null if the work scope is unclear
 - For issue type: Story = new functionality, Task = work to do, Bug = something broken, Epic = large initiative
 - For priority, base it on urgency keywords in the text, or use null if not mentioned
+- When multiple issues are mentioned, associate details (description, priority, story points) with the correct ticket
+- Your response must be ONLY the list of tickets
 
 ${useTitleFormat ? '{TITLE_FORMAT_SYSTEM_PROMPT}' : ''}
 
@@ -33,7 +38,7 @@ Extract structured information accurately and thoughtfully.`),
 
 export const EXTRACT_TICKET_USER_PROMPT = new PromptTemplate({
   inputVariables: ['userInput'],
-  template: `Extract a Jira ticket from the following text:
+  template: `Extract Jira tickets from the following text:
 
 {userInput}`,
 });

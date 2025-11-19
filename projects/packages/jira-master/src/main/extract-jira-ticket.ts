@@ -44,27 +44,37 @@ import { extractTicket } from '../services/ticket-extractor.service';
 
     await setTimeout(debounceTime);
 
-    const ticket = await extractTicket(llmToken, selectedModel, alfredClient.input, titleExample);
+    const { tickets } = await extractTicket(llmToken, selectedModel, alfredClient.input, titleExample);
 
-    const storyPointsText =
-      ticket.storyPoints !== null && ticket.storyPoints !== undefined ? ` • ${ticket.storyPoints} points` : '';
-
-    const priorityText = ticket.priority ? ` • ${ticket.priority}` : '';
-    const subtitle = `${ticket.title} | ${ticket.issueType}${storyPointsText}${priorityText} | Press Enter to create`;
-
-    alfredClient.output({
-      items: [
-        {
-          title: ticket.title,
-          subtitle,
-          arg: JSON.stringify(ticket),
-          valid: true,
-          text: {
-            largetype: `Title: ${ticket.title}\n\nType: ${ticket.issueType}\nStory Points: ${ticket.storyPoints || 'N/A'}\nPriority: ${ticket.priority || 'N/A'}\n\nDescription:\n${ticket.description}`,
+    if (!tickets.length) {
+      alfredClient.output({
+        items: [
+          {
+            title: 'No tickets found',
+            subtitle: 'Could not extract ticket information. Try rephrasing or providing more details.',
+            valid: false,
           },
-        },
-      ],
+        ],
+      });
+      return;
+    }
+
+    const items = tickets.map((ticket, index) => {
+      const storyPointsText =
+        ticket.storyPoints !== null && ticket.storyPoints !== undefined ? ` • ${ticket.storyPoints} points` : '';
+
+      const priorityText = ticket.priority ? ` • ${ticket.priority}` : '';
+      const subtitle = `${ticket.issueType}${storyPointsText}${priorityText} | Press Enter to create`;
+
+      return {
+        title: ticket.title,
+        subtitle,
+        arg: JSON.stringify(ticket),
+        valid: true,
+      };
     });
+
+    alfredClient.output({ items });
   } catch (error) {
     alfredClient.error(error);
   }

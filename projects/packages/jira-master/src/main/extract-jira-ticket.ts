@@ -59,9 +59,6 @@ import { extractTicket } from '../services/ticket-extractor.service';
           subtitle,
           arg: JSON.stringify(ticket),
           valid: true,
-          text: {
-            largetype: `Title: ${ticket.title}\n\nType: ${ticket.issueType}\nStory Points: ${ticket.storyPoints || 'N/A'}\nPriority: ${ticket.priority || 'N/A'}\n\nDescription:\n${ticket.description}`,
-          },
         },
       ],
     });

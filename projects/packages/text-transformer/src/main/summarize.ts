@@ -50,6 +50,9 @@ import { Variables } from '../common/variables.enum';
         title: res,
         subtitle: 'Summarize',
         arg: res,
+        text: {
+          largetype: res,
+        },
       },
     ];
 

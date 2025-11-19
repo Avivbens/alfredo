@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.jira-master</string>
+    <key>category</key>
+    <string>Productivity</string>
+    <key>connections</key>
+    <dict>
+      <key>25207757-A5EF-4D58-9006-05FC11CBBF2E</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>A3359AE8-545E-446B-84EC-E556466D8850</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>AI-powered Alfred workflow to create Jira tickets from Slack threads or text input</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Jira Master</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:jira_master_create_ticket_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Thinking...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/extract-jira-ticket.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Tell me what is going on...</string>
+          <key>title</key>
+          <string>Create new event</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>25207757-A5EF-4D58-9006-05FC11CBBF2E</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/create-jira-ticket.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>A3359AE8-545E-446B-84EC-E556466D8850</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Jira Master! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+- **AI-Powered Extraction**: Uses LLM to intelligently extract ticket information from Slack threads or any text
+- **Structured Output**: Generates title, description, story points, issue type, and priority
+- **Smart Defaults**: Follows your project's conventions with optional title examples
+- **Auto-Create**: Creates Jira tickets directly from Alfred with one command
+- **Auto-Open**: Optionally opens created tickets in your browser
+- **Rich Preview**: Shows ticket details before creation
+
+## Usage
+
+1. Copy a Slack thread or any text describing an issue
+2. Open Alfred and type your keyword
+3. Paste the text
+4. Wait for AI to extract ticket information
+5. Press Enter to create the ticket
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>25207757-A5EF-4D58-9006-05FC11CBBF2E</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>A3359AE8-545E-446B-84EC-E556466D8850</key>
+      <dict>
+        <key>xpos</key>
+        <integer>505</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>jmt</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Trigger create Jira ticket keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>jira_master_create_ticket_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+          <key>verticalsize</key>
+          <integer>3</integer>
+        </dict>
+        <key>description</key>
+        <string>Your LLM provider access token</string>
+        <key>label</key>
+        <string>LLM Token</string>
+        <key>type</key>
+        <string>textarea</string>
+        <key>variable</key>
+        <string>llm_token</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>gpt-4o-mini</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Anthropic Claude Opus 4</string>
+              <string>claude-opus-4-0</string>
+            </array>
+            <array>
+              <string>Anthropic Claude Sonnet 4</string>
+              <string>claude-sonnet-4-0</string>
+            </array>
+            <array>
+              <string>Anthropic Claude Sonnet 3.7</string>
+              <string>claude-3-7-sonnet-latest</string>
+            </array>
+            <array>
+              <string>Anthropic Claude Sonnet 3.5</string>
+              <string>claude-3-5-sonnet-latest</string>
+            </array>
+            <array>
+              <string>Anthropic Claude Haiku 3.5</string>
+              <string>claude-3-5-haiku-latest</string>
+            </array>
+            <array>
+              <string>Anthropic Claude Opus 3</string>
+              <string>claude-3-opus-latest</string>
+            </array>
+            <array>
+              <string>Google Gemini 2.5 Pro</string>
+              <string>gemini-2.5-pro</string>
+            </array>
+            <array>
+              <string>Google Gemini 2.5 Flash</string>
+              <string>gemini-2.5-flash</string>
+            </array>
+            <array>
+              <string>Google Gemini 2.0 Flash</string>
+              <string>gemini-2.0-flash</string>
+            </array>
+            <array>
+              <string>Google Gemini 2.0 Flash Lite</string>
+              <string>gemini-2.0-flash-lite</string>
+            </array>
+            <array>
+              <string>Google Gemini 1.5 Pro</string>
+              <string>gemini-1.5-pro</string>
+            </array>
+            <array>
+              <string>Google Gemini 1.5 Flash</string>
+              <string>gemini-1.5-flash</string>
+            </array>
+            <array>
+              <string>Google Gemini 1.5 Flash 8B</string>
+              <string>gemini-1.5-flash-8b</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1</string>
+              <string>gpt-4.1</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1 mini</string>
+              <string>gpt-4.1-mini</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4.1 nano</string>
+              <string>gpt-4.1-nano</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4o</string>
+              <string>gpt-4o</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4o mini</string>
+              <string>gpt-4o-mini</string>
+            </array>
+            <array>
+              <string>OpenAI GPT 4 Turbo</string>
+              <string>gpt-4-turbo</string>
+            </array>
+            <array>
+              <string>OpenAI O1</string>
+              <string>o1</string>
+            </array>
+            <array>
+              <string>OpenAI O3</string>
+              <string>o3</string>
+            </array>
+            <array>
+              <string>OpenAI O3 mini</string>
+              <string>o3-mini</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>Your selection for LLM provider - including Anthropic, Google, OpenAI</string>
+        <key>label</key>
+        <string>LLM Model to Use</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>selected_model</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>300</integer>
+          <key>markercount</key>
+          <integer>16</integer>
+          <key>maxvalue</key>
+          <integer>1500</integer>
+          <key>minvalue</key>
+          <integer>0</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>In order to avoid unnecessary calls to the LLM model, we would debounce each request until the user stopped typing ✨</string>
+        <key>label</key>
+        <string>Debounce time to wait</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>debounce_time</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>yourcompany.atlassian.net</string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Your Jira Cloud domain (without https://)</string>
+        <key>label</key>
+        <string>Jira Base URL</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>jira_base_url</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>your-email@example.com</string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Your Jira account email address</string>
+        <key>label</key>
+        <string>Jira Username</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>jira_username</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+          <key>verticalsize</key>
+          <integer>3</integer>
+        </dict>
+        <key>description</key>
+        <string>Generate at: https://id.atlassian.com/manage-profile/security/api-tokens</string>
+        <key>label</key>
+        <string>Jira API Token</string>
+        <key>type</key>
+        <string>textarea</string>
+        <key>variable</key>
+        <string>jira_api_token</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>PROJ</string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Your default Jira project key (e.g., PROJ, DEV, TASK)</string>
+        <key>label</key>
+        <string>Jira Project Key</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>jira_project_key</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>Story</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Story</string>
+              <string>Story</string>
+            </array>
+            <array>
+              <string>Task</string>
+              <string>Task</string>
+            </array>
+            <array>
+              <string>Bug</string>
+              <string>Bug</string>
+            </array>
+            <array>
+              <string>Epic</string>
+              <string>Epic</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>Default issue type when AI cannot determine one</string>
+        <key>label</key>
+        <string>Default Issue Type</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>jira_default_issue_type</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>feat: add user authentication</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Optional: Example title format for AI to follow (e.g., conventional commits style)</string>
+        <key>label</key>
+        <string>Title Example (Optional)</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>title_example</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>5b10ac8d82e05b22cc7d4ef5</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Optional: Jira accountId to auto-assign tickets. Find via: GET /rest/api/3/user/search?query=email</string>
+        <key>label</key>
+        <string>Auto-Assign User ID (Optional)</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>auto_assign_user_id</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

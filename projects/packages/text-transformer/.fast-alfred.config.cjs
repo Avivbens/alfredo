@@ -3,7 +3,7 @@ const { author, description, homepage } = require('./package.json');
 const { env } = require('node:process');
 
 const README = `
-#### Thank you for using Text Transformer! ✨ 
+#### Thank you for using Text Transformer! ✨
 
 This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
 

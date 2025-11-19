@@ -68,7 +68,7 @@
           <key>subtext</key>
           <string>Tell me what is going on...</string>
           <key>title</key>
-          <string>Create new event</string>
+          <string>Create new ticket</string>
           <key>type</key>
           <integer>11</integer>
           <key>withspace</key>

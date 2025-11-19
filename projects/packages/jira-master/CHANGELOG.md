@@ -1,3 +1,13 @@
+## 1.1.2 (2025-11-19)
+
+### 🩹 Fixes
+
+- **jira-master:** change settings labels ([c448d4a](https://github.com/Avivbens/alfredo/commit/c448d4a))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.1 (2025-11-19)
 
 ### 🩹 Fixes

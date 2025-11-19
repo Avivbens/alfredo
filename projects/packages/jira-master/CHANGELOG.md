@@ -1,3 +1,13 @@
+## 1.1.3 (2025-11-19)
+
+### 🩹 Fixes
+
+- **jira-master:** small placeholder ([c28e60b](https://github.com/Avivbens/alfredo/commit/c28e60b))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.2 (2025-11-19)
 
 ### 🩹 Fixes

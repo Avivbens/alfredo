@@ -1,3 +1,13 @@
+## 5.5.2 (2025-11-19)
+
+### 🩹 Fixes
+
+- **text-transformer:** trigger deploy ([e0f1daf](https://github.com/Avivbens/alfredo/commit/e0f1daf))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.5.1 (2025-11-19)
 
 ### 🩹 Fixes

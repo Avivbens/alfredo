@@ -105,9 +105,6 @@ function parseLanguageFromInput(input: string): ParsedTranslationInput {
         title: translation,
         subtitle,
         arg: translation,
-        text: {
-          largetype: translation,
-        },
       },
     ];
 

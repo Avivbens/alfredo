@@ -64,9 +64,6 @@ import { AvailableTone } from '../models/tones.enum';
         title: res,
         subtitle: 'Tones',
         arg: res,
-        text: {
-          largetype: res,
-        },
       },
     ];
 

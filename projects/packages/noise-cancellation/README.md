@@ -15,3 +15,9 @@ Toggle noise cancellation on and off directly from Alfred.
 ## Usage
 
 Use the keyword `nct` to toggle noise cancellation on or off.
+
+## Demo
+
+### Toggle Noise Cancellation
+
+![Toggle](https://raw.githubusercontent.com/Avivbens/alfredo/HEAD/demo/noise-cancellation/toggle.gif)

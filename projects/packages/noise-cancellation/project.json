@@ -1,0 +1,16 @@
+{
+  "name": "noise-cancellation",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "{projectRoot}/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "defaultConfiguration": "local"
+    },
+    "serve": {},
+    "lint": {
+      "executor": "nx:noop"
+    }
+  }
+}

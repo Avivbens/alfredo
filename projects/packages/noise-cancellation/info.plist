@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.noise-cancellation</string>
+    <key>category</key>
+    <string>Tools</string>
+    <key>connections</key>
+    <dict>
+      <key>172F9A79-83D6-48B6-ADC5-BBA3E2F2D447</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>FDD54B33-1C83-4284-BB56-48B893CEFC88</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Toggle noise cancellation on and off from Alfred</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Noise Cancellation</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>2</integer>
+          <key>keyword</key>
+          <string>nct</string>
+          <key>subtext</key>
+          <string></string>
+          <key>text</key>
+          <string>Toggle Noise Cancellation</string>
+          <key>withspace</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.keyword</string>
+        <key>uid</key>
+        <string>172F9A79-83D6-48B6-ADC5-BBA3E2F2D447</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>-- CONFIGURATION VARIABLES (User Settable) --
+set cc_localization_string to "Sound"
+
+-- AirPods Listening Mode Checkboxes (counting only checkboxes)
+-- Checkbox 3 = Off, 4 = Transparency, 5 = Adaptive, 6 = Noise Cancellation
+set transparency_checkbox_index to 4
+set noise_cancellation_checkbox_index to 6
+---------------------------------------------
+
+tell application "System Events"
+    tell application process "ControlCenter"
+
+        -- Open Sound Menu
+        click (first UI element of menu bar 1 whose description starts with cc_localization_string)
+        delay 0.3
+
+        -- Toggle Logic
+        try
+            set transparencyCheckbox to checkbox transparency_checkbox_index of scroll area 1 of group 1 of window 1
+            set noiseCancellationCheckbox to checkbox noise_cancellation_checkbox_index of scroll area 1 of group 1 of window 1
+
+            if value of transparencyCheckbox is 1 then
+                click noiseCancellationCheckbox
+            else
+                click transparencyCheckbox
+            end if
+
+        on error errMsg number errNum
+            display dialog "Error: " &amp; errNum &amp; ": " &amp; errMsg
+        end try
+        delay 0.1
+
+        -- Close Control Center
+        click (first UI element of menu bar 1 whose description starts with cc_localization_string)
+        delay 0.01
+
+    end tell
+end tell</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>6</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>FDD54B33-1C83-4284-BB56-48B893CEFC88</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Noise Cancellation! ✨
+
+## Features
+
+Toggle noise cancellation on and off directly from Alfred.
+Currently, MacOS 26 does not provide a public API for noise cancellation, so this workflow uses private APIs with AppleScripts. Use at your own risk!
+
+## Usage
+
+Use the keyword `nct` to toggle noise cancellation on or off.
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>172F9A79-83D6-48B6-ADC5-BBA3E2F2D447</key>
+      <dict>
+        <key>xpos</key>
+        <integer>140</integer>
+        <key>ypos</key>
+        <integer>185</integer>
+      </dict>
+      <key>FDD54B33-1C83-4284-BB56-48B893CEFC88</key>
+      <dict>
+        <key>xpos</key>
+        <integer>475</integer>
+        <key>ypos</key>
+        <integer>185</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array></array>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+    <key>version</key>
+    <string>1.0.0</string>
+  </dict>
+</plist>

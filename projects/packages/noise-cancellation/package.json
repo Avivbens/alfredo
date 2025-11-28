@@ -1,0 +1,17 @@
+{
+  "name": "noise-cancellation",
+  "version": "1.0.0",
+  "description": "Toggle noise cancellation on and off from Alfred",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "noise cancellation",
+    "toggle",
+    "MacOS 26"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  }
+}

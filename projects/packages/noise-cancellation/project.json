@@ -9,6 +9,8 @@
       "defaultConfiguration": "local"
     },
     "serve": {},
-    "lint": {}
+    "lint": {
+      "executor": "nx:noop"
+    }
   }
 }

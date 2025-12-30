@@ -99,7 +99,7 @@ function parseLanguageFromInput(input: string): ParsedTranslationInput {
       translateResultSchema,
     );
 
-    const subtitle = `${sourceLanguage} => ${targetLanguage}`;
+    const subtitle = sourceLanguage ? `${sourceLanguage} => ${targetLanguage}` : `Translated to ${targetLanguage}`;
     const items: AlfredListItem[] = [
       {
         title: translation,

@@ -1,3 +1,13 @@
+## 5.5.3 (2025-12-30)
+
+### 🩹 Fixes
+
+- **`sourceLanguage`:** set to optional to prevent Zod error ([6cfa374](https://github.com/Avivbens/alfredo/commit/6cfa374))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.5.2 (2025-11-19)
 
 ### 🩹 Fixes

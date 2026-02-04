@@ -4,7 +4,10 @@ import psList from 'ps-list';
 import { registerUpdater } from '@alfredo/updater';
 import { Variables } from '../common/variables.enum';
 import { CallbackPayload } from '../models/callback-payload.model';
+import type { ProcessWithBattery } from '../models/process-with-battery.model';
 import { getSortByResource } from '../models/sort-by-resources.model';
+import { fetchBatteryData } from '../services/battery.service';
+import { mergeProcessesWithBattery } from '../services/process-merger.service';
 import { searchProcess } from '../services/search.service';
 
 (async () => {
@@ -41,12 +44,42 @@ import { searchProcess } from '../services/search.service';
   try {
     const processes = await psList();
 
-    const filteredProcesses = await searchProcess(processes, searchTerm ?? '', sliceAmount, fuzzyThreshold, sortOrder);
+    // Conditionally fetch battery data only when sorting by battery
+    let processesWithBattery: ProcessWithBattery[];
+    let batteryError: string | undefined;
 
-    const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd, cpu, memory }) => {
+    if (sortOrder === 'battery') {
+      const batteryResult = await fetchBatteryData();
+
+      if (!batteryResult.success) {
+        batteryError = batteryResult.error;
+      }
+
+      processesWithBattery = mergeProcessesWithBattery(processes, batteryResult.data);
+    } else {
+      processesWithBattery = processes.map((p) => ({ ...p }));
+    }
+
+    const filteredProcesses = await searchProcess(
+      processesWithBattery,
+      searchTerm ?? '',
+      sliceAmount,
+      fuzzyThreshold,
+      sortOrder,
+    );
+
+    const items: AlfredListItem[] = filteredProcesses.map(({ name, pid, cmd, cpu, memory, battery }) => {
       const cpuInfo = cpu !== undefined ? `${cpu.toFixed(1)}%` : 'N/A';
       const memoryInfo = memory !== undefined ? `${memory.toFixed(1)}%` : 'N/A';
-      const subtitle = `PID: ${pid} | CPU: ${cpuInfo} | Memory: ${memoryInfo} | CMD: ${cmd}`;
+
+      // Conditionally include battery info in subtitle
+      let subtitle: string;
+      if (sortOrder === 'battery') {
+        const batteryInfo = battery !== undefined ? battery.toFixed(2) : 'N/A';
+        subtitle = `Battery: ${batteryInfo} | PID: ${pid} | CPU: ${cpuInfo} | Memory: ${memoryInfo} | CMD: ${cmd}`;
+      } else {
+        subtitle = `PID: ${pid} | CPU: ${cpuInfo} | Memory: ${memoryInfo} | CMD: ${cmd}`;
+      }
 
       const payload: CallbackPayload = {
         pid,
@@ -62,6 +95,16 @@ import { searchProcess } from '../services/search.service';
         uid: subtitle,
       };
     });
+
+    if (batteryError) {
+      items.unshift({
+        title: '⚠️ Battery Data Unavailable',
+        subtitle: batteryError,
+        arg: '',
+        uid: 'battery-error',
+        valid: false, // Make item non-selectable
+      });
+    }
 
     const sliced = items.slice(0, sliceAmount);
 

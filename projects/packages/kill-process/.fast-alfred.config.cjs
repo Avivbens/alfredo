@@ -26,8 +26,9 @@ Search through your operating system's processes by name, port, PID, or path –
 
 #### With resource consumption sorting
 
-\`!m\` - Search for processes, sorted by memory usage.   
+\`!m\` - Search for processes, sorted by memory usage.    
 \`!c\` - Search for processes, sorted by CPU usage.   
+\`!b\` - Search for processes, sorted by battery usage (requires one-time password for setup).    
 
 
 To view the workflow codebase, click here:

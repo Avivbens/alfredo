@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const SortByResourceSchema = z.enum(['cpu', 'memory', 'none']);
+export const SortByResourceSchema = z.enum(['cpu', 'memory', 'battery', 'none']);
 export type SortByResource = z.infer<typeof SortByResourceSchema>;
 
 const DEFAULT_SORT_BY_RESOURCE: SortByResource = 'none';

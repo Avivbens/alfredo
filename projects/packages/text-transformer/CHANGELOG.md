@@ -1,3 +1,13 @@
+## 5.5.4 (2026-02-04)
+
+### 🩹 Fixes
+
+- **schema:** validate schemas with Zod ([4e203ae](https://github.com/Avivbens/alfredo/commit/4e203ae))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.5.3 (2025-12-30)
 
 ### 🩹 Fixes

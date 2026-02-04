@@ -1,3 +1,17 @@
+## 3.1.0 (2026-02-04)
+
+### 🚀 Features
+
+- **battery:** support sorting by battery usage - `b` ([df1cbba](https://github.com/Avivbens/alfredo/commit/df1cbba))
+
+### 🩹 Fixes
+
+- **schema:** validate schemas with Zod ([4e203ae](https://github.com/Avivbens/alfredo/commit/4e203ae))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 3.0.0 (2025-09-01)
 
 ### 🚀 Features

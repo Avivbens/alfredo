@@ -1,6 +1,6 @@
 {
   "name": "jira-master",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "AI-powered Alfred workflow to create Jira tickets from Slack threads or text input",
   "keywords": [
     "alfred",

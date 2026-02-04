@@ -1,6 +1,6 @@
 import { AlfredListItem, FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
-import { AvailableModels } from '@alfredo/llm';
+import { AvailableModelsSchema } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { Variables } from '../common/variables.enum';
@@ -19,7 +19,8 @@ import { extractEvent } from '../services/event-extractor.service';
     });
 
     const token: string | undefined = alfredClient.env.getEnv(Variables.LLM_TOKEN);
-    const model: AvailableModels | undefined = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
+    const rawModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
+    const model = rawModel ? AvailableModelsSchema.parse(rawModel) : undefined;
 
     if (!token || !model) {
       throw new Error('Token or model is not defined!');

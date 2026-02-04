@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export enum AvailableModels {
   /* Anthropic */
   CLAUDE_OPUS_4 = 'claude-opus-4-0',
@@ -27,3 +29,5 @@ export enum AvailableModels {
   O3 = 'o3',
   O3_MINI = 'o3-mini',
 }
+
+export const AvailableModelsSchema = z.nativeEnum(AvailableModels);

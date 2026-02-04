@@ -2,12 +2,12 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
-import { AvailableModels, callModel } from '@alfredo/llm';
+import { AvailableModelsSchema, callModel } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { TONE_SYSTEM_PROMPT } from '../common/prompts/tone.prompt';
 import { Variables } from '../common/variables.enum';
-import { AvailableTone } from '../models/tones.enum';
+import { AvailableTone, AvailableToneSchema } from '../models/tones.enum';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -19,7 +19,8 @@ import { AvailableTone } from '../models/tones.enum';
       parser: Number,
     });
     const token: string | undefined = alfredClient.env.getEnv(Variables.LLM_TOKEN);
-    const model: AvailableModels | undefined = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
+    const rawModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
+    const model = rawModel ? AvailableModelsSchema.parse(rawModel) : undefined;
 
     if (!token || !model) {
       throw new Error('Token or model is not defined!');
@@ -36,7 +37,8 @@ import { AvailableTone } from '../models/tones.enum';
       return;
     }
 
-    if (!Object.values(AvailableTone).includes(tone as AvailableTone)) {
+    const parsedTone = AvailableToneSchema.safeParse(tone);
+    if (!parsedTone.success) {
       throw new Error(`Not allowed tone! Please use one of: ${Object.values(AvailableTone).join(', ')}`);
     }
 
@@ -53,7 +55,7 @@ import { AvailableTone } from '../models/tones.enum';
      */
     await setTimeout(denounceTime);
 
-    const system = await TONE_SYSTEM_PROMPT(tone as AvailableTone, useApplicationContext).format({
+    const system = await TONE_SYSTEM_PROMPT(parsedTone.data, useApplicationContext).format({
       applicationContext,
     });
 

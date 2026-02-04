@@ -1,6 +1,6 @@
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
-import type { AvailableModels } from '@alfredo/llm';
+import { AvailableModelsSchema } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { Variables } from '../common/variables.enum';
@@ -25,7 +25,8 @@ import { extractTicket } from '../services/ticket-extractor.service';
     }
 
     const llmToken = alfredClient.env.getEnv<string>(Variables.LLM_TOKEN);
-    const selectedModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL) as AvailableModels;
+    const rawModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
+    const selectedModel = rawModel ? AvailableModelsSchema.parse(rawModel) : undefined;
 
     if (!llmToken || !selectedModel) {
       throw new Error(

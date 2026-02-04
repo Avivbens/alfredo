@@ -1,5 +1,5 @@
 import { $ } from 'zurk';
-import { AudioSource } from '../models/audio-source-all.model';
+import { AudioSource, AudioSourceSchema } from '../models/audio-source-all.model';
 
 export async function getConnectedAudioDevices(): Promise<AudioSource[]> {
   const { stdout } = await $`SwitchAudioSource -a -f json`;
@@ -8,7 +8,7 @@ export async function getConnectedAudioDevices(): Promise<AudioSource[]> {
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean)
-    .map((line) => JSON.parse(line)) as AudioSource[];
+    .map((line) => AudioSourceSchema.parse(JSON.parse(line)));
 
   return audioData || [];
 }

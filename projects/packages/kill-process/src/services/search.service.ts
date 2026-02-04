@@ -1,10 +1,10 @@
 import Fuse from 'fuse.js';
 import type { Port } from 'occupied-ports';
-import type { ProcessDescriptor } from 'ps-list';
+import type { ProcessWithBattery } from '../models/process-with-battery.model';
 import { SortByResource } from '../models/sort-by-resources.model';
 import { SEARCH_PORT_FIELDS_CONFIG, SEARCH_PROCESS_FIELDS_CONFIG } from './search.config';
 
-function sortProcessesByResource(processes: ProcessDescriptor[], sortBy: SortByResource): ProcessDescriptor[] {
+function sortProcessesByResource(processes: ProcessWithBattery[], sortBy: SortByResource): ProcessWithBattery[] {
   if (sortBy === 'none') {
     return processes;
   }
@@ -25,16 +25,24 @@ function sortProcessesByResource(processes: ProcessDescriptor[], sortBy: SortByR
     });
   }
 
+  if (sortBy === 'battery') {
+    return processes.toSorted((a, b) => {
+      const batteryA = a.battery ?? 0;
+      const batteryB = b.battery ?? 0;
+      return batteryB - batteryA; // Sort descending (highest energy impact first)
+    });
+  }
+
   throw new Error(`Unsupported sortBy value: ${sortBy}`);
 }
 
 export async function searchProcess(
-  processes: ProcessDescriptor[],
+  processes: ProcessWithBattery[],
   searchTerm: string,
   limit: number,
   threshold: number,
   sortBy: SortByResource,
-): Promise<ProcessDescriptor[]> {
+): Promise<ProcessWithBattery[]> {
   if (!searchTerm?.trim()) {
     const sorted = sortProcessesByResource(processes, sortBy);
     return sorted.slice(0, limit);

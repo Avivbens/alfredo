@@ -14,4 +14,5 @@ export enum Variables {
   // Optional Features
   TITLE_EXAMPLE = 'title_example',
   AUTO_ASSIGN_USER_ID = 'auto_assign_user_id',
+  CUSTOM_FIELDS = 'custom_fields',
 }

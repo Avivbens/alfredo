@@ -481,9 +481,30 @@ https://github.com/Avivbens/alfredo</string>
         <key>variable</key>
         <string>auto_assign_user_id</string>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>{"customfield_10187": {"value": "No"}}</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Optional: JSON object of custom fields to include in every ticket. Keys are field IDs, values are field values.</string>
+        <key>label</key>
+        <string>Custom Fields (Optional)</string>
+        <key>type</key>
+        <string>textarea</string>
+        <key>variable</key>
+        <string>custom_fields</string>
+      </dict>
     </array>
     <key>version</key>
-    <string>1.1.0</string>
+    <string>1.1.4</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

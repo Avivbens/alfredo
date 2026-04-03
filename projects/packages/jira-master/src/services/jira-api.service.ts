@@ -14,6 +14,7 @@ export interface JiraConfig {
   projectKey: string;
   defaultIssueType?: string;
   autoAssignUserId?: string;
+  customFields?: Record<string, unknown>;
 }
 
 function convertToADF(text: string): ADFDocument {
@@ -121,6 +122,10 @@ export async function createJiraIssue(
     if (storyPointsFieldId) {
       fields[storyPointsFieldId] = ticket.storyPoints;
     }
+  }
+
+  if (config.customFields) {
+    Object.assign(fields, config.customFields);
   }
 
   const response = await fetch(`${baseUrl}/rest/api/3/issue`, {

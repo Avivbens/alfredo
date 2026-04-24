@@ -41,6 +41,7 @@
     "occupied-ports": "^1.0.0",
     "plist": "^3.1.0",
     "ps-list": "^8.1.1",
+    "world-countries": "^5.1.0",
     "zod": "^3.25.67",
     "zod-to-json-schema": "^3.25.0",
     "zurk": "^0.11.2"

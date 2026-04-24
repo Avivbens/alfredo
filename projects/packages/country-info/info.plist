@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.country-info</string>
+    <key>category</key>
+    <string>Tools</string>
+    <key>connections</key>
+    <dict>
+      <key>25207757-A5EF-4D58-9006-05FC11CBBF2E</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Look up country info: codes, flag, capital, currency, languages 🌍</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Country Info</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>autopaste</key>
+          <false></false>
+          <key>clipboardtext</key>
+          <string>{query}</string>
+          <key>ignoredynamicplaceholders</key>
+          <false></false>
+          <key>transient</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.clipboard</string>
+        <key>uid</key>
+        <string>6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>0</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>con</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string></string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/get-info.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Whice one we're looking for...</string>
+          <key>title</key>
+          <string>Search for a country</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>25207757-A5EF-4D58-9006-05FC11CBBF2E</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Country Info! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+Look up any country by its ISO code (`cca2`, `cca3`, `cioc`) or name – and get its flag, official name, capital, region, calling code, currencies, languages, and area at a glance.
+
+## Usage
+
+1. Type "con" in Alfred to activate the workflow.
+1. Enter a country code, name, or calling code (e.g. `US`, `USA`, `united`, `japan`, `+1`, `+972`).
+1. Select a result to copy the full country object to the clipboard.
+
+## Options
+
+`con` - Search for countries by ISO code or name.
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>25207757-A5EF-4D58-9006-05FC11CBBF2E</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
+      <dict>
+        <key>xpos</key>
+        <integer>555</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>0</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>15</integer>
+          <key>markercount</key>
+          <integer>20</integer>
+          <key>maxvalue</key>
+          <integer>50</integer>
+          <key>minvalue</key>
+          <integer>1</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Select amount of results to show</string>
+        <key>label</key>
+        <string>Number of results</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>slice_amount</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>4</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>10</integer>
+          <key>minvalue</key>
+          <integer>0</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>A number between 1-10. A higher number would be less accurate, but more dynamic.</string>
+        <key>label</key>
+        <string>Fuzzy search accuracy</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>fuzzy_threshold</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

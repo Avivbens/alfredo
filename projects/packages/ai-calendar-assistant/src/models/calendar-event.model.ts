@@ -70,11 +70,11 @@ export const OpenAICalendarEventSchema = z
   .object({
     summary,
     startDate,
-    endDate: endDate.nullable(),
-    location: location.nullable(),
-    description: description.nullable(),
-    url: url.nullable(),
-    allDayEvent: allDayEvent.nullable().default(false),
+    endDate: endDate.optional().nullable(),
+    location: location.optional().nullable(),
+    description: description.optional().nullable(),
+    url: url.optional().nullable(),
+    allDayEvent: allDayEvent.optional().nullable().default(false),
   })
   .transform(eventTransform);
 

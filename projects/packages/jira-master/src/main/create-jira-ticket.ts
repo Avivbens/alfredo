@@ -27,6 +27,11 @@ import { createJiraIssue } from '../services/jira-api.service';
       defaultValue: undefined,
     });
 
+    const customFieldsRaw = alfredClient.env.getEnv(Variables.CUSTOM_FIELDS, {
+      defaultValue: undefined,
+    });
+    const customFields = customFieldsRaw ? JSON.parse(customFieldsRaw) : undefined;
+
     const result = await createJiraIssue(
       {
         baseUrl: jiraBaseUrl,
@@ -35,6 +40,7 @@ import { createJiraIssue } from '../services/jira-api.service';
         projectKey: jiraProjectKey,
         defaultIssueType,
         autoAssignUserId,
+        customFields,
       },
       ticket,
     );

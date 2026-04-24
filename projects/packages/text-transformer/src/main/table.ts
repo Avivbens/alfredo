@@ -53,6 +53,12 @@ import { formatMarkdownTable } from '../utils/format-table.util';
         title: formatted,
         subtitle: 'Markdown Table',
         arg: formatted,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: formatted,
+          },
+        },
       },
     ];
 

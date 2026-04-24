@@ -27,6 +27,8 @@ This feature enhances text styling and formatting, customizing them to meet your
 
 Use your customized Alfred keyword to activate each command.
 
+Hold \`⌘\` and press \`Enter\` on any result to preview the output in Large Type before copying it.
+
 ### API key
 
 You can generate an OpenAI key via the following link:

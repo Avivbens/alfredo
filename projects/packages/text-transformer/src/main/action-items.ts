@@ -51,6 +51,12 @@ import { Variables } from '../common/variables.enum';
         title: res,
         subtitle: 'Action Items',
         arg: res,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: res,
+          },
+        },
       },
     ];
 

@@ -25,7 +25,7 @@ Transform your text with Alfred — translate, check spelling, correct grammar, 
 
 Use your customized Alfred keyword to activate each command.
 
-You can hold down the `cmd` key to preview the output before copying it.
+Hold `⌘` and press `Enter` on any result to preview the output in Large Type instead of copying it.
 
 ### Translate 🈯
 

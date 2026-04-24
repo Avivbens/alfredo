@@ -66,6 +66,12 @@ import { AvailableTone, AvailableToneSchema } from '../models/tones.enum';
         title: res,
         subtitle: 'Tones',
         arg: res,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: res,
+          },
+        },
       },
     ];
 

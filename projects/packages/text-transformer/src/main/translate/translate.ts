@@ -106,6 +106,12 @@ function parseLanguageFromInput(input: string): ParsedTranslationInput {
         title: translation,
         subtitle,
         arg: translation,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: translation,
+          },
+        },
       },
     ];
 

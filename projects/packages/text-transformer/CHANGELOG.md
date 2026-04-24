@@ -1,3 +1,13 @@
+## 5.5.5 (2026-04-24)
+
+### 🩹 Fixes
+
+- **preview:** allow showing target text in preview mode using `cmd` ([a6cf6e4](https://github.com/Avivbens/alfredo/commit/a6cf6e4))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 5.5.4 (2026-02-04)
 
 ### 🩹 Fixes

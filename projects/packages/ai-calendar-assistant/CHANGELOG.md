@@ -1,3 +1,13 @@
+## 1.2.3 (2026-04-24)
+
+### 🩹 Fixes
+
+- **open-ai:** issue with ChatGPT schema ([104f632](https://github.com/Avivbens/alfredo/commit/104f632))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.2 (2026-02-04)
 
 ### 🩹 Fixes

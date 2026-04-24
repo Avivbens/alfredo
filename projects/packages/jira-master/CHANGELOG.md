@@ -1,3 +1,13 @@
+## 1.1.5 (2026-04-24)
+
+### 🩹 Fixes
+
+- **custom-fields:** allow input for required custom fields ([d1b4cfa](https://github.com/Avivbens/alfredo/commit/d1b4cfa))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.4 (2026-02-04)
 
 ### 🩹 Fixes

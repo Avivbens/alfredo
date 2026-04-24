@@ -12,6 +12,16 @@
       <array>
         <dict>
           <key>modifiers</key>
+          <integer>1048576</integer>
+          <key>modifiersubtext</key>
+          <string>Open in Google Maps</string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
           <integer>0</integer>
           <key>modifiersubtext</key>
           <string></string>
@@ -19,6 +29,43 @@
           <false></false>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>B961F107-1F93-4B98-9043-12ECB1641A39</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
       <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
@@ -87,6 +134,29 @@
         <string>6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
         <key>version</key>
         <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>browser</key>
+          <string></string>
+          <key>skipqueryencode</key>
+          <true></true>
+          <key>skipvarencode</key>
+          <true></true>
+          <key>spaces</key>
+          <string></string>
+          <key>url</key>
+          <string>{query}</string>
+          <key>utf8</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.openurl</string>
+        <key>uid</key>
+        <string>B961F107-1F93-4B98-9043-12ECB1641A39</string>
+        <key>version</key>
+        <integer>1</integer>
       </dict>
       <dict>
         <key>config</key>
@@ -187,6 +257,38 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
         <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
         <key>version</key>
         <integer>1</integer>
@@ -230,6 +332,7 @@ Look up any country by its ISO code (`cca2`, `cca3`, `cioc`) or name – and get
 1. Type "con" in Alfred to activate the workflow.
 1. Enter a country code, name, or calling code (e.g. `US`, `USA`, `united`, `japan`, `+1`, `+972`).
 1. Select a result to copy the full country object to the clipboard.
+1. Hold `⌘` and press `Enter` to open the country in Google Maps.
 
 ## Options
 
@@ -253,6 +356,13 @@ https://github.com/Avivbens/alfredo</string>
         <key>ypos</key>
         <integer>345</integer>
       </dict>
+      <key>B961F107-1F93-4B98-9043-12ECB1641A39</key>
+      <dict>
+        <key>xpos</key>
+        <integer>555</integer>
+        <key>ypos</key>
+        <integer>565</integer>
+      </dict>
       <key>__fast-alfred_managed__v2_updater_workflow-update</key>
       <dict>
         <key>xpos</key>
@@ -271,12 +381,21 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Snooze Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
         <key>ypos</key>
         <integer>345</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>565</integer>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
@@ -354,7 +473,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.0.0</string>
+    <string>1.1.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

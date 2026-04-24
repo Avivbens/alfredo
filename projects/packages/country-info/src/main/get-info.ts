@@ -47,6 +47,7 @@ import { searchCountries } from '../services/search.service';
       const languageList = Object.values(languages ?? {}).join(', ');
 
       const capitalCity = capital?.[0] ?? 'N/A';
+      const mapsQuery = capital?.[0] ? `${capital[0]}, ${commonName}` : commonName;
       const regionText = subregion ? `${region} / ${subregion}` : region;
       const areaText = `${area.toLocaleString('en-US')} km²`;
 
@@ -69,6 +70,12 @@ import { searchCountries } from '../services/search.service';
         subtitle,
         arg: JSON.stringify(country, null, 2),
         uid: cca3,
+        mods: {
+          cmd: {
+            subtitle: `Open ${mapsQuery} in Google Maps`,
+            arg: `https://www.google.com/maps?q=${encodeURIComponent(mapsQuery)}`,
+          },
+        },
       };
     });
 

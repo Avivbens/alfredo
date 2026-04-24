@@ -16,6 +16,7 @@ Look up any country by its ISO code (\`cca2\`, \`cca3\`, \`cioc\`) or name – a
 1. Type "con" in Alfred to activate the workflow.
 1. Enter a country code, name, or calling code (e.g. \`US\`, \`USA\`, \`united\`, \`japan\`, \`+1\`, \`+972\`).
 1. Select a result to copy the full country object to the clipboard.
+1. Hold \`⌘\` and press \`Enter\` to open the country in Google Maps.
 
 ## Options
 

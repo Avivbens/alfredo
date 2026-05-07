@@ -1,7 +1,7 @@
 import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
 import { EXTRACT_EVENT_SYSTEM_PROMPT } from '../common/prompts/extract-event-name.prompt';
 import { CalendarEvents, GeminiCalendarEventsSchema, OpenAICalendarEventsSchema } from '../models/calendar-event.model';
-import { dateTimezoneNatural } from './date.service';
+import { dateTimezoneNatural, getCurrentTimezone } from './date.service';
 
 export async function extractEvent(token: string, model: AvailableModels, input: string): Promise<CalendarEvents> {
   /**
@@ -9,10 +9,17 @@ export async function extractEvent(token: string, model: AvailableModels, input:
    */
   const calendarEventsSchema = model.includes('gemini') ? GeminiCalendarEventsSchema : OpenAICalendarEventsSchema;
 
+  const currentTimezone = getCurrentTimezone();
   const currentDate = dateTimezoneNatural(new Date());
-  const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate });
+  const system = await EXTRACT_EVENT_SYSTEM_PROMPT.format({ currentDate, currentTimezone });
 
-  const events = await callModelWithStructuredResponse(token, model, { system, user: input }, calendarEventsSchema);
+  const { events } = await callModelWithStructuredResponse(token, model, { system, user: input }, calendarEventsSchema);
 
-  return events;
+  /**
+   * Default each event's timeZone to the user's current timezone when the
+   * model didn't surface a different one.
+   */
+  return {
+    events: events.map((event) => ({ ...event, timeZone: event.timeZone ?? currentTimezone })),
+  };
 }

@@ -13,6 +13,11 @@ const location = z.string().describe('The location of the event, if mentioned.')
 const description = z.string().describe('Any additional details or notes about the event.');
 const url = z.string().describe('A URL for the event, if provided.');
 const allDayEvent = z.boolean().describe('Set to true if the event is for the whole day, otherwise false.');
+const timeZone = z
+  .string()
+  .describe(
+    'IANA timezone name for the event (e.g., "America/New_York", "Europe/London", "Asia/Tokyo"). Set this only when the event takes place in a timezone different from the user\'s current one — typically inferred from the location. Omit otherwise; the user\'s current timezone will be used.',
+  );
 
 const ONE_HOUR_IN_MS = 60 * 60 * 1000;
 
@@ -24,6 +29,7 @@ type CalendarEventTransformInput = {
   description?: string | null;
   url?: string | null;
   allDayEvent?: boolean | null;
+  timeZone?: string | null;
 };
 
 const eventTransform = (data: CalendarEventTransformInput) => {
@@ -57,11 +63,18 @@ const eventTransform = (data: CalendarEventTransformInput) => {
     }
   }
 
+  const { timeZone, ...rest } = data;
+
   return {
-    ...data,
+    ...rest,
     startDate,
     endDate,
     allDayEvent,
+    /**
+     * Normalize away the OpenAI-schema `null` so downstream consumers only
+     * see `string | undefined`.
+     */
+    ...(timeZone ? { timeZone } : {}),
   };
 };
 
@@ -75,6 +88,7 @@ export const OpenAICalendarEventSchema = z
     description: description.optional().nullable(),
     url: url.optional().nullable(),
     allDayEvent: allDayEvent.optional().nullable().default(false),
+    timeZone: timeZone.optional().nullable(),
   })
   .transform(eventTransform);
 
@@ -90,6 +104,7 @@ export const GeminiCalendarEventSchema = z
     description: description.optional(),
     url: url.optional(),
     allDayEvent: allDayEvent.optional().default(false),
+    timeZone: timeZone.optional(),
   })
   .transform(eventTransform);
 

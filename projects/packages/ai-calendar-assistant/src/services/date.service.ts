@@ -6,12 +6,12 @@ export function formatDateToAppleScript(date: Date): string {
   return `date "${day} ${month} ${year} ${time}"`;
 }
 
-export function formatGoogleDate(date: Date, allDay: boolean): string {
+export function formatGoogleDate(date: Date, allDay: boolean, timeZone = 'UTC'): string {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
-    timeZone: 'UTC',
+    timeZone,
   };
 
   if (!allDay) {
@@ -39,11 +39,42 @@ export function formatGoogleDate(date: Date, allDay: boolean): string {
   return `${year}${month}${day}T${hour}${minute}${second}`;
 }
 
-export function dropTimezone(date: Date): Date {
-  const timezoneOffset = new Date().getTimezoneOffset() / -60;
-  const adjustedDate = new Date(date);
-  adjustedDate.setHours(adjustedDate.getHours() - timezoneOffset);
-  return adjustedDate;
+export function getCurrentTimezone(): string {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone;
+}
+
+/**
+ * Build a "floating" Date whose machine-local wall-clock equals the absolute
+ * moment's wall-clock at the given IANA timezone. Used for display surfaces
+ * (Alfred subtitle, etc.) that read local Date methods — feeding them this
+ * Date makes them render the event's location wall-clock.
+ *
+ * For events in the user's machine timezone this is effectively a re-parse,
+ * since the wall-clock at the machine timezone is already what local methods
+ * would return.
+ */
+export function dateInTimezoneAsLocal(date: Date, timeZone: string = getCurrentTimezone()): Date {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).formatToParts(date);
+
+  const get = (type: Intl.DateTimeFormatPartTypes) => parts.find((p) => p.type === type)?.value ?? '0';
+
+  return new Date(
+    Number(get('year')),
+    Number(get('month')) - 1,
+    Number(get('day')),
+    Number(get('hour')),
+    Number(get('minute')),
+    Number(get('second')),
+  );
 }
 
 export function dateTimezoneNatural(date: Date): string {

@@ -17,9 +17,9 @@ jest.mock('@alfredo/run-applescript', () => ({
 }));
 
 // Spy on dateService functions
-jest.spyOn(dateService, 'dropTimezone');
 jest.spyOn(dateService, 'formatDateToAppleScript');
 jest.spyOn(dateService, 'formatGoogleDate');
+jest.spyOn(dateService, 'getCurrentTimezone').mockReturnValue('Asia/Jerusalem');
 
 describe('event-creator.service', () => {
   const calendarName = 'Test Calendar';
@@ -41,8 +41,8 @@ describe('event-creator.service', () => {
   describe('eventCreatorAppleScript', () => {
     it('should generate a valid AppleScript for a basic event without opening', () => {
       const script = eventCreatorAppleScript(calendarName, baseEvent, false);
-      expect(dateService.formatDateToAppleScript).toHaveBeenCalledTimes(2);
-      expect(dateService.dropTimezone).toHaveBeenCalledTimes(2);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(baseEvent.startDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(baseEvent.endDate);
       expect(script).toContain(`tell application "Calendar"`);
       expect(script).toContain(`tell calendar "${calendarName}"`);
       expect(script).toContain(`summary:"Test Event"`);
@@ -91,17 +91,57 @@ describe('event-creator.service', () => {
       expect(script).not.toContain(`description:""`);
       expect(script).not.toContain(`url:""`);
     });
+
+    it('should append timezone to the description when it differs from the machine timezone', () => {
+      const tzEvent: CalendarEvent = {
+        ...baseEvent,
+        description: 'Original notes.',
+        timeZone: 'Europe/Madrid',
+      };
+      const script = eventCreatorAppleScript(calendarName, tzEvent, false);
+      expect(script).toContain(`description:"Original notes.\\n\\nTimezone: Europe/Madrid"`);
+    });
+
+    it('should add a timezone-only description when no other description is set', () => {
+      const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'Europe/Madrid' };
+      const script = eventCreatorAppleScript(calendarName, tzEvent, false);
+      expect(script).toContain(`description:"Timezone: Europe/Madrid"`);
+    });
+
+    it('should NOT append timezone when it matches the machine timezone', () => {
+      const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'Asia/Jerusalem' };
+      const script = eventCreatorAppleScript(calendarName, tzEvent, false);
+      expect(script).not.toContain('Timezone:');
+    });
+
+    it('should pass start/end dates straight to formatDateToAppleScript regardless of timezone', () => {
+      const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'Europe/Madrid' };
+      eventCreatorAppleScript(calendarName, tzEvent, false);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(tzEvent.startDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(tzEvent.endDate);
+    });
   });
 
   describe('eventCreatorGoogleCalendar', () => {
     it('should generate and open a valid Google Calendar URL', async () => {
       await eventCreatorGoogleCalendar(baseEvent);
-      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(baseEvent.startDate, false);
-      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(baseEvent.endDate, false);
+      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(baseEvent.startDate, false, undefined);
+      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(baseEvent.endDate, false, undefined);
       expect(zurk.$).toHaveBeenCalledWith({ nothrow: true });
       expect(zurkTemplateLiteralFn).toHaveBeenCalledWith(
         expect.arrayContaining([expect.stringContaining('open ')]),
         expect.stringContaining('https://calendar.google.com/calendar/render'),
+      );
+    });
+
+    it('should pass the event timeZone to formatGoogleDate and include ctz in the URL', async () => {
+      const eventWithTz: CalendarEvent = { ...baseEvent, timeZone: 'America/New_York' };
+      await eventCreatorGoogleCalendar(eventWithTz);
+      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(eventWithTz.startDate, false, 'America/New_York');
+      expect(dateService.formatGoogleDate).toHaveBeenCalledWith(eventWithTz.endDate, false, 'America/New_York');
+      expect(zurkTemplateLiteralFn).toHaveBeenCalledWith(
+        expect.any(Array),
+        expect.stringContaining('ctz=America%2FNew_York'),
       );
     });
 

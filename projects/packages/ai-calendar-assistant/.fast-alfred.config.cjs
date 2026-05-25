@@ -20,6 +20,8 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 2. Enter the event details in natural language (e.g., "Meeting with John next Friday at 2pm for like 2-3 hours").
 3. Press Enter to create the event in your calendar.
 
+Hold \`⌘\` and press \`Enter\` on any result to preview the parsed event in Large Type before creating it.
+
 To view the workflow codebase, click here:
 ${homepage}
 `.trim();

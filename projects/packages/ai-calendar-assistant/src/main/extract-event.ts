@@ -4,8 +4,9 @@ import { AvailableModelsSchema } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
 import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { Variables } from '../common/variables.enum';
-import { beautifyDate, dropTimezone } from '../services/date.service';
+import { beautifyDate, dateInTimezoneAsLocal, getCurrentTimezone } from '../services/date.service';
 import { extractEvent } from '../services/event-extractor.service';
+import { buildEventPreview } from '../services/event-preview.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -43,11 +44,25 @@ import { extractEvent } from '../services/event-extractor.service';
       return;
     }
 
+    const machineTimezone = getCurrentTimezone();
     const items: AlfredListItem[] = events.map((currEvent) => {
-      const { allDayEvent, endDate, startDate, summary, description, location, url } = currEvent;
+      const { allDayEvent, endDate, startDate, summary, description, location, url, timeZone } = currEvent;
 
       const title = `${summary}${location ? ` | at ${location}` : ''}${url ? ` (${url})` : ''}`;
-      const subtitle = `${allDayEvent ? 'All-day event' : `From ${beautifyDate(dropTimezone(startDate))} to ${beautifyDate(dropTimezone(endDate))}`} | ${description || 'No description'}`;
+
+      /**
+       * Render the subtitle using the event's wall-clock at its IANA timezone
+       * so the time matches what the user typed. When the event is in a
+       * different zone than the machine, append a short label (the city part
+       * of the IANA name) so the user knows the time is at-location.
+       */
+      const eventTimezone = timeZone ?? machineTimezone;
+      const isLocal = eventTimezone === machineTimezone;
+      const tzLabel = isLocal ? '' : ` (${eventTimezone.split('/').pop()?.replace(/_/g, ' ') ?? eventTimezone})`;
+      const startDisplay = dateInTimezoneAsLocal(startDate, eventTimezone);
+      const endDisplay = dateInTimezoneAsLocal(endDate, eventTimezone);
+      const timeRange = `From ${beautifyDate(startDisplay)} to ${beautifyDate(endDisplay)}${tzLabel}`;
+      const subtitle = `${allDayEvent ? 'All-day event' : timeRange} | ${description || 'No description'}`;
       const arg = JSON.stringify(currEvent);
       const uid = `${startDate}-${summary}`;
 
@@ -56,6 +71,12 @@ import { extractEvent } from '../services/event-extractor.service';
         uid,
         subtitle,
         arg,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: buildEventPreview(currEvent, machineTimezone),
+          },
+        },
       };
     });
 

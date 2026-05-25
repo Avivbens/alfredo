@@ -1,9 +1,10 @@
 import {
   beautifyDate,
+  dateInTimezoneAsLocal,
   dateTimezoneNatural,
-  dropTimezone,
   formatDateToAppleScript,
   formatGoogleDate,
+  getCurrentTimezone,
 } from './date.service';
 
 describe('date.service', () => {
@@ -51,16 +52,41 @@ describe('date.service', () => {
       const expected = formatGoogleDate(utcDate, false);
       expect(formatGoogleDate(date, false)).toBe(expected);
     });
+
+    it('should format the date in the provided timezone', () => {
+      const date = new Date('2025-07-15T19:00:00Z');
+      // 19:00 UTC = 15:00 in America/New_York (EDT, -04:00)
+      expect(formatGoogleDate(date, false, 'America/New_York')).toBe('20250715T150000');
+    });
   });
 
-  describe('dropTimezone', () => {
-    it('should remove the timezone offset correctly', () => {
-      const localDate = new Date();
-      const droppedDate = dropTimezone(localDate);
-      // The expected date should be the local time, but interpreted as UTC.
-      // This is achieved by adding the timezone offset to the UTC time.
-      const expectedDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-      expect(droppedDate.toISOString()).toBe(expectedDate.toISOString());
+  describe('getCurrentTimezone', () => {
+    it('should return a non-empty IANA timezone string', () => {
+      const tz = getCurrentTimezone();
+      expect(typeof tz).toBe('string');
+      expect(tz.length).toBeGreaterThan(0);
+      expect(tz).toBe(Intl.DateTimeFormat().resolvedOptions().timeZone);
+    });
+  });
+
+  describe('dateInTimezoneAsLocal', () => {
+    it('should produce a Date whose local wall-clock matches the wall-clock at the given IANA timezone', () => {
+      // 11:15 UTC = 13:15 in Europe/Madrid (CEST, UTC+2)
+      const date = new Date('2026-05-10T11:15:00Z');
+      const result = dateInTimezoneAsLocal(date, 'Europe/Madrid');
+      expect(result.getFullYear()).toBe(2026);
+      expect(result.getMonth()).toBe(4);
+      expect(result.getDate()).toBe(10);
+      expect(result.getHours()).toBe(13);
+      expect(result.getMinutes()).toBe(15);
+    });
+
+    it('should reflect different timezones for the same absolute moment', () => {
+      const date = new Date('2026-05-10T11:15:00Z');
+      // 11:15 UTC = 19:15 in Asia/Makassar (UTC+8)
+      const result = dateInTimezoneAsLocal(date, 'Asia/Makassar');
+      expect(result.getHours()).toBe(19);
+      expect(result.getMinutes()).toBe(15);
     });
   });
 

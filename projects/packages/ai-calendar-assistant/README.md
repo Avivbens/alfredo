@@ -23,6 +23,8 @@ Effortlessly create calendar events using natural language. This workflow intell
 1. Enter the event details in natural language (e.g., "Meeting with John next Friday at 2pm for like 2-3 hours").
 1. Press Enter to create the event in your calendar.
 
+Hold `⌘` and press `Enter` on any result to preview the parsed event in Large Type before creating it.
+
 ## Demo
 
 ### Relative Time

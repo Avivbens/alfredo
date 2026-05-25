@@ -6,6 +6,7 @@ import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { Variables } from '../common/variables.enum';
 import { beautifyDate, dateInTimezoneAsLocal, getCurrentTimezone } from '../services/date.service';
 import { extractEvent } from '../services/event-extractor.service';
+import { buildEventPreview } from '../services/event-preview.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -70,6 +71,12 @@ import { extractEvent } from '../services/event-extractor.service';
         uid,
         subtitle,
         arg,
+        mods: {
+          cmd: {
+            subtitle: 'Preview',
+            arg: buildEventPreview(currEvent, machineTimezone),
+          },
+        },
       };
     });
 

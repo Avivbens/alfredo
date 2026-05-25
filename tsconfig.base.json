@@ -29,7 +29,7 @@
       "@alfredo/llm": ["projects/libs/llm/src/index.ts"],
       "@alfredo/run-applescript": ["projects/libs/run-applescript/src/index.ts"],
       "@alfredo/updater": ["projects/libs/updater/src/index.ts"],
-      "@alfredo/workspace": ["./projects/workspace"]
+      "@alfredo/workspace": ["./projects/workspace/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

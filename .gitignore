@@ -55,3 +55,7 @@ junit.xml
 reports
 test-report.xml
 .vscode/launch.json
+
+.claude/worktrees
+.nx/polygraph
+.nx/self-healing

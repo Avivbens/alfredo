@@ -159,7 +159,6 @@
   "release": {
     "projects": ["projects/packages/*"],
     "projectsRelationship": "independent",
-    "releaseTagPattern": "release/{projectName}/{version}",
     "git": {
       "commitMessage": "chore(release): release {version} [skip ci]"
     },
@@ -167,12 +166,20 @@
       "conventionalCommits": true
     },
     "changelog": {
-      "workspaceChangelog": { "createRelease": "github" },
-      "projectChangelogs": { "createRelease": "github" }
+      "workspaceChangelog": {
+        "createRelease": "github"
+      },
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "releaseTag": {
+      "pattern": "release/{projectName}/{version}"
     }
   },
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"
-  }
+  },
+  "analytics": false
 }

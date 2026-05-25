@@ -1,3 +1,14 @@
+## 1.3.0 (2026-05-25)
+
+### 🚀 Features
+
+- **preview:** add preview on `cmd` hold ([72a569c](https://github.com/Avivbens/alfredo/commit/72a569c))
+- **timezones:** support time zones detection and extraction ([c393774](https://github.com/Avivbens/alfredo/commit/c393774))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.3 (2026-04-24)
 
 ### 🩹 Fixes

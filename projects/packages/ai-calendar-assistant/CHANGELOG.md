@@ -1,3 +1,13 @@
+## 1.3.1 (2026-05-30)
+
+### 🚀 Features
+
+- **maps:** add clickable links for all locations in events (config per maps provider) ([b478709](https://github.com/Avivbens/alfredo/commit/b478709))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.0 (2026-05-25)
 
 ### 🚀 Features

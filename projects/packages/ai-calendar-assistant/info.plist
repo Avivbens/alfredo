@@ -501,6 +501,36 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <string>off</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Off</string>
+              <string>off</string>
+            </array>
+            <array>
+              <string>Google Maps</string>
+              <string>google_maps</string>
+            </array>
+            <array>
+              <string>Apple Maps</string>
+              <string>apple_maps</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>Make the event location clickable by attaching a maps search link (only when the event has no online-meeting URL)</string>
+        <key>label</key>
+        <string>Location maps link</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>map_provider</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <string></string>
           <key>required</key>
           <true></true>
@@ -695,7 +725,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.2.3</string>
+    <string>1.3.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

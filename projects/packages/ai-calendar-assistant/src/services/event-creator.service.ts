@@ -1,8 +1,51 @@
 import { $ } from 'zurk';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { CalendarEvent } from '../models/calendar-event.model';
+import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
 import { formatDateToAppleScript, formatGoogleDate, getCurrentTimezone } from './date.service';
+
+/**
+ * Builds a maps "search" URL for the given location text.
+ */
+export function buildMapsSearchUrl(provider: MapProvider, location: string): string | undefined {
+  const query = encodeURIComponent(location);
+  switch (provider) {
+    case MapProvider.GOOGLE_MAPS:
+      return `https://www.google.com/maps/search/?api=1&query=${query}`;
+    case MapProvider.APPLE_MAPS:
+      return `https://maps.apple.com/?q=${query}`;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * Returns a copy of the event with a clickable maps link attached, so a plain-text
+ * location becomes navigable
+ */
+export function applyMapLink(
+  event: CalendarEvent,
+  targetPlatform: OpenEventPlatform,
+  provider: MapProvider,
+): CalendarEvent {
+  const { url, location } = event;
+  if (provider === MapProvider.OFF || !location || url) {
+    return event;
+  }
+
+  const mapsLink = buildMapsSearchUrl(provider, location);
+  if (!mapsLink) {
+    return event;
+  }
+
+  if (targetPlatform === OpenEventPlatform.GOOGLE_CALENDAR) {
+    const description = event.description ? `${event.description}\n\nLocation: ${mapsLink}` : `Location: ${mapsLink}`;
+    return { ...event, description };
+  }
+
+  return { ...event, url: mapsLink };
+}
 
 export const eventCreatorAppleScript = (calendarName: string, event: CalendarEvent, shouldOpen: boolean): string => {
   const { summary, startDate, endDate, location, description, url, allDayEvent, timeZone } = event;

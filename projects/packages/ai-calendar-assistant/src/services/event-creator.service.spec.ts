@@ -1,9 +1,16 @@
 import * as zurk from 'zurk';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { CalendarEvent } from '../models/calendar-event.model';
+import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
 import * as dateService from './date.service';
-import { createInCalendar, eventCreatorAppleScript, eventCreatorGoogleCalendar } from './event-creator.service';
+import {
+  applyMapLink,
+  buildMapsSearchUrl,
+  createInCalendar,
+  eventCreatorAppleScript,
+  eventCreatorGoogleCalendar,
+} from './event-creator.service';
 
 // Mock zurk
 const zurkTemplateLiteralFn = jest.fn().mockResolvedValue({ stderr: null });
@@ -169,6 +176,67 @@ describe('event-creator.service', () => {
       await expect(createInCalendar('unsupported' as OpenEventPlatform, calendarName, baseEvent)).rejects.toThrow(
         'Unsupported platform: unsupported',
       );
+    });
+  });
+
+  describe('buildMapsSearchUrl', () => {
+    it('should build a correctly-encoded Google Maps search URL', () => {
+      expect(buildMapsSearchUrl(MapProvider.GOOGLE_MAPS, 'Eiffel Tower, Paris')).toBe(
+        'https://www.google.com/maps/search/?api=1&query=Eiffel%20Tower%2C%20Paris',
+      );
+    });
+
+    it('should build a correctly-encoded Apple Maps search URL', () => {
+      expect(buildMapsSearchUrl(MapProvider.APPLE_MAPS, 'Eiffel Tower, Paris')).toBe(
+        'https://maps.apple.com/?q=Eiffel%20Tower%2C%20Paris',
+      );
+    });
+
+    it('should return undefined when the provider is OFF', () => {
+      expect(buildMapsSearchUrl(MapProvider.OFF, 'Eiffel Tower')).toBeUndefined();
+    });
+  });
+
+  describe('applyMapLink', () => {
+    const locatedEvent: CalendarEvent = { ...baseEvent, location: 'Eiffel Tower' };
+
+    it('should set the url field to the maps link on the Apple path', () => {
+      const result = applyMapLink(locatedEvent, OpenEventPlatform.APPLE_CALENDAR, MapProvider.APPLE_MAPS);
+      expect(result.url).toBe('https://maps.apple.com/?q=Eiffel%20Tower');
+      expect(result.location).toBe('Eiffel Tower');
+    });
+
+    it('should append the maps link to the description on the Google path and keep the location readable', () => {
+      const result = applyMapLink(locatedEvent, OpenEventPlatform.GOOGLE_CALENDAR, MapProvider.GOOGLE_MAPS);
+      expect(result.location).toBe('Eiffel Tower');
+      expect(result.url).toBeUndefined();
+      expect(result.description).toContain('https://www.google.com/maps/search/?api=1&query=Eiffel%20Tower');
+    });
+
+    it('should preserve an existing description when appending the Google maps link', () => {
+      const result = applyMapLink(
+        { ...locatedEvent, description: 'Bring slides.' },
+        OpenEventPlatform.GOOGLE_CALENDAR,
+        MapProvider.GOOGLE_MAPS,
+      );
+      expect(result.description).toContain('Bring slides.');
+      expect(result.description).toContain('https://www.google.com/maps/search/?api=1&query=Eiffel%20Tower');
+    });
+
+    it('should leave the event untouched when an online-meeting URL already exists', () => {
+      const onlineEvent: CalendarEvent = { ...locatedEvent, url: 'https://zoom.us/j/123' };
+      const result = applyMapLink(onlineEvent, OpenEventPlatform.APPLE_CALENDAR, MapProvider.APPLE_MAPS);
+      expect(result).toEqual(onlineEvent);
+    });
+
+    it('should leave the event untouched when there is no location', () => {
+      const result = applyMapLink(baseEvent, OpenEventPlatform.APPLE_CALENDAR, MapProvider.APPLE_MAPS);
+      expect(result).toEqual(baseEvent);
+    });
+
+    it('should leave the event untouched when the provider is OFF', () => {
+      const result = applyMapLink(locatedEvent, OpenEventPlatform.APPLE_CALENDAR, MapProvider.OFF);
+      expect(result).toEqual(locatedEvent);
     });
   });
 });

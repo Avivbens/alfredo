@@ -7,4 +7,5 @@ export enum Variables {
 
   SHOULD_OPEN_NEW_EVENT = 'should_open_new_event',
   OPEN_NEW_EVENT_PLATFORM = 'open_new_event_platform',
+  MAP_PROVIDER = 'map_provider',
 }

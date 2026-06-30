@@ -1,6 +1,7 @@
 const { resolve } = require('node:path');
 const { author, description, homepage } = require('./package.json');
 const { env } = require('node:process');
+const { API_KEY_README_SECTION } = require('../../libs/llm/readme.cjs');
 
 const README = `
 #### Thank you for using Text Transformer! ✨
@@ -29,11 +30,7 @@ Use your customized Alfred keyword to activate each command.
 
 Hold \`⌘\` and press \`Enter\` on any result to preview the output in Large Type before copying it.
 
-### API key
-
-You can generate an OpenAI key via the following link:
-
-https://platform.openai.com/settings/organization/api-keys
+${API_KEY_README_SECTION}
 
 ### Translate
 

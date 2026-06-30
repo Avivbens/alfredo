@@ -242,6 +242,14 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 4. Wait for AI to extract ticket information
 5. Press Enter to create the ticket
 
+### API key
+
+This workflow supports OpenAI, Google Gemini, and Anthropic Claude. Generate an API key for the provider of your selected model:
+
+- **OpenAI:** https://platform.openai.com/settings/organization/api-keys
+- **Google Gemini:** https://aistudio.google.com/api-keys
+- **Anthropic Claude:** https://console.anthropic.com/settings/keys
+
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>

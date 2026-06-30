@@ -1,6 +1,7 @@
 const { resolve } = require('node:path');
 const { env } = require('node:process');
 const { author, description, homepage } = require('./package.json');
+const { API_KEY_README_SECTION } = require('../../libs/llm/readme.cjs');
 
 const README = `
 #### Thank you for using Jira Master! ✨
@@ -23,6 +24,8 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 3. Paste the text
 4. Wait for AI to extract ticket information
 5. Press Enter to create the ticket
+
+${API_KEY_README_SECTION}
 
 To view the workflow codebase, click here:
 ${homepage}

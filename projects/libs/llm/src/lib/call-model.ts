@@ -86,7 +86,19 @@ export async function callModelWithStructuredResponse<Results extends ZodSchema>
 
   const messages = [new SystemMessage(system.trim()), new HumanMessage(user.trim())];
 
-  const jsonSchema = zodToJsonSchema(schema, {
+  /**
+   * `zod-to-json-schema` exposes an overloaded signature, and resolving those
+   * overloads recurses through zod >= 3.24's very deep `ZodType` definition,
+   * tripping TypeScript's instantiation-depth guard (TS2589). Call it through a
+   * single non-overloaded signature so the compiler skips overload resolution.
+   * Runtime behavior is unchanged — only the static type is simplified.
+   */
+  const toJsonSchema = zodToJsonSchema as unknown as (
+    schema: ZodSchema,
+    options: { $refStrategy: 'none' | 'root' | 'relative'; strictUnions: boolean },
+  ) => Record<string, unknown>;
+
+  const jsonSchema = toJsonSchema(schema, {
     $refStrategy: 'none',
     strictUnions: true,
   });

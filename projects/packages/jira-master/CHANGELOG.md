@@ -1,3 +1,13 @@
+## 1.1.6 (2026-06-30)
+
+### 🩹 Fixes
+
+- **api-keys:** add API keys links to readme docs ([3a7e504](https://github.com/Avivbens/alfredo/commit/3a7e504))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.5 (2026-04-24)
 
 ### 🩹 Fixes

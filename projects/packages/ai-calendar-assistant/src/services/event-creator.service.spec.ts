@@ -48,8 +48,8 @@ describe('event-creator.service', () => {
   describe('eventCreatorAppleScript', () => {
     it('should generate a valid AppleScript for a basic event without opening', () => {
       const script = eventCreatorAppleScript(calendarName, baseEvent, false);
-      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(baseEvent.startDate);
-      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(baseEvent.endDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith('theStartDate', baseEvent.startDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith('theEndDate', baseEvent.endDate);
       expect(script).toContain(`tell application "Calendar"`);
       expect(script).toContain(`tell calendar "${calendarName}"`);
       expect(script).toContain(`summary:"Test Event"`);
@@ -124,8 +124,8 @@ describe('event-creator.service', () => {
     it('should pass start/end dates straight to formatDateToAppleScript regardless of timezone', () => {
       const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'Europe/Madrid' };
       eventCreatorAppleScript(calendarName, tzEvent, false);
-      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(tzEvent.startDate);
-      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith(tzEvent.endDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith('theStartDate', tzEvent.startDate);
+      expect(dateService.formatDateToAppleScript).toHaveBeenCalledWith('theEndDate', tzEvent.endDate);
     });
   });
 

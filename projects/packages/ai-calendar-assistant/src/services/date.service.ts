@@ -1,9 +1,34 @@
-export function formatDateToAppleScript(date: Date): string {
-  const day = date.getDate();
-  const month = date.toLocaleString('en-US', { month: 'long' });
+/**
+ * Emit locale-independent AppleScript that builds `varName` as a date from the
+ * date's machine-local wall-clock components.
+ *
+ * AppleScript's `date "…"` string literal is parsed against the macOS
+ * Region/date-format preferences, so a fixed English literal fails on non-US
+ * locales with error -30720. Assigning numeric components avoids the
+ * locale-sensitive parser entirely.
+ *
+ * `day` is reset to 1 before `month` is assigned so a high current day-of-month
+ * (e.g. the 31st) cannot overflow into the next month while components are
+ * half-applied.
+ */
+export function formatDateToAppleScript(varName: string, date: Date): string {
   const year = date.getFullYear();
-  const time = date.toLocaleTimeString('en-GB'); // Use en-GB for HH:mm:ss format
-  return `date "${day} ${month} ${year} ${time}"`;
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  return [
+    `set ${varName} to (current date)`,
+    `set day of ${varName} to 1`,
+    `set year of ${varName} to ${year}`,
+    `set month of ${varName} to ${month}`,
+    `set day of ${varName} to ${day}`,
+    `set hours of ${varName} to ${hours}`,
+    `set minutes of ${varName} to ${minutes}`,
+    `set seconds of ${varName} to ${seconds}`,
+  ].join('\n  ');
 }
 
 export function formatGoogleDate(date: Date, allDay: boolean, timeZone = 'UTC'): string {

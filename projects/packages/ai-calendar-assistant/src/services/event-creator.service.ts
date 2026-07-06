@@ -61,8 +61,8 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
   const properties = [
     /*  */
     `summary:"${summary}"`,
-    `start date:${formatDateToAppleScript(startDate)}`,
-    `end date:${formatDateToAppleScript(endDate)}`,
+    `start date:theStartDate`,
+    `end date:theEndDate`,
   ];
 
   /**
@@ -93,6 +93,8 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
 
   return `
 tell application "Calendar"
+  ${formatDateToAppleScript('theStartDate', startDate)}
+  ${formatDateToAppleScript('theEndDate', endDate)}
   tell calendar "${calendarName}"
     set newEvent to (make new event with properties {${properties.join(', ')}})
   end tell

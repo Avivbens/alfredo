@@ -9,24 +9,56 @@ import {
 
 describe('date.service', () => {
   describe('formatDateToAppleScript', () => {
-    it('should format a standard date correctly', () => {
+    it('should build the date from numeric components rather than a locale-sensitive literal', () => {
       const date = new Date('2025-06-15T14:30:00');
-      expect(formatDateToAppleScript(date)).toBe('date "15 June 2025 14:30:00"');
+      const script = formatDateToAppleScript('theStartDate', date);
+      expect(script).not.toContain('date "');
+      expect(script).toContain('set theStartDate to (current date)');
+      expect(script).toContain('set year of theStartDate to 2025');
+      expect(script).toContain('set month of theStartDate to 6');
+      expect(script).toContain('set day of theStartDate to 15');
+      expect(script).toContain('set hours of theStartDate to 14');
+      expect(script).toContain('set minutes of theStartDate to 30');
+      expect(script).toContain('set seconds of theStartDate to 0');
+    });
+
+    it('should reset day to 1 before assigning the month to avoid overflow', () => {
+      const date = new Date('2025-06-15T14:30:00');
+      const script = formatDateToAppleScript('theStartDate', date);
+      const dayResetIndex = script.indexOf('set day of theStartDate to 1');
+      const monthIndex = script.indexOf('set month of theStartDate to 6');
+      expect(dayResetIndex).toBeGreaterThanOrEqual(0);
+      expect(dayResetIndex).toBeLessThan(monthIndex);
+    });
+
+    it('should use the provided variable name', () => {
+      const date = new Date('2025-06-15T14:30:00');
+      const script = formatDateToAppleScript('theEndDate', date);
+      expect(script).toContain('set theEndDate to (current date)');
+      expect(script).toContain('set year of theEndDate to 2025');
     });
 
     it('should handle single-digit days', () => {
       const date = new Date('2025-06-01T09:00:00');
-      expect(formatDateToAppleScript(date)).toBe('date "1 June 2025 09:00:00"');
+      const script = formatDateToAppleScript('theStartDate', date);
+      expect(script).toContain('set day of theStartDate to 1');
+      expect(script).toContain('set hours of theStartDate to 9');
     });
 
     it('should handle midnight correctly', () => {
       const date = new Date('2025-06-15T00:00:00');
-      expect(formatDateToAppleScript(date)).toBe('date "15 June 2025 00:00:00"');
+      const script = formatDateToAppleScript('theStartDate', date);
+      expect(script).toContain('set hours of theStartDate to 0');
+      expect(script).toContain('set minutes of theStartDate to 0');
+      expect(script).toContain('set seconds of theStartDate to 0');
     });
 
     it('should handle a leap year date', () => {
       const date = new Date('2024-02-29T12:00:00');
-      expect(formatDateToAppleScript(date)).toBe('date "29 February 2024 12:00:00"');
+      const script = formatDateToAppleScript('theStartDate', date);
+      expect(script).toContain('set year of theStartDate to 2024');
+      expect(script).toContain('set month of theStartDate to 2');
+      expect(script).toContain('set day of theStartDate to 29');
     });
   });
 

@@ -1,3 +1,13 @@
+## 2.3.1 (2026-07-06)
+
+### 🩹 Fixes
+
+- **terminal:** correct warp name for open in file explorer ([b03a811](https://github.com/Avivbens/alfredo/commit/b03a811))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.3.0 (2025-06-30)
 
 ### 🚀 Features

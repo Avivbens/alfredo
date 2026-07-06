@@ -290,7 +290,7 @@
         <key>config</key>
         <dict>
           <key>openwith</key>
-          <string>/Applications/TerminalWarp.app</string>
+          <string>/Applications/Warp.app</string>
           <key>sourcefile</key>
           <string></string>
         </dict>

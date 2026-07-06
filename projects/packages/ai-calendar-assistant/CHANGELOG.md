@@ -1,3 +1,13 @@
+## 1.3.3 (2026-07-06)
+
+### 🩹 Fixes
+
+- **dates:** better date parsing before creating events ([a4f24d7](https://github.com/Avivbens/alfredo/commit/a4f24d7))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.2 (2026-06-30)
 
 ### 🩹 Fixes

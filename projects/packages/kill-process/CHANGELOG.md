@@ -1,3 +1,13 @@
+## 3.1.1 (2026-07-07)
+
+### 🩹 Fixes
+
+- **battery:** support sudo on managed devices ([5a387fc](https://github.com/Avivbens/alfredo/commit/5a387fc))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.1.0 (2026-02-04)
 
 ### 🚀 Features

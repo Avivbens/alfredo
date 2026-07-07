@@ -16,6 +16,7 @@ export async function fetchBatteryData(): Promise<BatteryFetchResult> {
         success: false,
         data: new Map(),
         error: sudoCheck.error || 'Failed to configure passwordless sudo for powermetrics',
+        setupCommand: sudoCheck.setupCommand,
       });
     }
 

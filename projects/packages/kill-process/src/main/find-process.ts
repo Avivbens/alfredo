@@ -47,12 +47,14 @@ import { searchProcess } from '../services/search.service';
     // Conditionally fetch battery data only when sorting by battery
     let processesWithBattery: ProcessWithBattery[];
     let batteryError: string | undefined;
+    let batterySetupCommand: string | undefined;
 
     if (sortOrder === 'battery') {
       const batteryResult = await fetchBatteryData();
 
       if (!batteryResult.success) {
         batteryError = batteryResult.error;
+        batterySetupCommand = batteryResult.setupCommand;
       }
 
       processesWithBattery = mergeProcessesWithBattery(processes, batteryResult.data);
@@ -97,13 +99,23 @@ import { searchProcess } from '../services/search.service';
     });
 
     if (batteryError) {
-      items.unshift({
-        title: '⚠️ Battery Data Unavailable',
-        subtitle: batteryError,
+      const errorItem: AlfredListItem = {
+        title: batterySetupCommand ? '⚠️ Battery sort needs a one-time setup' : '⚠️ Battery Data Unavailable',
+        subtitle: batterySetupCommand ? `${batteryError} (⌘C to copy · ⌘L to view)` : batteryError,
         arg: '',
         uid: 'battery-error',
         valid: false, // Make item non-selectable
-      });
+      };
+
+      /**
+       * Expose the setup command via ⌘C / ⌘L so the user can copy it without
+       * a selectable action. `text.copy`/`largetype` work even for invalid items.
+       */
+      if (batterySetupCommand) {
+        errorItem.text = { copy: batterySetupCommand, largetype: batterySetupCommand };
+      }
+
+      items.unshift(errorItem);
     }
 
     const sliced = items.slice(0, sliceAmount);

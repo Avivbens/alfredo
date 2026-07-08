@@ -11,7 +11,14 @@ import { searchBookmarks } from '../services/search.service';
   const alfredClient = new FastAlfred();
   alfredClient.updates(registerUpdater('search-bookmark'));
 
-  const profilesConfig: string = alfredClient.env.getEnv(Variables.PROFILES_LOOKUP, { defaultValue: '' });
+  const profiles: string[] = alfredClient.env.getEnv<string[]>(Variables.PROFILES_LOOKUP, {
+    defaultValue: [],
+    parser: (input) =>
+      input
+        .split(',')
+        .map((profile) => profile.trim())
+        .filter(Boolean),
+  });
   const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, {
     defaultValue: 10,
     parser: Number,
@@ -21,8 +28,6 @@ import { searchBookmarks } from '../services/search.service';
     defaultValue: 0.4,
     parser: (input) => Number(input) / 10,
   });
-
-  const profiles: string[] = profilesConfig.split(',');
 
   try {
     let bookmarks: IUIBookmark[] | null = alfredClient.cache.get<IUIBookmark[]>(CACHE_BOOKMARKS_KEY);

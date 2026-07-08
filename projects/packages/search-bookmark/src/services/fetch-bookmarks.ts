@@ -3,36 +3,36 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { IBookmark, IBookmarkRes, IUIBookmark, Type } from '../models/bookmark.model';
 
-const BOOKMARKS_PATH = (profiles: string[]): string[] =>
-  profiles.map((profileName) => join(homedir(), `/Library/Application Support/Google/Chrome/${profileName}/Bookmarks`));
+/**
+ * Managed / signed-in Chrome profiles keep their bookmarks in `AccountBookmarks`
+ * while the local `Bookmarks` file stays empty, so we read both and merge them.
+ */
+const BOOKMARK_FILES = ['Bookmarks', 'AccountBookmarks'];
+
+const bookmarkPaths = (profile: string): string[] =>
+  BOOKMARK_FILES.map((file) => join(homedir(), `/Library/Application Support/Google/Chrome/${profile}/${file}`));
 
 export async function getBookmarks(profiles: string[]): Promise<IUIBookmark[]> {
-  const paths: string[] = BOOKMARKS_PATH(profiles);
+  const targets = profiles.flatMap((profile) => bookmarkPaths(profile).map((path) => ({ profile, path })));
 
-  const data: { payload: Buffer; profile: string }[] = await Promise.all(
-    paths.map(async (path: string, index: number) => {
-      const profile = profiles[index] as string;
-      const payload = await readFile(path);
-
-      return {
-        profile,
-        payload,
-      };
+  const data = await Promise.all(
+    targets.map(async ({ profile, path }) => {
+      const payload: string | null = await readFile(path, 'utf8').catch(() => null);
+      return { profile, payload };
     }),
   );
 
-  const res = data.flatMap(({ payload, profile }) => {
-    const { roots }: IBookmarkRes = JSON.parse(payload.toString());
-    const { bookmark_bar, other } = roots;
-    const bookmarks: IUIBookmark[] = [
-      ...recursivelyFlatBookmarks(bookmark_bar.children ?? [], profile),
-      ...recursivelyFlatBookmarks(other.children ?? [], profile),
+  return data.flatMap(({ payload, profile }) => {
+    if (!payload) {
+      return [];
+    }
+
+    const { roots }: IBookmarkRes = JSON.parse(payload);
+    return [
+      ...recursivelyFlatBookmarks(roots.bookmark_bar.children ?? [], profile),
+      ...recursivelyFlatBookmarks(roots.other.children ?? [], profile),
     ];
-
-    return bookmarks;
   });
-
-  return res;
 }
 
 function recursivelyFlatBookmarks(bookmarks: IBookmark[], profile: string, prefix = ''): IUIBookmark[] {

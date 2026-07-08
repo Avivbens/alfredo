@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
-import { IBookmark, IBookmarkRes, IUIBookmark, Type } from '../models/bookmark.model';
+import { IBookmark, IUIBookmark, Type, iBookmarkResSchema } from '../models/bookmark.schema';
 
 /**
  * Managed / signed-in Chrome profiles keep their bookmarks in `AccountBookmarks`
@@ -27,10 +27,15 @@ export async function getBookmarks(profiles: string[]): Promise<IUIBookmark[]> {
       return [];
     }
 
-    const { roots }: IBookmarkRes = JSON.parse(payload);
+    const parsed = iBookmarkResSchema.safeParse(JSON.parse(payload));
+    if (!parsed.success) {
+      return [];
+    }
+
+    const { roots } = parsed.data;
     return [
-      ...recursivelyFlatBookmarks(roots.bookmark_bar.children ?? [], profile),
-      ...recursivelyFlatBookmarks(roots.other.children ?? [], profile),
+      ...recursivelyFlatBookmarks(roots.bookmark_bar?.children ?? [], profile),
+      ...recursivelyFlatBookmarks(roots.other?.children ?? [], profile),
     ];
   });
 }

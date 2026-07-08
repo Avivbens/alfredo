@@ -1,4 +1,4 @@
-import { IUIBookmark } from '../models/bookmark.model';
+import { IUIBookmark } from '../models/bookmark.schema';
 import { SEARCH_FIELDS_CONFIG } from './search.config';
 
 export async function searchBookmarks(

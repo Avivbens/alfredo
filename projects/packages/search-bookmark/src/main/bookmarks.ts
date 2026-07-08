@@ -3,7 +3,7 @@ import { FastAlfred } from 'fast-alfred';
 import { registerUpdater } from '@alfredo/updater';
 import { CACHE_BOOKMARKS_KEY, CACHE_TTL } from '../common/constants';
 import { Variables } from '../common/variables';
-import { IUIBookmark } from '../models/bookmark.model';
+import { IUIBookmark } from '../models/bookmark.schema';
 import { getBookmarks } from '../services/fetch-bookmarks';
 import { searchBookmarks } from '../services/search.service';
 

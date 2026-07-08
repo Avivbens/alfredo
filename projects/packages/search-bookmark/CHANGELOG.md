@@ -1,3 +1,14 @@
+## 3.2.2 (2026-07-08)
+
+### 🩹 Fixes
+
+- **schema:** enforce schema instead of type assertion ([bf03a24](https://github.com/Avivbens/alfredo/commit/bf03a24))
+- **profiles:** support `AccountBookmarks` for enterprise devices ([f935e6f](https://github.com/Avivbens/alfredo/commit/f935e6f))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.2.1 (2025-08-16)
 
 ### 🩹 Fixes

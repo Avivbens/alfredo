@@ -1,3 +1,13 @@
+## 1.1.3 (2026-07-26)
+
+### 🩹 Fixes
+
+- **docs:** add `switchaudio-osx` as a dependency ([c8d8259](https://github.com/Avivbens/alfredo/commit/c8d8259))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.2 (2026-02-04)
 
 ### 🩹 Fixes

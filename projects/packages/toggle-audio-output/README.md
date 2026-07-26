@@ -10,6 +10,16 @@
 
 Rapidly change your audio output between your Bluetooth devices and your Mac's speakers
 
+## Prerequisites
+
+This workflow relies on [`switchaudio-osx`](https://github.com/deweller/switchaudio-osx) to list and switch audio devices. Install it before using the workflow:
+
+```bash
+brew install switchaudio-osx
+```
+
+> **Note:** Without it, the workflow fails with `SwitchAudioSource: command not found` (exit code 127).
+
 ## Features 🥷
 
 Rapidly toggle between audio output devices with a single keystroke! 🥷

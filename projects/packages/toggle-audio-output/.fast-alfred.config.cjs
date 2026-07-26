@@ -7,6 +7,16 @@ const README = `
 
 This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
 
+## Prerequisites
+
+This workflow relies on \`switchaudio-osx\` to list and switch audio devices. Install it before using the workflow:
+
+\`\`\`bash
+brew install switchaudio-osx
+\`\`\`
+
+Without it, the workflow fails with \`SwitchAudioSource: command not found\` (exit code 127).
+
 ## Features
 
 Rapidly toggle between audio output devices with a single keystroke! 🥷

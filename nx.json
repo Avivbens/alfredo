@@ -165,6 +165,9 @@
     "version": {
       "conventionalCommits": true
     },
+    "conventionalCommits": {
+      "useCommitScope": false
+    },
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github"

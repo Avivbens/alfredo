@@ -61,50 +61,13 @@
           <key>escaping</key>
           <integer>102</integer>
           <key>script</key>
-          <string>-- CONFIGURATION VARIABLES (User Settable) --
-set cc_localization_string to "Sound"
-
--- AirPods Listening Mode Checkboxes (counting only checkboxes)
--- Checkbox 3 = Off, 4 = Transparency, 5 = Adaptive, 6 = Noise Cancellation
-set transparency_checkbox_index to 4
-set noise_cancellation_checkbox_index to 6
----------------------------------------------
-
-tell application "System Events"
-    tell application process "ControlCenter"
-
-        -- Open Sound Menu
-        click (first UI element of menu bar 1 whose description starts with cc_localization_string)
-        delay 0.3
-
-        -- Toggle Logic
-        try
-            set transparencyCheckbox to checkbox transparency_checkbox_index of scroll area 1 of group 1 of window 1
-            set noiseCancellationCheckbox to checkbox noise_cancellation_checkbox_index of scroll area 1 of group 1 of window 1
-
-            if value of transparencyCheckbox is 1 then
-                click noiseCancellationCheckbox
-            else
-                click transparencyCheckbox
-            end if
-
-        on error errMsg number errNum
-            display dialog "Error: " &amp; errNum &amp; ": " &amp; errMsg
-        end try
-        delay 0.1
-
-        -- Close Control Center
-        click (first UI element of menu bar 1 whose description starts with cc_localization_string)
-        delay 0.01
-
-    end tell
-end tell</string>
+          <string>./esbuild/assets/run-node.sh esbuild/toggle-noise-cancellation.js</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
           <string></string>
           <key>type</key>
-          <integer>6</integer>
+          <integer>11</integer>
         </dict>
         <key>type</key>
         <string>alfred.workflow.action.script</string>
@@ -126,6 +89,12 @@ Currently, MacOS 26 does not provide a public API for noise cancellation, so thi
 
 Use the keyword `nct` to toggle noise cancellation on or off.
 
+Your headphones must be the selected audio output, otherwise macOS does not render a Listening Mode section to toggle.
+
+## Configuration
+
+`Alternate Listening Mode` - which mode to switch to when Noise Cancellation is already on. Defaults to `Adaptive`.
+
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
@@ -146,7 +115,38 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </dict>
     <key>userconfigurationconfig</key>
-    <array></array>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>adaptive</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>Adaptive</string>
+              <string>adaptive</string>
+            </array>
+            <array>
+              <string>Transparency</string>
+              <string>transparency</string>
+            </array>
+            <array>
+              <string>Off</string>
+              <string>off</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>The mode to switch to when Noise Cancellation is already on. Off is only available on devices that offer it.</string>
+        <key>label</key>
+        <string>Alternate Listening Mode</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>alternate_mode</string>
+      </dict>
+    </array>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
     <key>version</key>

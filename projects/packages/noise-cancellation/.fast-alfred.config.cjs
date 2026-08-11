@@ -14,6 +14,12 @@ Currently, MacOS 26 does not provide a public API for noise cancellation, so thi
 
 Use the keyword \`nct\` to toggle noise cancellation on or off.
 
+Your headphones must be the selected audio output, otherwise macOS does not render a Listening Mode section to toggle.
+
+## Configuration
+
+\`Alternate Listening Mode\` - which mode to switch to when Noise Cancellation is already on. Defaults to \`Adaptive\`.
+
 To view the workflow codebase, click here:
 ${homepage}
 `.trim();

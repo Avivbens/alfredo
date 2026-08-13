@@ -1,3 +1,17 @@
+## 1.4.0 (2026-08-13)
+
+### 🚀 Features
+
+- **reminders:** add support for creating reminders ([f2414ca](https://github.com/Avivbens/alfredo/commit/f2414ca))
+
+### 🩹 Fixes
+
+- **create-event:** use `escapeAppleScriptString` ([863329d](https://github.com/Avivbens/alfredo/commit/863329d))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.3 (2026-07-06)
 
 ### 🩹 Fixes

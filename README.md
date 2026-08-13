@@ -1,3 +1,5 @@
+
+
 <div align="center">
   <h1>Alfredo 🍝 - Your Alfred Workflow's Best Collection</h1>
   <p><strong>A powerful collection of workflows for seamless development automation</strong></p>
@@ -41,6 +43,12 @@
 ### ![Total Downloads](https://img.shields.io/github/downloads/avivbens/alfredo/total?label=Total%20Downloads&color=blue)
 
 </div>
+
+## 📥 Installation
+
+1. Click the **Download Workflow** link for your preferred workflow in the table above.
+2. Double-click the downloaded `.alfredworkflow` file to automatically import it into Alfred.
+3. **Note:** AI-powered workflows (e.g., AI Calendar Assistant, Jira Master) require external API keys. Configuration steps are provided in each workflow's documentation.
 
 ## 🚀 Overview
 

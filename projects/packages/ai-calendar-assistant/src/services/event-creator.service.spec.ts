@@ -18,8 +18,9 @@ jest.mock('zurk', () => ({
   $: jest.fn(() => zurkTemplateLiteralFn),
 }));
 
-// Mock runAppleScript
+// Mock runAppleScript, keeping the real escaping so the generated script is asserted as-is
 jest.mock('@alfredo/run-applescript', () => ({
+  ...jest.requireActual('@alfredo/run-applescript'),
   runAppleScript: jest.fn(),
 }));
 
@@ -119,6 +120,19 @@ describe('event-creator.service', () => {
       const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'Asia/Jerusalem' };
       const script = eventCreatorAppleScript(calendarName, tzEvent, false);
       expect(script).not.toContain('Timezone:');
+    });
+
+    it('should escape quotes and newlines so model output cannot break the script', () => {
+      const quotedEvent: CalendarEvent = {
+        ...baseEvent,
+        summary: 'Lunch at Joe"s',
+        description: 'First line\nSecond line',
+      };
+      const script = eventCreatorAppleScript('Joe"s Calendar', quotedEvent, false);
+
+      expect(script).toContain(`summary:"Lunch at Joe\\"s"`);
+      expect(script).toContain(`description:"First line\\nSecond line"`);
+      expect(script).toContain(`tell calendar "Joe\\"s Calendar"`);
     });
 
     it('should pass start/end dates straight to formatDateToAppleScript regardless of timezone', () => {

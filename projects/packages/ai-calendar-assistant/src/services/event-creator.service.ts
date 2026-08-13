@@ -1,5 +1,5 @@
 import { $ } from 'zurk';
-import { runAppleScript } from '@alfredo/run-applescript';
+import { escapeAppleScriptString, runAppleScript } from '@alfredo/run-applescript';
 import { CalendarEvent } from '../models/calendar-event.model';
 import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
@@ -60,7 +60,7 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
    */
   const properties = [
     /*  */
-    `summary:"${summary}"`,
+    `summary:"${escapeAppleScriptString(summary)}"`,
     `start date:theStartDate`,
     `end date:theEndDate`,
   ];
@@ -73,11 +73,11 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
    * user, we append it to the description when it differs from undefined.
    */
   if (location) {
-    properties.push(`location:"${location}"`);
+    properties.push(`location:"${escapeAppleScriptString(location)}"`);
   }
   const descriptionParts: string[] = [];
   if (description) {
-    descriptionParts.push(description);
+    descriptionParts.push(escapeAppleScriptString(description));
   }
   if (timeZone && timeZone !== getCurrentTimezone()) {
     descriptionParts.push(`Timezone: ${timeZone}`);
@@ -86,7 +86,7 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
     properties.push(`description:"${descriptionParts.join('\\n\\n')}"`);
   }
   if (url) {
-    properties.push(`url:"${url}"`);
+    properties.push(`url:"${escapeAppleScriptString(url)}"`);
   }
 
   properties.push(`allday event:${String(allDayEvent)}`);
@@ -95,7 +95,7 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
 tell application "Calendar"
   ${formatDateToAppleScript('theStartDate', startDate)}
   ${formatDateToAppleScript('theEndDate', endDate)}
-  tell calendar "${calendarName}"
+  tell calendar "${escapeAppleScriptString(calendarName)}"
     set newEvent to (make new event with properties {${properties.join(', ')}})
   end tell
   ${shouldOpen ? 'show newEvent' : ''}

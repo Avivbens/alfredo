@@ -53,6 +53,7 @@ Once set up, you can use the assigned hotkey to switch between them seamlessly â
 ### Connect a Bluetooth device
 
 Type `bt` in Alfred to list every paired Bluetooth device, then keep typing to filter by name or address.
+The keyword is configurable in the workflow settings if `bt` clashes with something else you use.
 
 The devices you listed in the workflow settings come first, in the order you wrote them; everything else follows,
 connected first. Devices are shown under the name System Settings uses, so the settings list and this one line up.

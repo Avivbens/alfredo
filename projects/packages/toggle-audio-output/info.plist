@@ -4,6 +4,8 @@
   <dict>
     <key>bundleid</key>
     <string>com.alfredapp.avivbens.toggle-audio-output</string>
+    <key>category</key>
+    <string>Productivity</string>
     <key>connections</key>
     <dict>
       <key>2D8E646F-079B-48BA-B3E2-F227379D9BB6</key>
@@ -19,6 +21,56 @@
           <false></false>
         </dict>
       </array>
+      <key>B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
     </dict>
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
@@ -30,6 +82,37 @@
     <string>Toggle Audio Output</string>
     <key>objects</key>
     <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>action</key>
+          <integer>0</integer>
+          <key>argument</key>
+          <integer>0</integer>
+          <key>focusedappvariable</key>
+          <false></false>
+          <key>focusedappvariablename</key>
+          <string></string>
+          <key>hotkey</key>
+          <integer>35</integer>
+          <key>hotmod</key>
+          <integer>524288</integer>
+          <key>hotstring</key>
+          <string>P</string>
+          <key>leftcursor</key>
+          <false></false>
+          <key>modsmode</key>
+          <integer>0</integer>
+          <key>relatedAppsMode</key>
+          <integer>0</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.trigger.hotkey</string>
+        <key>uid</key>
+        <string>2D8E646F-079B-48BA-B3E2-F227379D9BB6</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
       <dict>
         <key>config</key>
         <dict>
@@ -56,31 +139,152 @@
       <dict>
         <key>config</key>
         <dict>
-          <key>action</key>
-          <integer>0</integer>
-          <key>argument</key>
-          <integer>0</integer>
-          <key>focusedappvariable</key>
+          <key>alfredfiltersresults</key>
           <false></false>
-          <key>focusedappvariablename</key>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:bluetooth_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Loading Bluetooth devices...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/list-bluetooth-devices.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
           <string></string>
-          <key>hotkey</key>
-          <integer>0</integer>
-          <key>hotmod</key>
-          <integer>0</integer>
-          <key>leftcursor</key>
-          <false></false>
-          <key>modsmode</key>
-          <integer>0</integer>
-          <key>relatedAppsMode</key>
-          <integer>0</integer>
+          <key>subtext</key>
+          <string>Force a reconnect to one of your paired Bluetooth devices</string>
+          <key>title</key>
+          <string>Connect a Bluetooth device</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
         </dict>
         <key>type</key>
-        <string>alfred.workflow.trigger.hotkey</string>
+        <string>alfred.workflow.input.scriptfilter</string>
         <key>uid</key>
-        <string>2D8E646F-079B-48BA-B3E2-F227379D9BB6</string>
+        <string>B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/connect-bluetooth-device.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
         <key>version</key>
         <integer>2</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
       </dict>
     </array>
     <key>readme</key>
@@ -90,19 +294,27 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Prerequisites
 
-This workflow relies on `switchaudio-osx` to list and switch audio devices. Install it before using the workflow:
+This workflow relies on `switchaudio-osx` to list and switch audio devices, and on `blueutil` to connect Bluetooth devices. Install them before using the workflow:
 
 ```bash
-brew install switchaudio-osx
+brew install switchaudio-osx blueutil
 ```
 
-Without it, the workflow fails with `SwitchAudioSource: command not found` (exit code 127).
+Without `switchaudio-osx`, toggling fails with `SwitchAudioSource: command not found`.
+Without `blueutil`, the `bt` command tells you so and offers the install command to copy.
+
+### Bluetooth permission
+
+macOS asks for Bluetooth access on behalf of the app that runs `blueutil`, which is Alfred.
 
 ## Features
 
-Rapidly toggle between audio output devices with a single keystroke! 🥷
+* Rapidly toggle between audio output devices with a single keystroke 🥷
+* Force a reconnect to any paired Bluetooth device, straight from Alfred
 
 ## Usage
+
+### Toggle the audio output
 
 Configure your preferred audio output devices in the workflow settings.
 You can set up multiple devices, such as your Mac's built-in speakers, external speakers, or headphones.
@@ -121,6 +333,15 @@ AirPods Pro
 
 Once set up, you can use the assigned hotkey to switch between them seamlessly ✨
 
+### Connect a Bluetooth device
+
+Type `bt` in Alfred to list every paired Bluetooth device, then keep typing to filter by name or address.
+The keyword is configurable in the workflow settings if `bt` clashes with something else you use.
+
+The devices you listed in the workflow settings come first, in the order you wrote them; everything else follows, connected first.
+Devices are shown under the name System Settings uses, so the settings list and this one line up.
+
+
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
@@ -135,13 +356,75 @@ https://github.com/Avivbens/alfredo</string>
       <key>778E697B-DBC7-46D3-A7B0-72E038023F75</key>
       <dict>
         <key>xpos</key>
-        <integer>465</integer>
+        <integer>545</integer>
         <key>ypos</key>
         <integer>250</integer>
+      </dict>
+      <key>B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>400</integer>
+      </dict>
+      <key>E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</key>
+      <dict>
+        <key>xpos</key>
+        <integer>545</integer>
+        <key>ypos</key>
+        <integer>400</integer>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>0</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_B3C1A5D2-7E64-4F0A-9C18-2A6D4E8B5F31_to_E7F42C09-1B3D-4A86-B5E2-9D0C7A14F6B8</key>
+      <dict>
+        <key>xpos</key>
+        <integer>315</integer>
+        <key>ypos</key>
+        <integer>400</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
       </dict>
     </dict>
     <key>userconfigurationconfig</key>
     <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>bt</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Connect a Bluetooth device keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>bluetooth_keyword</string>
+      </dict>
       <dict>
         <key>config</key>
         <dict>
@@ -155,7 +438,7 @@ https://github.com/Avivbens/alfredo</string>
           <integer>6</integer>
         </dict>
         <key>description</key>
-        <string>Sort the list in the order you want to switch between the items. Separate audio outputs with a line break.</string>
+        <string>Sort the list in the order you want to switch between the items. Separate audio outputs with a line break. The same list puts your preferred devices first in the `bt` Bluetooth command, so use the names exactly as System Settings shows them.</string>
         <key>label</key>
         <string>Your preferred audio output devices</string>
         <key>type</key>
@@ -163,9 +446,28 @@ https://github.com/Avivbens/alfredo</string>
         <key>variable</key>
         <string>outputs_list</string>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
     </array>
     <key>version</key>
-    <string>1.1.2</string>
+    <string>1.1.3</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

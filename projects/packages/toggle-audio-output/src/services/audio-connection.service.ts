@@ -1,4 +1,7 @@
+import { setTimeout as delay } from 'node:timers/promises';
 import { $ } from 'zurk';
+import { normalizeAddress } from '../common/address.util';
+import { AUDIO_ROUTE_ATTEMPTS, AUDIO_ROUTE_RETRY_DELAY_MS } from '../config/constants';
 import { AudioSource, AudioSourceSchema } from '../models/audio-source-all.model';
 
 export async function getConnectedAudioDevices(): Promise<AudioSource[]> {
@@ -25,4 +28,35 @@ export async function setAudioOutput(output: string): Promise<void> {
   }
 
   await $`SwitchAudioSource -s ${output}`;
+}
+
+/**
+ * CoreAudio prefixes a Bluetooth device's uid with its MAC (`aa-bb-..:output`),
+ * which pairs the two sides together far more reliably than the display name.
+ */
+function isOutputFor(address: string, { type, uid }: AudioSource): boolean {
+  return type === 'output' && normalizeAddress(uid.split(':')[0] ?? '') === normalizeAddress(address);
+}
+
+/**
+ * Routes system audio to a just-connected Bluetooth device, polling because
+ * CoreAudio registers the device a beat after the Bluetooth link comes up.
+ * Resolves to the routed device name, or undefined when the device never
+ * exposes an audio output.
+ */
+export async function routeAudioTo(address: string): Promise<string | undefined> {
+  for (let attempt = 1; attempt <= AUDIO_ROUTE_ATTEMPTS; attempt++) {
+    const output = (await getConnectedAudioDevices()).find((device) => isOutputFor(address, device));
+
+    if (output) {
+      await setAudioOutput(output.name);
+      return output.name;
+    }
+
+    if (attempt < AUDIO_ROUTE_ATTEMPTS) {
+      await delay(AUDIO_ROUTE_RETRY_DELAY_MS);
+    }
+  }
+
+  return undefined;
 }

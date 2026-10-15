@@ -1,6 +1,8 @@
 packages:
+  - projects/e2e/**
   - projects/libs/**
   - projects/packages/**
+  - projects/workspace
 
 allowBuilds:
   '@nestjs/core': false

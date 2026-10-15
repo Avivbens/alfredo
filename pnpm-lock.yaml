@@ -209,6 +209,9 @@ importers:
         specifier: ^0.11.2
         version: 0.11.10
     devDependencies:
+      '@alfredo/workspace':
+        specifier: workspace:*
+        version: link:projects/workspace
       '@commitlint/cli':
         specifier: ^19.6.1
         version: 19.8.1(@types/node@22.19.19)(typescript@5.9.3)
@@ -327,25 +330,101 @@ importers:
         specifier: ^8.13.0
         version: 8.59.4(eslint@9.39.4(jiti@2.6.1)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
 
-  projects/packages/advance-fs-search: {}
+  projects/e2e/llm-e2e:
+    devDependencies:
+      '@alfredo/llm':
+        specifier: workspace:*
+        version: link:../../libs/llm
 
-  projects/packages/ai-calendar-assistant: {}
+  projects/libs/active-app: {}
 
-  projects/packages/country-info: {}
+  projects/libs/command-injection: {}
 
-  projects/packages/jira-master: {}
+  projects/libs/llm: {}
 
-  projects/packages/kill-process: {}
+  projects/libs/run-applescript: {}
 
-  projects/packages/noise-cancellation: {}
+  projects/libs/updater: {}
 
-  projects/packages/search-bookmark: {}
+  projects/packages/advance-fs-search:
+    dependencies:
+      '@alfredo/command-injection':
+        specifier: workspace:*
+        version: link:../../libs/command-injection
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
 
-  projects/packages/table-plus-db: {}
+  projects/packages/ai-calendar-assistant:
+    dependencies:
+      '@alfredo/llm':
+        specifier: workspace:*
+        version: link:../../libs/llm
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../../libs/run-applescript
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
 
-  projects/packages/text-transformer: {}
+  projects/packages/country-info:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
 
-  projects/packages/toggle-audio-output: {}
+  projects/packages/jira-master:
+    dependencies:
+      '@alfredo/llm':
+        specifier: workspace:*
+        version: link:../../libs/llm
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/packages/kill-process:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/packages/noise-cancellation:
+    dependencies:
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../../libs/run-applescript
+
+  projects/packages/search-bookmark:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/packages/table-plus-db:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/packages/text-transformer:
+    dependencies:
+      '@alfredo/active-app':
+        specifier: workspace:*
+        version: link:../../libs/active-app
+      '@alfredo/llm':
+        specifier: workspace:*
+        version: link:../../libs/llm
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/packages/toggle-audio-output:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
+  projects/workspace: {}
 
 packages:
 

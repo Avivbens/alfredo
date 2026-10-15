@@ -1,7 +1,7 @@
 const { resolve } = require('node:path');
 const { author, description, homepage } = require('./package.json');
 const { env } = require('node:process');
-const { API_KEY_README_SECTION } = require('../../libs/llm/readme.cjs');
+const { API_KEY_README_SECTION } = require('@alfredo/llm/readme.cjs');
 
 const README = `
 #### Thank you for using Ai Calendar Assistant! ✨

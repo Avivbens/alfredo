@@ -1,3 +1,13 @@
+## 1.2.0 (2026-10-15)
+
+### 🚀 Features
+
+- **bluetooth-control:** add support for listing & actions on paired devices ([75b3581](https://github.com/Avivbens/alfredo/commit/75b3581))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.3 (2026-07-26)
 
 ### 🩹 Fixes

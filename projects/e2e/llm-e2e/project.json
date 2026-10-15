@@ -1,0 +1,12 @@
+{
+  "name": "llm-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "projects/e2e/llm-e2e/src",
+  "projectType": "application",
+  "tags": ["e2e"],
+  "implicitDependencies": ["ai-calendar-assistant", "jira-master", "text-transformer"],
+  "targets": {
+    "test": {},
+    "lint": {}
+  }
+}

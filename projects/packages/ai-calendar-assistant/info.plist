@@ -901,98 +901,40 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
-          <string>gpt-4o-mini</string>
+          <string>gpt-6-luna</string>
           <key>pairs</key>
           <array>
             <array>
-              <string>Anthropic Claude Opus 4</string>
-              <string>claude-opus-4-0</string>
+              <string>Anthropic Claude Haiku 5.5</string>
+              <string>claude-haiku-5-5</string>
             </array>
             <array>
-              <string>Anthropic Claude Sonnet 4</string>
-              <string>claude-sonnet-4-0</string>
+              <string>Google Gemini 4 Argon</string>
+              <string>gemini-4-argon</string>
             </array>
             <array>
-              <string>Anthropic Claude Sonnet 3.7</string>
-              <string>claude-3-7-sonnet-latest</string>
+              <string>Google Gemini 3.8 Flash</string>
+              <string>gemini-3.8-flash</string>
             </array>
             <array>
-              <string>Anthropic Claude Sonnet 3.5</string>
-              <string>claude-3-5-sonnet-latest</string>
+              <string>Google Gemini 3.5 Flash Lite</string>
+              <string>gemini-3.5-flash-lite</string>
             </array>
             <array>
-              <string>Anthropic Claude Haiku 3.5</string>
-              <string>claude-3-5-haiku-latest</string>
+              <string>OpenAI GPT 6 Astra</string>
+              <string>gpt-6-astra</string>
             </array>
             <array>
-              <string>Anthropic Claude Opus 3</string>
-              <string>claude-3-opus-latest</string>
+              <string>OpenAI GPT 6.1 Sol</string>
+              <string>gpt-6.1-sol</string>
             </array>
             <array>
-              <string>Google Gemini 2.5 Pro</string>
-              <string>gemini-2.5-pro</string>
-            </array>
-            <array>
-              <string>Google Gemini 2.5 Flash</string>
-              <string>gemini-2.5-flash</string>
-            </array>
-            <array>
-              <string>Google Gemini 2.0 Flash</string>
-              <string>gemini-2.0-flash</string>
-            </array>
-            <array>
-              <string>Google Gemini 2.0 Flash Lite</string>
-              <string>gemini-2.0-flash-lite</string>
-            </array>
-            <array>
-              <string>Google Gemini 1.5 Pro</string>
-              <string>gemini-1.5-pro</string>
-            </array>
-            <array>
-              <string>Google Gemini 1.5 Flash</string>
-              <string>gemini-1.5-flash</string>
-            </array>
-            <array>
-              <string>Google Gemini 1.5 Flash 8B</string>
-              <string>gemini-1.5-flash-8b</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4.1</string>
-              <string>gpt-4.1</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4.1 mini</string>
-              <string>gpt-4.1-mini</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4.1 nano</string>
-              <string>gpt-4.1-nano</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4o</string>
-              <string>gpt-4o</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4o mini</string>
-              <string>gpt-4o-mini</string>
-            </array>
-            <array>
-              <string>OpenAI GPT 4 Turbo</string>
-              <string>gpt-4-turbo</string>
-            </array>
-            <array>
-              <string>OpenAI O1</string>
-              <string>o1</string>
-            </array>
-            <array>
-              <string>OpenAI O3</string>
-              <string>o3</string>
-            </array>
-            <array>
-              <string>OpenAI O3 mini</string>
-              <string>o3-mini</string>
+              <string>OpenAI GPT 6 Luna</string>
+              <string>gpt-6-luna</string>
             </array>
           </array>
+          <key>required</key>
+          <true></true>
         </dict>
         <key>description</key>
         <string>Your selection for LLM provider - including Anthropic, Google, OpenAI</string>
@@ -1074,7 +1016,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.3.3</string>
+    <string>1.4.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

@@ -33,7 +33,7 @@ jobs:
       - name: 🧪 Check out repository code
         uses: ./.github/workflows/health-check
         with:
-          run-tests: false
+          run-tests: true
           run-tests-command: 'npx nx affected --target=test --parallel'
           run-lint: true
           run-lint-command: 'npx nx affected --target=lint --parallel'

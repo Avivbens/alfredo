@@ -1,3 +1,18 @@
+# 2.0.0 (2026-10-15)
+
+### 🩹 Fixes
+
+- ⚠️  **models:** drop old models, integrate new ones ([059304f](https://github.com/Avivbens/alfredo/commit/059304f))
+
+### ⚠️  Breaking Changes
+
+- **models:** drop old models, integrate new ones  ([059304f](https://github.com/Avivbens/alfredo/commit/059304f))
+  drop old models from all vendors
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.6 (2026-06-30)
 
 ### 🩹 Fixes

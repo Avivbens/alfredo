@@ -1,5 +1,6 @@
 // @ts-check
 const { getProjects, workspaceRoot, readJsonFile, logger } = require('@nx/devkit');
+const { existsSync } = require('node:fs');
 const { readFile, writeFile } = require('node:fs/promises');
 const { exit } = require('node:process');
 const { FsTree } = require('nx/src/generators/tree');
@@ -11,6 +12,8 @@ const execAsync = promisify(exec);
 const TABLE_START_MARKER = '<!-- TABLE_START -->';
 const TABLE_END_MARKER = '<!-- TABLE_END -->';
 const README_FILE = 'README.md';
+/** Only Alfred workflows are released, and every one ships this file - other app-type projects (e2e) don't. */
+const WORKFLOW_MARKER_FILE = 'info.plist';
 
 const REPO_NAME = 'alfredo';
 const REPO_OWNER = 'avivbens';
@@ -72,12 +75,11 @@ async function insertReleaseTable(table) {
  */
 function buildTable(projects) {
   const lines = Object.entries(projects).map(([projectName, projectConfig]) => {
-    const type = projectConfig.projectType;
-    if (type !== 'application') {
+    const projectRoot = projectConfig.root;
+    if (projectConfig.projectType !== 'application' || !existsSync(`${projectRoot}/${WORKFLOW_MARKER_FILE}`)) {
       return null;
     }
 
-    const projectRoot = projectConfig.root;
     const packageJson = readJsonFile(`${projectRoot}/package.json`);
 
     const projectVersion = packageJson.version;

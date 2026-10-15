@@ -39,13 +39,13 @@ describe('extractReminder', () => {
   });
 
   it('should call the LLM with the current date and return the reminders', async () => {
-    const result = await extractReminder(token, AvailableModels.GOOGLE_GEMINI_1_5_FLASH, input);
+    const result = await extractReminder(token, AvailableModels.GOOGLE_GEMINI_3_8_FLASH, input);
 
     expect(dateTimezoneNatural).toHaveBeenCalledWith(expect.any(Date));
     expect(EXTRACT_REMINDER_SYSTEM_PROMPT.format).toHaveBeenCalledWith({ currentDate: '2026-08-13T12:00:00' });
     expect(callModelWithStructuredResponse).toHaveBeenCalledWith(
       token,
-      AvailableModels.GOOGLE_GEMINI_1_5_FLASH,
+      AvailableModels.GOOGLE_GEMINI_3_8_FLASH,
       { system: 'Formatted Prompt', user: input },
       GeminiRemindersSchema,
     );
@@ -53,11 +53,11 @@ describe('extractReminder', () => {
   });
 
   it('should pick the OpenAI schema variant for a non-Gemini model', async () => {
-    await extractReminder(token, AvailableModels.GPT_4O_MINI, input);
+    await extractReminder(token, AvailableModels.GPT_6_LUNA, input);
 
     expect(callModelWithStructuredResponse).toHaveBeenCalledWith(
       token,
-      AvailableModels.GPT_4O_MINI,
+      AvailableModels.GPT_6_LUNA,
       expect.any(Object),
       OpenAIRemindersSchema,
     );
@@ -67,6 +67,6 @@ describe('extractReminder', () => {
     const error = new Error('LLM Error');
     (callModelWithStructuredResponse as jest.Mock).mockRejectedValue(error);
 
-    await expect(extractReminder(token, AvailableModels.GPT_4O_MINI, input)).rejects.toThrow('LLM Error');
+    await expect(extractReminder(token, AvailableModels.GPT_6_LUNA, input)).rejects.toThrow('LLM Error');
   });
 });

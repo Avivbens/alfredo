@@ -26,7 +26,7 @@ jest.mock('../common/prompts/extract-event-name.prompt', () => ({
 
 describe('extractEvent', () => {
   const token = 'test-token';
-  const model = AvailableModels.GOOGLE_GEMINI_1_5_FLASH;
+  const model = AvailableModels.GOOGLE_GEMINI_3_8_FLASH;
   const input = 'test input';
 
   afterEach(() => {

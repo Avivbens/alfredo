@@ -9,47 +9,34 @@ import { AvailableModels } from './available-models.enum';
 
 const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> = {
   // ---- Anthropic (Claude variants) ----
-  [AvailableModels.CLAUDE_OPUS_4]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_OPUS_4 }),
-  [AvailableModels.CLAUDE_SONNET_4]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_4 }),
-  [AvailableModels.CLAUDE_SONNET_3_7]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_3_7 }),
-  [AvailableModels.CLAUDE_SONNET_3_5]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_SONNET_3_5 }),
-  [AvailableModels.CLAUDE_HAIKU_3_5]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_HAIKU_3_5 }),
-  [AvailableModels.CLAUDE_OPUS_3]: (apiKey: string) =>
-    new ChatAnthropic({ apiKey, modelName: AvailableModels.CLAUDE_OPUS_3 }),
+  /**
+   * Claude 4.7+ models return 400 for non-default `temperature` / `top_k` / `top_p`, and `@langchain/anthropic` 0.3
+   * always sends them (`1`, `-1`, `-1`). `invocationKwargs` is spread last into the request, so it unsets them.
+   */
+  [AvailableModels.CLAUDE_HAIKU_5_5]: (apiKey: string) =>
+    new ChatAnthropic({
+      apiKey,
+      modelName: AvailableModels.CLAUDE_HAIKU_5_5,
+      invocationKwargs: { temperature: undefined, top_k: undefined, top_p: undefined },
+    }),
 
   // ---- Google (Gemini variants) ----
-  [AvailableModels.GOOGLE_GEMINI_1_5_FLASH]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_FLASH }),
-  [AvailableModels.GOOGLE_GEMINI_1_5_FLASH_8B]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_FLASH_8B }),
-  [AvailableModels.GOOGLE_GEMINI_1_5_PRO]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_1_5_PRO }),
-  [AvailableModels.GOOGLE_GEMINI_2_0_FLASH]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_0_FLASH }),
-  [AvailableModels.GOOGLE_GEMINI_2_0_FLASH_LITE]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_0_FLASH_LITE }),
-  [AvailableModels.GOOGLE_GEMINI_2_5_FLASH]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_5_FLASH }),
-  [AvailableModels.GOOGLE_GEMINI_2_5_PRO]: (apiKey: string) =>
-    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_2_5_PRO }),
+  [AvailableModels.GOOGLE_GEMINI_4_ARGON]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_4_ARGON }),
+  [AvailableModels.GOOGLE_GEMINI_3_8_FLASH]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_3_8_FLASH }),
+  [AvailableModels.GOOGLE_GEMINI_3_5_FLASH_LITE]: (apiKey: string) =>
+    new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_3_5_FLASH_LITE }),
 
   // ---- OpenAI (GPT variants) ----
-  [AvailableModels.GPT_4_1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1 }),
-  [AvailableModels.GPT_4_1_MINI]: (apiKey: string) =>
-    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1_MINI }),
-  [AvailableModels.GPT_4_1_NANO]: (apiKey: string) =>
-    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_1_NANO }),
-  [AvailableModels.GPT_4O]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O }),
-  [AvailableModels.GPT_4O_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4O_MINI }),
-  [AvailableModels.GPT_4_TURBO]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_4_TURBO }),
-  [AvailableModels.O1]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O1 }),
-  [AvailableModels.O3]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3 }),
-  [AvailableModels.O3_MINI]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.O3_MINI }),
+  [AvailableModels.GPT_6_ASTRA]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_ASTRA }),
+  [AvailableModels.GPT_6_1_SOL]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_1_SOL }),
+  /**
+   * Luna is the default model and reasons at `medium` unless told otherwise, which is too slow for quick Alfred
+   * actions. `@langchain/openai` 0.5 only forwards `reasoningEffort` for o-series models, hence `modelKwargs`.
+   */
+  [AvailableModels.GPT_6_LUNA]: (apiKey: string) =>
+    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_LUNA, modelKwargs: { reasoning_effort: 'none' } }),
 };
 
 function initializeModel(userApiKey: string, selectedModel: AvailableModels) {

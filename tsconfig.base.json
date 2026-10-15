@@ -21,16 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "allowUnusedLabels": false,
-    "allowUnreachableCode": false,
-    "baseUrl": ".",
-    "paths": {
-      "@alfredo/active-app": ["./projects/libs/active-app/src/index.ts"],
-      "@alfredo/command-injection": ["projects/libs/command-injection/src/index.ts"],
-      "@alfredo/llm": ["projects/libs/llm/src/index.ts"],
-      "@alfredo/run-applescript": ["projects/libs/run-applescript/src/index.ts"],
-      "@alfredo/updater": ["projects/libs/updater/src/index.ts"],
-      "@alfredo/workspace": ["./projects/workspace/src/index.ts"]
-    }
+    "allowUnreachableCode": false
   },
   "exclude": ["node_modules", "tmp"]
 }

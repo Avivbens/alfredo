@@ -6,9 +6,9 @@
  * consumes an LLM, so the supported-provider list and key-generation URLs stay
  * in sync across all workflows from this single source of truth.
  *
- * Authored as plain CommonJS (not part of the TS `src/`) because
- * `.fast-alfred.config.cjs` files are loaded by the fast-alfred CLI as plain
- * Node modules and cannot resolve the `@alfredo/llm` TS path alias at config time.
+ * Plain CommonJS outside `src/` because `.fast-alfred.config.cjs` is loaded by
+ * plain Node, which cannot load the package's TS entry point - consumers require
+ * `@alfredo/llm/readme.cjs` instead.
  */
 const API_KEY_README_SECTION = `### API key
 

@@ -18,10 +18,6 @@
       "email": "avivbens87@gmail.com"
     }
   ],
-  "workspaces": [
-    "projects/libs/**",
-    "projects/packages/**"
-  ],
   "scripts": {
     "build": "nx run-many --target=build --all --parallel 7",
     "lint": "nx run-many --target=lint --all --parallel 7",
@@ -47,9 +43,11 @@
     "zurk": "^0.11.2"
   },
   "devDependencies": {
+    "@alfredo/workspace": "workspace:*",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.2.2",
     "@eslint/js": "^9.8.0",
+    "@jest/globals": "30.0.5",
     "@nx/devkit": "22.7.3",
     "@nx/eslint": "22.7.3",
     "@nx/eslint-plugin": "22.7.3",
@@ -86,6 +84,7 @@
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.13.0"
   },
+  "packageManager": "pnpm@12.11.2",
   "engines": {
     "node": ">=18.0.0"
   }

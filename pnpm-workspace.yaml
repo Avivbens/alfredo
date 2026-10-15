@@ -1,0 +1,12 @@
+packages:
+  - projects/e2e/**
+  - projects/libs/**
+  - projects/packages/**
+  - projects/workspace
+
+allowBuilds:
+  '@nestjs/core': false
+  '@swc/core': true
+  esbuild: true
+  nx: true
+  unrs-resolver: true

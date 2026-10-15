@@ -1,7 +1,7 @@
 const { resolve } = require('node:path');
 const { env } = require('node:process');
 const { author, description, homepage } = require('./package.json');
-const { API_KEY_README_SECTION } = require('../../libs/llm/readme.cjs');
+const { API_KEY_README_SECTION } = require('@alfredo/llm/readme.cjs');
 
 const README = `
 #### Thank you for using Jira Master! ✨

@@ -96,13 +96,13 @@
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "configurations": {
         "local": {
-          "command": "npx fast-alfred -t $(jq '.version' package.json) --no-package-json --drop-update-helpers"
+          "command": "pnpm exec fast-alfred -t $(jq '.version' package.json) --no-package-json --drop-update-helpers"
         },
         "local-updates": {
-          "command": "npx fast-alfred -t $(jq '.version' package.json) --no-package-json"
+          "command": "pnpm exec fast-alfred -t $(jq '.version' package.json) --no-package-json"
         },
         "ci": {
-          "command": "npx fast-alfred -t {args.version} --no-package-json"
+          "command": "pnpm exec fast-alfred -t {args.version} --no-package-json"
         }
       },
       "options": {

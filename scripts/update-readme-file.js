@@ -44,7 +44,7 @@ function createReadmeLine(projectName, projectVersion, projectDescription) {
 }
 
 async function formatReadme() {
-  await execAsync('npx prettier --write README.md');
+  await execAsync('pnpm exec prettier --write README.md');
 }
 
 /**

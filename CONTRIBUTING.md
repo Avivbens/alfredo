@@ -25,7 +25,7 @@ To get started, follow these steps:
 
 1. Fork the repository
 1. Clone your forked repository
-1. Install dependencies with `npm ci --no-fund --no-audit --no-progress`
+1. Install dependencies with `pnpm install --frozen-lockfile` (pnpm is pinned via `packageManager`, run `corepack enable` if `pnpm` is missing)
 1. Make changes
 1. Test your changes
 1. Submit a pull request against the `master` branch 🎉
@@ -43,7 +43,15 @@ nx g @alfredo/workspace:generate-workflow
 ### Generate a new Library
 
 ```bash
-nx generate @nx/js:library projects/libs/<your-library-name>
+nx g @alfredo/workspace:generate-library <your-library-name>
+```
+
+Libraries are pnpm workspace packages named `@alfredo/<your-library-name>`. To use one, declare it in the consuming workflow's `package.json` and run `pnpm install`:
+
+```json
+"dependencies": {
+  "@alfredo/<your-library-name>": "workspace:*"
+}
 ```
 
 > **Note:** The generator CLI is designed to simplify the process of creating new libraries and workflows, ensuring that they are compatible with the FastAlfred framework. It handles the boilerplate code and configuration, allowing you to focus on building your workflow's functionality.

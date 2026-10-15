@@ -1,6 +1,7 @@
 import * as path from 'path';
 import type { Tree } from '@nx/devkit';
 import { addProjectConfiguration, formatFiles, generateFiles, readProjectConfiguration } from '@nx/devkit';
+import { installWorkspacePackages } from '../common/install-workspace-packages';
 import type { GenerateWorkflowGeneratorSchema } from './generate-workflow.schema';
 
 export async function generateWorkflowGenerator(tree: Tree, options: GenerateWorkflowGeneratorSchema) {
@@ -26,6 +27,8 @@ export async function generateWorkflowGenerator(tree: Tree, options: GenerateWor
 
   generateFiles(tree, path.join(__dirname, 'files'), root, { ...options, nameTitleCase: projectNameTitleCase });
   await formatFiles(tree);
+
+  return installWorkspacePackages(tree);
 }
 
 export default generateWorkflowGenerator;

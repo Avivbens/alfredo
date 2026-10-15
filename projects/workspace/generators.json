@@ -4,6 +4,11 @@
       "factory": "./src/generators/generate-workflow/generate-workflow.generator",
       "schema": "./src/generators/generate-workflow/generate-workflow.schema.json",
       "description": "generate-workflow generator"
+    },
+    "generate-library": {
+      "factory": "./src/generators/generate-library/generate-library.generator",
+      "schema": "./src/generators/generate-library/generate-library.schema.json",
+      "description": "generate-library generator"
     }
   }
 }

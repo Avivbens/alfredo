@@ -2,9 +2,6 @@
 name: PR Health Checks 🐛
 on:
   pull_request:
-    paths:
-      - 'projects/**/*'
-      - '.github/workflows/checks.yaml'
     branches:
       - master
 

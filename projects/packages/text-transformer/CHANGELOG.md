@@ -1,3 +1,13 @@
+## 6.0.1 (2026-10-18)
+
+### 🩹 Fixes
+
+- **formatting:** apply formatting rules - no double dash ([cdc432f](https://github.com/Avivbens/alfredo/commit/cdc432f))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 6.0.0 (2026-10-15)
 
 ### 🩹 Fixes

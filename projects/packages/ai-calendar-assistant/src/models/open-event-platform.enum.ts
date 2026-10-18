@@ -5,4 +5,4 @@ export enum OpenEventPlatform {
   APPLE_CALENDAR = 'apple_calendar',
 }
 
-export const OpenEventPlatformSchema = z.nativeEnum(OpenEventPlatform);
+export const OpenEventPlatformSchema = z.enum(OpenEventPlatform);

@@ -10,7 +10,7 @@ export const metaInfoSchema = z.object({
   last_visited_desktop: z.string().optional(),
 });
 
-export const typeSchema = z.nativeEnum(Type);
+export const typeSchema = z.enum(Type);
 
 export const iUIBookmarkSchema = z.object({
   name: z.string(),
@@ -37,7 +37,7 @@ export interface IBookmark {
  * Only `name`/`type` are required since those are all we consume; every other
  * field is optional so a valid file is never rejected over metadata we ignore.
  */
-export const iBookmarkSchema: z.ZodSchema<IBookmark> = z.lazy(() =>
+export const iBookmarkSchema: z.ZodType<IBookmark> = z.lazy(() =>
   z.object({
     children: z.array(iBookmarkSchema).optional(),
     date_added: z.string().optional(),

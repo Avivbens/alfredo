@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { MODEL_VARIABLE } from '../common/workflow.constants';
 
 export const InfoPlistSchema = z.object({
-  userconfigurationconfig: z.array(z.object({ variable: z.string() }).passthrough()).default([]),
+  userconfigurationconfig: z.array(z.looseObject({ variable: z.string() })).default([]),
 });
 
 export const ModelPopupSchema = z.object({

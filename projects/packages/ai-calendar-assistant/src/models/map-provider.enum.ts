@@ -6,4 +6,4 @@ export enum MapProvider {
   APPLE_MAPS = 'apple_maps',
 }
 
-export const MapProviderSchema = z.nativeEnum(MapProvider);
+export const MapProviderSchema = z.enum(MapProvider);

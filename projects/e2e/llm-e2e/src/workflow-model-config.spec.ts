@@ -2,8 +2,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { env } from 'node:process';
 import { parse } from 'plist';
+import { describe, expect, it } from 'vitest';
 import { AvailableModels } from '@alfredo/llm';
-import { describe, expect, it } from '@jest/globals';
 import { DependencyType, readCachedProjectGraph, workspaceRoot } from '@nx/devkit';
 import { INFO_PLIST_FILE, MODEL_VARIABLE } from './common/workflow.constants';
 import { InfoPlistSchema, type ModelPopup, ModelPopupSchema } from './schemas/info-plist.schema';
@@ -42,7 +42,7 @@ const llmConsumers = Object.entries(graph.dependencies)
   .map(([project]) => project)
   .sort();
 
-/** Jest and zod failures don't say where they came from - prefix them with the workflow and its plist. */
+/** Vitest and zod failures don't say where they came from - prefix them with the workflow and its plist. */
 function checkModelPopup(workflow: string, check: (config: ModelPopup['config']) => void) {
   const node = graph.nodes[workflow];
   if (!node) {
@@ -61,7 +61,9 @@ function checkModelPopup(workflow: string, check: (config: ModelPopup['config'])
 
     check(config);
   } catch (error) {
-    throw new Error(`Workflow "${workflow}" (${plistPath}):\n\n${error instanceof Error ? error.message : error}`);
+    throw new Error(`Workflow "${workflow}" (${plistPath}):\n\n${error instanceof Error ? error.message : error}`, {
+      cause: error,
+    });
   }
 }
 

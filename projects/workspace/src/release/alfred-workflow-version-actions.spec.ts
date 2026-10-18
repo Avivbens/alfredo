@@ -1,12 +1,13 @@
 import { execSync } from 'node:child_process';
+import { describe, expect, it, vi } from 'vitest';
 import type { ProjectGraphProjectNode } from '@nx/devkit';
 import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
 import AlfredWorkflowVersionActions, { afterAllProjectsVersioned } from './alfred-workflow-version-actions';
 
-jest.mock('node:child_process', () => ({ ...jest.requireActual('node:child_process'), execSync: jest.fn() }));
-jest.mock('@nx/js/src/release/version-actions', () => ({
-  ...jest.requireActual('@nx/js/src/release/version-actions'),
-  afterAllProjectsVersioned: jest.fn(async () => ({ changedFiles: ['pnpm-lock.yaml'], deletedFiles: [] })),
+vi.mock(import('node:child_process'), async (importOriginal) => ({ ...(await importOriginal()), execSync: vi.fn() }));
+vi.mock(import('@nx/js/src/release/version-actions'), async (importOriginal) => ({
+  ...(await importOriginal()),
+  afterAllProjectsVersioned: vi.fn(async () => ({ changedFiles: ['pnpm-lock.yaml'], deletedFiles: [] })),
 }));
 
 const WORKSPACE_ROOT = '/workspace';
@@ -27,7 +28,7 @@ describe('alfred workflow version actions', () => {
 
     const result = await afterAllProjectsVersioned(WORKSPACE_ROOT, { dryRun: false });
 
-    expect(jest.mocked(execSync)).toHaveBeenCalledWith(
+    expect(vi.mocked(execSync)).toHaveBeenCalledWith(
       'pnpm exec nx run my-workflow:build:ci --skip-nx-cache -- --version 1.3.0',
       { cwd: WORKSPACE_ROOT, stdio: 'inherit' },
     );
@@ -42,7 +43,7 @@ describe('alfred workflow version actions', () => {
 
     const result = await afterAllProjectsVersioned(WORKSPACE_ROOT, { dryRun: true });
 
-    expect(jest.mocked(execSync)).not.toHaveBeenCalled();
+    expect(vi.mocked(execSync)).not.toHaveBeenCalled();
     expect(result).toEqual({ changedFiles: ['pnpm-lock.yaml'], deletedFiles: [] });
   });
 });

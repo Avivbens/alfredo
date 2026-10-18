@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { GeminiReminderSchema, OpenAIReminderSchema } from './reminder.model';
 
 describe('reminder.model', () => {

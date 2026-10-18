@@ -1,9 +1,10 @@
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { Reminder } from '../models/reminder.model';
 import * as dateService from './date.service';
 import { reminderCreatorAppleScript } from './reminder-creator.service';
 
 // Spy on dateService functions
-jest.spyOn(dateService, 'formatDateToAppleScript');
+vi.spyOn(dateService, 'formatDateToAppleScript');
 
 describe('reminderCreatorAppleScript', () => {
   const listName = 'Test List';
@@ -14,7 +15,7 @@ describe('reminderCreatorAppleScript', () => {
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should generate a valid AppleScript for a timed reminder without opening', () => {

@@ -1,25 +1,25 @@
-import { callModelWithStructuredResponse } from '@alfredo/llm';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
 import { EXTRACT_REMINDER_SYSTEM_PROMPT } from '../common/prompts/extract-reminder.prompt';
 import { GeminiRemindersSchema, OpenAIRemindersSchema } from '../models/reminder.model';
 import { dateTimezoneNatural } from './date.service';
 import { extractReminder } from './reminder-extractor.service';
 
-const { AvailableModels } = jest.requireActual('@alfredo/llm');
-
 // Mock the LLM call
-jest.mock('@alfredo/llm', () => ({
-  callModelWithStructuredResponse: jest.fn(),
+vi.mock('@alfredo/llm', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@alfredo/llm')>()),
+  callModelWithStructuredResponse: vi.fn(),
 }));
 
 // Mock the date service
-jest.mock('./date.service', () => ({
-  dateTimezoneNatural: jest.fn(() => '2026-08-13T12:00:00'),
+vi.mock('./date.service', () => ({
+  dateTimezoneNatural: vi.fn(() => '2026-08-13T12:00:00'),
 }));
 
 // Mock the prompt
-jest.mock('../common/prompts/extract-reminder.prompt', () => ({
+vi.mock('../common/prompts/extract-reminder.prompt', () => ({
   EXTRACT_REMINDER_SYSTEM_PROMPT: {
-    format: jest.fn(() => Promise.resolve('Formatted Prompt')),
+    format: vi.fn(() => Promise.resolve('Formatted Prompt')),
   },
 }));
 
@@ -31,11 +31,11 @@ describe('extractReminder', () => {
   };
 
   beforeEach(() => {
-    (callModelWithStructuredResponse as jest.Mock).mockResolvedValue(mockReminders);
+    vi.mocked(callModelWithStructuredResponse).mockResolvedValue(mockReminders);
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should call the LLM with the current date and return the reminders', async () => {
@@ -65,7 +65,7 @@ describe('extractReminder', () => {
 
   it('should handle errors from the LLM call', async () => {
     const error = new Error('LLM Error');
-    (callModelWithStructuredResponse as jest.Mock).mockRejectedValue(error);
+    vi.mocked(callModelWithStructuredResponse).mockRejectedValue(error);
 
     await expect(extractReminder(token, AvailableModels.GPT_6_LUNA, input)).rejects.toThrow('LLM Error');
   });

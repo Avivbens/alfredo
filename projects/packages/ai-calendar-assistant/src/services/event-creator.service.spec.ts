@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as zurk from 'zurk';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { CalendarEvent } from '../models/calendar-event.model';
@@ -13,21 +14,23 @@ import {
 } from './event-creator.service';
 
 // Mock zurk
-const zurkTemplateLiteralFn = jest.fn().mockResolvedValue({ stderr: null });
-jest.mock('zurk', () => ({
-  $: jest.fn(() => zurkTemplateLiteralFn),
+const { zurkTemplateLiteralFn } = vi.hoisted(() => ({
+  zurkTemplateLiteralFn: vi.fn().mockResolvedValue({ stderr: null }),
+}));
+vi.mock('zurk', () => ({
+  $: vi.fn(() => zurkTemplateLiteralFn),
 }));
 
 // Mock runAppleScript, keeping the real escaping so the generated script is asserted as-is
-jest.mock('@alfredo/run-applescript', () => ({
-  ...jest.requireActual('@alfredo/run-applescript'),
-  runAppleScript: jest.fn(),
+vi.mock('@alfredo/run-applescript', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@alfredo/run-applescript')>()),
+  runAppleScript: vi.fn(),
 }));
 
 // Spy on dateService functions
-jest.spyOn(dateService, 'formatDateToAppleScript');
-jest.spyOn(dateService, 'formatGoogleDate');
-jest.spyOn(dateService, 'getCurrentTimezone').mockReturnValue('Asia/Jerusalem');
+vi.spyOn(dateService, 'formatDateToAppleScript');
+vi.spyOn(dateService, 'formatGoogleDate');
+vi.spyOn(dateService, 'getCurrentTimezone').mockReturnValue('Asia/Jerusalem');
 
 describe('event-creator.service', () => {
   const calendarName = 'Test Calendar';
@@ -43,7 +46,7 @@ describe('event-creator.service', () => {
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   describe('eventCreatorAppleScript', () => {

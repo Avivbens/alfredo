@@ -163,7 +163,8 @@
       "commitMessage": "chore(release): release {version} [skip ci]"
     },
     "version": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "versionActions": "projects/workspace/src/release/alfred-workflow-version-actions.ts"
     },
     "conventionalCommits": {
       "useCommitScope": false

@@ -1,8 +1,8 @@
 import { basename } from 'node:path';
 import {
-  CreateNodesContextV2,
+  CreateNodes,
+  CreateNodesContext,
   CreateNodesResult,
-  CreateNodesV2,
   TargetConfiguration,
   createNodesFromFiles,
 } from '@nx/devkit';
@@ -20,7 +20,7 @@ const findTsconfig = (configFilePath: string) => {
 function buildTypecheckTarget(
   configFilePath: string,
   _options: unknown,
-  _context: CreateNodesContextV2,
+  _context: CreateNodesContext,
 ): CreateNodesResult {
   const projectRoot = configFilePath.split('/').slice(0, -1).join('/');
 
@@ -52,7 +52,7 @@ function buildTypecheckTarget(
   };
 }
 
-export const createNodesV2: CreateNodesV2 = [
+export const createNodesV2: CreateNodes = [
   // Only match tsconfig.app.json and tsconfig.lib.json to avoid duplicate targets
   '**/{tsconfig.app.json,tsconfig.lib.json}',
   async (configFilePaths, options, context) => {

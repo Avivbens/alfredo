@@ -9,14 +9,23 @@
       "!{projectRoot}/eslint.config.js",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
-      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/vitest.config.[mc]?[jt]s",
       "!{projectRoot}/src/test-setup.[jt]s",
       "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/release-master.yaml"],
     "plugins": ["{workspaceRoot}/projects/workspace/src/plugins/**"]
   },
-  "plugins": ["@alfredo/workspace"],
+  "plugins": [
+    "@alfredo/workspace",
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test",
+        "testMode": "run"
+      }
+    }
+  ],
   "targetDefaults": {
     "@nx/esbuild:esbuild": {
       "executor": "@nx/esbuild:esbuild",
@@ -115,7 +124,6 @@
       "dependsOn": [
         {
           "target": "build",
-          "projects": "self",
           "params": "forward"
         }
       ],
@@ -141,19 +149,7 @@
       }
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "cache": true,
-      "options": {
-        "jestConfig": "{projectRoot}/jest.config.ts",
-        "passWithNoTests": true,
-        "codeCoverage": true,
-        "forceExit": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true
-        }
-      }
+      "inputs": ["default", "^default", "{workspaceRoot}/vitest.shared.mts"]
     }
   },
   "release": {

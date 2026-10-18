@@ -1,26 +1,26 @@
-import { callModelWithStructuredResponse } from '@alfredo/llm';
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { AvailableModels, callModelWithStructuredResponse } from '@alfredo/llm';
 import { EXTRACT_EVENT_SYSTEM_PROMPT } from '../common/prompts/extract-event-name.prompt';
 import { GeminiCalendarEventsSchema } from '../models/calendar-event.model';
 import { dateTimezoneNatural, getCurrentTimezone } from './date.service';
 import { extractEvent } from './event-extractor.service';
 
-const { AvailableModels } = jest.requireActual('@alfredo/llm');
-
 // Mock the LLM call
-jest.mock('@alfredo/llm', () => ({
-  callModelWithStructuredResponse: jest.fn(),
+vi.mock('@alfredo/llm', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@alfredo/llm')>()),
+  callModelWithStructuredResponse: vi.fn(),
 }));
 
 // Mock the date service
-jest.mock('./date.service', () => ({
-  dateTimezoneNatural: jest.fn(() => '2025-01-01T12:00:00'),
-  getCurrentTimezone: jest.fn(() => 'Asia/Jerusalem'),
+vi.mock('./date.service', () => ({
+  dateTimezoneNatural: vi.fn(() => '2025-01-01T12:00:00'),
+  getCurrentTimezone: vi.fn(() => 'Asia/Jerusalem'),
 }));
 
 // Mock the prompt
-jest.mock('../common/prompts/extract-event-name.prompt', () => ({
+vi.mock('../common/prompts/extract-event-name.prompt', () => ({
   EXTRACT_EVENT_SYSTEM_PROMPT: {
-    format: jest.fn(() => Promise.resolve('Formatted Prompt')),
+    format: vi.fn(() => Promise.resolve('Formatted Prompt')),
   },
 }));
 
@@ -30,7 +30,7 @@ describe('extractEvent', () => {
   const input = 'test input';
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('should call the LLM with the correct parameters and return the events', async () => {
@@ -45,7 +45,7 @@ describe('extractEvent', () => {
       ],
     };
 
-    (callModelWithStructuredResponse as jest.Mock).mockResolvedValue(mockEvents);
+    vi.mocked(callModelWithStructuredResponse).mockResolvedValue(mockEvents);
 
     const result = await extractEvent(token, model, input);
 
@@ -77,7 +77,7 @@ describe('extractEvent', () => {
       ],
     };
 
-    (callModelWithStructuredResponse as jest.Mock).mockResolvedValue(mockEvents);
+    vi.mocked(callModelWithStructuredResponse).mockResolvedValue(mockEvents);
 
     const result = await extractEvent(token, model, input);
 
@@ -86,7 +86,7 @@ describe('extractEvent', () => {
 
   it('should handle errors from the LLM call', async () => {
     const error = new Error('LLM Error');
-    (callModelWithStructuredResponse as jest.Mock).mockRejectedValue(error);
+    vi.mocked(callModelWithStructuredResponse).mockRejectedValue(error);
 
     await expect(extractEvent(token, model, input)).rejects.toThrow('LLM Error');
   });

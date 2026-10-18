@@ -10,3 +10,6 @@ allowBuilds:
   esbuild: true
   nx: true
   unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - fast-alfred@2.6.0 # owned by the same owner

@@ -42,19 +42,23 @@ function initializeModel(userApiKey: string, selectedModel: AvailableModels) {
 /**
  * The model must produce the schema's input, before transforms run. Dates have no JSON Schema type, so they go out as
  * ISO date-time strings for `z.coerce.date()` to parse back, and `io: 'input'` leaves objects open unless closed here.
+ * The spread drops the hidden `~standard` hook zod attaches to the result, which LangChain would otherwise prefer -
+ * regenerating the schema from zod without any of this.
  */
 function toModelJsonSchema(schema: z.ZodType) {
-  return z.toJSONSchema(schema, {
-    io: 'input',
-    target: 'draft-07',
-    unrepresentable: ({ zodSchema }) =>
-      zodSchema._zod.def.type === 'date' ? { type: 'string', format: 'date-time' } : undefined,
-    override: ({ zodSchema, jsonSchema }) => {
-      if (zodSchema._zod.def.type === 'object' && jsonSchema.additionalProperties === undefined) {
-        jsonSchema.additionalProperties = false;
-      }
-    },
-  });
+  return {
+    ...z.toJSONSchema(schema, {
+      io: 'input',
+      target: 'draft-07',
+      unrepresentable: ({ zodSchema }) =>
+        zodSchema._zod.def.type === 'date' ? { type: 'string', format: 'date-time' } : undefined,
+      override: ({ zodSchema, jsonSchema }) => {
+        if (zodSchema._zod.def.type === 'object' && jsonSchema.additionalProperties === undefined) {
+          jsonSchema.additionalProperties = false;
+        }
+      },
+    }),
+  };
 }
 
 export async function callModel(

@@ -1,17 +1,26 @@
 import { describe, expect, it, vi } from 'vitest';
+import { z } from 'zod';
 import { ChatAnthropic } from '@langchain/anthropic';
+import { toJsonSchema } from '@langchain/core/utils/json_schema';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { ChatOpenAI } from '@langchain/openai';
 import { AvailableModels } from './available-models.enum';
-import { callModel } from './call-model';
+import { callModel, callModelWithStructuredResponse } from './call-model';
 
 /** The clients are constructed with `new`, which a `vi.fn` arrow implementation cannot serve. */
-const { mockClient } = vi.hoisted(() => ({
-  mockClient: () =>
-    vi.fn(function () {
-      return { invoke: vi.fn(async () => ({ text: 'ok' })) };
-    }),
-}));
+const { mockClient, withStructuredOutput } = vi.hoisted(() => {
+  const withStructuredOutput = vi.fn<(schema: Record<string, unknown>) => { invoke: () => Promise<unknown> }>(() => ({
+    invoke: async () => ({ title: 'Lunch', start: '2026-10-19T13:00:00.000Z' }),
+  }));
+
+  return {
+    withStructuredOutput,
+    mockClient: () =>
+      vi.fn(function () {
+        return { invoke: vi.fn(async () => ({ text: 'ok' })), withStructuredOutput };
+      }),
+  };
+});
 
 vi.mock('@langchain/anthropic', () => ({ ChatAnthropic: mockClient() }));
 vi.mock('@langchain/google-genai', () => ({ ChatGoogleGenerativeAI: mockClient() }));
@@ -49,5 +58,26 @@ describe('callModel', () => {
     await callModel('api-key', AvailableModels.GPT_6_LUNA, { system: 'system', user: 'user' });
 
     expect(ChatOpenAI).toHaveBeenCalledWith(expect.objectContaining({ reasoning: { effort: 'none' } }));
+  });
+});
+
+describe('callModelWithStructuredResponse', () => {
+  const schema = z.object({ title: z.string(), start: z.coerce.date() });
+
+  /**
+   * Every provider's `withStructuredOutput` runs the schema through `@langchain/core`'s `toJsonSchema`, which rebuilds
+   * anything it still recognizes as a zod schema with zod's defaults - and those reject dates.
+   */
+  it('should hand the provider a JSON Schema that LangChain uses as-is, with dates as date-time strings', async () => {
+    const result = await callModelWithStructuredResponse(
+      'api-key',
+      AvailableModels.GPT_6_LUNA,
+      { system: 'system', user: 'user' },
+      schema,
+    );
+
+    const [jsonSchema = {}] = withStructuredOutput.mock.lastCall ?? [];
+    expect(toJsonSchema(jsonSchema)).toMatchObject({ properties: { start: { type: 'string', format: 'date-time' } } });
+    expect(result).toEqual({ title: 'Lunch', start: new Date('2026-10-19T13:00:00.000Z') });
   });
 });

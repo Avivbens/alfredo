@@ -140,6 +140,8 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
+      "inputs": ["default", "^default", "{workspaceRoot}/eslint.config.mjs", "{workspaceRoot}/.prettierrc"],
+      "cache": true,
       "configurations": {
         "fix": {
           "fix": true

@@ -10,7 +10,7 @@ export enum AlternateMode {
   OFF = 'off',
 }
 
-export const alternateModeSchema = z.nativeEnum(AlternateMode);
+export const alternateModeSchema = z.enum(AlternateMode);
 
 export const NOISE_CANCELLATION = 'noise-cancellation';
 

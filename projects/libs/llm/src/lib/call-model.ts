@@ -1,5 +1,4 @@
-import type { ZodSchema, z } from 'zod';
-import zodToJsonSchema from 'zod-to-json-schema';
+import { z } from 'zod';
 import { ChatAnthropic } from '@langchain/anthropic';
 import type { BaseChatModel } from '@langchain/core/language_models/chat_models';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
@@ -9,16 +8,8 @@ import { AvailableModels } from './available-models.enum';
 
 const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> = {
   // ---- Anthropic (Claude variants) ----
-  /**
-   * Claude 4.7+ models return 400 for non-default `temperature` / `top_k` / `top_p`, and `@langchain/anthropic` 0.3
-   * always sends them (`1`, `-1`, `-1`). `invocationKwargs` is spread last into the request, so it unsets them.
-   */
   [AvailableModels.CLAUDE_HAIKU_5_5]: (apiKey: string) =>
-    new ChatAnthropic({
-      apiKey,
-      modelName: AvailableModels.CLAUDE_HAIKU_5_5,
-      invocationKwargs: { temperature: undefined, top_k: undefined, top_p: undefined },
-    }),
+    new ChatAnthropic({ apiKey, model: AvailableModels.CLAUDE_HAIKU_5_5 }),
 
   // ---- Google (Gemini variants) ----
   [AvailableModels.GOOGLE_GEMINI_4_ARGON]: (apiKey: string) =>
@@ -29,14 +20,14 @@ const modelMapping: Record<AvailableModels, (apiKey: string) => BaseChatModel> =
     new ChatGoogleGenerativeAI({ apiKey, model: AvailableModels.GOOGLE_GEMINI_3_5_FLASH_LITE }),
 
   // ---- OpenAI (GPT variants) ----
-  [AvailableModels.GPT_6_ASTRA]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_ASTRA }),
-  [AvailableModels.GPT_6_1_SOL]: (apiKey: string) => new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_1_SOL }),
+  [AvailableModels.GPT_6_ASTRA]: (apiKey: string) => new ChatOpenAI({ apiKey, model: AvailableModels.GPT_6_ASTRA }),
+  [AvailableModels.GPT_6_1_SOL]: (apiKey: string) => new ChatOpenAI({ apiKey, model: AvailableModels.GPT_6_1_SOL }),
   /**
    * Luna is the default model and reasons at `medium` unless told otherwise, which is too slow for quick Alfred
-   * actions. `@langchain/openai` 0.5 only forwards `reasoningEffort` for o-series models, hence `modelKwargs`.
+   * actions.
    */
   [AvailableModels.GPT_6_LUNA]: (apiKey: string) =>
-    new ChatOpenAI({ apiKey, modelName: AvailableModels.GPT_6_LUNA, modelKwargs: { reasoning_effort: 'none' } }),
+    new ChatOpenAI({ apiKey, model: AvailableModels.GPT_6_LUNA, reasoning: { effort: 'none' } }),
 };
 
 function initializeModel(userApiKey: string, selectedModel: AvailableModels) {
@@ -46,6 +37,24 @@ function initializeModel(userApiKey: string, selectedModel: AvailableModels) {
   }
 
   return modelInitializer(userApiKey);
+}
+
+/**
+ * The model must produce the schema's input, before transforms run. Dates have no JSON Schema type, so they go out as
+ * ISO date-time strings for `z.coerce.date()` to parse back, and `io: 'input'` leaves objects open unless closed here.
+ */
+function toModelJsonSchema(schema: z.ZodType) {
+  return z.toJSONSchema(schema, {
+    io: 'input',
+    target: 'draft-07',
+    unrepresentable: ({ zodSchema }) =>
+      zodSchema._zod.def.type === 'date' ? { type: 'string', format: 'date-time' } : undefined,
+    override: ({ zodSchema, jsonSchema }) => {
+      if (zodSchema._zod.def.type === 'object' && jsonSchema.additionalProperties === undefined) {
+        jsonSchema.additionalProperties = false;
+      }
+    },
+  });
 }
 
 export async function callModel(
@@ -59,38 +68,20 @@ export async function callModel(
 
   const response = await model.invoke(messages);
 
-  const res = response.content.toString();
-  return res;
+  return response.text;
 }
 
-export async function callModelWithStructuredResponse<Results extends ZodSchema>(
+export async function callModelWithStructuredResponse<Results extends z.ZodType>(
   token: string,
   modelName: AvailableModels,
   { system, user }: { system: string; user: string },
   schema: Results,
-): Promise<z.infer<Results>> {
+): Promise<z.output<Results>> {
   const model = initializeModel(token, modelName);
 
   const messages = [new SystemMessage(system.trim()), new HumanMessage(user.trim())];
 
-  /**
-   * `zod-to-json-schema` exposes an overloaded signature, and resolving those
-   * overloads recurses through zod >= 3.24's very deep `ZodType` definition,
-   * tripping TypeScript's instantiation-depth guard (TS2589). Call it through a
-   * single non-overloaded signature so the compiler skips overload resolution.
-   * Runtime behavior is unchanged — only the static type is simplified.
-   */
-  const toJsonSchema = zodToJsonSchema as unknown as (
-    schema: ZodSchema,
-    options: { $refStrategy: 'none' | 'root' | 'relative'; strictUnions: boolean },
-  ) => Record<string, unknown>;
-
-  const jsonSchema = toJsonSchema(schema, {
-    $refStrategy: 'none',
-    strictUnions: true,
-  });
-
-  const withSchema = model.withStructuredOutput(jsonSchema);
+  const withSchema = model.withStructuredOutput(toModelJsonSchema(schema));
   const response = await withSchema.invoke(messages);
 
   const parsed = schema.parse(response);

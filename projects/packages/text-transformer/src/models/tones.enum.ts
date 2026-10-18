@@ -8,4 +8,4 @@ export enum AvailableTone {
   SIMPLE = 'simple',
 }
 
-export const AvailableToneSchema = z.nativeEnum(AvailableTone);
+export const AvailableToneSchema = z.enum(AvailableTone);

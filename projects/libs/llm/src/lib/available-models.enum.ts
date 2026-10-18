@@ -15,4 +15,4 @@ export enum AvailableModels {
   GPT_6_LUNA = 'gpt-6-luna',
 }
 
-export const AvailableModelsSchema = z.nativeEnum(AvailableModels);
+export const AvailableModelsSchema = z.enum(AvailableModels);

@@ -1,3 +1,13 @@
+## 1.3.0 (2026-10-21)
+
+### 🚀 Features
+
+- **devices:** supporting all 3: `bluetooth` `core-audio` `airplay` ([5faf9fa](https://github.com/Avivbens/alfredo/commit/5faf9fa))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.0 (2026-10-15)
 
 ### 🚀 Features

@@ -1,15 +1,21 @@
 {
   "name": "switch-wifi",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Switch between the Wi-Fi networks your Mac has joined before, straight from Alfred",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "wifi",
+    "wi-fi",
+    "network",
+    "switch"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {
     "name": "Aviv Ben Shahar",
     "email": "avivbens87@gmail.com"
+  },
+  "dependencies": {
+    "@alfredo/updater": "workspace:*"
   }
 }

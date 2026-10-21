@@ -7,13 +7,40 @@ const README = `
 
 This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
 
+## Prerequisites
+
+Nothing to install - the workflow lists networks with macOS's own \`networksetup\` tool, and joins with the passwords macOS already saved.
+
+### Accessibility permission
+
+macOS no longer lets a script join a saved network, so the workflow picks it in Control Center's Wi-Fi module for you.
+That needs Accessibility access for Alfred, under System Settings › Privacy & Security › Accessibility.
+
 ## Features
 
-// TODO
+* List every Wi-Fi network your Mac has joined before 📶
+* Join any of them with a single keystroke
+* Turn Wi-Fi on or off with a keyword
 
 ## Usage
 
-// TODO
+Type \`wifi\` in Alfred to list your saved networks, then keep typing to filter by name.
+↩ joins the selected network through Control Center, and a notification tells you it is joining - or why it could not.
+The keyword is configurable in the workflow settings if \`wifi\` clashes with something else you use.
+
+Networks start in the order macOS prefers them, and the ones you pick most move up over time.
+
+### Turn Wi-Fi on or off
+
+Type \`wifion\` or \`wifioff\` in Alfred and press ↩ - a notification confirms the change.
+Both keywords are configurable in the workflow settings.
+
+### Why only saved networks?
+
+macOS shares the names of nearby networks, and of the one you are on, only with apps that have Location Services access.
+The workflow lists the networks macOS remembers instead, so it needs no extra permission.
+Picking a saved network that is out of range fails with a notification.
+
 
 To view the workflow codebase, click here:
 ${homepage}

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.switch-wifi</string>
+    <key>category</key>
+    <string>Productivity</string>
+    <key>connections</key>
+    <dict>
+      <key>835E791C-8AFF-4040-84B7-744571FBDA5B</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+        </dict>
+      </array>
+      <key>4BDDDD8C-0743-47EC-B981-C82A808921D2</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>E21FC0C6-7CC9-4D5F-8748-A2F8E7EB5142</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>502F74CB-4111-45D0-8BE3-A552AF4FC96C</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>0A7D7B2C-E460-4E6B-9BE5-655D84A4E255</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>0A7D7B2C-E460-4E6B-9BE5-655D84A4E255</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>E21FC0C6-7CC9-4D5F-8748-A2F8E7EB5142</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>FD1B1486-8A28-4744-83F9-B015CC155869</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>C096622E-E0C6-42B3-A68C-79B08CCDABB7</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>C096622E-E0C6-42B3-A68C-79B08CCDABB7</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>E21FC0C6-7CC9-4D5F-8748-A2F8E7EB5142</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Switch between the Wi-Fi networks your Mac has joined before, straight from Alfred</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Switch Wifi</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:wifi_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Loading saved networks...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/list-networks.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Join any network your Mac has joined before</string>
+          <key>title</key>
+          <string>Switch Wi-Fi network</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>835E791C-8AFF-4040-84B7-744571FBDA5B</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/select-network.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>lastpathcomponent</key>
+          <false></false>
+          <key>onlyshowifquerypopulated</key>
+          <true></true>
+          <key>removeextension</key>
+          <false></false>
+          <key>text</key>
+          <string>{query}</string>
+          <key>title</key>
+          <string>Switch Wifi</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>E21FC0C6-7CC9-4D5F-8748-A2F8E7EB5142</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>2</integer>
+          <key>keyword</key>
+          <string>{var:wifi_on_keyword}</string>
+          <key>subtext</key>
+          <string></string>
+          <key>text</key>
+          <string>Turn Wi-Fi on</string>
+          <key>withspace</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.keyword</string>
+        <key>uid</key>
+        <string>502F74CB-4111-45D0-8BE3-A552AF4FC96C</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/set-power.js on</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>0A7D7B2C-E460-4E6B-9BE5-655D84A4E255</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>argumenttype</key>
+          <integer>2</integer>
+          <key>keyword</key>
+          <string>{var:wifi_off_keyword}</string>
+          <key>subtext</key>
+          <string></string>
+          <key>text</key>
+          <string>Turn Wi-Fi off</string>
+          <key>withspace</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.keyword</string>
+        <key>uid</key>
+        <string>FD1B1486-8A28-4744-83F9-B015CC155869</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/set-power.js off</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>C096622E-E0C6-42B3-A68C-79B08CCDABB7</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Switch Wifi! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Prerequisites
+
+Nothing to install - the workflow lists networks with macOS's own `networksetup` tool, and joins with the passwords macOS already saved.
+
+### Accessibility permission
+
+macOS no longer lets a script join a saved network, so the workflow picks it in Control Center's Wi-Fi module for you.
+That needs Accessibility access for Alfred, under System Settings › Privacy &amp; Security › Accessibility.
+
+## Features
+
+* List every Wi-Fi network your Mac has joined before 📶
+* Join any of them with a single keystroke
+* Turn Wi-Fi on or off with a keyword
+
+## Usage
+
+Type `wifi` in Alfred to list your saved networks, then keep typing to filter by name.
+↩ joins the selected network through Control Center, and a notification tells you it is joining - or why it could not.
+The keyword is configurable in the workflow settings if `wifi` clashes with something else you use.
+
+Networks start in the order macOS prefers them, and the ones you pick most move up over time.
+
+### Turn Wi-Fi on or off
+
+Type `wifion` or `wifioff` in Alfred and press ↩ - a notification confirms the change.
+Both keywords are configurable in the workflow settings.
+
+### Why only saved networks?
+
+macOS shares the names of nearby networks, and of the one you are on, only with apps that have Location Services access.
+The workflow lists the networks macOS remembers instead, so it needs no extra permission.
+Picking a saved network that is out of range fails with a notification.
+
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>835E791C-8AFF-4040-84B7-744571FBDA5B</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+      </dict>
+      <key>4BDDDD8C-0743-47EC-B981-C82A808921D2</key>
+      <dict>
+        <key>xpos</key>
+        <integer>545</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+      </dict>
+      <key>E21FC0C6-7CC9-4D5F-8748-A2F8E7EB5142</key>
+      <dict>
+        <key>xpos</key>
+        <integer>765</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+      </dict>
+      <key>502F74CB-4111-45D0-8BE3-A552AF4FC96C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>400</integer>
+      </dict>
+      <key>0A7D7B2C-E460-4E6B-9BE5-655D84A4E255</key>
+      <dict>
+        <key>xpos</key>
+        <integer>545</integer>
+        <key>ypos</key>
+        <integer>400</integer>
+      </dict>
+      <key>FD1B1486-8A28-4744-83F9-B015CC155869</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>550</integer>
+      </dict>
+      <key>C096622E-E0C6-42B3-A68C-79B08CCDABB7</key>
+      <dict>
+        <key>xpos</key>
+        <integer>545</integer>
+        <key>ypos</key>
+        <integer>550</integer>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>0</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_835E791C-8AFF-4040-84B7-744571FBDA5B_to_4BDDDD8C-0743-47EC-B981-C82A808921D2</key>
+      <dict>
+        <key>xpos</key>
+        <integer>315</integer>
+        <key>ypos</key>
+        <integer>250</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>wifi</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Wi-Fi networks keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>wifi_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>wifion</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Turn Wi-Fi on keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>wifi_on_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>wifioff</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Turn Wi-Fi off keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>wifi_off_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

@@ -22,10 +22,18 @@ Without \`blueutil\`, the \`bt\` command tells you so and offers the install com
 
 macOS asks for Bluetooth access on behalf of the app that runs \`blueutil\`, which is Alfred.
 
+### AirPlay permissions
+
+macOS offers no scriptable way to pick an AirPlay receiver, so the workflow selects it in Control Center's Sound module for you.
+That needs Accessibility access for Alfred, under System Settings › Privacy & Security › Accessibility.
+
+AirPlay receivers are found over Bonjour, so macOS may ask you to let Alfred find devices on your local network.
+
 ## Features
 
 * Rapidly toggle between audio output devices with a single keystroke 🥷
-* Force a reconnect to any paired Bluetooth device, straight from Alfred
+* Pick any audio output - your Mac's speakers, AirPlay receivers, or paired Bluetooth devices - straight from Alfred
+* Force a reconnect to any paired Bluetooth device
 
 ## Usage
 
@@ -48,12 +56,17 @@ AirPods Pro
 
 Once set up, you can use the assigned hotkey to switch between them seamlessly ✨
 
-### Connect a Bluetooth device
+### Pick an audio output
 
-Type \`bt\` in Alfred to list every paired Bluetooth device, then keep typing to filter by name or address.
+Type \`bt\` in Alfred to list every audio output you can switch to, then keep typing to filter by name or address.
 The keyword is configurable in the workflow settings if \`bt\` clashes with something else you use.
 
-The devices you listed in the workflow settings come first, in the order you wrote them; everything else follows, connected first.
+* **Outputs macOS already knows** (speakers, wired, USB, HDMI, connected Bluetooth) - ↩ switches instantly
+* **AirPlay receivers** on your network - ↩ streams to them through Control Center
+* **Paired Bluetooth devices** - ↩ connects and routes audio there; on a connected one ⌥ forces a reconnect and ⌘ disconnects
+
+The devices you listed in the workflow settings come first, in the order you wrote them.
+Everything else follows the current output first, then AirPlay receivers, then Bluetooth devices, with non-audio devices (a watch, an iPad) last.
 Devices are shown under the name System Settings uses, so the settings list and this one line up.
 
 

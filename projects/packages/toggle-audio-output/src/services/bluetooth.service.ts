@@ -1,7 +1,15 @@
 import { $, type TSpawnResult } from 'zurk';
 import { normalizeAddress } from '../common/address.util';
-import { BLUETOOTH_PRIVACY_SETTINGS_URL, DISCONNECT_TIMEOUT_SECONDS } from '../config/constants';
-import { type BluetoothDevice, BluetoothDeviceListSchema } from '../models/bluetooth-device.model';
+import {
+  AUDIO_MINOR_TYPE_PATTERN,
+  BLUETOOTH_PRIVACY_SETTINGS_URL,
+  DISCONNECT_TIMEOUT_SECONDS,
+} from '../config/constants';
+import {
+  BluetoothDeviceListSchema,
+  BluetoothProfilerSchema,
+  type PairedDevice,
+} from '../models/bluetooth-device.model';
 import { BluetoothError, BluetoothFailure } from '../models/bluetooth-failure.model';
 
 const TIMEOUT_EXIT_CODE = 75;
@@ -51,39 +59,53 @@ export async function powerOnBluetooth(): Promise<void> {
   assertOk(await $({ nothrow: true })`blueutil --power 1`);
 }
 
+type ProfilerDetails = Pick<PairedDevice, 'name' | 'isAudio'>;
+
 /**
  * IOBluetooth reports the name a device advertises over the link, which for
  * AirPods is the bare model name.
  *
  * System Settings instead shows the iCloud display name, and that is what users put in the workflow config
  *
- * @returns map - key is the normalized MAC address, value is the display name.
+ * The same report carries the device's minor type, the only hint of whether it plays audio at all.
+ *
+ * @returns map - key is the normalized MAC address.
  */
-async function getDisplayNamesByMacAddress(): Promise<Map<string, string>> {
-  const result = await $({ nothrow: true })`BLUEUTIL_USE_SYSTEM_PROFILER=1 blueutil --paired --format json`;
+async function getProfilerDetailsByMacAddress(): Promise<Map<string, ProfilerDetails>> {
+  const result = await $({ nothrow: true })`system_profiler SPBluetoothDataType -json`;
   if (result.status !== 0) {
     return new Map();
   }
 
   try {
-    const devices = BluetoothDeviceListSchema.parse(JSON.parse(result.stdout));
-    return new Map(devices.map(({ address, name }) => [normalizeAddress(address), name]));
+    const [controller] = BluetoothProfilerSchema.parse(JSON.parse(result.stdout)).SPBluetoothDataType;
+    const records = [...(controller?.device_connected ?? []), ...(controller?.device_not_connected ?? [])];
+
+    return new Map(
+      records
+        .flatMap((record) => Object.entries(record))
+        .map(([name, { device_address, device_minorType }]) => [
+          normalizeAddress(device_address),
+          { name, isAudio: AUDIO_MINOR_TYPE_PATTERN.test(device_minorType ?? '') },
+        ]),
+    );
   } catch {
     return new Map();
   }
 }
 
-export async function getPairedDevices(): Promise<BluetoothDevice[]> {
+export async function getPairedDevices(): Promise<PairedDevice[]> {
   const listing = $({ nothrow: true })`blueutil --paired --format json`;
-  const [result, displayNames] = await Promise.all([listing, getDisplayNamesByMacAddress()]);
+  const [result, details] = await Promise.all([listing, getProfilerDetailsByMacAddress()]);
   assertOk(result);
 
   const devices = BluetoothDeviceListSchema.parse(JSON.parse(result.stdout));
 
-  return devices.map((device) => ({
-    ...device,
-    name: displayNames.get(normalizeAddress(device.address)) ?? device.name,
-  }));
+  return devices.map((device) => {
+    const detail = details.get(normalizeAddress(device.address));
+
+    return { ...device, name: detail?.name ?? device.name, isAudio: detail?.isAudio ?? false };
+  });
 }
 
 export async function disconnectDevice(address: string): Promise<void> {

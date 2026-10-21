@@ -30,11 +30,20 @@ export async function setAudioOutput(output: string): Promise<void> {
   await $`SwitchAudioSource -s ${output}`;
 }
 
+/** Names can collide between devices, the uid cannot. */
+export async function setAudioOutputByUid(uid: string): Promise<void> {
+  if (!uid) {
+    throw new Error('Output uid cannot be empty');
+  }
+
+  await $`SwitchAudioSource -u ${uid}`;
+}
+
 /**
  * CoreAudio prefixes a Bluetooth device's uid with its MAC (`aa-bb-..:output`),
  * which pairs the two sides together far more reliably than the display name.
  */
-function isOutputFor(address: string, { type, uid }: AudioSource): boolean {
+export function isOutputFor(address: string, { type, uid }: AudioSource): boolean {
   return type === 'output' && normalizeAddress(uid.split(':')[0] ?? '') === normalizeAddress(address);
 }
 

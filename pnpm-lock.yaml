@@ -178,9 +178,12 @@ importers:
       '@langchain/openai':
         specifier: ^1.6.2
         version: 1.6.2(@langchain/core@1.2.18(openai@7.36.0(undici@7.29.0)(ws@8.21.0)(zod@4.6.7))(ws@8.21.0))(undici@7.29.0)(ws@8.21.0)
+      date-fns:
+        specifier: ^4.4.0
+        version: 4.4.0
       fast-alfred:
-        specifier: ^2.6.0
-        version: 2.6.0(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)
+        specifier: ^2.6.1
+        version: 2.6.1(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)
       fuse.js:
         specifier: ^7.5.0
         version: 7.5.0
@@ -2500,6 +2503,9 @@ packages:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
 
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
+
   debounce-fn@4.0.0:
     resolution: {integrity: sha512-8pYCQiL9Xdcg0UPSD3d+0KMlOjp+KGU5EPwYddgzQ7DATsg4fuUDjQtsYLmWjnk2obnNHgV3vE2Y4jejSOJVBQ==}
     engines: {node: '>=10'}
@@ -2695,8 +2701,8 @@ packages:
     resolution: {integrity: sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==}
     engines: {node: '>=12.0.0'}
 
-  fast-alfred@2.6.0:
-    resolution: {integrity: sha512-a2Qoc8EreDM110Ya+cncrCrEVm40a6xLQcKq6DD7T1Y2IRReOCeB5GX4uf30lnZnXZsjKgPUMQDS36VOSRJaBw==}
+  fast-alfred@2.6.1:
+    resolution: {integrity: sha512-dpT4kxF7Srri/QfTP3oGqs4yLU8rOYkQCQEiL/zeBfFMC9czVRODbJfdmBhfxJL/u0bbUByWVgDLSm3hpxRXgA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -6138,7 +6144,7 @@ snapshots:
       json-schema-typed: 7.0.3
       onetime: 5.1.2
       pkg-up: 3.1.0
-      semver: 7.8.1
+      semver: 7.8.5
 
   confusing-browser-globals@1.0.11: {}
 
@@ -6199,6 +6205,8 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+
+  date-fns@4.4.0: {}
 
   debounce-fn@4.0.0:
     dependencies:
@@ -6411,7 +6419,7 @@ snapshots:
 
   expect-type@1.4.0: {}
 
-  fast-alfred@2.6.0(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3):
+  fast-alfred@2.6.1(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3):
     dependencies:
       '@nestjs/common': 11.2.7(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
       '@nestjs/core': 11.2.7(@nestjs/common@11.2.7(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(reflect-metadata@0.2.2)(rxjs@7.8.2)

@@ -11,4 +11,4 @@ allowBuilds:
   nx: true
 
 minimumReleaseAgeExclude:
-  - fast-alfred@2.6.0 # owned by the same owner
+  - fast-alfred # owned by the same owner

@@ -1,3 +1,5 @@
+import { secondsToMilliseconds } from 'date-fns';
+
 export const DEFAULT_OUTPUTS_LIST = ['MacBook Pro Speakers'];
 
 export const BLUEUTIL_INSTALL_COMMAND = 'brew install blueutil';
@@ -18,4 +20,19 @@ export const DISCONNECT_TIMEOUT_SECONDS = 5;
  * running out of attempts is a normal outcome rather than a failure.
  */
 export const AUDIO_ROUTE_ATTEMPTS = 8;
-export const AUDIO_ROUTE_RETRY_DELAY_MS = 250;
+export const AUDIO_ROUTE_RETRY_DELAY_MS = secondsToMilliseconds(0.25);
+
+/** mDNSResponder answers from its cache at once, so this only bounds a cold browse. */
+export const AIRPLAY_BROWSE_MS = secondsToMilliseconds(0.4);
+
+/**
+ * Control Center occasionally tears down its window mid-read, which surfaces as an
+ * `Invalid index` AppleScript error. Re-running the whole interaction clears it.
+ */
+export const AIRPLAY_SELECT_ATTEMPTS = 2;
+export const AIRPLAY_SELECT_RETRY_DELAY_MS = secondsToMilliseconds(0.4);
+
+export const SWITCHAUDIO_INSTALL_COMMAND = 'brew install switchaudio-osx';
+
+/** Matched against system_profiler's `device_minorType` (`Headphones`, `Speaker`, ...); watches and iPads carry none. */
+export const AUDIO_MINOR_TYPE_PATTERN = /headphone|headset|speaker|audio|hands-?free/i;

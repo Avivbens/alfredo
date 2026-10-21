@@ -75,7 +75,7 @@
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string>Rapidly change your audio output between your Bluetooth devices and your Mac's speakers</string>
+    <string>Rapidly change your audio output between your Mac's speakers, AirPlay receivers and Bluetooth devices</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -162,17 +162,17 @@
           <key>queuemode</key>
           <integer>2</integer>
           <key>runningsubtext</key>
-          <string>Loading Bluetooth devices...</string>
+          <string>Loading audio outputs...</string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/list-bluetooth-devices.js "$1"</string>
+          <string>./esbuild/assets/run-node.sh esbuild/list-outputs.js "$1"</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
           <string></string>
           <key>subtext</key>
-          <string>Force a reconnect to one of your paired Bluetooth devices</string>
+          <string>Switch to speakers, AirPlay or Bluetooth devices</string>
           <key>title</key>
-          <string>Connect a Bluetooth device</string>
+          <string>Pick an audio output</string>
           <key>type</key>
           <integer>11</integer>
           <key>withspace</key>
@@ -193,7 +193,7 @@
           <key>escaping</key>
           <integer>102</integer>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/connect-bluetooth-device.js "$1"</string>
+          <string>./esbuild/assets/run-node.sh esbuild/select-output.js "$1"</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
@@ -307,10 +307,18 @@ Without `blueutil`, the `bt` command tells you so and offers the install command
 
 macOS asks for Bluetooth access on behalf of the app that runs `blueutil`, which is Alfred.
 
+### AirPlay permissions
+
+macOS offers no scriptable way to pick an AirPlay receiver, so the workflow selects it in Control Center's Sound module for you.
+That needs Accessibility access for Alfred, under System Settings › Privacy &amp; Security › Accessibility.
+
+AirPlay receivers are found over Bonjour, so macOS may ask you to let Alfred find devices on your local network.
+
 ## Features
 
 * Rapidly toggle between audio output devices with a single keystroke 🥷
-* Force a reconnect to any paired Bluetooth device, straight from Alfred
+* Pick any audio output - your Mac's speakers, AirPlay receivers, or paired Bluetooth devices - straight from Alfred
+* Force a reconnect to any paired Bluetooth device
 
 ## Usage
 
@@ -333,12 +341,17 @@ AirPods Pro
 
 Once set up, you can use the assigned hotkey to switch between them seamlessly ✨
 
-### Connect a Bluetooth device
+### Pick an audio output
 
-Type `bt` in Alfred to list every paired Bluetooth device, then keep typing to filter by name or address.
+Type `bt` in Alfred to list every audio output you can switch to, then keep typing to filter by name or address.
 The keyword is configurable in the workflow settings if `bt` clashes with something else you use.
 
-The devices you listed in the workflow settings come first, in the order you wrote them; everything else follows, connected first.
+* **Outputs macOS already knows** (speakers, wired, USB, HDMI, connected Bluetooth) - ↩ switches instantly
+* **AirPlay receivers** on your network - ↩ streams to them through Control Center
+* **Paired Bluetooth devices** - ↩ connects and routes audio there; on a connected one ⌥ forces a reconnect and ⌘ disconnects
+
+The devices you listed in the workflow settings come first, in the order you wrote them.
+Everything else follows the current output first, then AirPlay receivers, then Bluetooth devices, with non-audio devices (a watch, an iPad) last.
 Devices are shown under the name System Settings uses, so the settings list and this one line up.
 
 
@@ -419,7 +432,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>description</key>
         <string></string>
         <key>label</key>
-        <string>Connect a Bluetooth device keyword</string>
+        <string>Audio outputs keyword</string>
         <key>type</key>
         <string>textfield</string>
         <key>variable</key>
@@ -438,7 +451,7 @@ https://github.com/Avivbens/alfredo</string>
           <integer>6</integer>
         </dict>
         <key>description</key>
-        <string>Sort the list in the order you want to switch between the items. Separate audio outputs with a line break. The same list puts your preferred devices first in the `bt` Bluetooth command, so use the names exactly as System Settings shows them.</string>
+        <string>Sort the list in the order you want to switch between the items. Separate audio outputs with a line break. The same list puts your preferred devices first in the `bt` audio outputs command, so use the names exactly as System Settings shows them.</string>
         <key>label</key>
         <string>Your preferred audio output devices</string>
         <key>type</key>

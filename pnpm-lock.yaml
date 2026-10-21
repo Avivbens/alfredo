@@ -367,6 +367,12 @@ importers:
         specifier: workspace:*
         version: link:../../libs/updater
 
+  projects/packages/switch-wifi:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
   projects/packages/table-plus-db:
     dependencies:
       '@alfredo/updater':

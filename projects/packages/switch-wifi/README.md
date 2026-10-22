@@ -33,10 +33,14 @@ The keyword is configurable in the workflow settings if `wifi` clashes with some
 
 Networks start in the order macOS prefers them, and the ones you pick most move up over time.
 
+![Switch Wi-Fi network](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/switch-wifi/switch-network.png)
+
 ### Turn Wi-Fi on or off
 
 Type `wifion` or `wifioff` in Alfred and press <kbd>↩</kbd> - a notification confirms the change.
 Both keywords are configurable in the workflow settings.
+
+![Turn Wi-Fi on or off](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/switch-wifi/power-keywords.png)
 
 ### Why only saved networks?
 

@@ -66,6 +66,8 @@ such as a watch or a mouse, just connect.
 Hold <kbd>⌘</kbd> and press <kbd>↩</kbd> to **disconnect** the selected device instead. The modifier is only active on
 devices that are currently connected.
 
+![Pick an audio output](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/toggle-audio-output/pick-output.png)
+
 ## Configuration
 
 ![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/toggle-audio-output/settings.png)

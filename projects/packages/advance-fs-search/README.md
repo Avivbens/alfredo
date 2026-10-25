@@ -26,3 +26,7 @@ Search over your file system with [Alfred](https://www.alfredapp.com/).
 ## Configuration
 
 ![Configuration](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/advance-fs-search/settings.png)
+
+## Demo - Search & Worktrees
+
+![Search Demo](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/advance-fs-search/search-worktree.gif)

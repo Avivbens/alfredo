@@ -1,3 +1,13 @@
+## 2.4.0 (2026-10-25)
+
+### 🚀 Features
+
+- **worktrees:** support scanning worktrees option ([929a135](https://github.com/Avivbens/alfredo/commit/929a135))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.3.1 (2026-07-06)
 
 ### 🩹 Fixes

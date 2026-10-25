@@ -872,6 +872,25 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
+          <false></false>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Git worktrees</string>
+        </dict>
+        <key>description</key>
+        <string>A git repo with worktrees gets an extra row below it, listing its checkouts to choose from on Enter</string>
+        <key>label</key>
+        <string>Pick git worktrees</string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>search_worktrees</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
           <true></true>
           <key>required</key>
           <false></false>

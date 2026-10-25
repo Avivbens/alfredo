@@ -52,4 +52,10 @@ export interface SearchOptions {
    * Whether to exclude git repositories from the search
    */
   excludeGit?: boolean;
+
+  /**
+   * @description
+   * Whether to treat linked git worktrees (a `.git` file) as git repositories
+   */
+  searchWorktrees?: boolean;
 }

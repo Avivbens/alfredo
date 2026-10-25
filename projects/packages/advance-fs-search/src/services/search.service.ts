@@ -19,6 +19,7 @@ export async function searchInFileSystem(options: SearchOptions): Promise<FileSe
     onlyIn,
     forceInclude,
     gitReposOnly,
+    searchWorktrees,
   } = options;
 
   const forceIncludedPaths = await glob(forceInclude ?? []);
@@ -123,7 +124,9 @@ export async function searchInFileSystem(options: SearchOptions): Promise<FileSe
 
     const directoryEntities = await readdir(path, { withFileTypes: true }).catch(() => []);
 
-    const isIncludeGit = directoryEntities.some((entity) => entity.isDirectory() && entity.name === '.git');
+    const isIncludeGit = directoryEntities.some(
+      (entity) => entity.name === '.git' && (entity.isDirectory() || (searchWorktrees && entity.isFile())),
+    );
 
     return isIncludeGit ? { path, type } : null;
   });

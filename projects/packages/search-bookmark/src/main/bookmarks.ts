@@ -2,8 +2,8 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { registerUpdater } from '@alfredo/updater';
 import { CACHE_BOOKMARKS_KEY, CACHE_TTL } from '../common/constants';
-import { Variables } from '../common/variables';
 import { IUIBookmark } from '../models/bookmark.schema';
+import { SettingsSchema } from '../models/settings.schema';
 import { getBookmarks } from '../services/fetch-bookmarks';
 import { searchBookmarks } from '../services/search.service';
 
@@ -11,23 +11,7 @@ import { searchBookmarks } from '../services/search.service';
   const alfredClient = new FastAlfred();
   alfredClient.updates(registerUpdater('search-bookmark'));
 
-  const profiles: string[] = alfredClient.env.getEnv<string[]>(Variables.PROFILES_LOOKUP, {
-    defaultValue: [],
-    parser: (input) =>
-      input
-        .split(',')
-        .map((profile) => profile.trim())
-        .filter(Boolean),
-  });
-  const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, {
-    defaultValue: 10,
-    parser: Number,
-  });
-
-  const fuzzyThreshold: number = alfredClient.env.getEnv(Variables.FUZZY_THRESHOLD, {
-    defaultValue: 0.4,
-    parser: (input) => Number(input) / 10,
-  });
+  const { profiles, sliceAmount, fuzzyThreshold } = alfredClient.env.parse(SettingsSchema);
 
   try {
     let bookmarks: IUIBookmark[] | null = alfredClient.cache.get<IUIBookmark[]>(CACHE_BOOKMARKS_KEY);

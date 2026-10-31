@@ -1,10 +1,9 @@
 import { FastAlfred } from 'fast-alfred';
 import { alfredSchemas } from 'fast-alfred/schemas';
-import type { PhoneNumber } from 'libphonenumber-js';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { execPromise } from '../common/utils';
-import { ContactPayloadSchema } from '../models/contact-payload.model';
-import { buildOpenUrl } from '../services/platform-url-builder.service';
+import { type ContactPayload, ContactPayloadSchema } from '../models/contact-payload.model';
+import { buildOpenUrl, isPhonePlatform } from '../services/platform-url-builder.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -14,12 +13,10 @@ import { buildOpenUrl } from '../services/platform-url-builder.service';
 
     const { phoneNumber: inputPhoneNumber, countryCode: inputCountryCode, platform } = input;
 
-    const { number }: PhoneNumber = parsePhoneNumber(inputPhoneNumber ?? '', inputCountryCode);
-
-    const parsedInput = {
-      ...input,
-      phoneNumber: number,
-    };
+    /** Parsing throws for a contact without a phone number, which Mail doesn't need */
+    const parsedInput: ContactPayload = isPhonePlatform(platform)
+      ? { ...input, phoneNumber: parsePhoneNumber(inputPhoneNumber ?? '', inputCountryCode).number }
+      : input;
 
     const openUrl = buildOpenUrl(platform, parsedInput);
 

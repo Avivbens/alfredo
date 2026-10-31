@@ -1,36 +1,35 @@
 import { alfredSchemas } from 'fast-alfred/schemas';
 import { z } from 'zod';
-import { Variables } from '../common/variables';
 
 export const SettingsSchema = z
   .object({
-    [Variables.SLICE_AMOUNT]: alfredSchemas.number().default(10),
-    [Variables.TARGET_TYPE]: z.enum(['file', 'folder', 'all']).default('all'),
-    [Variables.ONLY_IN]: alfredSchemas.paths().default([]),
-    [Variables.FORCE_INCLUDE]: alfredSchemas.paths().default([]),
-    [Variables.EXCLUDE_PATHS]: alfredSchemas.paths().default([]),
-    [Variables.EXCLUDE_GIT]: alfredSchemas.checkbox().default(false),
-    [Variables.EXCLUDE_HIDDEN]: alfredSchemas.checkbox().default(false),
-    [Variables.GIT_REPOS_ONLY]: alfredSchemas.checkbox().default(false),
-    [Variables.EXCLUDE_NODE_MODULES]: alfredSchemas.checkbox().default(false),
-    [Variables.SEARCH_WORKTREES]: alfredSchemas.checkbox().default(false),
+    slice_amount: alfredSchemas.number().default(10),
+    target_type: z.enum(['file', 'folder', 'all']).default('all'),
+    only_in: alfredSchemas.paths().default([]),
+    force_include: alfredSchemas.paths().default([]),
+    exclude_paths: alfredSchemas.paths().default([]),
+    exclude_git: alfredSchemas.checkbox().default(false),
+    exclude_hidden: alfredSchemas.checkbox().default(false),
+    git_repos_only: alfredSchemas.checkbox().default(false),
+    exclude_node_modules: alfredSchemas.checkbox().default(false),
+    search_worktrees: alfredSchemas.checkbox().default(false),
   })
   .transform((env) => ({
-    sliceAmount: env[Variables.SLICE_AMOUNT],
+    sliceAmount: env.slice_amount,
     search: {
-      type: env[Variables.TARGET_TYPE],
-      onlyIn: env[Variables.ONLY_IN],
-      forceInclude: env[Variables.FORCE_INCLUDE],
-      excludePaths: env[Variables.EXCLUDE_PATHS],
-      excludeGit: env[Variables.EXCLUDE_GIT],
-      excludeHidden: env[Variables.EXCLUDE_HIDDEN],
-      gitReposOnly: env[Variables.GIT_REPOS_ONLY],
-      excludeNodeModules: env[Variables.EXCLUDE_NODE_MODULES],
+      type: env.target_type,
+      onlyIn: env.only_in,
+      forceInclude: env.force_include,
+      excludePaths: env.exclude_paths,
+      excludeGit: env.exclude_git,
+      excludeHidden: env.exclude_hidden,
+      gitReposOnly: env.git_repos_only,
+      excludeNodeModules: env.exclude_node_modules,
       /**
        * @description
        * Whether to treat linked git worktrees (a `.git` file) as git repositories
        */
-      searchWorktrees: env[Variables.SEARCH_WORKTREES],
+      searchWorktrees: env.search_worktrees,
     },
   }));
 

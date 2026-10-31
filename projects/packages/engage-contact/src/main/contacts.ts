@@ -4,7 +4,7 @@ import { registerUpdater } from '@alfredo/updater';
 import type { IContact } from '../models/contact.model';
 import { ContactsInputsSchema } from '../models/contacts-inputs.model';
 import { SettingsSchema } from '../models/settings.model';
-import { toContactItem } from '../services/contact-item.service';
+import { hasPlatformField, toContactItem } from '../services/contact-item.service';
 import { getContacts } from '../services/contacts.service';
 import { searchContacts } from '../services/search.service';
 
@@ -16,13 +16,13 @@ import { searchContacts } from '../services/search.service';
     const [searchTerm, platform] = ContactsInputsSchema.parse(alfredClient.inputs);
     const { countryCode, sliceAmount, fuzzyThreshold } = alfredClient.env.parse(SettingsSchema);
 
-    const contacts: IContact[] = getContacts(alfredClient);
+    const contacts: IContact[] = getContacts(alfredClient).filter((contact) => hasPlatformField(contact, platform));
 
     const filteredContacts = await searchContacts(contacts, searchTerm, sliceAmount, fuzzyThreshold);
 
-    const items: AlfredListItem[] = filteredContacts
-      .map((contact) => toContactItem(contact, { countryCode, platform }))
-      .filter(({ subtitle }) => subtitle);
+    const items: AlfredListItem[] = filteredContacts.map((contact) =>
+      toContactItem(contact, { countryCode, platform }),
+    );
 
     alfredClient.output({ items });
   } catch (error) {

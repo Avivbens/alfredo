@@ -1,6 +1,12 @@
 import type { AlfredListItem } from 'fast-alfred';
 import type { ContactPayload } from '../models/contact-payload.model';
 import type { IContact } from '../models/contact.model';
+import type { SupportedPlatform } from '../models/platform.model';
+import { isPhonePlatform } from './platform-url-builder.service';
+
+export function hasPlatformField({ phoneNumbers, emailAddresses }: IContact, platform: SupportedPlatform): boolean {
+  return isPhonePlatform(platform) ? phoneNumbers.length > 0 : emailAddresses.length > 0;
+}
 
 export function toContactItem(
   { firstName, lastName, phoneNumbers, emailAddresses }: IContact,

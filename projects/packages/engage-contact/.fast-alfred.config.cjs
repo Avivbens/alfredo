@@ -9,11 +9,23 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Features
 
-// TODO
+Search your contacts and engage with them via Alfred, with fuzzy search by name, phone number or email.
+
+Supported apps:
+- WhatsApp
+- SMS
+- Call
+- Mail
+- FaceTime (Audio & Video)
 
 ## Usage
 
-// TODO
+\`ecw\` - WhatsApp
+\`ecs\` - SMS
+\`ecc\` - Call
+\`ecm\` - Mail
+\`ecfa\` - FaceTime Audio
+\`ecf\` - FaceTime Video
 
 To view the workflow codebase, click here:
 ${homepage}
@@ -24,7 +36,13 @@ ${homepage}
  */
 module.exports = {
   bundlerOptions: {
-    targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
+    /**
+     * `node-mac-contacts` loads its native module through `bindings`, which probes `<workflow root>/build/Release/contacts.node`,
+     * so the bundle must keep these folder names rather than the usual `esbuild/assets`
+     */
+    targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'build'),
+    assetsDir: 'Release',
+    assets: [resolve(__dirname, 'src/assets/contacts.node')],
   },
   updates: {
     bundleHelpers: true,
@@ -34,6 +52,7 @@ module.exports = {
   },
   workflowMetadata: {
     name: 'Engage Contact',
+    category: 'Tools',
     createdby: author.name,
     webaddress: homepage,
     description,

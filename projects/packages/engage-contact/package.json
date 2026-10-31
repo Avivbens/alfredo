@@ -1,11 +1,13 @@
 {
   "name": "engage-contact",
-  "version": "1.0.0",
-  "description": "TODO",
+  "version": "3.2.0",
+  "description": "Search across your contacts and engage with them ✨ (multi apps support)",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "whatsapp",
+    "contacts",
+    "search"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {

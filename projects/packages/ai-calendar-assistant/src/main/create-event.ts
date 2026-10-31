@@ -1,38 +1,19 @@
 import { FastAlfred } from 'fast-alfred';
-import { AvailableModelsSchema } from '@alfredo/llm';
 import { runAppleScript } from '@alfredo/run-applescript';
-import { Variables } from '../common/variables.enum';
 import { CalendarEvent, GeminiCalendarEventSchema, OpenAICalendarEventSchema } from '../models/calendar-event.model';
-import { MapProvider, MapProviderSchema } from '../models/map-provider.enum';
-import { OpenEventPlatform, OpenEventPlatformSchema } from '../models/open-event-platform.enum';
+import { OpenEventPlatform } from '../models/open-event-platform.enum';
+import { SettingsSchema } from '../models/settings.model';
 import { applyMapLink, createInCalendar, eventCreatorAppleScript } from '../services/event-creator.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
 
-  const calendarName: string | undefined = alfredClient.env.getEnv(Variables.CALENDAR_NAME);
+  const { calendarName, openNewEvent, openEventPlatform, mapProvider, model } = alfredClient.env.parse(SettingsSchema);
   if (!calendarName) {
     alfredClient.error(new Error('Calendar name is not defined!'));
     return;
   }
 
-  const openNewEvent: boolean = alfredClient.env.getEnv(Variables.SHOULD_OPEN_NEW_EVENT, {
-    defaultValue: false,
-    parser: (value) => (value as '0' | '1') === '1',
-  });
-
-  const openEventPlatform = OpenEventPlatformSchema.parse(
-    alfredClient.env.getEnv(Variables.OPEN_NEW_EVENT_PLATFORM, {
-      defaultValue: OpenEventPlatform.APPLE_CALENDAR,
-    }),
-  );
-
-  const mapProvider = MapProviderSchema.parse(
-    alfredClient.env.getEnv(Variables.MAP_PROVIDER, { defaultValue: MapProvider.OFF }),
-  );
-
-  const rawModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
-  const model = rawModel ? AvailableModelsSchema.parse(rawModel) : undefined;
   const calendarEventSchema = model?.includes('gemini') ? GeminiCalendarEventSchema : OpenAICalendarEventSchema;
 
   const event: CalendarEvent = JSON.parse(alfredClient.input);

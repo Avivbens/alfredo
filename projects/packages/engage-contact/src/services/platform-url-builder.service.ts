@@ -19,6 +19,10 @@ const EXTRACT_REFERRER: Record<SupportedPlatform, keyof ContactPayload> = {
   facetimeaudio: 'phoneNumber',
 };
 
+export function isPhonePlatform(platform: SupportedPlatform): boolean {
+  return EXTRACT_REFERRER[platform] === 'phoneNumber';
+}
+
 export function buildOpenUrl(platform: SupportedPlatform, payload: ContactPayload): string {
   const urlBuilder = PLATFORMS_URLS[platform];
 

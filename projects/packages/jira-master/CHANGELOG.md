@@ -1,3 +1,13 @@
+## 2.0.2 (2026-10-31)
+
+### 🩹 Fixes
+
+- **jira-master:** render the ticket description markdown as rich text ([a1aba5b](https://github.com/Avivbens/alfredo/commit/a1aba5b))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.0.1 (2026-10-31)
 
 ### 🩹 Fixes

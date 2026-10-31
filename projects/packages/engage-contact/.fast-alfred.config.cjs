@@ -1,0 +1,43 @@
+const { resolve } = require('node:path');
+const { author, description, homepage } = require('./package.json');
+const { env } = require('node:process');
+
+const README = `
+#### Thank you for using Engage Contact! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+// TODO
+
+## Usage
+
+// TODO
+
+To view the workflow codebase, click here:
+${homepage}
+`.trim();
+
+/**
+ * @type {import('fast-alfred').FastAlfredConfig}
+ */
+module.exports = {
+  bundlerOptions: {
+    targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
+  },
+  updates: {
+    bundleHelpers: true,
+    userConfiguration: {
+      checkUpdatesCheckbox: true,
+    },
+  },
+  workflowMetadata: {
+    name: 'Engage Contact',
+    createdby: author.name,
+    webaddress: homepage,
+    description,
+    readme: README,
+  },
+  tabSize: 2,
+};

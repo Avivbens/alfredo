@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
 import {
   beautifyDate,
   dateInTimezoneAsLocal,
@@ -136,7 +136,8 @@ describe('date.service', () => {
   });
 
   describe('beautifyDate', () => {
-    const now = new Date();
+    /** A fixed mid-June clock, so "two months ahead" stays in the same year whenever the suite runs */
+    const now = new Date(2026, 5, 15, 9, 0);
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 30);
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
@@ -146,6 +147,15 @@ describe('date.service', () => {
     future.setMonth(today.getMonth() + 2);
     const nextYear = new Date(today);
     nextYear.setFullYear(today.getFullYear() + 1);
+
+    beforeAll(() => {
+      vi.useFakeTimers({ toFake: ['Date'] });
+      vi.setSystemTime(now);
+    });
+
+    afterAll(() => {
+      vi.useRealTimers();
+    });
 
     it(`should format today's date as "Today"`, () => {
       expect(beautifyDate(today)).toMatch(/Today, 14:30/);

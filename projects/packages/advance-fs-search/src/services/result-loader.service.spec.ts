@@ -31,15 +31,12 @@ describe('result-loader.service', () => {
   });
 
   describe('loadResults', () => {
-    it('should show a repo with worktrees as a repo row, keyed for the drill-down', async () => {
-      expect(await loadResults([repo, plainRepo, notes], 10, true)).toEqual({
-        rows: [
-          { kind: 'repo', main: { path: REPO, branch: 'master' }, worktreeCount: 1, repoKey: 'ios-shortcuts' },
-          { kind: 'entry', file: plainRepo },
-          { kind: 'entry', file: notes },
-        ],
-        repos: { 'ios-shortcuts': REPO },
-      });
+    it('should show only a repo with linked worktrees as a repo row', async () => {
+      expect(await loadResults([repo, plainRepo, notes], 10, true)).toEqual([
+        { kind: 'repo', main: { path: REPO, branch: 'master' }, worktreeCount: 1 },
+        { kind: 'entry', file: plainRepo },
+        { kind: 'entry', file: notes },
+      ]);
       expect(getCheckouts).not.toHaveBeenCalledWith(NOTES);
     });
 
@@ -47,19 +44,16 @@ describe('result-loader.service', () => {
       const worktree: FileSearch = { path: `${REPO}@m4-libraries`, type: 'folder' };
       vi.mocked(foldWorktrees).mockImplementation(async (results) => results.filter((result) => result !== worktree));
 
-      const { rows } = await loadResults([repo, worktree, plainRepo], 2, true);
+      const rows = await loadResults([repo, worktree, plainRepo], 2, true);
 
       expect(rows.map((row) => (row.kind === 'repo' ? row.main.path : row.file.path))).toEqual([REPO, PLAIN_REPO]);
     });
 
     it('should leave git alone while the option is off, so searching costs what it did before', async () => {
-      expect(await loadResults([repo, plainRepo, notes], 2, false)).toEqual({
-        rows: [
-          { kind: 'entry', file: repo },
-          { kind: 'entry', file: plainRepo },
-        ],
-        repos: {},
-      });
+      expect(await loadResults([repo, plainRepo, notes], 2, false)).toEqual([
+        { kind: 'entry', file: repo },
+        { kind: 'entry', file: plainRepo },
+      ]);
       expect(foldWorktrees).not.toHaveBeenCalled();
       expect(getCheckouts).not.toHaveBeenCalled();
     });

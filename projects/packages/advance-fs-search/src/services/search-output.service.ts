@@ -1,6 +1,6 @@
 import type { AlfredScriptFilter, IconService } from 'fast-alfred';
+import type { AppRouter } from '../models/routes.model';
 import type { Settings } from '../models/settings.model';
-import { toWorktreeVariables } from '../models/worktree-repos.model';
 import { toResultItems } from './file-item.service';
 import { loadResults } from './result-loader.service';
 import { SEARCH_CACHE_SECONDS } from './search.config';
@@ -10,13 +10,13 @@ export async function loadSearchOutput(
   input: string,
   settings: Settings,
   icons: IconService,
+  router: AppRouter,
 ): Promise<AlfredScriptFilter> {
   const results = await searchInFileSystem({ ...settings.search, name: input });
-  const { rows, repos } = await loadResults(results, settings.sliceAmount, settings.search.searchWorktrees);
+  const rows = await loadResults(results, settings.sliceAmount, settings.search.searchWorktrees);
 
   return {
-    items: rows.flatMap((row) => toResultItems(row, icons)),
-    variables: toWorktreeVariables(repos),
+    items: rows.flatMap((row) => toResultItems(row, icons, router)),
     cache: { seconds: SEARCH_CACHE_SECONDS },
   };
 }

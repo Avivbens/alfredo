@@ -1,7 +1,6 @@
 import { alfredSchemas } from 'fast-alfred/schemas';
 import { z } from 'zod';
 import { Variables } from '../common/variables';
-import { WorktreeReposSchema } from './worktree-repos.model';
 
 export const SettingsSchema = z
   .object({
@@ -15,11 +14,9 @@ export const SettingsSchema = z
     [Variables.GIT_REPOS_ONLY]: alfredSchemas.checkbox().default(false),
     [Variables.EXCLUDE_NODE_MODULES]: alfredSchemas.checkbox().default(false),
     [Variables.SEARCH_WORKTREES]: alfredSchemas.checkbox().default(false),
-    [Variables.WORKTREE_REPOS]: alfredSchemas.json(WorktreeReposSchema).default({}),
   })
   .transform((env) => ({
     sliceAmount: env[Variables.SLICE_AMOUNT],
-    worktreeRepos: env[Variables.WORKTREE_REPOS],
     search: {
       type: env[Variables.TARGET_TYPE],
       onlyIn: env[Variables.ONLY_IN],

@@ -8,7 +8,6 @@ describe('settings.model', () => {
     it('should fall back to the defaults for fields Alfred does not pass', () => {
       expect(SettingsSchema.parse({})).toEqual({
         sliceAmount: 10,
-        worktreeRepos: {},
         search: {
           type: 'all',
           onlyIn: [],

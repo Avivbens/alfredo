@@ -9,5 +9,4 @@ export enum Variables {
   EXCLUDE_NODE_MODULES = 'exclude_node_modules',
   EXCLUDE_PATHS = 'exclude_paths',
   SEARCH_WORKTREES = 'search_worktrees',
-  WORKTREE_REPOS = 'worktree_repos',
 }

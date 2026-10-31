@@ -10,7 +10,7 @@ import { CACHE_CONTACTS_KEY } from '../common/constants';
     items: [
       {
         title: 'Cache Cleared ✅',
-        subtitle: 'Bookmarks will be re-fetched on next use',
+        subtitle: 'Contacts will be re-fetched on next use',
       },
     ],
   });

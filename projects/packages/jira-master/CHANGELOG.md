@@ -1,3 +1,14 @@
+## 2.0.1 (2026-10-31)
+
+### 🩹 Fixes
+
+- **jira-master:** validate the ticket the create step receives ([12cbfff](https://github.com/Avivbens/alfredo/commit/12cbfff))
+- **jira-master:** read the workflow settings with a zod schema ([71427e8](https://github.com/Avivbens/alfredo/commit/71427e8))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 # 2.0.0 (2026-10-15)
 
 ### 🩹 Fixes

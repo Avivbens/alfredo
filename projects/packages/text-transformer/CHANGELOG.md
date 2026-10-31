@@ -1,3 +1,13 @@
+## 6.0.2 (2026-10-31)
+
+### 🩹 Fixes
+
+- **text-transformer:** read the workflow settings with a zod schema ([ff7a047](https://github.com/Avivbens/alfredo/commit/ff7a047))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 6.0.1 (2026-10-18)
 
 ### 🩹 Fixes

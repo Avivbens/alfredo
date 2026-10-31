@@ -1,3 +1,13 @@
+## 3.1.2 (2026-10-31)
+
+### 🩹 Fixes
+
+- **kill-process:** read the workflow settings with a zod schema ([9f0d811](https://github.com/Avivbens/alfredo/commit/9f0d811))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.1.1 (2026-07-07)
 
 ### 🩹 Fixes

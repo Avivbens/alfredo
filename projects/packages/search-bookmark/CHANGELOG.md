@@ -1,3 +1,13 @@
+## 3.2.3 (2026-10-31)
+
+### 🩹 Fixes
+
+- **search-bookmark:** read the workflow settings with a zod schema ([d3ed58e](https://github.com/Avivbens/alfredo/commit/d3ed58e))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.2.2 (2026-07-08)
 
 ### 🩹 Fixes

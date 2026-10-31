@@ -1,3 +1,13 @@
+## 2.4.1 (2026-10-31)
+
+### 🩹 Fixes
+
+- **advance-fs-search:** key the settings schema by the variable names ([cba357f](https://github.com/Avivbens/alfredo/commit/cba357f))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.4.0 (2026-10-25)
 
 ### 🚀 Features

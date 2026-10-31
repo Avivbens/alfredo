@@ -1,6 +1,5 @@
 import { basename } from 'node:path';
 import type { WorktreeRepos } from '../models/worktree-repos.model';
-import type { Worktree } from '../models/worktree.model';
 import { WORKTREE_QUERY_PREFIX } from '../services/search.config';
 import { stripPrefix } from './text.util';
 
@@ -44,10 +43,6 @@ function startsWithKey(query: string, key: string): boolean {
 
 function byLongestKey([a]: RepoEntry, [b]: RepoEntry): number {
   return b.length - a.length;
-}
-
-export function matchesFilter({ path, branch }: Worktree, filter: string): boolean {
-  return `${basename(path)} ${branch}`.toLowerCase().includes(filter.toLowerCase());
 }
 
 /** Keys are what the user sees after `⎇ `, so repos sharing a folder name get a numbered suffix. */

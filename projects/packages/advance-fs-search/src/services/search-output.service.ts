@@ -1,5 +1,4 @@
-import type { AlfredScriptFilter } from 'fast-alfred';
-import type { AlfredIcons } from '../models/alfred.model';
+import type { AlfredScriptFilter, IconService } from 'fast-alfred';
 import type { Settings } from '../models/settings.model';
 import { toWorktreeVariables } from '../models/worktree-repos.model';
 import { toResultItems } from './file-item.service';
@@ -10,7 +9,7 @@ import { searchInFileSystem } from './search.service';
 export async function loadSearchOutput(
   input: string,
   settings: Settings,
-  icons: AlfredIcons,
+  icons: IconService,
 ): Promise<AlfredScriptFilter> {
   const results = await searchInFileSystem({ ...settings.search, name: input });
   const { rows, repos } = await loadResults(results, settings.sliceAmount, settings.search.searchWorktrees);

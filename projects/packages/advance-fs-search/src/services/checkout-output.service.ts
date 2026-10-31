@@ -1,6 +1,6 @@
-import type { AlfredScriptFilter } from 'fast-alfred';
-import { matchesFilter, parseWorktreeQuery } from '../common/worktree-query.util';
-import type { AlfredIcons } from '../models/alfred.model';
+import { type AlfredScriptFilter, type IconService, matches } from 'fast-alfred';
+import { basename } from 'node:path';
+import { parseWorktreeQuery } from '../common/worktree-query.util';
 import { type WorktreeRepos, toWorktreeVariables } from '../models/worktree-repos.model';
 import type { Worktree } from '../models/worktree.model';
 import { toCheckoutItem } from './file-item.service';
@@ -13,13 +13,17 @@ async function getMatchingCheckouts(input: string, repos: WorktreeRepos): Promis
   }
 
   const checkouts = await getCheckouts(query.repoPath);
-  return checkouts.filter((checkout) => matchesFilter(checkout, query.filter));
+  return matches(query.filter, checkouts, toSearchText);
+}
+
+function toSearchText({ path, branch }: Worktree): string {
+  return `${basename(path)} ${branch}`;
 }
 
 export async function loadCheckoutOutput(
   input: string,
   repos: WorktreeRepos,
-  icons: AlfredIcons,
+  icons: IconService,
 ): Promise<AlfredScriptFilter> {
   const checkouts = await getMatchingCheckouts(input, repos);
 

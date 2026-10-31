@@ -8,6 +8,7 @@ allowBuilds:
   '@nestjs/core': false
   '@swc/core': true
   esbuild: true
+  node-mac-contacts: false # engage-contact ships its own prebuilt `contacts.node`
   nx: true
 
 minimumReleaseAgeExclude:

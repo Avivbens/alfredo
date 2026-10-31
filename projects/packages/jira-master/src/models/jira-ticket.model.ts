@@ -8,7 +8,7 @@ const title = z
 const description = z
   .string()
   .min(1)
-  .describe('A detailed description of the issue, extracted from the provided text.');
+  .describe('A detailed description of the issue, extracted from the provided text, formatted as Markdown.');
 const storyPoints = z
   .number()
   .describe('Estimated story points for the issue (e.g., 1, 2, 3, 5, 8, 13). Can be null if not applicable.');

@@ -1,22 +1,9 @@
+import type { markdownToAdf } from 'marklassian';
+
 /**
  * Atlassian Document Format (ADF) types for Jira descriptions
  */
-export interface ADFDocument {
-  type: 'doc';
-  version: 1;
-  content: ADFNode[];
-}
-
-export interface ADFNode {
-  type: 'paragraph' | 'heading' | 'bulletList' | 'orderedList' | 'listItem' | 'codeBlock' | 'text';
-  content?: ADFNode[];
-  text?: string;
-  attrs?: Record<string, unknown>;
-  marks?: Array<{
-    type: 'strong' | 'em' | 'code' | 'link';
-    attrs?: Record<string, unknown>;
-  }>;
-}
+export type AdfDocument = ReturnType<typeof markdownToAdf>;
 
 /**
  * Jira Issue Creation Payload
@@ -27,7 +14,7 @@ export interface JiraIssuePayload {
       key: string;
     };
     summary: string;
-    description?: ADFDocument;
+    description?: AdfDocument;
     issuetype: {
       name: string;
     };

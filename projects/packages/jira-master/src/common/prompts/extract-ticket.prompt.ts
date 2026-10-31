@@ -21,7 +21,7 @@ For each ticket, extract:
 
 Guidelines:
 - For the title, be concise but descriptive. Focus on the "what" not the "how"
-- For the description: be concise and to-the-point. Use bullet points or numbered steps when appropriate. Focus on essential information only.
+- For the description: be concise and to-the-point. Write it in Markdown, using "-" bullet points or "1." numbered steps when appropriate, **bold** section labels and \`code\` for identifiers. Focus on essential information only.
   * For bugs: use step-by-step format (steps to reproduce, actual result, expected result)
   * For features/stories: use structured format with clear sections (tl;dr, context, problem, solution)
   * Avoid unnecessary verbosity - extract only what's essential

@@ -1,5 +1,6 @@
+import { markdownToAdf } from 'marklassian';
 import type {
-  ADFDocument,
+  AdfDocument,
   JiraErrorResponse,
   JiraField,
   JiraIssueCreationResponse,
@@ -10,49 +11,42 @@ import type { Settings } from '../models/settings.model';
 
 export type JiraConfig = Settings['jira'];
 
-function convertToADF(text: string): ADFDocument {
+function toPlainTextAdf(text: string): AdfDocument {
   const paragraphs = text.split('\n\n').filter((p) => p.trim().length > 0);
-
-  const content = paragraphs.map((paragraph) => {
-    const lines = paragraph.split('\n');
-    const isBulletList = lines.every((line) => line.trim().match(/^[-*•]\s/));
-
-    if (isBulletList) {
-      return {
-        type: 'bulletList' as const,
-        content: lines.map((line) => ({
-          type: 'listItem' as const,
-          content: [
-            {
-              type: 'paragraph' as const,
-              content: [
-                {
-                  type: 'text' as const,
-                  text: line.replace(/^[-*•]\s+/, '').trim(),
-                },
-              ],
-            },
-          ],
-        })),
-      };
-    }
-
-    return {
-      type: 'paragraph' as const,
-      content: [
-        {
-          type: 'text' as const,
-          text: paragraph.trim(),
-        },
-      ],
-    };
-  });
 
   return {
     type: 'doc',
     version: 1,
-    content,
+    content: paragraphs.map((paragraph) => ({
+      type: 'paragraph',
+      content: [{ type: 'text', text: paragraph.trim() }],
+    })),
   };
+}
+
+async function postIssue(
+  baseUrl: string,
+  headers: Record<string, string>,
+  fields: JiraIssuePayload['fields'],
+): Promise<Response> {
+  return fetch(`${baseUrl}/rest/api/3/issue`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ fields }),
+  });
+}
+
+async function isDescriptionRejected(response: Response): Promise<boolean> {
+  if (response.status !== 400) {
+    return false;
+  }
+
+  try {
+    const data = (await response.clone().json()) as JiraErrorResponse;
+    return Boolean(data.errors?.description);
+  } catch {
+    return false;
+  }
 }
 
 async function getStoryPointsFieldId(baseUrl: string, headers: Record<string, string>): Promise<string | null> {
@@ -98,7 +92,7 @@ export async function createJiraIssue(
   const fields: JiraIssuePayload['fields'] = {
     project: { key: config.projectKey },
     summary: ticket.title,
-    description: convertToADF(ticket.description),
+    description: markdownToAdf(ticket.description),
     issuetype: { name: ticket.issueType || config.defaultIssueType || 'Story' },
   };
 
@@ -121,11 +115,15 @@ export async function createJiraIssue(
     Object.assign(fields, config.customFields);
   }
 
-  const response = await fetch(`${baseUrl}/rest/api/3/issue`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ fields }),
-  });
+  const firstResponse = await postIssue(baseUrl, headers, fields);
+
+  /**
+   * The markdown converter is not a strict ADF validator, and Jira rejects the whole issue over an invalid description,
+   * so fall back to plain paragraphs - a ticket showing raw markdown beats no ticket.
+   */
+  const response = (await isDescriptionRejected(firstResponse))
+    ? await postIssue(baseUrl, headers, { ...fields, description: toPlainTextAdf(ticket.description) })
+    : firstResponse;
 
   if (!response.ok) {
     const status = response.status;

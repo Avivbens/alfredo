@@ -3,10 +3,10 @@ import { join } from 'node:path';
 import { env } from 'node:process';
 import { parse } from 'plist';
 import { describe, expect, it } from 'vitest';
-import { AvailableModels } from '@alfredo/llm';
+import { AvailableModels, LlmSettingsSchema } from '@alfredo/llm';
 import { DependencyType, readCachedProjectGraph, workspaceRoot } from '@nx/devkit';
 import { INFO_PLIST_FILE, MODEL_VARIABLE } from './common/workflow.constants';
-import { InfoPlistSchema, type ModelPopup, ModelPopupSchema } from './schemas/info-plist.schema';
+import { type InfoPlist, InfoPlistSchema, type ModelPopup, ModelPopupSchema } from './schemas/info-plist.schema';
 import { createNxTaskEnvSchema } from './schemas/nx-task-env.schema';
 
 const graph = readCachedProjectGraph();
@@ -43,7 +43,10 @@ const llmConsumers = Object.entries(graph.dependencies)
   .sort();
 
 /** Vitest and zod failures don't say where they came from - prefix them with the workflow and its plist. */
-function checkModelPopup(workflow: string, check: (config: ModelPopup['config']) => void) {
+function checkUserConfiguration(
+  workflow: string,
+  check: (configuration: InfoPlist['userconfigurationconfig']) => void,
+) {
   const node = graph.nodes[workflow];
   if (!node) {
     throw new Error(`Project "${workflow}" is missing from the Nx project graph`);
@@ -55,16 +58,21 @@ function checkModelPopup(workflow: string, check: (config: ModelPopup['config'])
     const { userconfigurationconfig } = InfoPlistSchema.parse(
       parse(readFileSync(join(workspaceRoot, plistPath), 'utf8')),
     );
-    const { config } = ModelPopupSchema.parse(
-      userconfigurationconfig.find(({ variable }) => variable === MODEL_VARIABLE),
-    );
 
-    check(config);
+    check(userconfigurationconfig);
   } catch (error) {
     throw new Error(`Workflow "${workflow}" (${plistPath}):\n\n${error instanceof Error ? error.message : error}`, {
       cause: error,
     });
   }
+}
+
+function checkModelPopup(workflow: string, check: (config: ModelPopup['config']) => void) {
+  checkUserConfiguration(workflow, (configuration) => {
+    const { config } = ModelPopupSchema.parse(configuration.find(({ variable }) => variable === MODEL_VARIABLE));
+
+    check(config);
+  });
 }
 
 describe('workflow model configuration', () => {
@@ -81,6 +89,15 @@ describe('workflow model configuration', () => {
   it.each(coveredWorkflows)('%s should default to an available model', (workflow) => {
     checkModelPopup(workflow, (config) => {
       expect(Object.values(AvailableModels)).toContain(config.default);
+    });
+  });
+
+  /** `LlmSettingsSchema` is the one place the shared variable names are declared, so every plist must follow it. */
+  it.each(coveredWorkflows)('%s should configure every variable the shared LLM settings read', (workflow) => {
+    checkUserConfiguration(workflow, (configuration) => {
+      expect(configuration.map(({ variable }) => variable)).toEqual(
+        expect.arrayContaining(Object.keys(LlmSettingsSchema.shape)),
+      );
     });
   });
 });

@@ -1,7 +1,7 @@
 import { FastAlfred } from 'fast-alfred';
 import { alfredSchemas } from 'fast-alfred/schemas';
 import { parsePhoneNumber } from 'libphonenumber-js';
-import { execPromise } from '../common/utils';
+import { $ } from 'zurk';
 import { type ContactPayload, ContactPayloadSchema } from '../models/contact-payload.model';
 import { buildOpenUrl, isPhonePlatform } from '../services/platform-url-builder.service';
 
@@ -20,7 +20,8 @@ import { buildOpenUrl, isPhonePlatform } from '../services/platform-url-builder.
 
     const openUrl = buildOpenUrl(platform, parsedInput);
 
-    await execPromise(`open ${openUrl}`);
+    /** zurk quotes `openUrl`, so a contact's email can't run as a shell command */
+    await $`open ${openUrl}`;
   } catch (error) {
     alfredClient.error(error);
   }

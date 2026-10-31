@@ -6,16 +6,9 @@ import type {
   JiraIssuePayload,
 } from '../models/jira-api-types';
 import type { JiraTicket } from '../models/jira-ticket.model';
+import type { Settings } from '../models/settings.model';
 
-export interface JiraConfig {
-  baseUrl: string;
-  username: string;
-  apiToken: string;
-  projectKey: string;
-  defaultIssueType?: string;
-  autoAssignUserId?: string;
-  customFields?: Record<string, unknown>;
-}
+export type JiraConfig = Settings['jira'];
 
 function convertToADF(text: string): ADFDocument {
   const paragraphs = text.split('\n\n').filter((p) => p.trim().length > 0);

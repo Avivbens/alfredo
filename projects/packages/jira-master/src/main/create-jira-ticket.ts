@@ -1,6 +1,6 @@
 import { FastAlfred } from 'fast-alfred';
 import { exec } from 'node:child_process';
-import { type JiraTicket } from '../models/jira-ticket.model';
+import { JiraTicketSchema } from '../models/jira-ticket.model';
 import { SettingsSchema } from '../models/settings.model';
 import { createJiraIssue } from '../services/jira-api.service';
 
@@ -8,7 +8,7 @@ import { createJiraIssue } from '../services/jira-api.service';
   const alfredClient = new FastAlfred();
 
   try {
-    const ticket: JiraTicket = JSON.parse(alfredClient.input);
+    const ticket = JiraTicketSchema.parse(JSON.parse(alfredClient.input));
 
     const { jira } = alfredClient.env.parse(SettingsSchema);
 

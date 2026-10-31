@@ -2,11 +2,10 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { getActiveApp } from '@alfredo/active-app';
-import { AvailableModelsSchema, callModel } from '@alfredo/llm';
+import { callModel } from '@alfredo/llm';
 import { registerUpdater } from '@alfredo/updater';
-import { DEFAULT_DEBOUNCE_TIME } from '../common/defaults.constants';
 import { TABLE_SYSTEM_PROMPT } from '../common/prompts/table.prompt';
-import { Variables } from '../common/variables.enum';
+import { SettingsSchema } from '../models/settings.model';
 import { formatMarkdownTable } from '../utils/format-table.util';
 
 (async () => {
@@ -14,22 +13,11 @@ import { formatMarkdownTable } from '../utils/format-table.util';
   alfredClient.updates(registerUpdater('text-transformer'));
 
   try {
-    const denounceTime = alfredClient.env.getEnv(Variables.DEBOUNCE_TIME, {
-      defaultValue: DEFAULT_DEBOUNCE_TIME,
-      parser: Number,
-    });
-    const token: string | undefined = alfredClient.env.getEnv(Variables.LLM_TOKEN);
-    const rawModel = alfredClient.env.getEnv(Variables.SELECTED_MODEL);
-    const model = rawModel ? AvailableModelsSchema.parse(rawModel) : undefined;
+    const { token, model, debounceTime, useApplicationContext } = alfredClient.env.parse(SettingsSchema);
 
     if (!token || !model) {
       throw new Error('Token or model is not defined!');
     }
-
-    const useApplicationContext: boolean = alfredClient.env.getEnv(Variables.USE_APPLICATION_CONTEXT, {
-      defaultValue: false,
-      parser: (value) => (value as '0' | '1') === '1',
-    });
 
     const applicationContext = useApplicationContext && (await getActiveApp());
     alfredClient.log(JSON.stringify({ useApplicationContext, applicationContext }, null, 2));
@@ -37,7 +25,7 @@ import { formatMarkdownTable } from '../utils/format-table.util';
     /**
      * Debounce time to wait for the user to finish typing
      */
-    await setTimeout(denounceTime);
+    await setTimeout(debounceTime);
 
     if (!alfredClient.input) {
       throw new Error('Input is required');

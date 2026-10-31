@@ -5,6 +5,8 @@ export const InfoPlistSchema = z.object({
   userconfigurationconfig: z.array(z.looseObject({ variable: z.string() })).default([]),
 });
 
+export type InfoPlist = z.infer<typeof InfoPlistSchema>;
+
 export const ModelPopupSchema = z.object({
   type: z.literal('popupbutton'),
   variable: z.literal(MODEL_VARIABLE),

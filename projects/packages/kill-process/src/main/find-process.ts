@@ -2,9 +2,9 @@ import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
 import psList from 'ps-list';
 import { registerUpdater } from '@alfredo/updater';
-import { Variables } from '../common/variables.enum';
 import { CallbackPayload } from '../models/callback-payload.model';
 import type { ProcessWithBattery } from '../models/process-with-battery.model';
+import { SettingsSchema } from '../models/settings.model';
 import { getSortByResource } from '../models/sort-by-resources.model';
 import { fetchBatteryData } from '../services/battery.service';
 import { mergeProcessesWithBattery } from '../services/process-merger.service';
@@ -14,22 +14,7 @@ import { searchProcess } from '../services/search.service';
   const alfredClient = new FastAlfred();
   alfredClient.updates(registerUpdater('kill-process'));
 
-  const sliceAmount: number = alfredClient.env.getEnv(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number });
-
-  const fuzzyThreshold: number = alfredClient.env.getEnv(Variables.FUZZY_THRESHOLD, {
-    defaultValue: 0.4,
-    parser: (input) => Number(input) / 10,
-  });
-
-  const rerunInterval: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL, {
-    defaultValue: 1,
-    parser: (input) => Math.round(Number(input)),
-  });
-
-  const rerunIntervalResources: number = alfredClient.env.getEnv(Variables.RERUN_INTERVAL_RESOURCES, {
-    defaultValue: 3,
-    parser: (input) => Math.round(Number(input)),
-  });
+  const { sliceAmount, fuzzyThreshold, rerunInterval, rerunIntervalResources } = alfredClient.env.parse(SettingsSchema);
 
   /**
    * Prepare inputs

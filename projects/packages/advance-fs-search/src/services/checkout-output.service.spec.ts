@@ -1,6 +1,6 @@
+import { IconService } from 'fast-alfred';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { toWorktreeQuery } from '../common/worktree-query.util';
-import type { AlfredIcons } from '../models/alfred.model';
 import { loadCheckoutOutput } from './checkout-output.service';
 import { getCheckouts } from './worktree.service';
 
@@ -8,7 +8,7 @@ vi.mock('./worktree.service', () => ({ getCheckouts: vi.fn() }));
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const repos = { 'ios-shortcuts': REPO };
-const icons = { getIcon: (name: string) => `${name}.icns` } as unknown as AlfredIcons;
+const icons = new IconService();
 
 describe('checkout-output.service', () => {
   beforeEach(() => {

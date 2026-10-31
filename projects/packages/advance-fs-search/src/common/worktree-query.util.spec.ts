@@ -1,11 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  isWorktreeQuery,
-  matchesFilter,
-  parseWorktreeQuery,
-  toWorktreeQuery,
-  toWorktreeRepos,
-} from './worktree-query.util';
+import { isWorktreeQuery, parseWorktreeQuery, toWorktreeQuery, toWorktreeRepos } from './worktree-query.util';
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 
@@ -48,16 +42,6 @@ describe('worktree-query.util', () => {
 
     it('should not match a name that only shares a prefix', () => {
       expect(parseWorktreeQuery('⎇ ios-shortcuts-old', repos)).toBeNull();
-    });
-  });
-
-  describe('matchesFilter', () => {
-    it('should match the folder name or the branch, ignoring case', () => {
-      const m5 = { path: `${REPO}@m5-shortcut-api`, branch: 'feat/builder-ts-source' };
-
-      expect(matchesFilter(m5, 'M5')).toBe(true);
-      expect(matchesFilter(m5, 'builder')).toBe(true);
-      expect(matchesFilter(m5, 'm4')).toBe(false);
     });
   });
 });

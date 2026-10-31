@@ -1,8 +1,7 @@
-import type { AlfredListItem } from 'fast-alfred';
+import type { AlfredListItem, IconService } from 'fast-alfred';
 import { basename } from 'node:path';
 import { joinSubtitle, pluralize } from '../common/text.util';
 import { toWorktreeQuery } from '../common/worktree-query.util';
-import type { AlfredIcons } from '../models/alfred.model';
 import type { FileSearch } from '../models/file-search.model';
 import type { ResultRow } from '../models/result-row.model';
 import type { Worktree } from '../models/worktree.model';
@@ -18,7 +17,7 @@ function toFileItem(path: string, icon: string, subtitle = path): AlfredListItem
   };
 }
 
-function toFileIcon({ type }: FileSearch, icons: AlfredIcons): string {
+function toFileIcon({ type }: FileSearch, icons: IconService): string {
   return icons.getIcon(type === 'folder' ? 'genericFolder' : 'genericDocument');
 }
 
@@ -26,7 +25,7 @@ function toFileIcon({ type }: FileSearch, icons: AlfredIcons): string {
  * Alfred autocompletes an invalid item on ↩, re-running the filter with the query that lists the checkouts.
  * No uid, so it never shares the repo row's knowledge.
  */
-function toWorktreesItem(repoPath: string, worktreeCount: number, repoKey: string, icons: AlfredIcons): AlfredListItem {
+function toWorktreesItem(repoPath: string, worktreeCount: number, repoKey: string, icons: IconService): AlfredListItem {
   return {
     title: `${basename(repoPath)} ⎇ ${pluralize(worktreeCount, 'worktree')}`,
     subtitle: joinSubtitle('↩ choose a checkout', repoPath),
@@ -36,11 +35,11 @@ function toWorktreesItem(repoPath: string, worktreeCount: number, repoKey: strin
   };
 }
 
-export function toCheckoutItem({ path, branch }: Worktree, icons: AlfredIcons): AlfredListItem {
+export function toCheckoutItem({ path, branch }: Worktree, icons: IconService): AlfredListItem {
   return toFileItem(path, icons.getIcon('genericFolder'), joinSubtitle(branch, path));
 }
 
-export function toResultItems(row: ResultRow, icons: AlfredIcons): AlfredListItem[] {
+export function toResultItems(row: ResultRow, icons: IconService): AlfredListItem[] {
   switch (row.kind) {
     case 'entry':
       return [toFileItem(row.file.path, toFileIcon(row.file, icons))];

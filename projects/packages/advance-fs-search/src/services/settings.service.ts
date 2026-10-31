@@ -1,11 +1,11 @@
+import type { EnvService } from 'fast-alfred';
 import { parseFlag, parsePaths } from '../common/env.util';
 import { Variables } from '../common/variables';
-import type { AlfredEnv } from '../models/alfred.model';
 import type { SearchOptions } from '../models/search-options.model';
 import type { Settings } from '../models/settings.model';
 import { type WorktreeRepos, parseWorktreeRepos } from '../models/worktree-repos.model';
 
-export function getSettings(env: AlfredEnv): Settings {
+export function getSettings(env: EnvService): Settings {
   return {
     sliceAmount: env.getEnv<number>(Variables.SLICE_AMOUNT, { defaultValue: 10, parser: Number }),
     worktreeRepos: env.getEnv<WorktreeRepos>(Variables.WORKTREE_REPOS, {
@@ -16,7 +16,7 @@ export function getSettings(env: AlfredEnv): Settings {
   };
 }
 
-function getSearchSettings(env: AlfredEnv): Settings['search'] {
+function getSearchSettings(env: EnvService): Settings['search'] {
   return {
     type: env.getEnv<SearchOptions['type']>(Variables.TARGET_TYPE, { defaultValue: 'all' }),
     onlyIn: getPaths(env, Variables.ONLY_IN),
@@ -30,10 +30,10 @@ function getSearchSettings(env: AlfredEnv): Settings['search'] {
   };
 }
 
-function getFlag(env: AlfredEnv, variable: Variables): boolean {
+function getFlag(env: EnvService, variable: Variables): boolean {
   return env.getEnv<boolean>(variable, { defaultValue: false, parser: parseFlag });
 }
 
-function getPaths(env: AlfredEnv, variable: Variables): string[] {
+function getPaths(env: EnvService, variable: Variables): string[] {
   return env.getEnv<string[]>(variable, { defaultValue: [], parser: parsePaths });
 }

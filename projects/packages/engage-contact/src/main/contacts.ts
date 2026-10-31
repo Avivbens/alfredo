@@ -1,5 +1,6 @@
 import type { AlfredListItem } from 'fast-alfred';
 import { FastAlfred } from 'fast-alfred';
+import { registerUpdater } from '@alfredo/updater';
 import type { IContact } from '../models/contact.model';
 import { ContactsInputsSchema } from '../models/contacts-inputs.model';
 import { SettingsSchema } from '../models/settings.model';
@@ -9,6 +10,7 @@ import { searchContacts } from '../services/search.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
+  alfredClient.updates(registerUpdater('engage-contact'));
 
   try {
     const [searchTerm, platform] = ContactsInputsSchema.parse(alfredClient.inputs);

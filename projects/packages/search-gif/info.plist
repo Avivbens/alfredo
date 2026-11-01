@@ -18,10 +18,23 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <key>E733790B-AE2F-4776-AF51-7034D3DCB464</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>83EA5218-C3BD-4965-9D83-069586CBD84A</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -31,7 +44,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <string>E733790B-AE2F-4776-AF51-7034D3DCB464</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -41,7 +54,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -53,7 +66,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -69,25 +82,6 @@
     <string>Search Gif</string>
     <key>objects</key>
     <array>
-      <dict>
-        <key>config</key>
-        <dict>
-          <key>autopaste</key>
-          <false></false>
-          <key>clipboardtext</key>
-          <string>{query}</string>
-          <key>ignoredynamicplaceholders</key>
-          <false></false>
-          <key>transient</key>
-          <false></false>
-        </dict>
-        <key>type</key>
-        <string>alfred.workflow.output.clipboard</string>
-        <key>uid</key>
-        <string>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
-        <key>version</key>
-        <integer>3</integer>
-      </dict>
       <dict>
         <key>config</key>
         <dict>
@@ -136,6 +130,50 @@
         <string>4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71</string>
         <key>version</key>
         <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/copy-gif.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>E733790B-AE2F-4776-AF51-7034D3DCB464</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>lastpathcomponent</key>
+          <false></false>
+          <key>onlyshowifquerypopulated</key>
+          <true></true>
+          <key>removeextension</key>
+          <false></false>
+          <key>text</key>
+          <string>{query}</string>
+          <key>title</key>
+          <string>Search Gif</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>83EA5218-C3BD-4965-9D83-069586CBD84A</string>
+        <key>version</key>
+        <integer>1</integer>
       </dict>
       <dict>
         <key>type</key>
@@ -187,7 +225,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+        <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -206,7 +244,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+              <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -226,7 +264,8 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 Search GIPHY for GIFs right from Alfred, with a thumbnail next to every result.
 
 - ⇧ plays the GIF large in Quick Look
-- ↩ copies the GIF URL, and Alfred stays open so you can copy another one
+- ↩ copies the GIF itself, ready to paste into Slack, Messages or Finder
+- Alfred stays open after a copy, so you can copy another one
 
 ## Usage
 
@@ -255,10 +294,17 @@ https://github.com/Avivbens/alfredo</string>
         <key>ypos</key>
         <integer>345</integer>
       </dict>
-      <key>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <key>E733790B-AE2F-4776-AF51-7034D3DCB464</key>
       <dict>
         <key>xpos</key>
         <integer>555</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>83EA5218-C3BD-4965-9D83-069586CBD84A</key>
+      <dict>
+        <key>xpos</key>
+        <integer>775</integer>
         <key>ypos</key>
         <integer>345</integer>
       </dict>
@@ -280,7 +326,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Snooze Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_E733790B-AE2F-4776-AF51-7034D3DCB464</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>

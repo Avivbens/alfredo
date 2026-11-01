@@ -32,7 +32,7 @@
     "@langchain/google-genai": "^2.3.2",
     "@langchain/openai": "^1.6.2",
     "date-fns": "^4.4.0",
-    "fast-alfred": "^2.9.0",
+    "fast-alfred": "^2.9.1",
     "fuse.js": "^7.5.0",
     "glob": "^13.0.6",
     "libphonenumber-js": "^1.13.15",

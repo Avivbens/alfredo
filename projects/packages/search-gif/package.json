@@ -1,11 +1,14 @@
 {
   "name": "search-gif",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Search GIPHY for GIFs and copy them straight from Alfred 🎬",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "gif",
+    "giphy",
+    "search",
+    "clipboard"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {

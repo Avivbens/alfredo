@@ -394,6 +394,15 @@ importers:
         specifier: workspace:*
         version: link:../../libs/updater
 
+  projects/packages/search-gif:
+    dependencies:
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../../libs/run-applescript
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
   projects/packages/switch-wifi:
     dependencies:
       '@alfredo/updater':

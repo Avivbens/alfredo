@@ -32,6 +32,8 @@ Each pause while you type runs a search and spends a call, while reopening your 
 Type `gif` and what you're looking for, e.g. `gif hope`.
 The keyword is configurable in the workflow settings if `gif` clashes with something else you use.
 
-<kbd>↩</kbd> copies the GIF URL, and Alfred keeps the results open for the next pick.
+<kbd>↩</kbd> copies the GIF itself, so pasting into Slack, Messages or Finder drops the animated file.
+Alfred keeps the results open after a copy, ready for the next pick.
+Each copy lands in your clipboard history like any other, and copied GIFs stay on disk for a week so older entries still paste.
 
 Powered By GIPHY.

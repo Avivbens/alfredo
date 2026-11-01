@@ -15,4 +15,7 @@ export const SEARCH_CACHE_TTL = hoursToMilliseconds(1);
 export const SEARCH_DEBOUNCE_MS = 500;
 
 export const THUMBNAILS_DIR = 'thumbnails';
+export const GIFS_DIR = 'gifs';
+
+/** A clipboard manager keeps only a reference to a copied GIF, so the file has to outlive later pastes. */
 export const CACHED_FILES_MAX_AGE = millisecondsInWeek;

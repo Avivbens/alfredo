@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { CopyPayloadSchema } from '../models/copy-payload.schema';
 import type { GiphyGif } from '../models/giphy-gif.schema';
 import { toGifItem } from './gif-item.service';
 
@@ -13,12 +14,18 @@ const HOPE_GIF: GiphyGif = {
 
 describe('gif-item.service', () => {
   describe('toGifItem', () => {
-    it('should copy the original GIF URL on ↩ and ⌘C', () => {
-      expect(toGifItem(HOPE_GIF)).toMatchObject({
-        title: 'Hope GIF by Hello All',
-        arg: ORIGINAL_URL,
-        text: { copy: ORIGINAL_URL },
-      });
+    it('should hand ↩ a payload the copy script accepts', () => {
+      const { arg } = toGifItem(HOPE_GIF);
+
+      expect(CopyPayloadSchema.parse(JSON.parse(String(arg)))).toEqual({ id: '3o7TKSjRrfIPjeiVyM', url: ORIGINAL_URL });
+    });
+
+    it('should offer no modifier actions, so ↩ is the one way to copy', () => {
+      expect(toGifItem(HOPE_GIF)).not.toHaveProperty('mods');
+    });
+
+    it('should copy the original GIF URL on ⌘C', () => {
+      expect(toGifItem(HOPE_GIF)).toMatchObject({ title: 'Hope GIF by Hello All', text: { copy: ORIGINAL_URL } });
     });
 
     it('should credit GIPHY on every result, as its API terms require', () => {

@@ -1,3 +1,15 @@
+## 2.1.0 (2026-11-02)
+
+### 🚀 Features
+
+- **ai-calendar-assistant:** repeat reminders through EventKit ([a3aa932](https://github.com/Avivbens/alfredo/commit/a3aa932))
+- **ai-calendar-assistant:** create events through EventKit with their time zone ([7aeb6f8](https://github.com/Avivbens/alfredo/commit/7aeb6f8))
+- **ai-calendar-assistant:** show today's agenda from EventKit ([d56f688](https://github.com/Avivbens/alfredo/commit/d56f688))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.0.1 (2026-10-31)
 
 ### 🩹 Fixes

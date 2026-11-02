@@ -196,8 +196,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       fast-alfred:
-        specifier: ^2.9.1
-        version: 2.9.1(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)(zod@4.6.7)
+        specifier: ^2.9.2
+        version: 2.9.2(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)(zod@4.6.7)
       fuse.js:
         specifier: ^7.5.0
         version: 7.5.0
@@ -1422,9 +1422,6 @@ packages:
   '@jridgewell/resolve-uri@3.1.2':
     resolution: {integrity: sha512-bRISgCIjP20/tbWSPWMEi54QVPRZExkuD9lJL+UIxUKtwVJA8wW1Trb1jMs1RFXo1CBTNZ/5hpC9QvmKWdopKw==}
     engines: {node: '>=6.0.0'}
-
-  '@jridgewell/sourcemap-codec@1.5.5':
-    resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
 
   '@jridgewell/sourcemap-codec@1.6.0':
     resolution: {integrity: sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw==}
@@ -2727,8 +2724,8 @@ packages:
     resolution: {integrity: sha512-KfYbmpRm0VbLjEvVa9yGwCi9GI34xvi7A/HXYWQO65CSD2u3MczUJSuwXKFIxlGsgBQizV9q5J9NHj4VG0n+pA==}
     engines: {node: '>=12.0.0'}
 
-  fast-alfred@2.9.1:
-    resolution: {integrity: sha512-dP8qs2eIS3GrpV1yHTID8wtBJHHVoTy4Nk9kauToX6NHeI/AB3NVVenPYsm1K3ZetetcpcdLRLzMD58xrbUZPg==}
+  fast-alfred@2.9.2:
+    resolution: {integrity: sha512-P7mu7a4U1Qr1UrA1QdJcsp6wvcT/Nf+kzwQpC8+PKVkw+cMnZqnYr0DZRQKTcbHNh3Bzh8xAgwnx1UoEXfROfg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -5155,7 +5152,7 @@ snapshots:
 
   '@jridgewell/gen-mapping@0.3.13':
     dependencies:
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
       '@jridgewell/trace-mapping': 0.3.31
 
   '@jridgewell/remapping@2.3.5':
@@ -5165,14 +5162,12 @@ snapshots:
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
-  '@jridgewell/sourcemap-codec@1.5.5': {}
-
   '@jridgewell/sourcemap-codec@1.6.0': {}
 
   '@jridgewell/trace-mapping@0.3.31':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
-      '@jridgewell/sourcemap-codec': 1.5.5
+      '@jridgewell/sourcemap-codec': 1.6.0
 
   '@keyv/bigmap@1.3.1(keyv@5.6.0)':
     dependencies:
@@ -5881,7 +5876,7 @@ snapshots:
       debug: 4.4.3(supports-color@7.2.0)
       minimatch: 11.0.3
       semver: 7.8.5
-      tinyglobby: 0.2.16
+      tinyglobby: 0.2.17
       ts-api-utils: 2.5.0(typescript@6.0.3)
       typescript: 6.0.3
     transitivePeerDependencies:
@@ -6465,7 +6460,7 @@ snapshots:
 
   expect-type@1.4.0: {}
 
-  fast-alfred@2.9.1(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)(zod@4.6.7):
+  fast-alfred@2.9.2(@types/inquirer@8.2.12)(@types/node@22.19.19)(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)(typescript@6.0.3)(zod@4.6.7):
     dependencies:
       '@nestjs/common': 11.2.7(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0)
       '@nestjs/core': 11.2.7(@nestjs/common@11.2.7(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@7.2.0))(reflect-metadata@0.2.2)(rxjs@7.8.2)

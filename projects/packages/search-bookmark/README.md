@@ -23,6 +23,20 @@ Incognito mode will be opened with the dedicated browser as well.
 1. Press Enter to open the bookmark in the dedicated browser
 1. To open the bookmark in incognito mode, press Command + Enter
 
+## Copy open tabs
+
+Copy your open Chrome tabs as Markdown links via the keyword 'tabs'. You can change the keyword in the workflow configuration.
+
+1. Open Alfred and type 'tabs' followed by a space
+1. Press Enter on 'Copy current tab' to copy the active tab of the front window as a link
+1. Press Enter on 'Copy this window' to copy the tabs of the window in front
+1. Press Enter on 'Copy all windows' to copy every window, grouped under a heading per window
+1. Press Enter on 'Copy another window' to copy any other window, shown with its active tab's title
+1. Type a word to search your open tabs, and press Enter to copy the tab as a link
+1. To switch to a searched tab, press Command + Enter
+
+Incognito windows are skipped. The first time you run it, macOS asks to let Alfred control Google Chrome.
+
 ## Examples
 
 ### Search bookmarks with keyword `bm`:

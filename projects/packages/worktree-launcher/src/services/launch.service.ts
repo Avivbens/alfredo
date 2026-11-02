@@ -3,14 +3,16 @@ import { homedir } from 'node:os';
 import { promisify } from 'node:util';
 import { startSession, startVSCodeSession, toAgentCommand } from '@alfredo/terminal-session';
 import type { Clone } from '../models/clone.schema';
-import type { LaunchAction, PrAction, TaskAction } from '../models/launch-action.schema';
+import type { LaunchAction, PrAction, StackAction, TaskAction } from '../models/launch-action.schema';
 import type { Settings } from '../models/settings.model';
 import type { WorktreeResult } from '../models/worktree-result.schema';
 import { findClones } from './clone-index.service';
 import { toCommandError } from './git.service';
 import { detectInstallCommand, runInstallInBackground } from './install.service';
+import { loadStackClone } from './pr-list.service';
 import { loadPrStates } from './pr-match.service';
 import { ensurePrWorktree } from './pr-worktree.service';
+import { ensureStackWorktree } from './stack-worktree.service';
 import { ensureTaskWorktree } from './task-worktree.service';
 import { getTrunk } from './trunk.service';
 
@@ -30,14 +32,18 @@ async function runOpen(args: string[]): Promise<void> {
 }
 
 /** Notifications show only the message, so the failure has to name what is missing. */
-async function findClone({ pr }: PrAction, settings: Settings): Promise<Clone> {
+async function findClone(
+  nameWithOwner: string,
+  settings: Settings,
+  pickClone: (clones: Clone[]) => Promise<Clone | undefined>,
+): Promise<Clone> {
   const clones = await findClones(settings.repo_roots, settings.scan_depth);
-  const [state] = await loadPrStates([pr], clones);
-  if (!state?.clone) {
-    throw new Error(`No local clone of ${pr.nameWithOwner} under your repo roots`);
+  const clone = await pickClone(clones);
+  if (!clone) {
+    throw new Error(`No local clone of ${nameWithOwner} under your repo roots`);
   }
 
-  return state.clone;
+  return clone;
 }
 
 async function findInstallCommand(path: string, shouldInstall: boolean): Promise<string | null> {
@@ -86,7 +92,11 @@ async function launchPr(action: PrAction, settings: Settings): Promise<void> {
     return;
   }
 
-  const clone = await findClone(action, settings);
+  const clone = await findClone(pr.nameWithOwner, settings, async (clones) => {
+    const [state] = await loadPrStates([pr], clones);
+
+    return state?.clone;
+  });
   const worktree = await ensurePrWorktree(clone, pr);
 
   /** A fork's install scripts are code from outside the repo, so a fork PR never installs on its own. */
@@ -100,7 +110,17 @@ async function launchTask({ branch, clone, mode }: TaskAction, settings: Setting
   await openWorktree(worktree, mode, settings);
 }
 
-export async function launch(action: LaunchAction, settings: Settings): Promise<void> {
+async function launchStack(action: StackAction, settings: Settings): Promise<string | undefined> {
+  const clone = await findClone(action.nameWithOwner, settings, (clones) => loadStackClone(action, clones));
+  const result = await ensureStackWorktree(clone, action, homedir());
+
+  await openWorktree(result, action.mode, settings);
+
+  return result.notice;
+}
+
+/** A dirty folder still opens, so the stayed-on-branch reason comes back as a notice rather than an error. */
+export async function launch(action: LaunchAction, settings: Settings): Promise<string | undefined> {
   switch (action.kind) {
     case 'pr': {
       await launchPr(action, settings);
@@ -111,6 +131,9 @@ export async function launch(action: LaunchAction, settings: Settings): Promise<
       await launchTask(action, settings);
 
       return;
+    }
+    case 'stack': {
+      return launchStack(action, settings);
     }
   }
 }

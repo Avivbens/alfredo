@@ -1,3 +1,4 @@
+import { secondsToMilliseconds } from 'date-fns';
 import { dirname } from 'node:path';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { runGit } from './git.service';
@@ -34,6 +35,19 @@ describe('git.service', () => {
 
       await expect(runGit('/p', ['fetch'])).rejects.toThrow('git was not found');
       expect(execFile).not.toHaveBeenCalled();
+    });
+
+    it('should pass a timeout through to execFile', async () => {
+      execFile.mockImplementation((_file, _args, _options, callback) => {
+        callback(null, '', '');
+      });
+
+      await runGit('/work/app@stack-68', ['status'], { timeout: secondsToMilliseconds(2) });
+
+      expect(execFile.mock.calls[0]?.[2]).toMatchObject({
+        cwd: '/work/app@stack-68',
+        timeout: secondsToMilliseconds(2),
+      });
     });
 
     it('should report the fatal line rather than the From progress line', async () => {

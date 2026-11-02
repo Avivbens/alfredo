@@ -5,9 +5,9 @@ import { parsePrRef } from '../common/pr-ref.util';
 import type { LauncherIssue } from '../models/launcher-issue.schema';
 import { settingsSchema } from '../models/settings.model';
 import { loadClones } from '../services/clones.service';
-import { toPrItems } from '../services/pr-items.service';
-import { loadPrStates } from '../services/pr-match.service';
-import { loadMatchingPullRequests } from '../services/pr-search.service';
+import { toListItems, toPrListOutput } from '../services/pr-items.service';
+import { loadListEntries, toOpenLayers } from '../services/pr-list.service';
+import { loadPullRequestList } from '../services/pr-search.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -18,21 +18,23 @@ import { loadMatchingPullRequests } from '../services/pr-search.service';
     const { cache, input } = alfredClient;
 
     const ref = parsePrRef(input);
-    const [clones, { prs, issues: prIssues }] = await Promise.all([
+    const [clones, { all, matched, issues: prIssues }] = await Promise.all([
       loadClones(cache, settings),
-      loadMatchingPullRequests(cache, input, ref),
+      loadPullRequestList({ cache, input, ref }),
     ]);
 
-    const states = await loadPrStates(prs, clones);
+    const openLayers = toOpenLayers(all);
+    const entries = await loadListEntries(matched, clones, openLayers);
     const issues: LauncherIssue[] = [...prIssues];
     if (!clones.length) {
       issues.push({ kind: 'no-clones', roots: settings.repo_roots, depth: settings.scan_depth });
     }
 
-    const items = toPrItems(states, issues, homedir());
+    const items = toListItems(entries, issues, homedir(), openLayers);
     const visible = items.slice(0, settings.slice_amount);
+    const output = toPrListOutput(visible);
 
-    alfredClient.output({ items: visible });
+    alfredClient.output(output);
   } catch (error) {
     alfredClient.error(error);
   }

@@ -16,6 +16,7 @@ Open or create git worktrees for your pull requests and new tasks, then start an
 - Maps each pull request to a local clone under your repo folders
 - Creates the worktree next to the clone as `<repo>@<name>`, then installs dependencies with the repo's package manager
 - Works for pull requests from forks, which are checked out as `pr-<number>` and open without installing dependencies, so their scripts never run on their own
+- Groups the pull requests of a GitHub stack and opens every layer in one folder
 - Starts a new task in its own worktree, on a fresh branch off the latest default branch
 - Opens the worktree in VS Code or Cursor, or starts an agent session: in the agent chat in VS Code, or in your terminal with Cursor
 
@@ -37,6 +38,18 @@ The [GitHub CLI](https://cli.github.com) (`gh`), logged in with `gh auth login`.
 | ⇧ ↩ | Open the pull request in the browser                                                                                       |
 
 When the editor setting is VS Code, ⌘ and ⌥ open the session in the agent chat in VS Code: a new chat for ⌘, or the folder's latest session for ⌥. With Cursor, they open the session in your selected terminal app with the agent command.
+
+## Stacked pull requests
+
+The pull requests of one GitHub stack show together, bottom to top, under a header row `┌ Stack <n> · <repo> · <k> PRs`. Each layer reads `│ <position>/<size> · <title>`, and the last layer shown starts with `└ ` instead, so the group reads as one tree while you type. A layer's subtitle adds ` · on #<n>` for the layer below, and the location shows `(on <p>/<size>)` when the stack's folder is on another layer. A local `gh stack` whose top layer is not pushed yet still counts. If GitHub rejects the stack fields, the list falls back to plain pull requests.
+
+A stack lives in one folder, `<repo>@stack-<n>`, and ↩ on a layer opens it:
+
+- If the folder is on another layer and has no uncommitted changes (untracked files don't count), it switches to that layer first
+- With uncommitted changes, or in the middle of a rebase, it opens the folder unchanged and a notification says why
+- With no folder yet, it creates one and fetches every open layer
+
+The header only labels the group and shows the stack's folder. On a layer, ⌘ and ⌥ start or resume a session as usual, and ⇧ opens the pull request. Stacks from forks keep one worktree per pull request.
 
 ## New task
 

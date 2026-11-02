@@ -1,6 +1,6 @@
 import { homedir } from 'node:os';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { LaunchAction, PrAction, TaskAction } from '../models/launch-action.schema';
+import type { LaunchAction, PrAction, StackAction, TaskAction } from '../models/launch-action.schema';
 import type { PullRequest } from '../models/pull-request.schema';
 import type { Settings } from '../models/settings.model';
 import { settingsSchema } from '../models/settings.model';
@@ -16,6 +16,10 @@ const { execFile, findClones, getCheckouts, ensurePrWorktree, detectInstallComma
     runInstallInBackground: vi.fn(),
   }));
 const { getTrunk, ensureTaskWorktree } = vi.hoisted(() => ({ getTrunk: vi.fn(), ensureTaskWorktree: vi.fn() }));
+const { ensureStackWorktree, readLocalStacks } = vi.hoisted(() => ({
+  ensureStackWorktree: vi.fn(),
+  readLocalStacks: vi.fn(),
+}));
 const { startSession, startVSCodeSession } = vi.hoisted(() => ({
   startSession: vi.fn(),
   startVSCodeSession: vi.fn(),
@@ -32,6 +36,8 @@ vi.mock('./clone-index.service', () => ({ findClones }));
 vi.mock('./pr-worktree.service', () => ({ ensurePrWorktree }));
 vi.mock('./trunk.service', () => ({ getTrunk }));
 vi.mock('./task-worktree.service', () => ({ ensureTaskWorktree }));
+vi.mock('./stack-worktree.service', () => ({ ensureStackWorktree }));
+vi.mock('./local-stacks.service', () => ({ readLocalStacks }));
 vi.mock('./install.service', () => ({ detectInstallCommand, runInstallInBackground }));
 
 const CLONE = { path: '/work/app', nameWithOwner: 'owner/app' };
@@ -48,6 +54,9 @@ const PR: PullRequest = {
   source: 'mine',
 };
 const FORK_PR: PullRequest = { ...PR, isCrossRepository: true };
+const ARCHIVE = { path: '/work/archive/app', nameWithOwner: 'owner/app' };
+const STACK_WORKTREE = '/work/app@stack-68';
+const NOTICE = 'Stayed on feat/layer-1: /work/app@stack-68 has uncommitted changes';
 
 function toAction(mode: PrAction['mode']): LaunchAction {
   return { kind: 'pr', pr: PR, mode };
@@ -55,6 +64,20 @@ function toAction(mode: PrAction['mode']): LaunchAction {
 
 function toTaskAction(mode: TaskAction['mode']): LaunchAction {
   return { kind: 'task', branch: 'feat/agenda-view', clone: CLONE, mode };
+}
+
+function toStackAction(mode: StackAction['mode']): StackAction {
+  return {
+    kind: 'stack',
+    nameWithOwner: 'owner/app',
+    number: 68,
+    layers: [
+      { number: 67, headRefName: 'feat/layer-1', url: 'https://github.com/owner/app/pull/67', position: 1 },
+      { number: 58, headRefName: 'feat/layer-2', url: 'https://github.com/owner/app/pull/58', position: 2 },
+    ],
+    target: 58,
+    mode,
+  };
 }
 
 function toSettings(overrides: Partial<Settings> = {}): Settings {
@@ -71,6 +94,8 @@ describe('launch.service', () => {
     detectInstallCommand.mockResolvedValue('pnpm install');
     getTrunk.mockResolvedValue('main');
     ensureTaskWorktree.mockResolvedValue({ path: TASK_WORKTREE, created: true });
+    ensureStackWorktree.mockResolvedValue({ path: STACK_WORKTREE, created: true });
+    readLocalStacks.mockResolvedValue([]);
   });
 
   describe('launch', () => {
@@ -244,6 +269,59 @@ describe('launch.service', () => {
         ensureTaskWorktree.mockRejectedValue(new Error("fatal: a branch named 'feat/agenda-view' already exists"));
 
         await expect(launch(toTaskAction('editor'), toSettings())).rejects.toThrow('already exists');
+        expect(execFile).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('with a stack action', () => {
+      it('should open the stack folder, install, and return no notice', async () => {
+        const action = toStackAction('editor');
+
+        expect(await launch(action, toSettings())).toBeUndefined();
+        expect(ensureStackWorktree).toHaveBeenCalledWith(CLONE, action, homedir());
+        expect(execFile).toHaveBeenCalledWith(
+          'open',
+          ['-a', 'Visual Studio Code', STACK_WORKTREE],
+          expect.any(Function),
+        );
+        expect(runInstallInBackground).toHaveBeenCalledWith(STACK_WORKTREE, 'pnpm install');
+      });
+
+      it('should open the folder unchanged, then return the notice', async () => {
+        ensureStackWorktree.mockResolvedValue({ path: STACK_WORKTREE, created: false, notice: NOTICE });
+
+        expect(await launch(toStackAction('resume-session'), toSettings({ editor_app: 'cursor' }))).toBe(NOTICE);
+        expect(startSession).toHaveBeenCalledWith({
+          path: STACK_WORKTREE,
+          command: 'claude --continue',
+          terminal: 'native',
+        });
+      });
+
+      it("should act in the longer clone holding the stack's folder, as the row showed", async () => {
+        findClones.mockResolvedValue([CLONE, ARCHIVE]);
+        getCheckouts.mockImplementation(async (path: string) =>
+          path === ARCHIVE.path ? [{ path: `${ARCHIVE.path}@stack-68`, branch: 'feat/layer-1' }] : [],
+        );
+
+        await launch(toStackAction('editor'), toSettings());
+
+        expect(ensureStackWorktree).toHaveBeenCalledWith(ARCHIVE, expect.anything(), homedir());
+      });
+
+      it('should explain that there is no local clone instead of launching', async () => {
+        findClones.mockResolvedValue([]);
+
+        await expect(launch(toStackAction('editor'), toSettings())).rejects.toThrow(
+          'No local clone of owner/app under your repo roots',
+        );
+        expect(ensureStackWorktree).not.toHaveBeenCalled();
+      });
+
+      it('should rethrow a failed switch so the notification shows it', async () => {
+        ensureStackWorktree.mockRejectedValue(new Error("fatal: Unable to create 'index.lock': File exists."));
+
+        await expect(launch(toStackAction('editor'), toSettings())).rejects.toThrow('fatal: Unable to create');
         expect(execFile).not.toHaveBeenCalled();
       });
     });

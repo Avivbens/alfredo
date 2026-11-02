@@ -13,6 +13,12 @@ List your open pull requests, review requests and pull requests assigned to you 
 
 You can also start an agent session in the worktree, or paste a pull request URL to open that one.
 
+Pull requests of one GitHub stack show together, bottom to top, under a header row '┌ Stack <n> · <repo> · <k> PRs'. Each layer reads '│ <position>/<size> · <title>', and the last layer shown starts with '└ ' instead, so the group reads as one tree while you type. A layer's subtitle adds ' · on #<n>' for the layer below, and the location shows '(on <p>/<size>)' when the stack's folder is on another layer. A local 'gh stack' whose top layer is not pushed yet still counts. If GitHub rejects the stack fields, the list falls back to plain pull requests.
+
+A stack lives in one folder, '<repo>@stack-<n>', and Enter on a layer opens it. If the folder is on another layer and has no uncommitted changes (untracked files don't count), it switches to that layer first. With uncommitted changes, or in the middle of a rebase, it opens the folder unchanged and a notification says why. With no folder yet, it creates one and fetches every open layer.
+
+The header only labels the group and shows the stack's folder. On a layer, Command + Enter and Option + Enter start or resume a session as usual, and Shift + Enter opens the pull request. Stacks from forks keep one worktree per pull request.
+
 Start a new task with the keyword 'wtn' followed by a task name: pick a repo and the workflow creates a branch from the freshly fetched default branch in its own worktree, then opens it.
 
 ## Usage

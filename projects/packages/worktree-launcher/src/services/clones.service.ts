@@ -7,6 +7,21 @@ import type { Cache } from './cache.service';
 import { loadCached, toClonesCacheKey } from './cache.service';
 import { findClones } from './clone-index.service';
 
+export async function readEachClone<T>(
+  clones: Clone[],
+  read: (path: string) => Promise<T>,
+): Promise<Record<string, T>> {
+  const entries = await Promise.all(
+    clones.map(async ({ path }) => {
+      const value = await read(path);
+
+      return [path, value] as const;
+    }),
+  );
+
+  return Object.fromEntries(entries);
+}
+
 export function loadClones(cache: Cache, settings: Settings): Promise<Clone[]> {
   const key = toClonesCacheKey(settings);
 

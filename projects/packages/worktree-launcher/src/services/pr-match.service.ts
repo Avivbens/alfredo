@@ -3,10 +3,11 @@ import { getCheckouts } from '@alfredo/git-worktrees';
 import { toLocalBranch } from '../common/worktree-name.util';
 import type { Clone } from '../models/clone.schema';
 import type { PullRequest } from '../models/pull-request.schema';
+import { readEachClone } from './clones.service';
 
 export type PrState = { pr: PullRequest; clone?: Clone; worktree?: Worktree };
 
-const SOURCE_RANK: Record<PullRequest['source'], number> = { mine: 0, review: 1, assigned: 2, lookup: 3 };
+const SOURCE_RANK: Record<PullRequest['source'], number> = { mine: 0, review: 1, assigned: 2, lookup: 3, stack: 4 };
 
 /** A PR can come from several searches at once; the lowest-ranked source wins so it never shows twice. */
 function toUniquePullRequests(prs: PullRequest[]): PullRequest[] {
@@ -34,23 +35,22 @@ export function toPrStates(prs: PullRequest[], clones: Clone[], checkouts: Recor
 }
 
 /** Only clones of a listed repo are read, since each `getCheckouts` call touches the disk. */
-export async function loadPrStates(prs: PullRequest[], clones: Clone[]): Promise<PrState[]> {
+export function loadCheckouts(prs: PullRequest[], clones: Clone[]): Promise<Record<string, Worktree[]>> {
   const names = prs.map(({ nameWithOwner }) => nameWithOwner);
   const repos = new Set(names);
   const relevant = clones.filter(({ nameWithOwner }) => repos.has(nameWithOwner));
-  const entries = await Promise.all(
-    relevant.map(async ({ path }) => {
-      const checkouts = await getCheckouts(path);
 
-      return [path, checkouts] as const;
-    }),
-  );
+  return readEachClone(relevant, getCheckouts);
+}
 
-  const checkouts = Object.fromEntries(entries);
+export async function loadPrStates(prs: PullRequest[], clones: Clone[]): Promise<PrState[]> {
+  const checkouts = await loadCheckouts(prs, clones);
 
   return toPrStates(prs, clones, checkouts);
 }
 
-export function toSearchText({ title, nameWithOwner, number, headRefName }: PullRequest): string {
-  return `${title} ${nameWithOwner} #${number} ${headRefName}`;
+export function toSearchText({ title, nameWithOwner, number, headRefName, stack }: PullRequest): string {
+  const text = `${title} ${nameWithOwner} #${number} ${headRefName}`;
+
+  return stack ? `${text} stack ${stack.number}` : text;
 }

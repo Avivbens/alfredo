@@ -4,7 +4,7 @@ import { registerUpdater } from '@alfredo/updater';
 import { ROUTES } from '../models/routes.model';
 import { settingsSchema } from '../models/settings.model';
 import { loadClones } from '../services/clones.service';
-import { toPrItems } from '../services/pr-items.service';
+import { toListItems } from '../services/pr-items.service';
 import { loadRecentRepos, sortByRecent } from '../services/recent-repos.service';
 import { toRepoItems, toTaskItems } from '../services/task-items.service';
 
@@ -23,7 +23,7 @@ import { toRepoItems, toTaskItems } from '../services/task-items.service';
         const clones = await loadClones(cache, settings);
         if (!clones.length) {
           const issues = [{ kind: 'no-clones' as const, roots: settings.repo_roots, depth: settings.scan_depth }];
-          const issueItems = toPrItems([], issues, homedir());
+          const issueItems = toListItems([], issues, homedir());
           alfredClient.output({ items: issueItems });
           break;
         }

@@ -51,7 +51,7 @@ async function requireGit(): Promise<string> {
  * An argv array stops shell injection. Refs go in as full names so none reads as an option, and where a short branch
  * name is passed, git already refuses names that start with `-`.
  */
-export async function runGit(cwd: string, args: string[]): Promise<string> {
+export async function runGit(cwd: string, args: string[], { timeout }: { timeout?: number } = {}): Promise<string> {
   const git = await requireGit();
   const env = {
     ...process.env,
@@ -60,7 +60,7 @@ export async function runGit(cwd: string, args: string[]): Promise<string> {
   };
 
   return new Promise((resolve, reject) => {
-    execFile(git, args, { cwd, env }, (error, stdout, stderr) => {
+    execFile(git, args, { cwd, env, timeout }, (error, stdout, stderr) => {
       if (error) {
         const message = toMessage(String(stderr ?? ''), error.message || 'git failed');
         reject(new GitError(message, error.code));

@@ -1,3 +1,4 @@
+import { secondsToMilliseconds } from 'date-fns';
 import type { Worktree } from '@alfredo/git-worktrees';
 import { getCheckouts } from '@alfredo/git-worktrees';
 import { toLocalBranch } from '../common/worktree-name.util';
@@ -6,7 +7,7 @@ import type { PullRequest } from '../models/pull-request.schema';
 
 export type PrState = { pr: PullRequest; clone?: Clone; worktree?: Worktree };
 
-const SOURCE_RANK: Record<PullRequest['source'], number> = { mine: 0, review: 1, assigned: 2, lookup: 3 };
+const SOURCE_RANK: Record<PullRequest['source'], number> = { mine: 0, review: 1, assigned: 2, lookup: 3, stack: 4 };
 
 /** A PR can come from several searches at once; the lowest-ranked source wins so it never shows twice. */
 function toUniquePullRequests(prs: PullRequest[]): PullRequest[] {
@@ -44,7 +45,7 @@ export function toPrStates(prs: PullRequest[], clones: Clone[], checkouts: Recor
 }
 
 /** Only clones of a listed repo are read, since each `getCheckouts` call touches the disk. */
-export async function loadPrStates(prs: PullRequest[], clones: Clone[]): Promise<PrState[]> {
+export async function loadCheckouts(prs: PullRequest[], clones: Clone[]): Promise<Record<string, Worktree[]>> {
   const names = prs.map(({ nameWithOwner }) => nameWithOwner);
   const repos = new Set(names);
   const relevant = clones.filter(({ nameWithOwner }) => repos.has(nameWithOwner));
@@ -56,11 +57,39 @@ export async function loadPrStates(prs: PullRequest[], clones: Clone[]): Promise
     }),
   );
 
-  const checkouts = Object.fromEntries(entries);
+  return Object.fromEntries(entries);
+}
+
+export async function loadPrStates(prs: PullRequest[], clones: Clone[]): Promise<PrState[]> {
+  const checkouts = await loadCheckouts(prs, clones);
 
   return toPrStates(prs, clones, checkouts);
 }
 
-export function toSearchText({ title, nameWithOwner, number, headRefName }: PullRequest): string {
-  return `${title} ${nameWithOwner} #${number} ${headRefName}`;
+export function toSearchText({ title, nameWithOwner, number, headRefName, stack }: PullRequest): string {
+  const text = `${title} ${nameWithOwner} #${number} ${headRefName}`;
+
+  return stack ? `${text} stack ${stack.number}` : text;
+}
+
+/** Below this age a miss is trusted, so typing never hammers `gh`. */
+export const MIN_REFETCH_AGE_MS = secondsToMilliseconds(10);
+
+/** A PR assigned moments ago is missing from a cached list, so a miss on an old enough list asks for a fresh one. */
+export function shouldRefetch({
+  input,
+  matched,
+  fetchedAt,
+  now,
+}: {
+  input: string;
+  matched: number;
+  fetchedAt: number;
+  now: number;
+}): boolean {
+  if (!input.trim() || matched > 0) {
+    return false;
+  }
+
+  return now - fetchedAt >= MIN_REFETCH_AGE_MS;
 }

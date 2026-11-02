@@ -4,11 +4,9 @@ import { pickFreePath, toWorktreeName, toWorktreePath } from '../common/worktree
 import type { Clone } from '../models/clone.schema';
 import type { WorktreeResult } from '../models/worktree-result.schema';
 import { runGit } from './git.service';
+import { toFetchRefspec } from './pr-worktree.service';
 
-/**
- * `--no-track` keeps the new branch from pushing to, or being compared with, the trunk it started from. The `+` refspec
- * updates `origin/<trunk>` even in a clone with a narrowed fetch refspec, which is safe for a remote-tracking ref.
- */
+/** `--no-track` keeps the new branch from pushing to, or being compared with, the trunk it started from. */
 export async function ensureTaskWorktree(clone: Clone, branch: string, trunk: string): Promise<WorktreeResult> {
   const checkouts = await getCheckouts(clone.path);
   const existing = checkouts.find((checkout) => checkout.branch === branch);
@@ -22,7 +20,8 @@ export async function ensureTaskWorktree(clone: Clone, branch: string, trunk: st
   const path = await pickFreePath(preferred, isPathTaken);
   const remote = `refs/remotes/origin/${trunk}`;
 
-  await runGit(clone.path, ['fetch', 'origin', `+refs/heads/${trunk}:${remote}`]);
+  const refspec = toFetchRefspec(trunk);
+  await runGit(clone.path, ['fetch', 'origin', refspec]);
   await runGit(clone.path, ['worktree', 'add', '--no-track', '-b', branch, path, remote]);
 
   return { path, created: true };

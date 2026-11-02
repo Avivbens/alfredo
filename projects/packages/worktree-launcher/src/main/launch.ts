@@ -14,7 +14,10 @@ import { recordRecentRepo } from '../services/recent-repos.service';
     if (action.kind === 'task') {
       recordRecentRepo(alfredClient.cache, action.clone.path);
     }
-    await launch(action, settings);
+    const notice = await launch(action, settings);
+    if (notice) {
+      console.log(notice);
+    }
   } catch (error) {
     console.log(error instanceof Error ? error.message : String(error));
   }

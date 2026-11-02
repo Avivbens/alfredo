@@ -23,10 +23,11 @@ export async function loadCached<T>(
   schema: z.ZodType<T>,
   load: () => Promise<T>,
   shouldCache: (value: T) => boolean,
+  { force = false }: { force?: boolean } = {},
 ): Promise<T> {
   const stored = cache.get<unknown>(key);
   const cached = schema.safeParse(stored);
-  if (cached.success) {
+  if (cached.success && !force) {
     return cached.data;
   }
 

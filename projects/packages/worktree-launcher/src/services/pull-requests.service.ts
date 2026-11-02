@@ -1,6 +1,11 @@
 import { z } from 'zod';
 import type { PrRef } from '../common/pr-ref.util';
-import { PULL_REQUESTS_QUERY } from '../common/pull-requests.query';
+import {
+  LOOKUP_QUERY,
+  LOOKUP_QUERY_PLAIN,
+  PULL_REQUESTS_QUERY,
+  PULL_REQUESTS_QUERY_PLAIN,
+} from '../common/pull-requests.query';
 import type { PrIssue, PullRequest } from '../models/pull-request.schema';
 import { pullRequestSchema } from '../models/pull-request.schema';
 import { runGh } from './gh.service';
@@ -8,10 +13,21 @@ import { resolveTool } from './tools.service';
 
 type PullRequestResult = { prs: PullRequest[]; issues: PrIssue[] };
 
-const ghPullRequestSchema = pullRequestSchema.omit({ nameWithOwner: true, source: true });
+const ghPullRequestSchema = pullRequestSchema.omit({ nameWithOwner: true, source: true, stack: true });
 
 /** Search nodes that are not pull requests come back as `{}`, so they are skipped rather than failing the load. */
 const nodeSchema = ghPullRequestSchema.extend({ repository: z.object({ nameWithOwner: z.string() }) });
+
+const stackFieldsSchema = z.object({
+  stackEntry: z.object({ position: z.number() }),
+  stack: z.object({
+    number: z.number(),
+    size: z.number(),
+    entries: z.object({
+      nodes: z.array(z.object({ position: z.number(), pullRequest: nodeSchema.extend({ state: z.string() }) })),
+    }),
+  }),
+});
 
 const graphqlResponseSchema = z.object({
   data: z.object({
@@ -19,6 +35,10 @@ const graphqlResponseSchema = z.object({
     review: z.object({ nodes: z.array(z.unknown()) }),
     assigned: z.object({ nodes: z.array(z.unknown()) }),
   }),
+});
+
+const lookupResponseSchema = z.object({
+  data: z.object({ repository: z.object({ pullRequest: nodeSchema.passthrough() }) }),
 });
 
 function toIssue(error: unknown): PrIssue {
@@ -30,16 +50,50 @@ function toIssue(error: unknown): PrIssue {
   return { kind: 'failed', reason: stderr || (error instanceof Error ? error.message : String(error)) };
 }
 
+function toPullRequest(node: z.infer<typeof nodeSchema>, source: PullRequest['source']): PullRequest {
+  const { repository, ...pr } = node;
+
+  return { ...pr, nameWithOwner: repository.nameWithOwner.toLowerCase(), source };
+}
+
 function toPullRequests(nodes: unknown[], source: PullRequest['source']): PullRequest[] {
   return nodes.flatMap((node) => {
     const parsed = nodeSchema.safeParse(node);
     if (!parsed.success) {
       return [];
     }
-    const { repository, ...pr } = parsed.data;
+    const pr = toPullRequest(parsed.data, source);
+    const stacked = stackFieldsSchema.safeParse(node);
+    if (!stacked.success) {
+      return [pr];
+    }
+    const { stackEntry, stack } = stacked.data;
+    const { number, size } = stack;
+    const layers = stack.entries.nodes
+      .filter((entry) => entry.pullRequest.state === 'OPEN' && entry.pullRequest.number !== pr.number)
+      .map(({ position, pullRequest }) => {
+        const layerNode = nodeSchema.parse(pullRequest);
+        const layer = toPullRequest(layerNode, 'stack');
 
-    return [{ ...pr, nameWithOwner: repository.nameWithOwner.toLowerCase(), source }];
+        return { ...layer, stack: { number, size, position } };
+      });
+
+    return [{ ...pr, stack: { number, size, position: stackEntry.position } }, ...layers];
   });
+}
+
+/** Retries once with the plain query, since a GitHub without stacks rejects the stack fields but still lists PRs. */
+async function runWithFallback<T>(request: (plain: boolean) => Promise<T>): Promise<T> {
+  try {
+    return await request(false);
+  } catch (error) {
+    const issue = toIssue(error);
+    if (issue.kind === 'gh-unauthenticated') {
+      throw error;
+    }
+
+    return request(true);
+  }
 }
 
 export async function loadPullRequests(): Promise<PullRequestResult> {
@@ -48,8 +102,12 @@ export async function loadPullRequests(): Promise<PullRequestResult> {
     return { prs: [], issues: [{ kind: 'gh-missing' }] };
   }
   try {
-    const output = await runGh(gh, ['api', 'graphql', '-f', `query=${PULL_REQUESTS_QUERY}`]);
-    const { data } = graphqlResponseSchema.parse(JSON.parse(output));
+    const { data } = await runWithFallback(async (plain) => {
+      const query = plain ? PULL_REQUESTS_QUERY_PLAIN : PULL_REQUESTS_QUERY;
+      const output = await runGh(gh, ['api', 'graphql', '-f', `query=${query}`]);
+
+      return graphqlResponseSchema.parse(JSON.parse(output));
+    });
     const mine = toPullRequests(data.mine.nodes, 'mine');
     const review = toPullRequests(data.review.nodes, 'review');
     const assigned = toPullRequests(data.assigned.nodes, 'assigned');
@@ -67,20 +125,19 @@ export async function lookupPullRequest(ref: PrRef): Promise<PullRequestResult> 
   if (!gh) {
     return { prs: [], issues: [{ kind: 'gh-missing' }] };
   }
+  const [owner = '', name = ''] = ref.nameWithOwner.split('/');
   try {
-    const args = [
-      'pr',
-      'view',
-      String(ref.number),
-      '--repo',
-      ref.nameWithOwner,
-      '--json',
-      'number,title,url,isDraft,headRefName,isCrossRepository',
-    ];
-    const output = await runGh(gh, args);
-    const pr = ghPullRequestSchema.parse(JSON.parse(output));
+    const { data } = await runWithFallback(async (plain) => {
+      const query = plain ? LOOKUP_QUERY_PLAIN : LOOKUP_QUERY;
+      const args = ['api', 'graphql', '-f', `query=${query}`, '-f', `owner=${owner}`, '-f', `name=${name}`];
+      const output = await runGh(gh, [...args, '-F', `number=${ref.number}`]);
 
-    return { prs: [{ ...pr, nameWithOwner: ref.nameWithOwner.toLowerCase(), source: 'lookup' }], issues: [] };
+      return lookupResponseSchema.parse(JSON.parse(output));
+    });
+
+    const prs = toPullRequests([data.repository.pullRequest], 'lookup');
+
+    return { prs, issues: [] };
   } catch (error) {
     const issue = toIssue(error);
 

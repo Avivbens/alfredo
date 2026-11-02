@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+export const prStackSchema = z.object({ number: z.number(), size: z.number(), position: z.number() });
+
 export const pullRequestSchema = z.object({
   number: z.number(),
   title: z.string(),
@@ -8,7 +10,8 @@ export const pullRequestSchema = z.object({
   headRefName: z.string(),
   isCrossRepository: z.boolean(),
   nameWithOwner: z.string(),
-  source: z.enum(['mine', 'review', 'assigned', 'lookup']),
+  source: z.enum(['mine', 'review', 'assigned', 'stack', 'lookup']),
+  stack: prStackSchema.optional(),
 });
 export type PullRequest = z.infer<typeof pullRequestSchema>;
 

@@ -1,3 +1,13 @@
+## 3.3.0 (2026-11-02)
+
+### 🚀 Features
+
+- **search-bookmark:** copy open Chrome tabs as Markdown ([3b83945](https://github.com/Avivbens/alfredo/commit/3b83945))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.2.3 (2026-10-31)
 
 ### 🩹 Fixes

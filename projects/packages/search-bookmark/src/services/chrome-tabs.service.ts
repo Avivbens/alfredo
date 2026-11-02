@@ -1,16 +1,41 @@
 import { z } from 'zod';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { chromeTabsResultSchema } from '../models/chrome-tabs.schema';
-import type { ChromeTabsLoad } from '../models/chrome-tabs.schema';
+import type { ChromeTabsLoad, FocusTabArgs } from '../models/chrome-tabs.schema';
 
 const NOT_AUTHORIZED_CODE = '-1743';
+
+/** The slice of Chrome's scripting dictionary the handlers use. JXA reads a property by calling it and sets it by assigning it. */
+interface JxaChromeWindow {
+  id(): string;
+  mode(): 'normal' | 'incognito';
+  activeTabIndex(): number;
+  tabs: { title(): string[]; url(): string[] };
+}
+
+interface JxaChromeWindowSetters {
+  activeTabIndex: number;
+  minimized: boolean;
+  index: number;
+}
+
+interface JxaChrome {
+  running(): boolean;
+  activate(): void;
+  windows: {
+    (): JxaChromeWindow[];
+    /** Chrome declares the window `id` as text, so a number would not match. */
+    byId(id: string): JxaChromeWindowSetters;
+  };
+}
+
+declare function Application(name: 'Google Chrome'): JxaChrome;
 
 /**
  * `running()` goes first because any other call launches a closed Chrome.
  * The bulk getters cost one Apple event per window instead of one per tab.
  */
-const READ_TABS_SCRIPT = `
-function run() {
+function readTabs(): string {
   const chrome = Application('Google Chrome');
   if (!chrome.running()) {
     return JSON.stringify({ running: false });
@@ -29,12 +54,9 @@ function run() {
     });
   return JSON.stringify({ running: true, windows });
 }
-`;
 
-/** Chrome declares the window `id` as text, so a number would not match. */
-const FOCUS_TAB_SCRIPT = `
-function run(argv) {
-  const { windowId, tabIndex } = JSON.parse(argv[0]);
+function focusTab([args]: [string]): void {
+  const { windowId, tabIndex }: FocusTabArgs = JSON.parse(args);
   const chrome = Application('Google Chrome');
   if (!chrome.running()) {
     return;
@@ -45,7 +67,14 @@ function run(argv) {
   window.index = 1;
   chrome.activate();
 }
-`;
+
+/**
+ * osascript runs the handler from its source, so a handler must not reach outside its own body - no imports or module constants.
+ * The `run` wrapper keeps working whatever name the bundler gives the function.
+ */
+function toJxaScript(handler: (...argv: never) => unknown): string {
+  return `function run(argv) { return (${handler.toString()})(argv); }`;
+}
 
 /**
  * `execFile` puts the whole script in `message` and the real cause in `stderr`.
@@ -63,7 +92,7 @@ function toReason(error: unknown): string {
 
 export async function loadChromeTabs(): Promise<ChromeTabsLoad> {
   try {
-    const output = await runAppleScript(READ_TABS_SCRIPT, { language: 'JavaScript' });
+    const output = await runAppleScript(toJxaScript(readTabs), { language: 'JavaScript' });
     const result = chromeTabsResultSchema.parse(JSON.parse(output));
 
     if (!result.running) {
@@ -84,7 +113,7 @@ export async function loadChromeTabs(): Promise<ChromeTabsLoad> {
 }
 
 export async function focusChromeTab(windowId: number, tabIndex: number): Promise<void> {
-  await runAppleScript(FOCUS_TAB_SCRIPT, {
+  await runAppleScript(toJxaScript(focusTab), {
     language: 'JavaScript',
     args: [JSON.stringify({ windowId, tabIndex })],
   });

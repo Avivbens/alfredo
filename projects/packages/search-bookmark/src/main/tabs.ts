@@ -11,7 +11,8 @@ import { loadTabsOutput } from '../services/tabs-items.service';
   const settings = alfredClient.env.parse(SettingsSchema);
 
   try {
-    const output = await loadTabsOutput(await loadChromeTabs(), alfredClient.input, settings);
+    const tabs = await loadChromeTabs();
+    const output = await loadTabsOutput(tabs, alfredClient.input, settings);
 
     alfredClient.output(output);
   } catch (error) {

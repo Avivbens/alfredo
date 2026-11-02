@@ -79,7 +79,7 @@ import { searchProcess } from '../services/search.service';
         title: name,
         subtitle,
         arg: JSON.stringify(payload, null, 2),
-        uid: subtitle,
+        uid: String(pid),
       };
     });
 
@@ -105,7 +105,8 @@ import { searchProcess } from '../services/search.service';
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun });
+    /** Alfred keeps the selected row across a rerun only with `skipknowledge` and a uid that holds still - the PID, not the subtitle with its live CPU and memory. */
+    alfredClient.output({ items: sliced, rerun, skipknowledge: true });
   } catch (error) {
     alfredClient.error(error);
   }

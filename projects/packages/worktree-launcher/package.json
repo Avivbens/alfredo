@@ -1,7 +1,7 @@
 {
   "name": "worktree-launcher",
   "version": "1.0.0",
-  "description": "Open or create git worktrees for your pull requests, then start an agent session in them",
+  "description": "Open or create git worktrees for your pull requests and new tasks, then start an agent session in them",
   "keywords": [
     "alfred",
     "workflow",

@@ -2,7 +2,7 @@ import type { FastAlfred } from 'fast-alfred';
 import type { z } from 'zod';
 import type { Settings } from '../models/settings.model';
 
-type Cache = Pick<FastAlfred['cache'], 'get' | 'setWithTTL'>;
+export type Cache = Pick<FastAlfred['cache'], 'get' | 'setWithTTL'>;
 
 /** Scan settings are part of the key, so changing them never serves a stale clone list. */
 export function toClonesCacheKey({ repo_roots, scan_depth }: Pick<Settings, 'repo_roots' | 'scan_depth'>): string {

@@ -264,11 +264,134 @@
         <false></false>
       </dict>
     </array>
+    <key>6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+        <key>modifiers</key>
+        <integer>1048576</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+    </array>
+    <key>B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>748723EB-80F5-43FD-BD9B-4D424BFA00E4</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+    </array>
+    <key>E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>748723EB-80F5-43FD-BD9B-4D424BFA00E4</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+    </array>
+    <key>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>sourceoutputuid</key>
+        <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+        <key>vitoclose</key>
+        <false></false>
+      </dict>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>sourceoutputuid</key>
+        <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+        <key>vitoclose</key>
+        <false></false>
+      </dict>
+    </array>
+    <key>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</key>
+    <array>
+      <dict>
+        <key>destinationuid</key>
+        <string>E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>vitoclose</key>
+        <true></true>
+      </dict>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>sourceoutputuid</key>
+        <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+        <key>vitoclose</key>
+        <false></false>
+      </dict>
+      <dict>
+        <key>destinationuid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>modifiers</key>
+        <integer>0</integer>
+        <key>modifiersubtext</key>
+        <string></string>
+        <key>sourceoutputuid</key>
+        <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+        <key>vitoclose</key>
+        <false></false>
+      </dict>
+    </array>
   </dict>
   <key>createdby</key>
   <string>Aviv Ben Shahar</string>
   <key>description</key>
-  <string>Open or create git worktrees for your pull requests, then start an agent session in them</string>
+  <string>Open or create git worktrees for your pull requests and new tasks, then start an agent session in them</string>
   <key>disabled</key>
   <false></false>
   <key>name</key>
@@ -582,6 +705,139 @@
       <key>version</key>
       <integer>1</integer>
     </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>alfredfiltersresults</key>
+        <false></false>
+        <key>alfredfiltersresultsmatchmode</key>
+        <integer>0</integer>
+        <key>argumenttreatemptyqueryasnil</key>
+        <true></true>
+        <key>argumenttrimmode</key>
+        <integer>0</integer>
+        <key>argumenttype</key>
+        <integer>0</integer>
+        <key>escaping</key>
+        <integer>102</integer>
+        <key>keyword</key>
+        <string>{var:new_task_keyword}</string>
+        <key>queuedelaycustom</key>
+        <integer>3</integer>
+        <key>queuedelayimmediatelyinitially</key>
+        <true></true>
+        <key>queuedelaymode</key>
+        <integer>0</integer>
+        <key>queuemode</key>
+        <integer>2</integer>
+        <key>runningsubtext</key>
+        <string></string>
+        <key>script</key>
+        <string>./esbuild/assets/run-node.sh esbuild/new-task.js "$1"</string>
+        <key>scriptargtype</key>
+        <integer>1</integer>
+        <key>scriptfile</key>
+        <string></string>
+        <key>subtext</key>
+        <string>Start a new task in its own worktree</string>
+        <key>title</key>
+        <string>New task</string>
+        <key>type</key>
+        <integer>11</integer>
+        <key>withspace</key>
+        <true></true>
+      </dict>
+      <key>type</key>
+      <string>alfred.workflow.input.scriptfilter</string>
+      <key>uid</key>
+      <string>6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10</string>
+      <key>version</key>
+      <integer>3</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict/>
+      <key>type</key>
+      <string>alfred.workflow.utility.junction</string>
+      <key>uid</key>
+      <string>B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+      <key>version</key>
+      <integer>1</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict/>
+      <key>type</key>
+      <string>alfred.workflow.utility.junction</string>
+      <key>uid</key>
+      <string>E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+      <key>version</key>
+      <integer>1</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>conditions</key>
+        <array>
+          <dict>
+            <key>inputstring</key>
+            <string>{query}</string>
+            <key>matchcasesensitive</key>
+            <false></false>
+            <key>matchmode</key>
+            <integer>4</integer>
+            <key>matchstring</key>
+            <string>__fast-alfred_managed__</string>
+            <key>outputlabel</key>
+            <string>Managed versions updates</string>
+            <key>uid</key>
+            <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+          </dict>
+        </array>
+        <key>elselabel</key>
+        <string>Default Behavior</string>
+        <key>hideelse</key>
+        <false></false>
+      </dict>
+      <key>type</key>
+      <string>alfred.workflow.utility.conditional</string>
+      <key>uid</key>
+      <string>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</string>
+      <key>version</key>
+      <integer>1</integer>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>conditions</key>
+        <array>
+          <dict>
+            <key>inputstring</key>
+            <string>{query}</string>
+            <key>matchcasesensitive</key>
+            <false></false>
+            <key>matchmode</key>
+            <integer>4</integer>
+            <key>matchstring</key>
+            <string>__fast-alfred_managed__</string>
+            <key>outputlabel</key>
+            <string>Managed versions updates</string>
+            <key>uid</key>
+            <string>__fast-alfred_managed__v2_condition_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+          </dict>
+        </array>
+        <key>elselabel</key>
+        <string>Default Behavior</string>
+        <key>hideelse</key>
+        <false></false>
+      </dict>
+      <key>type</key>
+      <string>alfred.workflow.utility.conditional</string>
+      <key>uid</key>
+      <string>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</string>
+      <key>version</key>
+      <integer>1</integer>
+    </dict>
   </array>
   <key>readme</key>
   <string></string>
@@ -690,6 +946,45 @@
       <key>ypos</key>
       <integer>0</integer>
     </dict>
+    <key>6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10</key>
+    <dict>
+      <key>xpos</key>
+      <integer>75</integer>
+      <key>ypos</key>
+      <integer>1000</integer>
+    </dict>
+    <key>B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</key>
+    <dict>
+      <key>xpos</key>
+      <integer>575</integer>
+      <key>ypos</key>
+      <integer>1000</integer>
+    </dict>
+    <key>E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</key>
+    <dict>
+      <key>xpos</key>
+      <integer>575</integer>
+      <key>ypos</key>
+      <integer>1220</integer>
+    </dict>
+    <key>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_B3D94E27-1C6A-4F85-9E0B-72A5D8C3F641</key>
+    <dict>
+      <key>note</key>
+      <string>Conditional Updates Helper</string>
+      <key>xpos</key>
+      <integer>295</integer>
+      <key>ypos</key>
+      <integer>1000</integer>
+    </dict>
+    <key>__fast-alfred_managed__v2_conditional_from_6A1F3C52-9B7D-4E08-A3D4-5C2E81B97F10_to_E58A0D7B-42F3-4B19-8C6E-1D9F3A70B2C5</key>
+    <dict>
+      <key>note</key>
+      <string>Conditional Updates Helper</string>
+      <key>xpos</key>
+      <integer>295</integer>
+      <key>ypos</key>
+      <integer>1220</integer>
+    </dict>
   </dict>
   <key>userconfigurationconfig</key>
   <array>
@@ -713,6 +1008,27 @@
       <string>textfield</string>
       <key>variable</key>
       <string>prs_keyword</string>
+    </dict>
+    <dict>
+      <key>config</key>
+      <dict>
+        <key>default</key>
+        <string>wtn</string>
+        <key>placeholder</key>
+        <string></string>
+        <key>required</key>
+        <true></true>
+        <key>trim</key>
+        <true></true>
+      </dict>
+      <key>description</key>
+      <string>Starts a new task in its own worktree</string>
+      <key>label</key>
+      <string>New task keyword</string>
+      <key>type</key>
+      <string>textfield</string>
+      <key>variable</key>
+      <string>new_task_keyword</string>
     </dict>
     <dict>
       <key>config</key>

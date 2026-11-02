@@ -2,11 +2,12 @@ import { mkdir, mkdtemp, readdir, rm, utimes, writeFile } from 'node:fs/promises
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { GIFS_DIR, THUMBNAILS_DIR } from '../config/constants';
+import { GIFS_DIR, PREVIEWS_DIR, THUMBNAILS_DIR } from '../config/constants';
 import { pruneCache } from './cache.service';
 
 const GIF_BYTES = Buffer.from('GIF89a');
-const DAY_SECONDS = 24 * 60 * 60;
+const HOUR_SECONDS = 60 * 60;
+const DAY_SECONDS = 24 * HOUR_SECONDS;
 
 describe('cache.service', () => {
   let cacheDir: string;
@@ -29,6 +30,15 @@ describe('cache.service', () => {
 
       expect(await readdir(join(cacheDir, THUMBNAILS_DIR))).toEqual([]);
       expect(await readdir(join(cacheDir, GIFS_DIR))).toEqual(['fresh.gif']);
+    });
+
+    it('should remove previews older than an hour, since they expire with their search', async () => {
+      await writeAgedFile(join(cacheDir, PREVIEWS_DIR, 'old.gif'), 2 * HOUR_SECONDS);
+      await writeAgedFile(join(cacheDir, PREVIEWS_DIR, 'fresh.gif'), 0);
+
+      await pruneCache(cacheDir);
+
+      expect(await readdir(join(cacheDir, PREVIEWS_DIR))).toEqual(['fresh.gif']);
     });
   });
 });

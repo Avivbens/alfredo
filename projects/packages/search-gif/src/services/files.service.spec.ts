@@ -32,6 +32,17 @@ describe('files.service', () => {
       expect(await readFile(path)).toEqual(GIF_BYTES);
     });
 
+    it('should leave only the finished file behind, with no temp file next to it', async () => {
+      vi.stubGlobal(
+        'fetch',
+        vi.fn<typeof fetch>(async () => new Response(GIF_BYTES)),
+      );
+
+      await downloadFile('https://media0.giphy.com/hope.gif', join(dir, 'hope.gif'));
+
+      expect(await readdir(dir)).toEqual(['hope.gif']);
+    });
+
     it('should throw on a failed response instead of writing its error page', async () => {
       vi.stubGlobal(
         'fetch',

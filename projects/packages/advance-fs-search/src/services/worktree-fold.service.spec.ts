@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getRepoOfWorktree } from '@alfredo/git-worktrees';
 import type { FileSearch } from '../models/file-search.model';
 import { foldWorktrees } from './worktree-fold.service';
-import { getRepoOfWorktree } from './worktree.service';
 
-vi.mock('./worktree.service', () => ({ getRepoOfWorktree: vi.fn() }));
+vi.mock('@alfredo/git-worktrees', () => ({ getRepoOfWorktree: vi.fn() }));
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const M4 = `${REPO}@m4-libraries`;

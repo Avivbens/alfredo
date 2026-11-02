@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { getCheckouts, getRepoOfWorktree } from './worktree.service';
+import { getCheckouts, getRepoOfWorktree } from './worktree';
 
 let root: string;
 
@@ -28,7 +28,7 @@ async function addWorktree(repo: string, name: string, options = { relativeGitdi
   return path;
 }
 
-describe('worktree.service', () => {
+describe('worktree', () => {
   beforeEach(async () => {
     root = await mkdtemp(join(tmpdir(), 'worktree-service-'));
   });

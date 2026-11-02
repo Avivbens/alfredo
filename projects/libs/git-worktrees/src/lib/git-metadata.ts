@@ -1,4 +1,4 @@
-import { stripPrefix } from './text.util';
+import { stripPrefix } from './strip-prefix';
 
 const SYMBOLIC_REF = 'ref: ';
 const BRANCH_REFS = 'refs/heads/';

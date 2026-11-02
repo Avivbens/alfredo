@@ -1,5 +1,5 @@
+import { getRepoOfWorktree } from '@alfredo/git-worktrees';
 import type { FileSearch } from '../models/file-search.model';
-import { getRepoOfWorktree } from './worktree.service';
 
 /** A linked worktree whose repo is also a result folds into the repo row, which lists it on ↩. */
 export async function foldWorktrees(results: FileSearch[]): Promise<FileSearch[]> {

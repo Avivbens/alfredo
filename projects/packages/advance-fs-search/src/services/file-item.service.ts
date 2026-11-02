@@ -1,10 +1,10 @@
 import type { AlfredListItem, IconService } from 'fast-alfred';
 import { basename } from 'node:path';
+import type { Worktree } from '@alfredo/git-worktrees';
 import { joinSubtitle, pluralize } from '../common/text.util';
 import type { FileSearch } from '../models/file-search.model';
 import type { ResultRow } from '../models/result-row.model';
 import type { AppRouter } from '../models/routes.model';
-import type { Worktree } from '../models/worktree.model';
 
 function toFileItem(path: string, icon: string, subtitle = path): AlfredListItem {
   return {

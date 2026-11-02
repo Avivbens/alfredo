@@ -4,8 +4,8 @@ import { argv } from 'node:process';
 import { registerUpdater } from '@alfredo/updater';
 import { getCacheDir } from '../common/cache-dir.util';
 import { PRELOAD_SCRIPT, PREVIEWS_DIR, THUMBNAILS_DIR } from '../config/constants';
-import { PreviewRerunVariablesSchema } from '../models/preview.schema';
-import { SettingsSchema } from '../models/settings.schema';
+import { previewRerunVariablesSchema } from '../models/preview.schema';
+import { settingsSchema } from '../models/settings.schema';
 import { pruneCache } from '../services/cache.service';
 import { toGifItem } from '../services/gif-item.service';
 import { loadGifs } from '../services/gif-loader.service';
@@ -25,7 +25,7 @@ import { loadThumbnails } from '../services/thumbnail.service';
   alfredClient.updates(registerUpdater('search-gif'));
 
   try {
-    const settings = alfredClient.env.parse(SettingsSchema);
+    const settings = alfredClient.env.parse(settingsSchema);
     const query = alfredClient.input.trim();
     const cacheDir = getCacheDir(alfredClient);
     const thumbnailsDir = join(cacheDir, THUMBNAILS_DIR);
@@ -40,7 +40,7 @@ import { loadThumbnails } from '../services/thumbnail.service';
     ]);
 
     const pending = getPendingPreviews(gifs, previews);
-    const reruns = countPreviewReruns(alfredClient.env.parse(PreviewRerunVariablesSchema), query);
+    const reruns = countPreviewReruns(alfredClient.env.parse(previewRerunVariablesSchema), query);
     // Starts once per query, and the downloads run detached, so each rerun shows the previews that have landed.
     if (shouldStartPreload(reruns, pending)) {
       startPreload(join(dirname(argv[1] ?? ''), PRELOAD_SCRIPT), pending);

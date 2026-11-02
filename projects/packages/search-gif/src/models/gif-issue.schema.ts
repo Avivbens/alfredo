@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const GifIssueSchema = z.discriminatedUnion('kind', [
+export const gifIssueSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('empty-query') }),
   z.object({ kind: z.literal('missing-api-key') }),
   z.object({ kind: z.literal('no-results'), query: z.string() }),
@@ -9,4 +9,4 @@ export const GifIssueSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('request-failed'), message: z.string() }),
 ]);
 
-export type GifIssue = z.infer<typeof GifIssueSchema>;
+export type GifIssue = z.infer<typeof gifIssueSchema>;

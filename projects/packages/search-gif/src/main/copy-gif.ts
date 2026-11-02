@@ -5,7 +5,7 @@ import { getCacheDir } from '../common/cache-dir.util';
 import { messageOf } from '../common/error.util';
 import { notify } from '../common/notify.util';
 import { GIFS_DIR, PREVIEWS_DIR } from '../config/constants';
-import { CopyPayloadSchema } from '../models/copy-payload.schema';
+import { copyPayloadSchema } from '../models/copy-payload.schema';
 import { copyFileToClipboard } from '../services/clipboard.service';
 import { getGifFile } from '../services/gif-file.service';
 
@@ -13,7 +13,7 @@ import { getGifFile } from '../services/gif-file.service';
   const alfredClient = new FastAlfred();
 
   try {
-    const payload = alfredSchemas.json(CopyPayloadSchema).parse(alfredClient.input);
+    const payload = alfredSchemas.json(copyPayloadSchema).parse(alfredClient.input);
     const cacheDir = getCacheDir(alfredClient);
     const path = await getGifFile(payload, join(cacheDir, GIFS_DIR), join(cacheDir, PREVIEWS_DIR));
 

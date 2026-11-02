@@ -1,9 +1,9 @@
 import { type AlfredScriptFilter, type IconService, matches } from 'fast-alfred';
 import { basename } from 'node:path';
+import type { Worktree } from '@alfredo/git-worktrees';
+import { getCheckouts } from '@alfredo/git-worktrees';
 import type { WorktreesRoute } from '../models/routes.model';
-import type { Worktree } from '../models/worktree.model';
 import { toCheckoutItem } from './file-item.service';
-import { getCheckouts } from './worktree.service';
 
 export async function loadCheckoutOutput(
   { state, filter }: WorktreesRoute,

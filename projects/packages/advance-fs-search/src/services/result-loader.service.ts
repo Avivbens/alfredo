@@ -1,8 +1,8 @@
+import type { Worktree } from '@alfredo/git-worktrees';
+import { getCheckouts } from '@alfredo/git-worktrees';
 import type { FileSearch } from '../models/file-search.model';
 import type { ResultRow } from '../models/result-row.model';
-import type { Worktree } from '../models/worktree.model';
 import { foldWorktrees } from './worktree-fold.service';
-import { getCheckouts } from './worktree.service';
 
 interface ResultCheckouts {
   file: FileSearch;

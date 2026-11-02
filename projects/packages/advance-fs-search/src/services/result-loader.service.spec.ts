@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getCheckouts } from '@alfredo/git-worktrees';
 import type { FileSearch } from '../models/file-search.model';
 import { loadResults } from './result-loader.service';
 import { foldWorktrees } from './worktree-fold.service';
-import { getCheckouts } from './worktree.service';
 
 vi.mock('./worktree-fold.service', () => ({ foldWorktrees: vi.fn() }));
-vi.mock('./worktree.service', () => ({ getCheckouts: vi.fn() }));
+vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts: vi.fn() }));
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const PLAIN_REPO = '/Users/me/dev/alfredo';

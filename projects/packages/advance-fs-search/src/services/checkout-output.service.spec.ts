@@ -1,10 +1,10 @@
 import { IconService } from 'fast-alfred';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getCheckouts } from '@alfredo/git-worktrees';
 import type { WorktreesRoute } from '../models/routes.model';
 import { loadCheckoutOutput } from './checkout-output.service';
-import { getCheckouts } from './worktree.service';
 
-vi.mock('./worktree.service', () => ({ getCheckouts: vi.fn() }));
+vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts: vi.fn() }));
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const icons = new IconService();

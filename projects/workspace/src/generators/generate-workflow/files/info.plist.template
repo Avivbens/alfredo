@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.<%= name %></string>
+    <key>connections</key>
+    <dict></dict>
+    <key>createdby</key>
+    <string></string>
+    <key>description</key>
+    <string></string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string><%= nameTitleCase %></string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string><%= name %></string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>1</integer>
+          <key>runningsubtext</key>
+          <string></string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/<%= name %>.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string></string>
+          <key>title</key>
+          <string><%= nameTitleCase %></string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string><%= uid %></string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string></string>
+    <key>uidata</key>
+    <dict>
+      <key><%= uid %></key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>75</integer>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array></array>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string></string>
+  </dict>
+</plist>

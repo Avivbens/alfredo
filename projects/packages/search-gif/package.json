@@ -1,0 +1,22 @@
+{
+  "name": "search-gif",
+  "version": "1.1.0",
+  "description": "Search GIPHY for GIFs and copy them straight from Alfred 🎬",
+  "keywords": [
+    "alfred",
+    "workflow",
+    "gif",
+    "giphy",
+    "search",
+    "clipboard"
+  ],
+  "homepage": "https://github.com/Avivbens/alfredo",
+  "author": {
+    "name": "Aviv Ben Shahar",
+    "email": "avivbens87@gmail.com"
+  },
+  "dependencies": {
+    "@alfredo/run-applescript": "workspace:*",
+    "@alfredo/updater": "workspace:*"
+  }
+}

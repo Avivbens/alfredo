@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import * as path from 'path';
 import type { Tree } from '@nx/devkit';
 import { addProjectConfiguration, formatFiles, generateFiles, readProjectConfiguration } from '@nx/devkit';
@@ -25,7 +26,12 @@ export async function generateWorkflowGenerator(tree: Tree, options: GenerateWor
   const { root } = readProjectConfiguration(tree, name);
   const projectNameTitleCase = name.replace(/-/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 
-  generateFiles(tree, path.join(__dirname, 'files'), root, { ...options, nameTitleCase: projectNameTitleCase });
+  /** The starter info.plist and entry make a new workflow lint and build before anyone opens it in Alfred, so CI passes from the first commit. */
+  generateFiles(tree, path.join(__dirname, 'files'), root, {
+    ...options,
+    nameTitleCase: projectNameTitleCase,
+    uid: randomUUID().toUpperCase(),
+  });
   await formatFiles(tree);
 
   return installWorkspacePackages(tree);

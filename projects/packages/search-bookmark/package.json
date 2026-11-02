@@ -1,7 +1,7 @@
 {
   "name": "search-bookmark",
   "version": "3.2.3",
-  "description": "Search across your bookmarks from all your Chrome profiles and open them in a new tab",
+  "description": "Search across your bookmarks from all your Chrome profiles and open them in a new tab, or copy your open tabs as Markdown",
   "keywords": [
     "alfred",
     "workflow",

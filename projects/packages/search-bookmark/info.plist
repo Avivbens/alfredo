@@ -21,6 +21,29 @@
           <string>__fast-alfred_managed__v2_conditional_from_CE84ED38-CD11-4B81-9E07-91C9D10EEE3C_to_FD52D6DE-838E-4CEF-9D97-F47BAC0D8F71</string>
         </dict>
       </array>
+      <key>9410DF3A-FCB6-48AC-8698-AE83DDD0AF03</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>D55B86EF-4370-4F88-B45D-F00A25C638B7</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+        <dict>
+          <key>destinationuid</key>
+          <string>B3DD456B-5749-4AE7-8516-79D482C3CECD</string>
+          <key>modifiers</key>
+          <integer>1048576</integer>
+          <key>modifiersubtext</key>
+          <string>Switch to this tab</string>
+          <key>vitoclose</key>
+          <true></true>
+        </dict>
+      </array>
       <key>FA64DD3E-B353-4804-9783-DB856D8D2C4C</key>
       <array>
         <dict>
@@ -75,7 +98,7 @@
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string>Search across your bookmarks from all your Chrome profiles and open them in a new tab</string>
+    <string>Search across your bookmarks from all your Chrome profiles and open them in a new tab, or copy your open tabs as Markdown</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -277,6 +300,98 @@
           <false></false>
         </dict>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <true></true>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:tabs_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Reading tabs...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/tabs.js "$1"
+</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Copy your open Chrome tabs as Markdown</string>
+          <key>title</key>
+          <string>Copy open Chrome tabs...</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>9410DF3A-FCB6-48AC-8698-AE83DDD0AF03</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>autopaste</key>
+          <false></false>
+          <key>clipboardtext</key>
+          <string>{query}</string>
+          <key>ignoredynamicplaceholders</key>
+          <true></true>
+          <key>transient</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.clipboard</string>
+        <key>uid</key>
+        <string>D55B86EF-4370-4F88-B45D-F00A25C638B7</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/focus-tab.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>B3DD456B-5749-4AE7-8516-79D482C3CECD</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
     </array>
     <key>readme</key>
     <string>#### Thank you for using Search Bookmark! ✨
@@ -298,10 +413,45 @@ Incognito mode will be opened with the dedicated browser as well.
 1. Press Enter to open the bookmark in the dedicated browser
 1. To open the bookmark in incognito mode, press Command + Enter
 
+## Copy open tabs
+
+Copy your open Chrome tabs as Markdown links via the keyword 'tabs'. You can change the keyword in the workflow configuration.
+
+1. Open Alfred and type 'tabs' followed by a space
+1. Press Enter on 'Copy current tab' to copy the active tab of the front window as a link
+1. Press Enter on 'Copy this window' to copy the tabs of the window in front
+1. Press Enter on 'Copy all windows' to copy every window, grouped under a heading per window
+1. Press Enter on 'Copy another window' to copy any other window, shown with its active tab's title
+1. Type a word to search your open tabs, and press Enter to copy the tab as a link
+1. To switch to a searched tab, press Command + Enter
+
+Incognito windows are skipped. The first time you run it, macOS asks to let Alfred control Google Chrome.
+
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
     <dict>
+      <key>9410DF3A-FCB6-48AC-8698-AE83DDD0AF03</key>
+      <dict>
+        <key>xpos</key>
+        <integer>95</integer>
+        <key>ypos</key>
+        <integer>520</integer>
+      </dict>
+      <key>D55B86EF-4370-4F88-B45D-F00A25C638B7</key>
+      <dict>
+        <key>xpos</key>
+        <integer>450</integer>
+        <key>ypos</key>
+        <integer>520</integer>
+      </dict>
+      <key>B3DD456B-5749-4AE7-8516-79D482C3CECD</key>
+      <dict>
+        <key>xpos</key>
+        <integer>450</integer>
+        <key>ypos</key>
+        <integer>650</integer>
+      </dict>
       <key>C389B829-F331-4C17-8965-A505B0251B7E</key>
       <dict>
         <key>xpos</key>
@@ -380,6 +530,27 @@ https://github.com/Avivbens/alfredo</string>
         <string>textfield</string>
         <key>variable</key>
         <string>lookfor_profiles</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>tabs</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>The keyword that copies your open Chrome tabs as Markdown</string>
+        <key>label</key>
+        <string>Tabs keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>tabs_keyword</string>
       </dict>
       <dict>
         <key>config</key>

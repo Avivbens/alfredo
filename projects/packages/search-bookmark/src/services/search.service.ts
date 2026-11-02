@@ -1,16 +1,18 @@
+import type { FuseOptionKey } from 'fuse.js';
 import { IUIBookmark } from '../models/bookmark.schema';
 import { SEARCH_FIELDS_CONFIG } from './search.config';
 
-export async function searchBookmarks(
-  bookmarks: IUIBookmark[],
+export async function fuzzySearch<T>(
+  items: T[],
+  keys: FuseOptionKey<T>[],
   searchTerm: string,
   limit: number,
   threshold: number,
-): Promise<IUIBookmark[]> {
+): Promise<T[]> {
   const Fuse = (await import('fuse.js')).default;
 
-  const fuse = new Fuse(bookmarks, {
-    keys: SEARCH_FIELDS_CONFIG,
+  const fuse = new Fuse(items, {
+    keys,
     isCaseSensitive: false,
     shouldSort: true,
     findAllMatches: true,
@@ -21,4 +23,13 @@ export async function searchBookmarks(
   const res = fuse.search(searchTerm, { limit });
 
   return res.map((item) => item.item);
+}
+
+export async function searchBookmarks(
+  bookmarks: IUIBookmark[],
+  searchTerm: string,
+  limit: number,
+  threshold: number,
+): Promise<IUIBookmark[]> {
+  return fuzzySearch(bookmarks, SEARCH_FIELDS_CONFIG, searchTerm, limit, threshold);
 }

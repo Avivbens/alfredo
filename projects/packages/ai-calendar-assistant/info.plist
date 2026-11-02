@@ -6,6 +6,69 @@
     <string>com.alfredapp.avivbens.ai-calendar-assistant</string>
     <key>connections</key>
     <dict>
+      <key>768990C7-853C-4EF9-AA98-68755D282E1C</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>23148CD3-6C77-487F-B54D-4B3036EB20D1</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>D666BD8A-4F5E-48EF-9238-2B7F457E0B73</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
       <key>25207757-A5EF-4D58-9006-05FC11CBBF2E</key>
       <array>
         <dict>
@@ -286,6 +349,27 @@
       <dict>
         <key>config</key>
         <dict>
+          <key>lastpathcomponent</key>
+          <false></false>
+          <key>onlyshowifquerypopulated</key>
+          <true></true>
+          <key>removeextension</key>
+          <false></false>
+          <key>text</key>
+          <string>{query}</string>
+          <key>title</key>
+          <string>AI Calendar Assistant</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>D666BD8A-4F5E-48EF-9238-2B7F457E0B73</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
           <key>alignment</key>
           <integer>0</integer>
           <key>backgroundcolor</key>
@@ -558,6 +642,110 @@
           <false></false>
         </dict>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <true></true>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:ai_agenda_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Loading...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/agenda.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Today's events and reminders</string>
+          <key>title</key>
+          <string>Show agenda</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>768990C7-853C-4EF9-AA98-68755D282E1C</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/agenda-action.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+        <key>version</key>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
     </array>
     <key>readme</key>
     <string>#### Thank you for using Ai Calendar Assistant! ✨
@@ -606,6 +794,29 @@ To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
     <dict>
+      <key>768990C7-853C-4EF9-AA98-68755D282E1C</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>1215</integer>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_768990C7-853C-4EF9-AA98-68755D282E1C_to_23148CD3-6C77-487F-B54D-4B3036EB20D1</key>
+      <dict>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>1215</integer>
+      </dict>
+      <key>23148CD3-6C77-487F-B54D-4B3036EB20D1</key>
+      <dict>
+        <key>xpos</key>
+        <integer>505</integer>
+        <key>ypos</key>
+        <integer>1215</integer>
+      </dict>
       <key>23EBEF80-CC4E-42A1-BB0B-A97AB87281E6</key>
       <dict>
         <key>xpos</key>
@@ -638,6 +849,13 @@ https://github.com/Avivbens/alfredo</string>
       <dict>
         <key>xpos</key>
         <integer>505</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>D666BD8A-4F5E-48EF-9238-2B7F457E0B73</key>
+      <dict>
+        <key>xpos</key>
+        <integer>715</integer>
         <key>ypos</key>
         <integer>345</integer>
       </dict>
@@ -875,6 +1093,69 @@ https://github.com/Avivbens/alfredo</string>
         <string>checkbox</string>
         <key>variable</key>
         <string>should_open_new_reminder</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>today</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Trigger agenda keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>ai_agenda_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>Leave empty for every calendar</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+          <key>verticalsize</key>
+          <integer>3</integer>
+        </dict>
+        <key>description</key>
+        <string>One calendar title per line. Leave empty to list events from every calendar.</string>
+        <key>label</key>
+        <string>Agenda calendars</string>
+        <key>type</key>
+        <string>textarea</string>
+        <key>variable</key>
+        <string>agenda_calendars</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Show reminders in the agenda</string>
+        </dict>
+        <key>description</key>
+        <string>Select this option to list today's reminders and overdue ones next to your events.</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>agenda_show_reminders</string>
       </dict>
       <dict>
         <key>config</key>

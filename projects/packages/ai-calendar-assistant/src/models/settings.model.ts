@@ -13,6 +13,8 @@ export const SettingsSchema = LlmSettingsSchema.extend({
   map_provider: MapProviderSchema.default(MapProvider.OFF),
   reminder_list_name: z.string().default(''),
   should_open_new_reminder: alfredSchemas.checkbox().default(false),
+  agenda_calendars: alfredSchemas.lines().default([]),
+  agenda_show_reminders: alfredSchemas.checkbox().default(true),
 }).transform((env) => ({
   ...toLlmSettings(env, DEFAULT_DEBOUNCE_TIME),
   sliceAmount: env.slice_amount,
@@ -23,4 +25,6 @@ export const SettingsSchema = LlmSettingsSchema.extend({
   /** An empty list name is valid - it falls back to the Reminders default list. */
   reminderListName: env.reminder_list_name.trim() || undefined,
   openNewReminder: env.should_open_new_reminder,
+  agendaCalendars: env.agenda_calendars,
+  agendaShowReminders: env.agenda_show_reminders,
 }));

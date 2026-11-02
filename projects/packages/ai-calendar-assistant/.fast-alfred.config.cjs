@@ -38,6 +38,14 @@ Hold \`⌘\` and press \`Enter\` on any result to preview what was parsed in Lar
 
 The first time you create a reminder, macOS asks you to let Alfred control Reminders. You can change that later under System Settings → Privacy & Security → Automation.
 
+### Agenda
+
+1. Type \`today\` in Alfred (configurable in the workflow settings).
+1. See today's events, then today's and overdue reminders.
+1. Press Enter to open an event in Calendar, or a reminder's list in Reminders.
+
+Google events show up once the account is added in macOS Internet Accounts.
+
 ${API_KEY_README_SECTION}
 
 To view the workflow codebase, click here:

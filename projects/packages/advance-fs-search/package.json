@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@alfredo/command-injection": "workspace:*",
+    "@alfredo/git-worktrees": "workspace:*",
     "@alfredo/updater": "workspace:*"
   }
 }

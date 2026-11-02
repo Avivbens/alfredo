@@ -14,10 +14,13 @@ const HOPE_GIF: GiphyGif = {
 
 describe('gif-item.service', () => {
   describe('toGifItem', () => {
-    it('should hand ↩ a payload the copy script accepts', () => {
+    it('should hand ↩ the rendition ⇧ plays, so a preloaded preview doubles as the copy', () => {
       const { arg } = toGifItem(HOPE_GIF);
 
-      expect(CopyPayloadSchema.parse(JSON.parse(String(arg)))).toEqual({ id: '3o7TKSjRrfIPjeiVyM', url: ORIGINAL_URL });
+      expect(CopyPayloadSchema.parse(JSON.parse(String(arg)))).toEqual({
+        id: '3o7TKSjRrfIPjeiVyM',
+        url: DOWNSIZED_URL,
+      });
     });
 
     it('should offer no modifier actions, so ↩ is the one way to copy', () => {
@@ -46,19 +49,25 @@ describe('gif-item.service', () => {
       expect(toGifItem(gif).quicklookurl).toBe(ORIGINAL_URL);
     });
 
+    it('should play the local preview in Quick Look once it is downloaded, since a web link loads slowly', () => {
+      expect(toGifItem(HOPE_GIF, { preview: '/cache/previews/3o7TKSjRrfIPjeiVyM.gif' }).quicklookurl).toBe(
+        '/cache/previews/3o7TKSjRrfIPjeiVyM.gif',
+      );
+    });
+
     it('should name a GIF that GIPHY left untitled', () => {
       expect(toGifItem({ ...HOPE_GIF, title: '' }).title).toBe('Untitled GIF');
     });
 
     it('should show the thumbnail when there is one and the workflow icon otherwise', () => {
-      expect(toGifItem(HOPE_GIF, '/cache/thumbnails/3o7TKSjRrfIPjeiVyM.gif').icon).toEqual({
+      expect(toGifItem(HOPE_GIF, { thumbnail: '/cache/thumbnails/3o7TKSjRrfIPjeiVyM.gif' }).icon).toEqual({
         path: '/cache/thumbnails/3o7TKSjRrfIPjeiVyM.gif',
       });
       expect(toGifItem(HOPE_GIF).icon).toBeUndefined();
     });
 
-    it('should leave out the uid, so Alfred keeps GIPHY ranking', () => {
-      expect(toGifItem(HOPE_GIF)).not.toHaveProperty('uid');
+    it('should carry the GIF id as uid, so a preview rerun keeps the selected row', () => {
+      expect(toGifItem(HOPE_GIF).uid).toBe('3o7TKSjRrfIPjeiVyM');
     });
   });
 });

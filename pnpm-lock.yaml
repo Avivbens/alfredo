@@ -330,9 +330,13 @@ importers:
 
   projects/libs/command-injection: {}
 
+  projects/libs/git-worktrees: {}
+
   projects/libs/llm: {}
 
   projects/libs/run-applescript: {}
+
+  projects/libs/terminal-session: {}
 
   projects/libs/updater: {}
 
@@ -341,6 +345,9 @@ importers:
       '@alfredo/command-injection':
         specifier: workspace:*
         version: link:../../libs/command-injection
+      '@alfredo/git-worktrees':
+        specifier: workspace:*
+        version: link:../../libs/git-worktrees
       '@alfredo/updater':
         specifier: workspace:*
         version: link:../../libs/updater

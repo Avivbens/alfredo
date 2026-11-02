@@ -37,8 +37,14 @@ function toWorktreesItem(
   });
 }
 
-export function toCheckoutItem({ path, branch }: Worktree, icons: IconService): AlfredListItem {
-  return toFileItem(path, icons.getIcon('genericFolder'), joinSubtitle(branch, path));
+export function toCheckoutItem(
+  { path, branch }: Worktree,
+  icons: IconService,
+  { dirty = false }: { dirty?: boolean } = {},
+): AlfredListItem {
+  const item = toFileItem(path, icons.getIcon('genericFolder'), joinSubtitle(branch, path));
+
+  return { ...item, title: dirty ? `${item.title} ●` : item.title };
 }
 
 export function toResultItems(row: ResultRow, icons: IconService, router: AppRouter): AlfredListItem[] {
@@ -46,7 +52,13 @@ export function toResultItems(row: ResultRow, icons: IconService, router: AppRou
     case 'entry':
       return [toFileItem(row.file.path, toFileIcon(row.file, icons))];
 
+    case 'checkout':
+      return [toCheckoutItem(row.checkout, icons, { dirty: row.dirty })];
+
     case 'repo':
-      return [toCheckoutItem(row.main, icons), toWorktreesItem(row.main.path, row.worktreeCount, icons, router)];
+      return [
+        toCheckoutItem(row.main, icons, { dirty: row.dirty }),
+        toWorktreesItem(row.main.path, row.worktreeCount, icons, router),
+      ];
   }
 }

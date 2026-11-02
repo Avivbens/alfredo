@@ -3,8 +3,10 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getCheckouts } from '@alfredo/git-worktrees';
 import type { WorktreesRoute } from '../models/routes.model';
 import { loadCheckoutOutput } from './checkout-output.service';
+import { isDirty } from './dirty.service';
 
 vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts: vi.fn() }));
+vi.mock('./dirty.service', () => ({ isDirty: vi.fn() }));
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const icons = new IconService();
@@ -15,6 +17,7 @@ function toRoute(filter: string): WorktreesRoute {
 
 describe('checkout-output.service', () => {
   beforeEach(() => {
+    vi.mocked(isDirty).mockResolvedValue(false);
     vi.mocked(getCheckouts).mockResolvedValue([
       { path: REPO, branch: 'master' },
       { path: `${REPO}@m4-libraries`, branch: 'fix/generator-nx-install' },
@@ -37,6 +40,18 @@ describe('checkout-output.service', () => {
       const { items } = await loadCheckoutOutput(toRoute(filter), icons);
 
       expect(items.map((item) => item.title)).toEqual([title]);
+    });
+
+    it('should mark only dirty checkouts with ●', async () => {
+      vi.mocked(isDirty).mockImplementation(async (path) => path.endsWith('@m4-libraries'));
+
+      const { items } = await loadCheckoutOutput(toRoute(''), icons);
+
+      expect(items.map((item) => item.title)).toEqual([
+        'ios-shortcuts',
+        'ios-shortcuts@m4-libraries ●',
+        'ios-shortcuts@m5-shortcut-api',
+      ]);
     });
   });
 });

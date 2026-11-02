@@ -13,6 +13,8 @@ List your open pull requests and review requests via the keyword 'wt'. Pressing 
 
 You can also start an agent session in the worktree, or paste a pull request URL to open that one.
 
+Start a new task with the keyword 'wtn' followed by a task name: pick a repo and the workflow creates a branch from the freshly fetched default branch in its own worktree, then opens it.
+
 ## Usage
 
 1. Open Alfred and type 'wt' followed by a space
@@ -21,8 +23,11 @@ You can also start an agent session in the worktree, or paste a pull request URL
 1. Press Command + Enter to start a new agent session in the worktree
 1. Press Option + Enter to resume the last agent session in the worktree
 1. Press Shift + Enter to open the pull request in the browser
+1. To start a new task, type 'wtn' followed by a task name (e.g., 'wtn Agenda view'), press Enter, then pick a repo
 
 When the editor setting is VS Code, Command + Enter and Option + Enter open the session in the agent chat in VS Code: a new chat, or the folder's latest session. With Cursor, they open the session in your selected terminal app with the agent command.
+
+For a new task, Enter opens the new worktree in your editor and Command + Enter starts an agent session in it.
 
 The GitHub CLI (gh) is required, and you need to be logged in with 'gh auth login'.
 

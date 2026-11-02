@@ -1,9 +1,9 @@
-import { execFile } from 'node:child_process';
 import { z } from 'zod';
 import type { PrRef } from '../common/pr-ref.util';
 import { PULL_REQUESTS_QUERY } from '../common/pull-requests.query';
 import type { PrIssue, PullRequest } from '../models/pull-request.schema';
 import { pullRequestSchema } from '../models/pull-request.schema';
+import { runGh } from './gh.service';
 import { resolveTool } from './tools.service';
 
 type PullRequestResult = { prs: PullRequest[]; issues: PrIssue[] };
@@ -19,19 +19,6 @@ const graphqlResponseSchema = z.object({
     review: z.object({ nodes: z.array(z.unknown()) }),
   }),
 });
-
-function runGh(gh: string, args: string[]): Promise<string> {
-  return new Promise((resolve, reject) => {
-    execFile(gh, args, (error, stdout, stderr) => {
-      if (error) {
-        const failure = Object.assign(error, { stderr: String(stderr ?? '') });
-        reject(failure);
-        return;
-      }
-      resolve(String(stdout));
-    });
-  });
-}
 
 function toIssue(error: unknown): PrIssue {
   const stderr = error instanceof Error && 'stderr' in error ? String(error.stderr).trim() : '';

@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process';
-import { access } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { quote } from '@alfredo/command-injection';
+import { isPathReachable } from '../common/path-exists.util';
 
 const LOCKFILES: ReadonlyArray<{ file: string; command: string }> = [
   { file: 'pnpm-lock.yaml', command: 'pnpm install' },
@@ -11,19 +11,9 @@ const LOCKFILES: ReadonlyArray<{ file: string; command: string }> = [
   { file: 'bun.lockb', command: 'bun install' },
 ];
 
-async function exists(path: string): Promise<boolean> {
-  try {
-    await access(path);
-
-    return true;
-  } catch {
-    return false;
-  }
-}
-
 export async function detectInstallCommand(path: string): Promise<string | null> {
   for (const { file, command } of LOCKFILES) {
-    const hasLockfile = await exists(join(path, file));
+    const hasLockfile = await isPathReachable(join(path, file));
     if (hasLockfile) {
       return command;
     }

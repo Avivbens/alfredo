@@ -1,6 +1,6 @@
 import { homedir } from 'node:os';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import type { LaunchAction, PrAction } from '../models/launch-action.schema';
+import type { LaunchAction, PrAction, TaskAction } from '../models/launch-action.schema';
 import type { PullRequest } from '../models/pull-request.schema';
 import type { Settings } from '../models/settings.model';
 import { settingsSchema } from '../models/settings.model';
@@ -15,6 +15,7 @@ const { execFile, findClones, getCheckouts, ensurePrWorktree, detectInstallComma
     detectInstallCommand: vi.fn(),
     runInstallInBackground: vi.fn(),
   }));
+const { getTrunk, ensureTaskWorktree } = vi.hoisted(() => ({ getTrunk: vi.fn(), ensureTaskWorktree: vi.fn() }));
 const { startSession, startVSCodeSession } = vi.hoisted(() => ({
   startSession: vi.fn(),
   startVSCodeSession: vi.fn(),
@@ -29,10 +30,13 @@ vi.mock('@alfredo/terminal-session', async (importOriginal) => ({
 }));
 vi.mock('./clone-index.service', () => ({ findClones }));
 vi.mock('./pr-worktree.service', () => ({ ensurePrWorktree }));
+vi.mock('./trunk.service', () => ({ getTrunk }));
+vi.mock('./task-worktree.service', () => ({ ensureTaskWorktree }));
 vi.mock('./install.service', () => ({ detectInstallCommand, runInstallInBackground }));
 
 const CLONE = { path: '/work/app', nameWithOwner: 'owner/app' };
 const WORKTREE = '/work/app@login';
+const TASK_WORKTREE = '/work/app@agenda-view';
 const PR: PullRequest = {
   number: 7,
   title: 'Add login',
@@ -49,6 +53,10 @@ function toAction(mode: PrAction['mode']): LaunchAction {
   return { kind: 'pr', pr: PR, mode };
 }
 
+function toTaskAction(mode: TaskAction['mode']): LaunchAction {
+  return { kind: 'task', branch: 'feat/agenda-view', clone: CLONE, mode };
+}
+
 function toSettings(overrides: Partial<Settings> = {}): Settings {
   return { ...settingsSchema.parse({}), ...overrides };
 }
@@ -61,6 +69,8 @@ describe('launch.service', () => {
     getCheckouts.mockResolvedValue([]);
     ensurePrWorktree.mockResolvedValue({ path: WORKTREE, created: true });
     detectInstallCommand.mockResolvedValue('pnpm install');
+    getTrunk.mockResolvedValue('main');
+    ensureTaskWorktree.mockResolvedValue({ path: TASK_WORKTREE, created: true });
   });
 
   describe('launch', () => {
@@ -187,6 +197,54 @@ describe('launch.service', () => {
           terminal: 'native',
         });
         expect(startVSCodeSession).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('with a task action', () => {
+      it('should create the task worktree and open the editor', async () => {
+        await launch(toTaskAction('editor'), toSettings());
+
+        expect(getTrunk).toHaveBeenCalledWith(CLONE);
+        expect(ensureTaskWorktree).toHaveBeenCalledWith(CLONE, 'feat/agenda-view', 'main');
+        expect(execFile).toHaveBeenCalledWith(
+          'open',
+          ['-a', 'Visual Studio Code', TASK_WORKTREE],
+          expect.any(Function),
+        );
+        expect(runInstallInBackground).toHaveBeenCalledWith(TASK_WORKTREE, 'pnpm install');
+        expect(ensurePrWorktree).not.toHaveBeenCalled();
+      });
+
+      it('should start a new VS Code chat for cmd when the editor is VS Code', async () => {
+        await launch(toTaskAction('new-session'), toSettings({ editor_app: 'vscode' }));
+
+        expect(startVSCodeSession).toHaveBeenCalledWith({ path: TASK_WORKTREE, mode: 'new', home: homedir() });
+        expect(runInstallInBackground).toHaveBeenCalledWith(TASK_WORKTREE, 'pnpm install');
+        expect(startSession).not.toHaveBeenCalled();
+      });
+
+      it('should start a terminal session behind the install for cmd when the editor is Cursor', async () => {
+        await launch(toTaskAction('new-session'), toSettings({ editor_app: 'cursor', terminal_app: 'warp' }));
+
+        expect(startSession).toHaveBeenCalledWith({
+          path: TASK_WORKTREE,
+          command: 'pnpm install && claude',
+          terminal: 'warp',
+        });
+        expect(startVSCodeSession).not.toHaveBeenCalled();
+      });
+
+      it('should not install when the setting is off', async () => {
+        await launch(toTaskAction('editor'), toSettings({ install_after_create: false }));
+
+        expect(detectInstallCommand).not.toHaveBeenCalled();
+      });
+
+      it('should rethrow a git failure so the notification shows it', async () => {
+        ensureTaskWorktree.mockRejectedValue(new Error("fatal: a branch named 'feat/agenda-view' already exists"));
+
+        await expect(launch(toTaskAction('editor'), toSettings())).rejects.toThrow('already exists');
+        expect(execFile).not.toHaveBeenCalled();
       });
     });
 

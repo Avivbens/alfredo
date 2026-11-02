@@ -10,6 +10,10 @@ import { formatDateToAppleScript, formatGoogleDate, getCurrentTimezone } from '.
 import { toEventPayload } from './eventkit-payload.service';
 import { createEventWithEventKit, requestCalendarAccess } from './eventkit.service';
 
+const GOOGLE_MAPS_SEARCH_URL = 'https://www.google.com/maps/search/?api=1&query=';
+const APPLE_MAPS_SEARCH_URL = 'https://maps.apple.com/?q=';
+const GOOGLE_CALENDAR_TEMPLATE_URL = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+
 type CreateEventOptions = Pick<EventPayload, 'calendarName' | 'alertMinutes'> & {
   platform: OpenEventPlatform;
   openAfter: boolean;
@@ -24,9 +28,9 @@ export function buildMapsSearchUrl(provider: MapProvider, location: string): str
   const query = encodeURIComponent(location);
   switch (provider) {
     case MapProvider.GOOGLE_MAPS:
-      return `https://www.google.com/maps/search/?api=1&query=${query}`;
+      return `${GOOGLE_MAPS_SEARCH_URL}${query}`;
     case MapProvider.APPLE_MAPS:
-      return `https://maps.apple.com/?q=${query}`;
+      return `${APPLE_MAPS_SEARCH_URL}${query}`;
     default:
       return undefined;
   }
@@ -118,8 +122,7 @@ end tell
 
 export async function eventCreatorGoogleCalendar(event: CalendarEvent): Promise<void> {
   const { summary, startDate, endDate, description, location, allDayEvent, timeZone } = event;
-  const url = new URL('https://calendar.google.com/calendar/render');
-  url.searchParams.set('action', 'TEMPLATE');
+  const url = new URL(GOOGLE_CALENDAR_TEMPLATE_URL);
   url.searchParams.set('text', summary);
 
   const formattedStartDate = formatGoogleDate(startDate, allDayEvent, timeZone);

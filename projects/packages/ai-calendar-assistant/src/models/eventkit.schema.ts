@@ -50,9 +50,33 @@ export const agendaActionSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('open-settings'), entity: z.enum(CalendarEntity) }),
 ]);
 
+export const eventPayloadSchema = z.object({
+  title: z.string(),
+  start: z.string(),
+  end: z.string(),
+  allDay: z.boolean(),
+  calendarName: z.string(),
+  location: z.string().optional(),
+  notes: z.string().optional(),
+  url: z.string().optional(),
+  timeZone: z.string().optional(),
+  alertMinutes: z.number().int().positive().optional(),
+});
+
+export const writeResultSchema = z.discriminatedUnion('ok', [
+  z.object({ ok: z.literal(true), id: z.string() }),
+  z.object({
+    ok: z.literal(false),
+    error: z.enum(['calendar-not-found', 'save-failed']),
+    detail: z.string(),
+  }),
+]);
+
 export type CalendarAccess = z.infer<typeof calendarAccessSchema>;
 export type AgendaEvent = z.infer<typeof agendaEventSchema>;
 export type AgendaReminder = z.infer<typeof agendaReminderSchema>;
 export type Agenda = z.infer<typeof agendaSchema>;
 export type AgendaIssue = z.infer<typeof agendaIssueSchema>;
 export type AgendaAction = z.infer<typeof agendaActionSchema>;
+export type EventPayload = z.infer<typeof eventPayloadSchema>;
+export type WriteResult = z.infer<typeof writeResultSchema>;

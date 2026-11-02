@@ -1,14 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as zurk from 'zurk';
 import { runAppleScript } from '@alfredo/run-applescript';
+import { ACCESS_JXA } from '../common/jxa/access.jxa';
+import { CREATE_EVENT_JXA } from '../common/jxa/create-event.jxa';
 import { CalendarEvent } from '../models/calendar-event.model';
+import { eventPayloadSchema } from '../models/eventkit.schema';
+import type { EventPayload } from '../models/eventkit.schema';
 import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
 import * as dateService from './date.service';
 import {
   applyMapLink,
   buildMapsSearchUrl,
-  createInCalendar,
+  createEvent,
   eventCreatorAppleScript,
   eventCreatorGoogleCalendar,
 } from './event-creator.service';
@@ -31,6 +35,41 @@ vi.mock('@alfredo/run-applescript', async (importOriginal) => ({
 vi.spyOn(dateService, 'formatDateToAppleScript');
 vi.spyOn(dateService, 'formatGoogleDate');
 vi.spyOn(dateService, 'getCurrentTimezone').mockReturnValue('Asia/Jerusalem');
+
+/** Raw ACCESS_JXA and CREATE_EVENT_JXA output: statuses come back as EKAuthorizationStatus numbers. */
+const FULL_ACCESS = '{"event":3,"reminder":3}';
+const DENIED = '{"event":2,"reminder":3}';
+const UNDETERMINED = '{"event":0,"reminder":0}';
+const SAVED = '{"ok":true,"id":"EVENT-1:2026"}';
+
+type EventKitReplies = { access: string; request?: string; create?: string };
+
+/** Mirrors ACCESS_JXA: a request returns the entity's status as is, and only an undetermined one gets the prompt's answer. */
+function toAccessReply(access: string, request: string, arg = '{}'): string {
+  const { mode, entity } = JSON.parse(arg);
+  if (mode !== 'request') {
+    return access;
+  }
+
+  const status = String(JSON.parse(access)[entity]);
+  return status === '0' ? request : status;
+}
+
+function mockEventKit({ access, request = '2', create = SAVED }: EventKitReplies): void {
+  vi.mocked(runAppleScript).mockImplementation(async (script, options) => {
+    if (script === ACCESS_JXA) {
+      return toAccessReply(access, request, options?.args?.[0]);
+    }
+
+    return script === CREATE_EVENT_JXA ? create : '';
+  });
+}
+
+function getCreatePayload(): EventPayload | undefined {
+  const input = vi.mocked(runAppleScript).mock.calls.find(([script]) => script === CREATE_EVENT_JXA)?.[1]?.args?.[0];
+
+  return input ? eventPayloadSchema.parse(JSON.parse(input)) : undefined;
+}
 
 describe('event-creator.service', () => {
   const calendarName = 'Test Calendar';
@@ -177,22 +216,140 @@ describe('event-creator.service', () => {
     });
   });
 
-  describe('createInCalendar', () => {
-    it('should call eventCreatorGoogleCalendar for Google Calendar platform', async () => {
-      await createInCalendar(OpenEventPlatform.GOOGLE_CALENDAR, calendarName, baseEvent);
-      expect(zurk.$).toHaveBeenCalled();
-      expect(zurkTemplateLiteralFn).toHaveBeenCalled();
+  describe('createEvent', () => {
+    const appleOptions = { platform: OpenEventPlatform.APPLE_CALENDAR, openAfter: false, calendarName };
+
+    it('should create through EventKit when full access is granted, even without opening', async () => {
+      mockEventKit({ access: FULL_ACCESS });
+
+      await createEvent({ ...baseEvent, timeZone: 'America/New_York' }, { ...appleOptions, alertMinutes: 10 });
+
+      expect(getCreatePayload()).toEqual({
+        title: 'Test Event',
+        start: '2025-01-01T10:00:00.000Z',
+        end: '2025-01-01T11:00:00.000Z',
+        allDay: false,
+        calendarName,
+        timeZone: 'America/New_York',
+        alertMinutes: 10,
+      });
+      expect(runAppleScript).not.toHaveBeenCalledWith(expect.stringContaining('tell application "Calendar"'));
+      expect(zurk.$).not.toHaveBeenCalled();
     });
 
-    it('should call runAppleScript for Apple Calendar platform', async () => {
-      await createInCalendar(OpenEventPlatform.APPLE_CALENDAR, calendarName, baseEvent);
-      expect(runAppleScript).toHaveBeenCalledWith(expect.any(String));
+    it('should create in the default calendar through EventKit when the name is empty', async () => {
+      mockEventKit({ access: FULL_ACCESS });
+
+      await createEvent(baseEvent, { ...appleOptions, calendarName: '' });
+
+      expect(getCreatePayload()).toMatchObject({ calendarName: '', timeZone: 'Asia/Jerusalem' });
     });
 
-    it('should throw an error for an unsupported platform', async () => {
-      await expect(createInCalendar('unsupported' as OpenEventPlatform, calendarName, baseEvent)).rejects.toThrow(
-        'Unsupported platform: unsupported',
+    it('should fall back to AppleScript when access is denied', async () => {
+      mockEventKit({ access: DENIED });
+
+      await createEvent(baseEvent, appleOptions);
+
+      expect(getCreatePayload()).toBeUndefined();
+      expect(runAppleScript).toHaveBeenCalledWith(expect.stringContaining(`tell calendar "${calendarName}"`));
+      expect(runAppleScript).not.toHaveBeenCalledWith(expect.stringContaining('show newEvent'));
+    });
+
+    it('should still require a calendar name on the AppleScript fallback', async () => {
+      mockEventKit({ access: DENIED });
+
+      await expect(createEvent(baseEvent, { ...appleOptions, calendarName: '' })).rejects.toThrow(
+        'Calendar name is not defined!',
       );
+      expect(runAppleScript).not.toHaveBeenCalledWith(expect.stringContaining('tell application "Calendar"'));
+    });
+
+    it('should show the new event in Calendar on the AppleScript fallback when openAfter is set', async () => {
+      mockEventKit({ access: DENIED });
+
+      await createEvent(baseEvent, { ...appleOptions, openAfter: true });
+
+      expect(runAppleScript).toHaveBeenCalledWith(expect.stringContaining('show newEvent'));
+      expect(zurk.$).not.toHaveBeenCalled();
+    });
+
+    it('should request access when undetermined and use EventKit once granted', async () => {
+      mockEventKit({ access: UNDETERMINED, request: '3' });
+
+      await createEvent(baseEvent, appleOptions);
+
+      expect(runAppleScript).toHaveBeenCalledWith(ACCESS_JXA, {
+        language: 'JavaScript',
+        args: ['{"mode":"request","entity":"event"}'],
+      });
+      expect(vi.mocked(runAppleScript).mock.calls.filter(([script]) => script === ACCESS_JXA)).toHaveLength(1);
+      expect(getCreatePayload()).toMatchObject({ title: 'Test Event' });
+    });
+
+    it('should fall back to AppleScript when the request ends without access', async () => {
+      mockEventKit({ access: UNDETERMINED, request: '0' });
+
+      await createEvent(baseEvent, appleOptions);
+
+      expect(getCreatePayload()).toBeUndefined();
+      expect(runAppleScript).toHaveBeenCalledWith(expect.stringContaining(`tell calendar "${calendarName}"`));
+    });
+
+    it('should open the saved event by its ical link when openAfter is set', async () => {
+      mockEventKit({ access: FULL_ACCESS });
+
+      await createEvent(baseEvent, { ...appleOptions, openAfter: true });
+
+      expect(zurkTemplateLiteralFn).toHaveBeenCalledWith(
+        expect.arrayContaining([expect.stringContaining('open ')]),
+        'ical://ekevent/EVENT-1%3A2026?method=show&options=more',
+      );
+      expect(runAppleScript).not.toHaveBeenCalledWith(expect.stringContaining('show newEvent'));
+    });
+
+    it('should report an event that was saved but failed to open', async () => {
+      mockEventKit({ access: FULL_ACCESS });
+      zurkTemplateLiteralFn.mockResolvedValue({ stderr: 'x' });
+
+      await expect(createEvent(baseEvent, { ...appleOptions, openAfter: true })).rejects.toThrow(
+        'Created the event but failed to open it: x',
+      );
+      expect(getCreatePayload()).toMatchObject({ title: 'Test Event' });
+    });
+
+    it('should keep the Google Calendar URL path when opening on Google', async () => {
+      mockEventKit({ access: FULL_ACCESS });
+
+      await createEvent(baseEvent, { ...appleOptions, platform: OpenEventPlatform.GOOGLE_CALENDAR, openAfter: true });
+
+      expect(zurkTemplateLiteralFn).toHaveBeenCalledWith(
+        expect.any(Array),
+        expect.stringContaining('https://calendar.google.com/calendar/render'),
+      );
+      expect(runAppleScript).not.toHaveBeenCalled();
+    });
+
+    it('should report a missing calendar by name', async () => {
+      mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"calendar-not-found","detail":"Work"}' });
+
+      await expect(createEvent(baseEvent, { ...appleOptions, calendarName: 'Work', openAfter: true })).rejects.toThrow(
+        'Calendar "Work" was not found or is read-only',
+      );
+      expect(zurk.$).not.toHaveBeenCalled();
+    });
+
+    it('should report a missing default calendar when the name is empty', async () => {
+      mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"calendar-not-found","detail":""}' });
+
+      await expect(createEvent(baseEvent, { ...appleOptions, calendarName: '' })).rejects.toThrow(
+        'No default calendar for new events',
+      );
+    });
+
+    it('should report a failed save with its detail', async () => {
+      mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"save-failed","detail":"No end date"}' });
+
+      await expect(createEvent(baseEvent, appleOptions)).rejects.toThrow('Failed to save the event: No end date');
     });
   });
 

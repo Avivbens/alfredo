@@ -1,9 +1,21 @@
 import { $ } from 'zurk';
 import { escapeAppleScriptString, runAppleScript } from '@alfredo/run-applescript';
+import { toEventUrl } from '../common/calendar-links.util';
+import { AccessStatus, CalendarEntity } from '../models/access-status.enum';
 import { CalendarEvent } from '../models/calendar-event.model';
+import type { EventPayload, WriteResult } from '../models/eventkit.schema';
 import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
 import { formatDateToAppleScript, formatGoogleDate, getCurrentTimezone } from './date.service';
+import { toEventPayload } from './eventkit-payload.service';
+import { createEventWithEventKit, requestCalendarAccess } from './eventkit.service';
+
+type CreateEventOptions = Pick<EventPayload, 'calendarName' | 'alertMinutes'> & {
+  platform: OpenEventPlatform;
+  openAfter: boolean;
+};
+
+type WriteFailure = Extract<WriteResult, { ok: false }>;
 
 /**
  * Builds a maps "search" URL for the given location text.
@@ -137,24 +149,56 @@ export async function eventCreatorGoogleCalendar(event: CalendarEvent): Promise<
   }
 }
 
-export async function createInCalendar(
-  platform: OpenEventPlatform,
-  calendarName: string,
-  event: CalendarEvent,
-): Promise<void> {
-  switch (platform) {
-    case OpenEventPlatform.GOOGLE_CALENDAR: {
-      return await eventCreatorGoogleCalendar(event);
+/**
+ * Time zones and alerts can only be saved through EventKit, not Calendar's AppleScript, and EventKit needs the
+ * user's permission. Asks the first time; false means the event goes through AppleScript.
+ */
+async function ensureEventKitAccess(): Promise<boolean> {
+  const status = await requestCalendarAccess(CalendarEntity.Event);
+  return status === AccessStatus.FullAccess;
+}
+
+function toWriteError({ error, detail }: WriteFailure): Error {
+  if (error === 'calendar-not-found') {
+    return new Error(
+      detail ? `Calendar "${detail}" was not found or is read-only` : 'No default calendar for new events',
+    );
+  }
+
+  return new Error(`Failed to save the event: ${detail}`);
+}
+
+async function openSavedEvent(id: string): Promise<void> {
+  const { stderr } = await $({ nothrow: true })`open ${toEventUrl(id)}`;
+  if (stderr) {
+    throw new Error(`Created the event but failed to open it: ${stderr}`);
+  }
+}
+
+/** Only the AppleScript fallback needs a calendar name, because EventKit falls back to the default calendar. */
+export async function createEvent(event: CalendarEvent, options: CreateEventOptions): Promise<void> {
+  const { platform, openAfter, calendarName, alertMinutes } = options;
+  if (openAfter && platform === OpenEventPlatform.GOOGLE_CALENDAR) {
+    return await eventCreatorGoogleCalendar(event);
+  }
+
+  const hasEventKitAccess = await ensureEventKitAccess();
+  if (!hasEventKitAccess) {
+    if (!calendarName) {
+      throw new Error('Calendar name is not defined!');
     }
 
-    case OpenEventPlatform.APPLE_CALENDAR: {
-      const script = eventCreatorAppleScript(calendarName, event, true);
-      await runAppleScript(script);
-      return;
-    }
+    await runAppleScript(eventCreatorAppleScript(calendarName, event, openAfter));
+    return;
+  }
 
-    default: {
-      throw new Error(`Unsupported platform: ${platform}`);
-    }
+  const payload = toEventPayload(event, { calendarName, alertMinutes, systemTimeZone: getCurrentTimezone() });
+  const result = await createEventWithEventKit(payload);
+  if (!result.ok) {
+    throw toWriteError(result);
+  }
+
+  if (openAfter) {
+    await openSavedEvent(result.id);
   }
 }

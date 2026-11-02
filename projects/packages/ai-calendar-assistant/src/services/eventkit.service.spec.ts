@@ -3,8 +3,10 @@ import { ZodError } from 'zod';
 import { runAppleScript } from '@alfredo/run-applescript';
 import { ACCESS_JXA } from '../common/jxa/access.jxa';
 import { AGENDA_JXA } from '../common/jxa/agenda.jxa';
+import { CREATE_EVENT_JXA } from '../common/jxa/create-event.jxa';
 import { AccessStatus, CalendarEntity } from '../models/access-status.enum';
-import { getCalendarAccess, readAgenda, requestCalendarAccess } from './eventkit.service';
+import type { EventPayload } from '../models/eventkit.schema';
+import { createEventWithEventKit, getCalendarAccess, readAgenda, requestCalendarAccess } from './eventkit.service';
 
 vi.mock('@alfredo/run-applescript', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@alfredo/run-applescript')>()),
@@ -109,6 +111,30 @@ describe('eventkit.service', () => {
         args: ['{"mode":"request","entity":"reminder"}'],
       });
       expect(status).toBe(AccessStatus.FullAccess);
+    });
+  });
+
+  describe('createEventWithEventKit', () => {
+    const payload: EventPayload = {
+      title: 'Standup',
+      start: '2026-11-02T14:00:00.000Z',
+      end: '2026-11-02T14:30:00.000Z',
+      allDay: false,
+      calendarName: 'Work',
+      timeZone: 'America/New_York',
+      alertMinutes: 10,
+    };
+
+    it('should run the create script with the payload as a single JSON argument', async () => {
+      vi.mocked(runAppleScript).mockResolvedValue('{"ok":true,"id":"EVENT-1"}');
+
+      const result = await createEventWithEventKit(payload);
+
+      expect(runAppleScript).toHaveBeenCalledWith(CREATE_EVENT_JXA, {
+        language: 'JavaScript',
+        args: [JSON.stringify(payload)],
+      });
+      expect(result).toEqual({ ok: true, id: 'EVENT-1' });
     });
   });
 });

@@ -13,6 +13,14 @@ export interface ObjCValue<T> extends ObjCObject {
 export type NSString = ObjCValue<string>;
 export type NSDate = ObjCValue<Date>;
 export type NSPredicate = ObjCObject;
+export type NSTimeZone = ObjCObject;
+export type NSURL = ObjCObject;
+export type EKAlarm = ObjCObject;
+export type ObjCRef<T> = [T?];
+
+export interface NSError extends ObjCObject {
+  localizedDescription: NSString;
+}
 
 export interface NSArray<T> extends ObjCObject {
   count: ObjCInteger;
@@ -42,16 +50,24 @@ export interface NSDateFormatter extends ObjCObject {
 
 export interface EKCalendar extends ObjCObject {
   title: NSString;
+  allowsContentModifications: boolean;
 }
 
 export interface EKEvent extends ObjCObject {
   eventIdentifier: NSString;
-  title: NSString;
+  get title(): NSString;
+  set title(value: string);
   calendar: EKCalendar;
-  location: NSString;
+  get location(): NSString;
+  set location(value: string);
+  get notes(): NSString;
+  set notes(value: string);
+  URL: NSURL;
   allDay: boolean;
+  timeZone: NSTimeZone;
   startDate: NSDate;
   endDate: NSDate;
+  addAlarm(alarm: EKAlarm): void;
 }
 
 export interface EKReminder extends ObjCObject {
@@ -63,6 +79,7 @@ export interface EKReminder extends ObjCObject {
 
 /** The full-access requests exist from macOS 14 on. */
 export interface EKEventStore extends ObjCObject {
+  defaultCalendarForNewEvents: EKCalendar;
   requestFullAccessToEventsWithCompletion?(complete: () => void): void;
   requestFullAccessToRemindersWithCompletion?(complete: () => void): void;
   requestAccessToEntityTypeCompletion(type: ObjCInteger, complete: () => void): void;
@@ -82,26 +99,36 @@ export interface EKEventStore extends ObjCObject {
     predicate: NSPredicate,
     complete: (reminders: NSArray<EKReminder>) => void,
   ): void;
+  saveEventSpanCommitError(event: EKEvent, span: ObjCInteger, commit: boolean, error: ObjCRef<NSError>): boolean;
 }
 
 /** Called bare, `$()` makes nil, which ObjC takes in place of any object. */
 export interface ObjCBridge {
   <T extends ObjCObject>(): T;
+  EKAlarm: { alarmWithRelativeOffset(seconds: number): EKAlarm };
   EKEntityTypeEvent: ObjCInteger;
   EKEntityTypeReminder: ObjCInteger;
+  EKEvent: { eventWithEventStore(store: EKEventStore): EKEvent };
   EKEventStore: {
     alloc: { init: EKEventStore };
     authorizationStatusForEntityType(type: ObjCInteger): ObjCInteger;
   };
+  EKSpanThisEvent: ObjCInteger;
   NSCalendar: { currentCalendar: NSCalendar };
   NSCalendarUnitDay: ObjCInteger;
-  NSDate: { date: NSDate; dateWithTimeIntervalSinceNow(seconds: number): NSDate };
+  NSDate: {
+    date: NSDate;
+    dateWithTimeIntervalSinceNow(seconds: number): NSDate;
+    dateWithTimeIntervalSince1970(seconds: number): NSDate;
+  };
   NSDateComponentUndefined: ObjCInteger;
   NSDateFormatter: { alloc: { init: NSDateFormatter } };
   NSDateFormatterNoStyle: ObjCInteger;
   NSDateFormatterShortStyle: ObjCInteger;
   NSMutableArray: { array: NSMutableArray<never> };
   NSRunLoop: { currentRunLoop: { runUntilDate(date: NSDate): void } };
+  NSTimeZone: { systemTimeZone: NSTimeZone; timeZoneWithName(name: string): NSTimeZone };
+  NSURL: { URLWithString(text: string): NSURL };
 }
 
 export interface ObjCGlobal {

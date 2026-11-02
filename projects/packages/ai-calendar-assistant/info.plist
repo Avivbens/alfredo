@@ -115,6 +115,19 @@
           <string>__fast-alfred_managed__v2_conditional_from_6EF5A6B4-9DC7-4359-B1CC-A4549A446AEE_to_23EBEF80-CC4E-42A1-BB0B-A97AB87281E6</string>
         </dict>
       </array>
+      <key>A3359AE8-545E-446B-84EC-E556466D8850</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>D666BD8A-4F5E-48EF-9238-2B7F457E0B73</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
       <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_3CABA990-1C42-4A89-97EE-4FA184C92BB6</key>
       <array>
         <dict>
@@ -1032,6 +1045,27 @@ https://github.com/Avivbens/alfredo</string>
         <string>popupbutton</string>
         <key>variable</key>
         <string>map_provider</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>Leave empty for no alert</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Add an alert this many minutes before each new timed event. Leave empty for no alert. Applies to events created in Apple Calendar while Alfred has access to your calendars.</string>
+        <key>label</key>
+        <string>Event alert (minutes before)</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>event_alert_minutes</string>
       </dict>
       <dict>
         <key>config</key>

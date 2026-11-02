@@ -1,10 +1,8 @@
-import type { Worktree } from '@alfredo/git-worktrees';
-import { getCheckouts } from '@alfredo/git-worktrees';
+import type { LocalStack, Worktree } from '@alfredo/git-worktrees';
+import { getCheckouts, readLocalStacks } from '@alfredo/git-worktrees';
 import type { Clone } from '../models/clone.schema';
 import type { StackAction } from '../models/launch-action.schema';
 import type { PullRequest } from '../models/pull-request.schema';
-import type { LocalStack } from './local-stacks.service';
-import { readLocalStacks } from './local-stacks.service';
 import type { PrState } from './pr-match.service';
 import { loadCheckouts, toPrStates } from './pr-match.service';
 import { loadRebaseBranches } from './rebase-branches.service';

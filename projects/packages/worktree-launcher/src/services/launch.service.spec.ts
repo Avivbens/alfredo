@@ -26,7 +26,7 @@ const { startSession, startVSCodeSession } = vi.hoisted(() => ({
 }));
 
 vi.mock('node:child_process', () => ({ execFile }));
-vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts }));
+vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts, readLocalStacks }));
 vi.mock('@alfredo/terminal-session', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@alfredo/terminal-session')>()),
   startSession,
@@ -37,7 +37,6 @@ vi.mock('./pr-worktree.service', () => ({ ensurePrWorktree }));
 vi.mock('./trunk.service', () => ({ getTrunk }));
 vi.mock('./task-worktree.service', () => ({ ensureTaskWorktree }));
 vi.mock('./stack-worktree.service', () => ({ ensureStackWorktree }));
-vi.mock('./local-stacks.service', () => ({ readLocalStacks }));
 vi.mock('./install.service', () => ({ detectInstallCommand, runInstallInBackground }));
 
 const CLONE = { path: '/work/app', nameWithOwner: 'owner/app' };

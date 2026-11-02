@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { GhStackFile } from '../models/gh-stack-file.schema';
-import { ghStackFileSchema } from '../models/gh-stack-file.schema';
+import type { GhStackFile } from './gh-stack-file.schema';
+import { ghStackFileSchema } from './gh-stack-file.schema';
 
 export type LocalStack = {
   number?: GhStackFile['stacks'][number]['number'];

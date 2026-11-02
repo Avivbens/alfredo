@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { readLocalStacks } from './local-stacks.service';
+import { readLocalStacks } from './local-stacks';
 
 /** Trimmed from a real `.git/gh-stack`: one stack with a `number`, one local-only stack without. */
 const GH_STACK_FILE = {
@@ -50,7 +50,7 @@ const GH_STACK_FILE = {
   ],
 };
 
-describe('local-stacks.service', () => {
+describe('local-stacks', () => {
   let repo: string;
 
   beforeEach(async () => {

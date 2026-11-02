@@ -13,8 +13,7 @@ const { getCheckouts, readLocalStacks, loadRebaseBranches } = vi.hoisted(() => (
   loadRebaseBranches: vi.fn(async (checkouts: Worktree[]) => checkouts),
 }));
 
-vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts }));
-vi.mock('./local-stacks.service', () => ({ readLocalStacks }));
+vi.mock('@alfredo/git-worktrees', () => ({ getCheckouts, readLocalStacks }));
 vi.mock('./rebase-branches.service', () => ({ loadRebaseBranches }));
 
 const CLONE: Clone = { path: '/work/alfredo', nameWithOwner: 'avivbens/alfredo' };

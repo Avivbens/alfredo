@@ -1,7 +1,6 @@
-import type { Worktree } from '@alfredo/git-worktrees';
+import type { LocalStack, Worktree } from '@alfredo/git-worktrees';
+import { readLocalStacks } from '@alfredo/git-worktrees';
 import { toWorktreePath } from '../common/worktree-name.util';
-import type { LocalStack } from './local-stacks.service';
-import { readLocalStacks } from './local-stacks.service';
 
 export function toStackPath(clonePath: string, stackNumber: number): string {
   return toWorktreePath(clonePath, `stack-${stackNumber}`);

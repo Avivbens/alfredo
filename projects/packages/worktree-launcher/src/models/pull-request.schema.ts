@@ -8,7 +8,7 @@ export const pullRequestSchema = z.object({
   headRefName: z.string(),
   isCrossRepository: z.boolean(),
   nameWithOwner: z.string(),
-  source: z.enum(['mine', 'review', 'lookup']),
+  source: z.enum(['mine', 'review', 'assigned', 'lookup']),
 });
 export type PullRequest = z.infer<typeof pullRequestSchema>;
 

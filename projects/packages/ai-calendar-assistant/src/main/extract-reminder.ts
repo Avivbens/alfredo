@@ -1,13 +1,12 @@
 import { AlfredListItem, FastAlfred } from 'fast-alfred';
 import { setTimeout } from 'node:timers/promises';
 import { registerUpdater } from '@alfredo/updater';
+import { CalendarEntity } from '../models/access-status.enum';
 import { SettingsSchema } from '../models/settings.model';
+import { isRepeatApplicable } from '../services/eventkit-payload.service';
+import { hasFullAccess } from '../services/eventkit.service';
 import { extractReminder } from '../services/reminder-extractor.service';
-import {
-  RECURRENCE_UNSUPPORTED_NOTE,
-  buildReminderDueLabel,
-  buildReminderPreview,
-} from '../services/reminder-preview.service';
+import { buildReminderPreview, buildReminderSubtitle } from '../services/reminder-preview.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -30,7 +29,10 @@ import {
       return;
     }
 
-    const { reminders } = await extractReminder(token, model, alfredClient.input);
+    const [{ reminders }, fullAccess] = await Promise.all([
+      extractReminder(token, model, alfredClient.input),
+      hasFullAccess(CalendarEntity.Reminder),
+    ]);
 
     if (!reminders.length) {
       alfredClient.output({ items: [{ title: 'No reminders found', subtitle: 'Try rephrasing your input.' }] });
@@ -38,11 +40,10 @@ import {
     }
 
     const items: AlfredListItem[] = reminders.map((currReminder) => {
-      const { title, notes, dueDate, recurrence } = currReminder;
+      const { title, dueDate } = currReminder;
 
-      /** Warn before the user commits, so a reminder that will not repeat cannot look like one that will. */
-      const trailing = recurrence ? RECURRENCE_UNSUPPORTED_NOTE : notes || 'No notes';
-      const subtitle = `${buildReminderDueLabel(currReminder)} | ${trailing}`;
+      const repeatApplies = fullAccess && isRepeatApplicable(currReminder);
+      const subtitle = buildReminderSubtitle(currReminder, { repeatApplies });
       const arg = JSON.stringify(currReminder);
       const uid = `${dueDate?.toISOString() ?? 'no-due-date'}-${title}`;
 
@@ -54,7 +55,7 @@ import {
         mods: {
           cmd: {
             subtitle: 'Preview',
-            arg: buildReminderPreview(currReminder),
+            arg: buildReminderPreview(currReminder, { repeatApplies }),
           },
         },
       };

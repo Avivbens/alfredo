@@ -1,17 +1,22 @@
 import { FastAlfred } from 'fast-alfred';
-import { runAppleScript } from '@alfredo/run-applescript';
+import { stdout } from 'node:process';
+import { toFailureMessage } from '../common/failure-message.util';
 import { GeminiReminderSchema, OpenAIReminderSchema } from '../models/reminder.model';
 import { SettingsSchema } from '../models/settings.model';
-import { reminderCreatorAppleScript } from '../services/reminder-creator.service';
+import { createReminder } from '../services/reminder-creator.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
 
-  const { reminderListName: listName, openNewReminder, model } = alfredClient.env.parse(SettingsSchema);
-  const reminderSchema = model?.includes('gemini') ? GeminiReminderSchema : OpenAIReminderSchema;
+  try {
+    const { reminderListName: listName, openNewReminder, model } = alfredClient.env.parse(SettingsSchema);
+    const reminderSchema = model?.includes('gemini') ? GeminiReminderSchema : OpenAIReminderSchema;
 
-  const reminder = reminderSchema.parse(JSON.parse(alfredClient.input));
+    const reminder = reminderSchema.parse(JSON.parse(alfredClient.input));
 
-  const creationScript = reminderCreatorAppleScript(listName, reminder, openNewReminder);
-  await runAppleScript(creationScript);
+    await createReminder(reminder, { listName, openAfter: openNewReminder });
+  } catch (error) {
+    alfredClient.log(error instanceof Error ? (error.stack ?? error.message) : String(error));
+    stdout.write(toFailureMessage(error));
+  }
 })();

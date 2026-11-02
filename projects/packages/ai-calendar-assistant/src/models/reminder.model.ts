@@ -22,12 +22,61 @@ const recurrence = z
     'The repetition the user asked for, in plain words (e.g. "every week on Sunday and Monday"). Set this only when the user explicitly asks for the reminder to repeat.',
   );
 
+const weekday = z.enum(['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']);
+const recurrenceEnd = z.union([
+  z.object({ count: z.number().int().min(1) }),
+  z.object({
+    until: z.string().refine((value) => !Number.isNaN(new Date(value).getTime()), 'Must be a valid ISO 8601 date'),
+  }),
+]);
+const recurrenceRuleDescription =
+  'The structured repeat rule. Set it only when the user asked for the reminder to repeat, together with the plain-words recurrence field.';
+export const recurrenceFrequencySchema = z.enum(['daily', 'weekly', 'monthly', 'yearly']);
+const frequency = recurrenceFrequencySchema.describe('How often the reminder repeats.');
+const interval = z.number().int().min(1).describe('Repeat every N periods, 1 by default.');
+const daysOfWeek = weekday.array().describe('The days to repeat on. For weekly rules only.');
+const end = recurrenceEnd.describe(
+  'When the repeat stops: after a count of occurrences, or on its last day as a date-only YYYY-MM-DD.',
+);
+
+/**
+ * OpenAI models send null for a field they leave out, while the normalized arg that create-reminder parses
+ * again leaves the key out, so these fields accept both.
+ */
+const openAIRecurrenceRule = z
+  .object({
+    frequency,
+    interval: interval.optional().nullable(),
+    daysOfWeek: daysOfWeek.optional().nullable(),
+    end: end.optional().nullable(),
+  })
+  .describe(recurrenceRuleDescription);
+
+const geminiRecurrenceRule = z
+  .object({
+    frequency,
+    interval: interval.optional(),
+    daysOfWeek: daysOfWeek.optional(),
+    end: end.optional(),
+  })
+  .describe(recurrenceRuleDescription);
+
+type RecurrenceRuleInput = z.infer<typeof openAIRecurrenceRule>;
+
+const toRecurrenceRule = (rule: RecurrenceRuleInput) => ({
+  frequency: rule.frequency,
+  interval: rule.interval ?? 1,
+  ...(rule.frequency === 'weekly' && rule.daysOfWeek?.length ? { daysOfWeek: rule.daysOfWeek } : {}),
+  ...(rule.end ? { end: rule.end } : {}),
+});
+
 type ReminderTransformInput = {
   title: string;
   notes?: string | null;
   dueDate?: string | null;
   allDay?: boolean | null;
   recurrence?: string | null;
+  recurrenceRule?: RecurrenceRuleInput | null;
 };
 
 const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
@@ -61,6 +110,7 @@ const reminderTransform = (data: ReminderTransformInput) => {
      */
     ...(data.notes ? { notes: data.notes } : {}),
     ...(data.recurrence ? { recurrence: data.recurrence } : {}),
+    ...(data.recurrenceRule ? { recurrenceRule: toRecurrenceRule(data.recurrenceRule) } : {}),
     ...(raw ? { dueDate: toDueDate(raw, allDay) } : {}),
   };
 };
@@ -73,6 +123,7 @@ export const OpenAIReminderSchema = z
     dueDate: dueDate.optional().nullable(),
     allDay: allDay.optional().nullable(),
     recurrence: recurrence.optional().nullable(),
+    recurrenceRule: openAIRecurrenceRule.optional().nullable(),
   })
   .transform(reminderTransform);
 
@@ -86,10 +137,12 @@ export const GeminiReminderSchema = z
     dueDate: dueDate.optional(),
     allDay: allDay.optional(),
     recurrence: recurrence.optional(),
+    recurrenceRule: geminiRecurrenceRule.optional(),
   })
   .transform(reminderTransform);
 
 export const GeminiRemindersSchema = z.object({ reminders: z.array(GeminiReminderSchema) });
 
 export type Reminder = z.infer<typeof GeminiReminderSchema>;
+export type RecurrenceRule = NonNullable<Reminder['recurrenceRule']>;
 export type Reminders = z.infer<typeof GeminiRemindersSchema>;

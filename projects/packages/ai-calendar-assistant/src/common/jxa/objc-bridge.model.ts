@@ -16,6 +16,9 @@ export type NSPredicate = ObjCObject;
 export type NSTimeZone = ObjCObject;
 export type NSURL = ObjCObject;
 export type EKAlarm = ObjCObject;
+export type EKRecurrenceDayOfWeek = ObjCObject;
+export type EKRecurrenceEnd = ObjCObject;
+export type EKRecurrenceRule = ObjCObject;
 export type ObjCRef<T> = [T?];
 
 export interface NSError extends ObjCObject {
@@ -32,7 +35,16 @@ export interface NSMutableArray<T> extends NSArray<T> {
 }
 
 export interface NSDateComponents extends ObjCObject {
-  hour: ObjCInteger;
+  get year(): ObjCInteger;
+  set year(value: number);
+  get month(): ObjCInteger;
+  set month(value: number);
+  get day(): ObjCInteger;
+  set day(value: number);
+  get hour(): ObjCInteger;
+  set hour(value: number);
+  get minute(): ObjCInteger;
+  set minute(value: number);
 }
 
 export interface NSCalendar extends ObjCObject {
@@ -72,14 +84,20 @@ export interface EKEvent extends ObjCObject {
 
 export interface EKReminder extends ObjCObject {
   calendarItemIdentifier: NSString;
-  title: NSString;
+  get title(): NSString;
+  set title(value: string);
   calendar: EKCalendar;
+  get notes(): NSString;
+  set notes(value: string);
   dueDateComponents: NSDateComponents;
+  addAlarm(alarm: EKAlarm): void;
+  addRecurrenceRule(rule: EKRecurrenceRule): void;
 }
 
 /** The full-access requests exist from macOS 14 on. */
 export interface EKEventStore extends ObjCObject {
   defaultCalendarForNewEvents: EKCalendar;
+  defaultCalendarForNewReminders: EKCalendar;
   requestFullAccessToEventsWithCompletion?(complete: () => void): void;
   requestFullAccessToRemindersWithCompletion?(complete: () => void): void;
   requestAccessToEntityTypeCompletion(type: ObjCInteger, complete: () => void): void;
@@ -100,12 +118,14 @@ export interface EKEventStore extends ObjCObject {
     complete: (reminders: NSArray<EKReminder>) => void,
   ): void;
   saveEventSpanCommitError(event: EKEvent, span: ObjCInteger, commit: boolean, error: ObjCRef<NSError>): boolean;
+  saveReminderCommitError(reminder: EKReminder, commit: boolean, error: ObjCRef<NSError>): boolean;
 }
 
-/** Called bare, `$()` makes nil, which ObjC takes in place of any object. */
+/** Called bare, `$()` makes nil, which ObjC takes in place of any object; called with an array, it makes an NSArray. */
 export interface ObjCBridge {
   <T extends ObjCObject>(): T;
-  EKAlarm: { alarmWithRelativeOffset(seconds: number): EKAlarm };
+  <T>(items: T[]): NSArray<T>;
+  EKAlarm: { alarmWithRelativeOffset(seconds: number): EKAlarm; alarmWithAbsoluteDate(date: NSDate): EKAlarm };
   EKEntityTypeEvent: ObjCInteger;
   EKEntityTypeReminder: ObjCInteger;
   EKEvent: { eventWithEventStore(store: EKEventStore): EKEvent };
@@ -113,6 +133,31 @@ export interface ObjCBridge {
     alloc: { init: EKEventStore };
     authorizationStatusForEntityType(type: ObjCInteger): ObjCInteger;
   };
+  EKRecurrenceDayOfWeek: { dayOfWeek(day: number): EKRecurrenceDayOfWeek };
+  EKRecurrenceEnd: {
+    recurrenceEndWithOccurrenceCount(count: number): EKRecurrenceEnd;
+    recurrenceEndWithEndDate(date: NSDate): EKRecurrenceEnd;
+  };
+  EKRecurrenceFrequencyDaily: ObjCInteger;
+  EKRecurrenceFrequencyMonthly: ObjCInteger;
+  EKRecurrenceFrequencyWeekly: ObjCInteger;
+  EKRecurrenceFrequencyYearly: ObjCInteger;
+  EKRecurrenceRule: {
+    alloc: {
+      initRecurrenceWithFrequencyIntervalDaysOfTheWeekDaysOfTheMonthMonthsOfTheYearWeeksOfTheYearDaysOfTheYearSetPositionsEnd(
+        frequency: ObjCInteger,
+        interval: number,
+        daysOfTheWeek: NSArray<EKRecurrenceDayOfWeek>,
+        daysOfTheMonth: NSArray<ObjCObject>,
+        monthsOfTheYear: NSArray<ObjCObject>,
+        weeksOfTheYear: NSArray<ObjCObject>,
+        daysOfTheYear: NSArray<ObjCObject>,
+        setPositions: NSArray<ObjCObject>,
+        end: EKRecurrenceEnd,
+      ): EKRecurrenceRule;
+    };
+  };
+  EKReminder: { reminderWithEventStore(store: EKEventStore): EKReminder };
   EKSpanThisEvent: ObjCInteger;
   NSCalendar: { currentCalendar: NSCalendar };
   NSCalendarUnitDay: ObjCInteger;
@@ -122,6 +167,7 @@ export interface ObjCBridge {
     dateWithTimeIntervalSince1970(seconds: number): NSDate;
   };
   NSDateComponentUndefined: ObjCInteger;
+  NSDateComponents: { alloc: { init: NSDateComponents } };
   NSDateFormatter: { alloc: { init: NSDateFormatter } };
   NSDateFormatterNoStyle: ObjCInteger;
   NSDateFormatterShortStyle: ObjCInteger;

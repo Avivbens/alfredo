@@ -2,10 +2,12 @@ import { Reminder } from '../models/reminder.model';
 import { beautifyDate } from './date.service';
 
 /**
- * Reminders exposes no repeat rule to AppleScript, so a requested repetition is
- * only ever recorded as text — warn with the same wording everywhere it shows.
+ * Without EventKit access or a due date, a requested repetition is only recorded
+ * as text, so warn with the same wording everywhere it shows.
  */
 export const RECURRENCE_UNSUPPORTED_NOTE = '⚠︎ Repeat not supported — kept in notes';
+
+type ReminderPreviewOptions = { repeatApplies: boolean };
 
 /**
  * Shared by the Alfred subtitle and the Large Type preview so the two never
@@ -35,14 +37,27 @@ export function buildReminderDueLabel(reminder: Reminder): string {
  * Alfred's Large Type preview (cmd+Enter). Lines for missing fields are omitted
  * so the card stays tight.
  */
-export function buildReminderPreview(reminder: Reminder): string {
+export function buildReminderPreview(reminder: Reminder, options: ReminderPreviewOptions): string {
   const { title, notes, recurrence } = reminder;
 
   const detailLines = [
     `When: ${buildReminderDueLabel(reminder)}`,
     recurrence ? `Repeat: ${recurrence}` : null,
-    recurrence ? RECURRENCE_UNSUPPORTED_NOTE : null,
+    recurrence && !options.repeatApplies ? RECURRENCE_UNSUPPORTED_NOTE : null,
   ].filter((line): line is string => line !== null);
 
   return [title, '', ...detailLines, ...(notes ? ['', notes] : [])].join('\n');
+}
+
+/** Warn before the user commits, so a reminder that will not repeat cannot look like one that will. */
+function toSubtitleTrailing({ notes, recurrence }: Reminder, { repeatApplies }: ReminderPreviewOptions): string {
+  if (!recurrence) {
+    return notes || 'No notes';
+  }
+
+  return repeatApplies ? `Repeats ${recurrence}` : RECURRENCE_UNSUPPORTED_NOTE;
+}
+
+export function buildReminderSubtitle(reminder: Reminder, options: ReminderPreviewOptions): string {
+  return `${buildReminderDueLabel(reminder)} | ${toSubtitleTrailing(reminder, options)}`;
 }

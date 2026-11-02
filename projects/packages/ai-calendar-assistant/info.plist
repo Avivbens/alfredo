@@ -128,6 +128,19 @@
           <false></false>
         </dict>
       </array>
+      <key>23EBEF80-CC4E-42A1-BB0B-A97AB87281E6</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>D666BD8A-4F5E-48EF-9238-2B7F457E0B73</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
       <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_3CABA990-1C42-4A89-97EE-4FA184C92BB6</key>
       <array>
         <dict>

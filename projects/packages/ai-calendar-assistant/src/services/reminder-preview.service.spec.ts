@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { Reminder } from '../models/reminder.model';
-import { RECURRENCE_UNSUPPORTED_NOTE, buildReminderDueLabel, buildReminderPreview } from './reminder-preview.service';
+import {
+  RECURRENCE_UNSUPPORTED_NOTE,
+  buildReminderDueLabel,
+  buildReminderPreview,
+  buildReminderSubtitle,
+} from './reminder-preview.service';
 
 describe('reminder-preview.service', () => {
   /**
@@ -42,7 +47,7 @@ describe('reminder-preview.service', () => {
         notes: 'Registrar: Namecheap',
       };
 
-      expect(buildReminderPreview(reminder)).toBe(
+      expect(buildReminderPreview(reminder, { repeatApplies: false })).toBe(
         'Renew the domain\n\nWhen: Due Tomorrow, 18:00\n\nRegistrar: Namecheap',
       );
     });
@@ -50,18 +55,30 @@ describe('reminder-preview.service', () => {
     it('should omit the notes block when there are no notes', () => {
       const reminder: Reminder = { title: 'Buy milk', allDay: false };
 
-      expect(buildReminderPreview(reminder)).toBe('Buy milk\n\nWhen: No due date');
+      expect(buildReminderPreview(reminder, { repeatApplies: false })).toBe('Buy milk\n\nWhen: No due date');
     });
 
-    it('should spell out that a requested repetition will not be applied', () => {
-      const reminder: Reminder = {
-        title: 'Buy a flight ticket to Amsterdam',
-        dueDate: at(13, 0, 1),
-        allDay: false,
-        recurrence: 'every week on Sunday and Monday',
-      };
+    const repeatingReminder: Reminder = {
+      title: 'Buy a flight ticket to Amsterdam',
+      dueDate: at(13, 0, 1),
+      allDay: false,
+      recurrence: 'every week on Sunday and Monday',
+      recurrenceRule: { frequency: 'weekly', interval: 1, daysOfWeek: ['sunday', 'monday'] },
+    };
 
-      expect(buildReminderPreview(reminder)).toBe(
+    it('should hide the unsupported note when the repeat applies', () => {
+      expect(buildReminderPreview(repeatingReminder, { repeatApplies: true })).toBe(
+        [
+          'Buy a flight ticket to Amsterdam',
+          '',
+          'When: Due Tomorrow, 13:00',
+          'Repeat: every week on Sunday and Monday',
+        ].join('\n'),
+      );
+    });
+
+    it('should show the unsupported note on the fallback, where the repeat only lands in the notes', () => {
+      expect(buildReminderPreview(repeatingReminder, { repeatApplies: false })).toBe(
         [
           'Buy a flight ticket to Amsterdam',
           '',
@@ -69,6 +86,46 @@ describe('reminder-preview.service', () => {
           'Repeat: every week on Sunday and Monday',
           RECURRENCE_UNSUPPORTED_NOTE,
         ].join('\n'),
+      );
+    });
+  });
+
+  describe('buildReminderSubtitle', () => {
+    const reminder: Reminder = {
+      title: 'Water the plants',
+      dueDate: at(9, 30, 1),
+      allDay: false,
+      notes: 'The ones on the balcony',
+      recurrence: 'every day',
+      recurrenceRule: { frequency: 'daily', interval: 1 },
+    };
+
+    it('should say the reminder repeats when the repeat applies', () => {
+      expect(buildReminderSubtitle(reminder, { repeatApplies: true })).toBe('Due Tomorrow, 9:30 | Repeats every day');
+    });
+
+    it('should warn on the fallback, so a reminder that will not repeat cannot look like one that will', () => {
+      expect(buildReminderSubtitle(reminder, { repeatApplies: false })).toBe(
+        `Due Tomorrow, 9:30 | ${RECURRENCE_UNSUPPORTED_NOTE}`,
+      );
+    });
+
+    it('should show the notes when nothing repeats', () => {
+      const single: Reminder = {
+        title: 'Water the plants',
+        dueDate: at(9, 30, 1),
+        allDay: false,
+        notes: 'The ones on the balcony',
+      };
+
+      expect(buildReminderSubtitle(single, { repeatApplies: false })).toBe(
+        'Due Tomorrow, 9:30 | The ones on the balcony',
+      );
+    });
+
+    it('should say so when there are no notes either', () => {
+      expect(buildReminderSubtitle({ title: 'Buy milk', allDay: false }, { repeatApplies: false })).toBe(
+        'No due date | No notes',
       );
     });
   });

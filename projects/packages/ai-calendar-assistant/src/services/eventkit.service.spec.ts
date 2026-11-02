@@ -4,9 +4,18 @@ import { runAppleScript } from '@alfredo/run-applescript';
 import { ACCESS_JXA } from '../common/jxa/access.jxa';
 import { AGENDA_JXA } from '../common/jxa/agenda.jxa';
 import { CREATE_EVENT_JXA } from '../common/jxa/create-event.jxa';
+import { CREATE_REMINDER_JXA } from '../common/jxa/create-reminder.jxa';
 import { AccessStatus, CalendarEntity } from '../models/access-status.enum';
-import type { EventPayload } from '../models/eventkit.schema';
-import { createEventWithEventKit, getCalendarAccess, readAgenda, requestCalendarAccess } from './eventkit.service';
+import type { EventPayload, ReminderPayload } from '../models/eventkit.schema';
+import {
+  createEventWithEventKit,
+  createReminderWithEventKit,
+  ensureEventKitAccess,
+  getCalendarAccess,
+  hasFullAccess,
+  readAgenda,
+  requestCalendarAccess,
+} from './eventkit.service';
 
 vi.mock('@alfredo/run-applescript', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@alfredo/run-applescript')>()),
@@ -135,6 +144,63 @@ describe('eventkit.service', () => {
         args: [JSON.stringify(payload)],
       });
       expect(result).toEqual({ ok: true, id: 'EVENT-1' });
+    });
+  });
+
+  describe('ensureEventKitAccess', () => {
+    it('should be true only when the request ends with full access', async () => {
+      vi.mocked(runAppleScript).mockResolvedValueOnce('3').mockResolvedValueOnce('2');
+
+      await expect(ensureEventKitAccess(CalendarEntity.Reminder)).resolves.toBe(true);
+      await expect(ensureEventKitAccess(CalendarEntity.Event)).resolves.toBe(false);
+    });
+
+    it('should check and ask in one request for the given entity, since the request returns a decided status as is', async () => {
+      vi.mocked(runAppleScript).mockResolvedValue('0');
+
+      await expect(ensureEventKitAccess(CalendarEntity.Reminder)).resolves.toBe(false);
+      expect(runAppleScript).toHaveBeenCalledOnce();
+      expect(runAppleScript).toHaveBeenCalledWith(ACCESS_JXA, {
+        language: 'JavaScript',
+        args: ['{"mode":"request","entity":"reminder"}'],
+      });
+    });
+  });
+
+  describe('createReminderWithEventKit', () => {
+    const payload: ReminderPayload = {
+      title: 'Water the plants',
+      listName: 'Home',
+      due: { year: 2026, month: 11, day: 3, hour: 9, minute: 0 },
+      alarmAtDue: true,
+      recurrence: { frequency: 'weekly', interval: 1, daysOfWeek: [1, 2] },
+    };
+
+    it('should run the create script with the payload as a single JSON argument', async () => {
+      vi.mocked(runAppleScript).mockResolvedValue('{"ok":true,"id":"REMINDER-1"}');
+
+      const result = await createReminderWithEventKit(payload);
+
+      expect(runAppleScript).toHaveBeenCalledWith(CREATE_REMINDER_JXA, {
+        language: 'JavaScript',
+        args: [JSON.stringify(payload)],
+      });
+      expect(result).toEqual({ ok: true, id: 'REMINDER-1' });
+    });
+  });
+
+  describe('hasFullAccess', () => {
+    it('should be true only when the given entity has full access', async () => {
+      vi.mocked(runAppleScript).mockResolvedValue('{"event":4,"reminder":3}');
+
+      await expect(hasFullAccess(CalendarEntity.Reminder)).resolves.toBe(true);
+      await expect(hasFullAccess(CalendarEntity.Event)).resolves.toBe(false);
+    });
+
+    it('should count a failed read as no access', async () => {
+      vi.mocked(runAppleScript).mockRejectedValue(new Error('osascript timed out'));
+
+      await expect(hasFullAccess(CalendarEntity.Reminder)).resolves.toBe(false);
     });
   });
 });

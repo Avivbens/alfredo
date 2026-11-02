@@ -14,7 +14,7 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 - **Automatic Detail Extraction:** Intelligently extracts the event title, date, time, and duration.
 - **Timezone Correction:** Automatically adjusts for your local timezone.
 - **Flexible Time Input:** Understands relative dates like "next Monday" or "tomorrow morning."
-- **Reminders:** Send the same natural language to Apple Reminders instead, with due dates and notes.
+- **Reminders:** Send the same natural language to Apple Reminders instead, with due dates, notes and repeats.
 
 ## Usage
 
@@ -34,11 +34,9 @@ Events keep their time zone, so a New York meeting shows at the right time anywh
 
 A reminder with a time gets an alert at that time, a reminder with only a date becomes an all-day reminder, and a reminder with no date at all is simply added to your list. Reminders go to your default list unless you name one in the workflow settings.
 
-Repeating reminders are recognized but cannot be applied.
+Repeats work too, like "every Monday at 9" or "every day until Friday".
 
 Hold \`⌘\` and press \`Enter\` on any result to preview what was parsed in Large Type before creating it.
-
-The first time you create a reminder, macOS asks you to let Alfred control Reminders. You can change that later under System Settings → Privacy & Security → Automation.
 
 ### Agenda
 

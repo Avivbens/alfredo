@@ -13,7 +13,7 @@ function newRouter(input = '', variable?: string): AppRouter {
 
 describe('file-item.service', () => {
   describe('toResultItems', () => {
-    const repoRow: ResultRow = { kind: 'repo', main: { path: REPO, branch: 'master' }, worktreeCount: 2 };
+    const repoRow: ResultRow = { kind: 'repo', main: { path: REPO, branch: 'master' }, worktreeCount: 2, dirty: false };
 
     it.each([
       ['folder', 'genericFolder'],
@@ -22,6 +22,36 @@ describe('file-item.service', () => {
       const [item] = toResultItems({ kind: 'entry', file: { path: REPO, type } }, icons, newRouter());
 
       expect(item).toMatchObject({ arg: REPO, icon: { path: icons.getIcon(icon) } });
+    });
+
+    it('should give a checkout row one item with its branch and no worktrees row', () => {
+      const items = toResultItems(
+        { kind: 'checkout', checkout: { path: REPO, branch: 'master' }, dirty: false },
+        icons,
+        newRouter(),
+      );
+
+      expect(items).toHaveLength(1);
+      expect(items[0]).toMatchObject({ arg: REPO, subtitle: `master · ${REPO}` });
+    });
+
+    it('should mark a dirty checkout row and the repo row of a dirty repo with ●, never its ⎇ row', () => {
+      const checkout = toResultItems(
+        {
+          kind: 'checkout',
+          checkout: { path: `${REPO}@m4-libraries`, branch: 'fix/generator-nx-install' },
+          dirty: true,
+        },
+        icons,
+        newRouter(),
+      );
+      const repo = toResultItems({ ...repoRow, dirty: true }, icons, newRouter());
+
+      expect([...checkout, ...repo].map(({ title }) => title)).toEqual([
+        'ios-shortcuts@m4-libraries ●',
+        'ios-shortcuts ●',
+        'ios-shortcuts ⎇ 2 worktrees',
+      ]);
     });
 
     it('should open the repo itself from its first row', () => {
@@ -46,6 +76,7 @@ describe('file-item.service', () => {
         kind: 'repo',
         main: { path: '/Users/me/work/ios-shortcuts', branch: 'main' },
         worktreeCount: 1,
+        dirty: false,
       };
 
       const autocompletes = [repoRow, namesake].map((row) => toResultItems(row, icons, router)[1]?.autocomplete);

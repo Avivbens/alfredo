@@ -17,6 +17,7 @@ Search over your file system with [Alfred](https://www.alfredapp.com/).
   - iTerm2
   - Warp
   - Terminal.app
+- Git checkout rows, in the search and in the ⎇ list, end with ● when they have uncommitted changes (untracked files count)
 
 ## Usage
 

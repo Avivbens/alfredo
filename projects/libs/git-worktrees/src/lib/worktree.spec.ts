@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { getCheckouts, getRepoOfWorktree } from './worktree';
+import { getCheckout, getCheckouts, getRepoOfWorktree } from './worktree';
 
 let root: string;
 
@@ -83,6 +83,42 @@ describe('worktree', () => {
       await mkdir(join(root, 'plain'));
 
       expect(await getCheckouts(join(root, 'plain'))).toEqual([]);
+    });
+  });
+
+  describe('getCheckout', () => {
+    it('should read the branch of a repo root', async () => {
+      const repo = await createRepo('repo');
+
+      expect(await getCheckout(repo)).toEqual({ path: repo, branch: 'master' });
+    });
+
+    it('should read the branch of a linked worktree through its gitdir pointer', async () => {
+      const path = await addWorktree(await createRepo('repo'), 'feature');
+
+      expect(await getCheckout(path)).toEqual({ path, branch: 'feature' });
+    });
+
+    it('should resolve a gitdir pointer written relative to the worktree, as with worktree.useRelativePaths', async () => {
+      const repo = await createRepo('repo');
+      const path = await addWorktree(repo, 'feature');
+      await writeFile(join(path, '.git'), `gitdir: ${relative(path, join(repo, '.git', 'worktrees', 'feature'))}\n`);
+
+      expect(await getCheckout(path)).toEqual({ path, branch: 'feature' });
+    });
+
+    it('should return null for a folder that is not a checkout', async () => {
+      await mkdir(join(root, 'plain'));
+
+      expect(await getCheckout(join(root, 'plain'))).toBeNull();
+    });
+
+    it('should return null for a worktree whose gitdir no longer exists', async () => {
+      const repo = await createRepo('repo');
+      const path = await addWorktree(repo, 'gone');
+      await rm(join(repo, '.git', 'worktrees', 'gone'), { recursive: true });
+
+      expect(await getCheckout(path)).toBeNull();
     });
   });
 

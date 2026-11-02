@@ -1,11 +1,12 @@
 {
   "name": "worktree-launcher",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Open or create git worktrees for your pull requests, then start an agent session in them",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "git",
+    "worktree"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {

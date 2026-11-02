@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { AccessRoute, CalendarEntity, accessStatusSchema } from './access-status.enum';
+import { recurrenceFrequencySchema } from './reminder.model';
 
 export const calendarAccessSchema = z.object({
   event: accessStatusSchema,
@@ -63,11 +64,39 @@ export const eventPayloadSchema = z.object({
   alertMinutes: z.number().int().positive().optional(),
 });
 
+/**
+ * The due date travels as local components, not an instant, because EventKit tells an all-day reminder
+ * by its missing hour.
+ */
+export const reminderPayloadSchema = z.object({
+  title: z.string(),
+  listName: z.string().optional(),
+  notes: z.string().optional(),
+  due: z
+    .object({
+      year: z.number().int(),
+      month: z.number().int().min(1).max(12),
+      day: z.number().int().min(1).max(31),
+      hour: z.number().int().min(0).max(23).optional(),
+      minute: z.number().int().min(0).max(59).optional(),
+    })
+    .optional(),
+  alarmAtDue: z.boolean(),
+  recurrence: z
+    .object({
+      frequency: recurrenceFrequencySchema,
+      interval: z.number().int().min(1),
+      daysOfWeek: z.array(z.number().int().min(1).max(7)).optional(),
+      end: z.union([z.object({ count: z.number().int().min(1) }), z.object({ until: z.string() })]).optional(),
+    })
+    .optional(),
+});
+
 export const writeResultSchema = z.discriminatedUnion('ok', [
   z.object({ ok: z.literal(true), id: z.string() }),
   z.object({
     ok: z.literal(false),
-    error: z.enum(['calendar-not-found', 'save-failed']),
+    error: z.enum(['calendar-not-found', 'list-not-found', 'save-failed']),
     detail: z.string(),
   }),
 ]);
@@ -79,4 +108,6 @@ export type Agenda = z.infer<typeof agendaSchema>;
 export type AgendaIssue = z.infer<typeof agendaIssueSchema>;
 export type AgendaAction = z.infer<typeof agendaActionSchema>;
 export type EventPayload = z.infer<typeof eventPayloadSchema>;
+export type ReminderPayload = z.infer<typeof reminderPayloadSchema>;
 export type WriteResult = z.infer<typeof writeResultSchema>;
+export type WriteFailure = Extract<WriteResult, { ok: false }>;

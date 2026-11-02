@@ -1,14 +1,14 @@
 import { $ } from 'zurk';
 import { escapeAppleScriptString, runAppleScript } from '@alfredo/run-applescript';
 import { toEventUrl } from '../common/calendar-links.util';
-import { AccessStatus, CalendarEntity } from '../models/access-status.enum';
+import { CalendarEntity } from '../models/access-status.enum';
 import { CalendarEvent } from '../models/calendar-event.model';
-import type { EventPayload, WriteResult } from '../models/eventkit.schema';
+import type { EventPayload, WriteFailure } from '../models/eventkit.schema';
 import { MapProvider } from '../models/map-provider.enum';
 import { OpenEventPlatform } from '../models/open-event-platform.enum';
 import { formatDateToAppleScript, formatGoogleDate, getCurrentTimezone } from './date.service';
 import { toEventPayload } from './eventkit-payload.service';
-import { createEventWithEventKit, requestCalendarAccess } from './eventkit.service';
+import { createEventWithEventKit, ensureEventKitAccess } from './eventkit.service';
 
 const GOOGLE_MAPS_SEARCH_URL = 'https://www.google.com/maps/search/?api=1&query=';
 const APPLE_MAPS_SEARCH_URL = 'https://maps.apple.com/?q=';
@@ -18,8 +18,6 @@ type CreateEventOptions = Pick<EventPayload, 'calendarName' | 'alertMinutes'> & 
   platform: OpenEventPlatform;
   openAfter: boolean;
 };
-
-type WriteFailure = Extract<WriteResult, { ok: false }>;
 
 /**
  * Builds a maps "search" URL for the given location text.
@@ -152,15 +150,6 @@ export async function eventCreatorGoogleCalendar(event: CalendarEvent): Promise<
   }
 }
 
-/**
- * Time zones and alerts can only be saved through EventKit, not Calendar's AppleScript, and EventKit needs the
- * user's permission. Asks the first time; false means the event goes through AppleScript.
- */
-async function ensureEventKitAccess(): Promise<boolean> {
-  const status = await requestCalendarAccess(CalendarEntity.Event);
-  return status === AccessStatus.FullAccess;
-}
-
 function toWriteError({ error, detail }: WriteFailure): Error {
   if (error === 'calendar-not-found') {
     return new Error(
@@ -185,7 +174,7 @@ export async function createEvent(event: CalendarEvent, options: CreateEventOpti
     return await eventCreatorGoogleCalendar(event);
   }
 
-  const hasEventKitAccess = await ensureEventKitAccess();
+  const hasEventKitAccess = await ensureEventKitAccess(CalendarEntity.Event);
   if (!hasEventKitAccess) {
     if (!calendarName) {
       throw new Error('Calendar name is not defined!');

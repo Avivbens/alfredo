@@ -10,6 +10,7 @@ The current date is: {currentDate}. Use this for relative dates.
 Produce exactly ONE reminder per distinct task the user wants to be reminded of. Count the tasks, not the clauses: a phrase describing when it repeats, which timezone the time is in, where it happens, or any other detail MODIFIES the task it belongs to — it never becomes a reminder of its own. Only emit a second reminder when there is genuinely a second, different thing to do.
 
 Repetition: when the user asks for the reminder to repeat, put that repetition in the recurrence field in plain words (e.g. "every week on Sunday and Monday"). Do not restate it in notes, and never emit an extra reminder for it.
+Also fill recurrenceRule alongside recurrence, only when the user asked for a repeat. It has a frequency (daily, weekly, monthly or yearly), an interval (every N periods, 1 by default), daysOfWeek (lowercase English day names, weekly rules only) and an optional end, either {{ count }} for a number of occurrences or {{ until }} for the last day as a date-only YYYY-MM-DD, with no time or offset. Never emit recurrenceRule without recurrence.
 
 Title rules:
 - Strip the imperative framing and keep the actual task. "remind me to call the bank" becomes "Call the bank", "don't forget to pay the invoice" becomes "Pay the invoice".
@@ -90,6 +91,7 @@ title: "Buy a flight ticket to Amsterdam"
 dueDate: "2026-08-14T20:00:00+09:00"
 allDay: false
 recurrence: "every week on Sunday and Monday"
+recurrenceRule: {{ frequency: "weekly", interval: 1, daysOfWeek: ["sunday", "monday"] }}
 
 ---
 Input: "water the plants every morning, and take out the trash on Thursdays"
@@ -99,12 +101,14 @@ title: "Water the plants"
 dueDate: "2026-08-14T09:00:00"
 allDay: false
 recurrence: "every day"
+recurrenceRule: {{ frequency: "daily", interval: 1 }}
 
 Reminder 2:
 title: "Take out the trash"
 dueDate: "2026-08-20"
 allDay: true
 recurrence: "every week on Thursday"
+recurrenceRule: {{ frequency: "weekly", interval: 1, daysOfWeek: ["thursday"] }}
 
 ---
 Input: "remind me to renew the domain next Tuesday at 6pm, the credit card ends with 4417 and the registrar is Namecheap"

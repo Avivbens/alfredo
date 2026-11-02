@@ -1,10 +1,71 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { runAppleScript } from '@alfredo/run-applescript';
+import { ACCESS_JXA } from '../common/jxa/access.jxa';
+import { CREATE_REMINDER_JXA } from '../common/jxa/create-reminder.jxa';
+import { reminderPayloadSchema } from '../models/eventkit.schema';
+import type { ReminderPayload } from '../models/eventkit.schema';
 import { Reminder } from '../models/reminder.model';
 import * as dateService from './date.service';
-import { reminderCreatorAppleScript } from './reminder-creator.service';
+import { createReminder, reminderCreatorAppleScript } from './reminder-creator.service';
+
+// Mock runAppleScript, keeping the real escaping so the generated script is asserted as-is
+vi.mock('@alfredo/run-applescript', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@alfredo/run-applescript')>()),
+  runAppleScript: vi.fn(),
+}));
 
 // Spy on dateService functions
 vi.spyOn(dateService, 'formatDateToAppleScript');
+
+/** Raw ACCESS_JXA and CREATE_REMINDER_JXA output: statuses come back as EKAuthorizationStatus numbers. */
+const FULL_ACCESS = '{"event":2,"reminder":3}';
+const DENIED = '{"event":3,"reminder":2}';
+const UNDETERMINED = '{"event":3,"reminder":0}';
+const SAVED = '{"ok":true,"id":"REMINDER-1"}';
+
+type EventKitReplies = { access: string; request?: string; create?: string; showError?: Error };
+
+/** Mirrors ACCESS_JXA: a request returns the entity's status as is, and only an undetermined one gets the prompt's answer. */
+function toAccessReply(access: string, request: string, arg = '{}'): string {
+  const { mode, entity } = JSON.parse(arg);
+  if (mode !== 'request') {
+    return access;
+  }
+
+  const status = String(JSON.parse(access)[entity]);
+  return status === '0' ? request : status;
+}
+
+function mockEventKit({ access, request = '2', create = SAVED, showError }: EventKitReplies): void {
+  vi.mocked(runAppleScript).mockImplementation(async (script, options) => {
+    if (script === ACCESS_JXA) {
+      return toAccessReply(access, request, options?.args?.[0]);
+    }
+
+    if (script === CREATE_REMINDER_JXA) {
+      return create;
+    }
+
+    if (showError && script.includes('show ')) {
+      throw showError;
+    }
+
+    return '';
+  });
+}
+
+function getCreatePayload(): ReminderPayload | undefined {
+  const input = vi.mocked(runAppleScript).mock.calls.find(([script]) => script === CREATE_REMINDER_JXA)?.[1]?.args?.[0];
+
+  return input ? reminderPayloadSchema.parse(JSON.parse(input)) : undefined;
+}
+
+function getAppleScripts(): string[] {
+  return vi
+    .mocked(runAppleScript)
+    .mock.calls.filter(([, options]) => options?.language !== 'JavaScript')
+    .map(([script]) => script);
+}
 
 describe('reminderCreatorAppleScript', () => {
   const listName = 'Test List';
@@ -146,5 +207,129 @@ describe('reminderCreatorAppleScript', () => {
 
     expect(script).toContain(`name:"Call Joe\\"s office"`);
     expect(script).toContain(`body:"First line\\nSecond line"`);
+  });
+});
+
+describe('createReminder', () => {
+  const reminder: Reminder = {
+    title: 'Water the plants',
+    dueDate: new Date(2026, 10, 3, 9, 0),
+    allDay: false,
+    recurrence: 'every day',
+    recurrenceRule: { frequency: 'daily', interval: 1 },
+  };
+  const options = { listName: 'Home', openAfter: false };
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should create through EventKit with full access', async () => {
+    mockEventKit({ access: FULL_ACCESS });
+
+    await createReminder(reminder, options);
+
+    expect(getCreatePayload()).toEqual({
+      title: 'Water the plants',
+      listName: 'Home',
+      due: { year: 2026, month: 11, day: 3, hour: 9, minute: 0 },
+      alarmAtDue: true,
+      recurrence: { frequency: 'daily', interval: 1 },
+    });
+    expect(getAppleScripts()).toEqual([]);
+  });
+
+  it('should create in the default list through EventKit when no list is named', async () => {
+    mockEventKit({ access: FULL_ACCESS });
+
+    await createReminder(reminder, { ...options, listName: undefined });
+
+    expect(getCreatePayload()).not.toHaveProperty('listName');
+  });
+
+  it('should fall back to AppleScript when denied', async () => {
+    mockEventKit({ access: DENIED });
+
+    await createReminder(reminder, options);
+
+    expect(getCreatePayload()).toBeUndefined();
+    expect(getAppleScripts()).toEqual([reminderCreatorAppleScript('Home', reminder, false)]);
+    expect(getAppleScripts()[0]).toContain('Repeat: every day');
+  });
+
+  it('should request access when undetermined', async () => {
+    mockEventKit({ access: UNDETERMINED, request: '3' });
+
+    await createReminder(reminder, options);
+
+    expect(runAppleScript).toHaveBeenCalledWith(ACCESS_JXA, {
+      language: 'JavaScript',
+      args: ['{"mode":"request","entity":"reminder"}'],
+    });
+    expect(vi.mocked(runAppleScript).mock.calls.filter(([script]) => script === ACCESS_JXA)).toHaveLength(1);
+    expect(getCreatePayload()).toMatchObject({ title: 'Water the plants' });
+  });
+
+  it('should fall back to AppleScript when the request ends without access', async () => {
+    mockEventKit({ access: UNDETERMINED, request: '0' });
+
+    await createReminder(reminder, { ...options, openAfter: true });
+
+    expect(getCreatePayload()).toBeUndefined();
+    expect(getAppleScripts()).toEqual([reminderCreatorAppleScript('Home', reminder, true)]);
+  });
+
+  it('should show the list in Reminders after saving when openAfter is set', async () => {
+    mockEventKit({ access: FULL_ACCESS });
+
+    await createReminder(reminder, { ...options, openAfter: true });
+
+    expect(getCreatePayload()).toMatchObject({ title: 'Water the plants' });
+    expect(getAppleScripts()).toHaveLength(1);
+    expect(getAppleScripts()[0]).toContain('show list "Home"');
+    expect(getAppleScripts()[0]).not.toContain('make new reminder');
+  });
+
+  it('should show the default list after saving when no list is named', async () => {
+    mockEventKit({ access: FULL_ACCESS });
+
+    await createReminder(reminder, { listName: undefined, openAfter: true });
+
+    expect(getAppleScripts()[0]).toContain('show default list');
+  });
+
+  it('should say the reminder was saved when its list fails to show', async () => {
+    mockEventKit({
+      access: FULL_ACCESS,
+      showError: Object.assign(new Error('Command failed'), { stderr: 'Not allowed' }),
+    });
+
+    await expect(createReminder(reminder, { ...options, openAfter: true })).rejects.toThrow(
+      'Created the reminder but failed to show its list: Not allowed',
+    );
+    expect(getCreatePayload()).toMatchObject({ title: 'Water the plants' });
+  });
+
+  it('should report a missing list by name', async () => {
+    mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"list-not-found","detail":"Home"}' });
+
+    await expect(createReminder(reminder, { ...options, openAfter: true })).rejects.toThrow(
+      'Reminders list "Home" was not found or is read-only',
+    );
+    expect(getAppleScripts()).toEqual([]);
+  });
+
+  it('should report a missing default list when no list is named', async () => {
+    mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"list-not-found","detail":""}' });
+
+    await expect(createReminder(reminder, { listName: undefined, openAfter: false })).rejects.toThrow(
+      'No default list for new reminders',
+    );
+  });
+
+  it('should report a failed save with its detail', async () => {
+    mockEventKit({ access: FULL_ACCESS, create: '{"ok":false,"error":"save-failed","detail":"No due date"}' });
+
+    await expect(createReminder(reminder, options)).rejects.toThrow('Failed to save the reminder: No due date');
   });
 });

@@ -1,6 +1,29 @@
-import { escapeAppleScriptString } from '@alfredo/run-applescript';
+import { escapeAppleScriptString, runAppleScript } from '@alfredo/run-applescript';
+import { toFailureMessage } from '../common/failure-message.util';
+import { CalendarEntity } from '../models/access-status.enum';
+import type { ReminderPayload, WriteFailure } from '../models/eventkit.schema';
 import { Reminder } from '../models/reminder.model';
 import { formatDateToAppleScript } from './date.service';
+import { toReminderPayload } from './eventkit-payload.service';
+import { createReminderWithEventKit, ensureEventKitAccess } from './eventkit.service';
+
+type CreateReminderOptions = Pick<ReminderPayload, 'listName'> & { openAfter: boolean };
+
+function toListTarget(listName: string | undefined): string {
+  return listName ? `list "${escapeAppleScriptString(listName)}"` : 'default list';
+}
+
+/**
+ * Reveal the list, never the reminder: `show <reminder>` blocks for ~35s on
+ * macOS 26, long enough for the Apple event connection to die with -609,
+ * while `show <list>` returns in about a second and shows it just as well.
+ */
+function toShowListLines(listTarget: string): string {
+  return `  try
+    show ${listTarget}
+  end try
+  activate`;
+}
 
 export const reminderCreatorAppleScript = (
   listName: string | undefined,
@@ -31,19 +54,8 @@ export const reminderCreatorAppleScript = (
     }
   }
 
-  const listTarget = listName ? `list "${escapeAppleScriptString(listName)}"` : 'default list';
-
-  /**
-   * Reveal the list, never the reminder: `show <reminder>` blocks for ~35s on
-   * macOS 26 — long enough for the Apple event connection to die with -609 —
-   * while `show <list>` returns in about a second and shows it just as well.
-   */
-  const openBlock = shouldOpen
-    ? `  try
-    show ${listTarget}
-  end try
-  activate`
-    : '';
+  const listTarget = toListTarget(listName);
+  const openBlock = shouldOpen ? toShowListLines(listTarget) : '';
 
   return `
 tell application "Reminders"
@@ -55,3 +67,42 @@ ${openBlock}
 end tell
 `;
 };
+
+function toWriteError({ error, detail }: WriteFailure): Error {
+  if (error === 'list-not-found') {
+    return new Error(
+      detail ? `Reminders list "${detail}" was not found or is read-only` : 'No default list for new reminders',
+    );
+  }
+
+  return new Error(`Failed to save the reminder: ${detail}`);
+}
+
+async function showSavedReminderList(listName: string | undefined): Promise<void> {
+  try {
+    await runAppleScript(`tell application "Reminders"
+${toShowListLines(toListTarget(listName))}
+end tell`);
+  } catch (error) {
+    throw new Error(`Created the reminder but failed to show its list: ${toFailureMessage(error)}`, { cause: error });
+  }
+}
+
+/** The AppleScript fallback runs unchanged, so a denied user still gets the reminder with its repeat in the notes. */
+export async function createReminder(reminder: Reminder, options: CreateReminderOptions): Promise<void> {
+  const { listName, openAfter } = options;
+  const hasEventKitAccess = await ensureEventKitAccess(CalendarEntity.Reminder);
+  if (!hasEventKitAccess) {
+    await runAppleScript(reminderCreatorAppleScript(listName, reminder, openAfter));
+    return;
+  }
+
+  const result = await createReminderWithEventKit(toReminderPayload(reminder, { listName }));
+  if (!result.ok) {
+    throw toWriteError(result);
+  }
+
+  if (openAfter) {
+    await showSavedReminderList(listName);
+  }
+}

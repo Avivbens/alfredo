@@ -91,4 +91,90 @@ describe('reminder.model', () => {
       expect(result.notes).toBe('Registrar: Namecheap');
     });
   });
+
+  describe('recurrenceRule', () => {
+    it('should parse a weekly rule with days from the OpenAI shape, dropping nulls', () => {
+      const result = OpenAIReminderSchema.parse({
+        title: 'Buy a flight ticket to Amsterdam',
+        recurrenceRule: { frequency: 'weekly', interval: null, daysOfWeek: ['sunday', 'monday'], end: null },
+      });
+
+      expect(result.recurrenceRule).toEqual({ frequency: 'weekly', interval: 1, daysOfWeek: ['sunday', 'monday'] });
+    });
+
+    it('should default the interval to 1', () => {
+      const result = GeminiReminderSchema.parse({ title: 'Water the plants', recurrenceRule: { frequency: 'daily' } });
+
+      expect(result.recurrenceRule).toEqual({ frequency: 'daily', interval: 1 });
+    });
+
+    it('should parse an end by count and an end by date', () => {
+      const byCount = GeminiReminderSchema.parse({
+        title: 'Stretch',
+        recurrenceRule: { frequency: 'daily', interval: 2, end: { count: 5 } },
+      });
+      const byDate = GeminiReminderSchema.parse({
+        title: 'Stretch',
+        recurrenceRule: { frequency: 'monthly', end: { until: '2026-12-31' } },
+      });
+
+      expect(byCount.recurrenceRule).toEqual({ frequency: 'daily', interval: 2, end: { count: 5 } });
+      expect(byDate.recurrenceRule).toEqual({ frequency: 'monthly', interval: 1, end: { until: '2026-12-31' } });
+    });
+
+    it('should reject a frequency outside the four values', () => {
+      expect(() => GeminiReminderSchema.parse({ title: 'Stretch', recurrenceRule: { frequency: 'hourly' } })).toThrow();
+    });
+
+    it('should leave recurrenceRule out when the model sent none', () => {
+      const result = OpenAIReminderSchema.parse({ title: 'Buy milk', recurrenceRule: null });
+
+      expect(result).not.toHaveProperty('recurrenceRule');
+    });
+
+    it('should keep daysOfWeek only for weekly rules', () => {
+      const daily = GeminiReminderSchema.parse({
+        title: 'Stretch',
+        recurrenceRule: { frequency: 'daily', daysOfWeek: ['monday'] },
+      });
+      const emptyWeekly = GeminiReminderSchema.parse({
+        title: 'Stretch',
+        recurrenceRule: { frequency: 'weekly', daysOfWeek: [] },
+      });
+
+      expect(daily.recurrenceRule).toEqual({ frequency: 'daily', interval: 1 });
+      expect(emptyWeekly.recurrenceRule).toEqual({ frequency: 'weekly', interval: 1 });
+    });
+
+    it('should accept an until datetime with an offset', () => {
+      const result = GeminiReminderSchema.parse({
+        title: 'Stretch',
+        recurrenceRule: { frequency: 'daily', end: { until: '2026-12-31T23:59:00+09:00' } },
+      });
+
+      expect(result.recurrenceRule?.end).toEqual({ until: '2026-12-31T23:59:00+09:00' });
+    });
+
+    it('should reject an unparseable until, a zero count and a zero interval', () => {
+      const parse = (recurrenceRule: object) => () => GeminiReminderSchema.parse({ title: 'Stretch', recurrenceRule });
+
+      expect(parse({ frequency: 'daily', end: { until: 'next year' } })).toThrow();
+      expect(parse({ frequency: 'daily', end: { count: 0 } })).toThrow();
+      expect(parse({ frequency: 'daily', interval: 0 })).toThrow();
+    });
+
+    /** create-reminder parses the script filter's arg again, and that arg is this schema's own normalized output. */
+    it('should parse its own output again, with the nulls already dropped', () => {
+      const first = OpenAIReminderSchema.parse({
+        title: 'Water the plants',
+        notes: null,
+        dueDate: '2026-11-03T09:00:00',
+        allDay: false,
+        recurrence: 'every day',
+        recurrenceRule: { frequency: 'daily', interval: null, daysOfWeek: null, end: null },
+      });
+
+      expect(OpenAIReminderSchema.parse(JSON.parse(JSON.stringify(first)))).toEqual(first);
+    });
+  });
 });

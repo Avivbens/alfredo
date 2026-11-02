@@ -3,13 +3,16 @@ import { homedir } from 'node:os';
 import { promisify } from 'node:util';
 import { startSession, startVSCodeSession, toAgentCommand } from '@alfredo/terminal-session';
 import type { Clone } from '../models/clone.schema';
-import type { LaunchAction, PrAction } from '../models/launch-action.schema';
+import type { LaunchAction, PrAction, TaskAction } from '../models/launch-action.schema';
 import type { Settings } from '../models/settings.model';
+import type { WorktreeResult } from '../models/worktree-result.schema';
 import { findClones } from './clone-index.service';
 import { toCommandError } from './git.service';
 import { detectInstallCommand, runInstallInBackground } from './install.service';
 import { loadPrStates } from './pr-match.service';
 import { ensurePrWorktree } from './pr-worktree.service';
+import { ensureTaskWorktree } from './task-worktree.service';
+import { getTrunk } from './trunk.service';
 
 const EDITOR_APP_NAMES: Record<Settings['editor_app'], string> = {
   vscode: 'Visual Studio Code',
@@ -45,18 +48,14 @@ async function findInstallCommand(path: string, shouldInstall: boolean): Promise
   return detectInstallCommand(path);
 }
 
-async function launchPr(action: PrAction, settings: Settings): Promise<void> {
-  const { pr, mode } = action;
-  if (mode === 'browser') {
-    await runOpen([pr.url]);
-
-    return;
-  }
-
-  const clone = await findClone(action, settings);
-  const { path, created } = await ensurePrWorktree(clone, pr);
-  /** A fork's install scripts are code from outside the repo, so a fork PR never installs on its own. */
-  const install = await findInstallCommand(path, created && !pr.isCrossRepository && settings.install_after_create);
+/** One place for the editor and session rules, so pull request and task actions cannot drift apart. */
+async function openWorktree(
+  { path, created }: WorktreeResult,
+  mode: Exclude<PrAction['mode'], 'browser'>,
+  settings: Settings,
+  { skipInstall = false }: { skipInstall?: boolean } = {},
+): Promise<void> {
+  const install = await findInstallCommand(path, created && !skipInstall && settings.install_after_create);
   /** A worktree created just now has no session to resume, so it starts a new one. */
   const sessionMode = mode === 'resume-session' && !created ? 'resume' : 'new';
 
@@ -79,10 +78,37 @@ async function launchPr(action: PrAction, settings: Settings): Promise<void> {
   await startVSCodeSession({ path, mode: sessionMode, home: homedir() });
 }
 
+async function launchPr(action: PrAction, settings: Settings): Promise<void> {
+  const { pr, mode } = action;
+  if (mode === 'browser') {
+    await runOpen([pr.url]);
+
+    return;
+  }
+
+  const clone = await findClone(action, settings);
+  const worktree = await ensurePrWorktree(clone, pr);
+
+  /** A fork's install scripts are code from outside the repo, so a fork PR never installs on its own. */
+  await openWorktree(worktree, mode, settings, { skipInstall: pr.isCrossRepository });
+}
+
+async function launchTask({ branch, clone, mode }: TaskAction, settings: Settings): Promise<void> {
+  const trunk = await getTrunk(clone);
+  const worktree = await ensureTaskWorktree(clone, branch, trunk);
+
+  await openWorktree(worktree, mode, settings);
+}
+
 export async function launch(action: LaunchAction, settings: Settings): Promise<void> {
   switch (action.kind) {
     case 'pr': {
       await launchPr(action, settings);
+
+      return;
+    }
+    case 'task': {
+      await launchTask(action, settings);
 
       return;
     }

@@ -1,19 +1,10 @@
-import { lstat } from 'node:fs/promises';
 import { getCheckouts } from '@alfredo/git-worktrees';
+import { isPathTaken } from '../common/path-exists.util';
 import { pickFreePath, toLocalBranch, toWorktreeName, toWorktreePath } from '../common/worktree-name.util';
 import type { Clone } from '../models/clone.schema';
 import type { PullRequest } from '../models/pull-request.schema';
+import type { WorktreeResult } from '../models/worktree-result.schema';
 import { GitError, runGit } from './git.service';
-
-async function exists(path: string): Promise<boolean> {
-  try {
-    await lstat(path);
-
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /** `show-ref` and `merge-base --is-ancestor` exit 1 for a plain "no", which is an answer, not a failure. */
 async function succeeds(cwd: string, args: string[]): Promise<boolean> {
@@ -35,7 +26,7 @@ async function succeeds(cwd: string, args: string[]): Promise<boolean> {
  * a leftover folder from a worktree deleted without pruning still counts as taken. The `+` refspec keeps
  * `origin/<branch>` current even in a clone with a narrowed fetch refspec, so the fast-forward never reads a stale ref.
  */
-export async function ensurePrWorktree(clone: Clone, pr: PullRequest): Promise<{ path: string; created: boolean }> {
+export async function ensurePrWorktree(clone: Clone, pr: PullRequest): Promise<WorktreeResult> {
   const branch = toLocalBranch(pr);
   const checkouts = await getCheckouts(clone.path);
   const existing = checkouts.find((checkout) => checkout.branch === branch);
@@ -47,7 +38,7 @@ export async function ensurePrWorktree(clone: Clone, pr: PullRequest): Promise<{
   await runGit(clone.path, ['worktree', 'prune']);
   const name = toWorktreeName(branch);
   const preferred = toWorktreePath(clone.path, name);
-  const path = await pickFreePath(preferred, exists);
+  const path = await pickFreePath(preferred, isPathTaken);
 
   if (pr.isCrossRepository) {
     await runGit(clone.path, ['fetch', 'origin', `pull/${pr.number}/head:${branch}`]);

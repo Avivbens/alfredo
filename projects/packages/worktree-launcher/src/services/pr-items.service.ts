@@ -1,14 +1,11 @@
 import type { AlfredListItem } from 'fast-alfred';
+import { toHomeRelative } from '../common/home-path.util';
 import type { PrAction } from '../models/launch-action.schema';
 import type { LauncherIssue } from '../models/launcher-issue.schema';
 import type { PrState } from './pr-match.service';
 
 /** The typings omit `shift`, which Alfred accepts. */
 type ItemMods = NonNullable<AlfredListItem['mods']> & { shift?: { arg: string; subtitle: string } };
-
-function toHomeRelative(path: string, home: string): string {
-  return path === home || path.startsWith(`${home}/`) ? `~${path.slice(home.length)}` : path;
-}
 
 function toIssueItem(issue: LauncherIssue, home: string): AlfredListItem {
   switch (issue.kind) {

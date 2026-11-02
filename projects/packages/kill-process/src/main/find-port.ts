@@ -36,7 +36,8 @@ import { searchPort } from '../services/search.service';
 
     const sliced = items.slice(0, sliceAmount);
 
-    alfredClient.output({ items: sliced, rerun: rerunInterval });
+    /** Alfred keeps the selected row across a rerun only with `skipknowledge` and a stable uid, which port and PID give. */
+    alfredClient.output({ items: sliced, rerun: rerunInterval, skipknowledge: true });
   } catch (error) {
     alfredClient.error(error);
   }

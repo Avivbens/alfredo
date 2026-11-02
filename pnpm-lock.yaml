@@ -452,6 +452,21 @@ importers:
         specifier: workspace:*
         version: link:../../libs/updater
 
+  projects/packages/worktree-launcher:
+    dependencies:
+      '@alfredo/command-injection':
+        specifier: workspace:*
+        version: link:../../libs/command-injection
+      '@alfredo/git-worktrees':
+        specifier: workspace:*
+        version: link:../../libs/git-worktrees
+      '@alfredo/terminal-session':
+        specifier: workspace:*
+        version: link:../../libs/terminal-session
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
   projects/workspace: {}
 
 packages:

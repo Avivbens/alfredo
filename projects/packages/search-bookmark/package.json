@@ -16,6 +16,7 @@
     "email": "avivbens87@gmail.com"
   },
   "dependencies": {
+    "@alfredo/run-applescript": "workspace:*",
     "@alfredo/updater": "workspace:*"
   }
 }

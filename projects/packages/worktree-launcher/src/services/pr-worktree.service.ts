@@ -22,10 +22,44 @@ async function succeeds(cwd: string, args: string[]): Promise<boolean> {
 }
 
 /**
- * The early return means the branch is not checked out anywhere, so moving a behind local ref is safe;
- * a leftover folder from a worktree deleted without pruning still counts as taken. The `+` refspec keeps
- * `origin/<branch>` current even in a clone with a narrowed fetch refspec, so the fast-forward never reads a stale ref.
+ * The `+` keeps `origin/<branch>` current even in a clone with a narrowed fetch refspec, so a fast-forward never reads
+ * a stale ref.
  */
+export function toFetchRefspec(branch: string): string {
+  return `+refs/heads/${branch}:refs/remotes/origin/${branch}`;
+}
+
+export async function hasLocalBranch(clonePath: string, branch: string): Promise<boolean> {
+  return succeeds(clonePath, ['show-ref', '--verify', '--quiet', `refs/heads/${branch}`]);
+}
+
+/** The old value makes git refuse the move if the ref changed since it was read. */
+export async function fastForwardBranch(clonePath: string, branch: string): Promise<void> {
+  const local = `refs/heads/${branch}`;
+  const remote = `refs/remotes/origin/${branch}`;
+  const canFastForward = await succeeds(clonePath, ['merge-base', '--is-ancestor', local, remote]);
+  if (!canFastForward) {
+    return;
+  }
+
+  const output = await runGit(clonePath, ['rev-parse', local]);
+  const oldSha = output.trim();
+  await runGit(clonePath, ['update-ref', local, remote, oldSha]);
+}
+
+export async function addBranchWorktree(clonePath: string, branch: string, path: string): Promise<void> {
+  const hasBranch = await hasLocalBranch(clonePath, branch);
+  if (!hasBranch) {
+    await runGit(clonePath, ['worktree', 'add', '--track', '-b', branch, path, `origin/${branch}`]);
+
+    return;
+  }
+
+  await fastForwardBranch(clonePath, branch);
+  await runGit(clonePath, ['worktree', 'add', path, branch]);
+}
+
+/** The early return means the branch is not checked out anywhere, so a fast-forward is safe. */
 export async function ensurePrWorktree(clone: Clone, pr: PullRequest): Promise<WorktreeResult> {
   const branch = toLocalBranch(pr);
   const checkouts = await getCheckouts(clone.path);
@@ -47,23 +81,9 @@ export async function ensurePrWorktree(clone: Clone, pr: PullRequest): Promise<W
     return { path, created: true };
   }
 
-  const local = `refs/heads/${branch}`;
-  const remote = `refs/remotes/origin/${branch}`;
-  await runGit(clone.path, ['fetch', 'origin', `+${local}:${remote}`]);
-  const hasLocalBranch = await succeeds(clone.path, ['show-ref', '--verify', '--quiet', local]);
-  if (!hasLocalBranch) {
-    await runGit(clone.path, ['worktree', 'add', '--track', '-b', branch, path, `origin/${branch}`]);
-
-    return { path, created: true };
-  }
-
-  const canFastForward = await succeeds(clone.path, ['merge-base', '--is-ancestor', local, remote]);
-  if (canFastForward) {
-    const output = await runGit(clone.path, ['rev-parse', local]);
-    const oldSha = output.trim();
-    await runGit(clone.path, ['update-ref', local, remote, oldSha]);
-  }
-  await runGit(clone.path, ['worktree', 'add', path, branch]);
+  const refspec = toFetchRefspec(branch);
+  await runGit(clone.path, ['fetch', 'origin', refspec]);
+  await addBranchWorktree(clone.path, branch, path);
 
   return { path, created: true };
 }

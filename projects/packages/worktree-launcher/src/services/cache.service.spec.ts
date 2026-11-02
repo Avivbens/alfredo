@@ -66,6 +66,23 @@ describe('cache.service', () => {
       expect(value).toEqual(['fresh']);
     });
 
+    it('should skip the cached value and store the fresh one when forced', async () => {
+      const cache = toCache(['hit']);
+
+      const value = await loadCached(
+        cache,
+        'k',
+        MAX_AGE,
+        SCHEMA,
+        async () => ['fresh'],
+        () => true,
+        { force: true },
+      );
+
+      expect(value).toEqual(['fresh']);
+      expect(cache.setWithTTL).toHaveBeenCalledWith('k', ['fresh'], { maxAge: MAX_AGE });
+    });
+
     it('should not store a value the predicate rejects, such as a failed load', async () => {
       const cache = toCache(null);
 

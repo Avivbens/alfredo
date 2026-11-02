@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { getCacheDir } from '../common/cache-dir.util';
 import { messageOf } from '../common/error.util';
 import { notify } from '../common/notify.util';
-import { GIFS_DIR } from '../config/constants';
+import { GIFS_DIR, PREVIEWS_DIR } from '../config/constants';
 import { CopyPayloadSchema } from '../models/copy-payload.schema';
 import { copyFileToClipboard } from '../services/clipboard.service';
 import { getGifFile } from '../services/gif-file.service';
@@ -14,7 +14,8 @@ import { getGifFile } from '../services/gif-file.service';
 
   try {
     const payload = alfredSchemas.json(CopyPayloadSchema).parse(alfredClient.input);
-    const path = await getGifFile(payload, join(getCacheDir(alfredClient), GIFS_DIR));
+    const cacheDir = getCacheDir(alfredClient);
+    const path = await getGifFile(payload, join(cacheDir, GIFS_DIR), join(cacheDir, PREVIEWS_DIR));
 
     await copyFileToClipboard(path);
   } catch (error) {

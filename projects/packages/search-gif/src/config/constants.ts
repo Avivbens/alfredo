@@ -19,3 +19,16 @@ export const GIFS_DIR = 'gifs';
 
 /** A clipboard manager keeps only a reference to a copied GIF, so the file has to outlive later pastes. */
 export const CACHED_FILES_MAX_AGE = millisecondsInWeek;
+
+export const PREVIEWS_DIR = 'previews';
+export const PRELOAD_SCRIPT = 'preload-previews.js';
+
+/** A preview only matters while its search is cached, and weighs up to 2 MB, so it expires with the search. */
+export const PREVIEWS_MAX_AGE = SEARCH_CACHE_TTL;
+
+/** Previews come from GIPHY's media servers, not the keyed API, so only the connection limits how many run at once. */
+export const PRELOAD_CONCURRENCY = 4;
+
+/** The list re-runs from the cached search at this pace, pointing ⇧ at each preview as it lands, for 10 seconds at most. */
+export const PREVIEW_RERUN_SECONDS = 0.5;
+export const PREVIEW_MAX_RERUNS = 20;

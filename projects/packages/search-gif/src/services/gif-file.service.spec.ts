@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -6,6 +6,7 @@ import type { CopyPayload } from '../models/copy-payload.schema';
 import { getGifFile } from './gif-file.service';
 
 const GIF_BYTES = Buffer.from('GIF89a-original');
+const PREVIEW_BYTES = Buffer.from('GIF89a-preview');
 
 const PAYLOAD: CopyPayload = {
   id: '3o7TKSjRrfIPjeiVyM',
@@ -15,9 +16,12 @@ const PAYLOAD: CopyPayload = {
 describe('gif-file.service', () => {
   const fetchMock = vi.fn<typeof fetch>();
   let dir: string;
+  let previewsDir: string;
 
   beforeEach(async () => {
     dir = await mkdtemp(join(tmpdir(), 'search-gif-'));
+    previewsDir = join(dir, 'previews');
+    await mkdir(previewsDir);
     fetchMock.mockImplementation(async () => new Response(GIF_BYTES));
     vi.stubGlobal('fetch', fetchMock);
   });
@@ -29,7 +33,7 @@ describe('gif-file.service', () => {
 
   describe('getGifFile', () => {
     it('should download the GIF into the folder, named by its id', async () => {
-      const path = await getGifFile(PAYLOAD, dir);
+      const path = await getGifFile(PAYLOAD, dir, previewsDir);
 
       expect(path).toBe(join(dir, '3o7TKSjRrfIPjeiVyM.gif'));
       expect(await readFile(path)).toEqual(GIF_BYTES);
@@ -39,7 +43,18 @@ describe('gif-file.service', () => {
     it('should reuse a GIF copied before instead of downloading it again', async () => {
       await writeFile(join(dir, '3o7TKSjRrfIPjeiVyM.gif'), GIF_BYTES);
 
-      expect(await getGifFile(PAYLOAD, dir)).toBe(join(dir, '3o7TKSjRrfIPjeiVyM.gif'));
+      expect(await getGifFile(PAYLOAD, dir, previewsDir)).toBe(join(dir, '3o7TKSjRrfIPjeiVyM.gif'));
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it('should copy a preloaded preview instead of downloading it, into its own file that outlives the preview', async () => {
+      await writeFile(join(previewsDir, '3o7TKSjRrfIPjeiVyM.gif'), PREVIEW_BYTES);
+
+      const path = await getGifFile(PAYLOAD, dir, previewsDir);
+      await rm(join(previewsDir, '3o7TKSjRrfIPjeiVyM.gif'));
+
+      expect(path).toBe(join(dir, '3o7TKSjRrfIPjeiVyM.gif'));
+      expect(await readFile(path)).toEqual(PREVIEW_BYTES);
       expect(fetchMock).not.toHaveBeenCalled();
     });
   });

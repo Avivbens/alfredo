@@ -12,7 +12,8 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 Search GIPHY for GIFs right from Alfred, with a thumbnail next to every result.
 
 - ⇧ plays the GIF large in Quick Look
-- ↩ copies the GIF URL, and Alfred stays open so you can copy another one
+- ↩ copies the GIF itself, ready to paste into Slack, Messages or Finder
+- Alfred stays open after a copy, so you can copy another one
 
 ## Usage
 

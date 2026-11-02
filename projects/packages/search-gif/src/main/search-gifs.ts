@@ -2,7 +2,7 @@ import { FastAlfred } from 'fast-alfred';
 import { join } from 'node:path';
 import { registerUpdater } from '@alfredo/updater';
 import { getCacheDir } from '../common/cache-dir.util';
-import { CACHED_FILES_MAX_AGE, THUMBNAILS_DIR } from '../config/constants';
+import { CACHED_FILES_MAX_AGE, GIFS_DIR, THUMBNAILS_DIR } from '../config/constants';
 import { SettingsSchema } from '../models/settings.schema';
 import { pruneOldFiles } from '../services/files.service';
 import { toGifItem } from '../services/gif-item.service';
@@ -16,11 +16,15 @@ import { loadThumbnails } from '../services/thumbnail.service';
 
   try {
     const settings = alfredClient.env.parse(SettingsSchema);
-    const thumbnailsDir = join(getCacheDir(alfredClient), THUMBNAILS_DIR);
+    const cacheDir = getCacheDir(alfredClient);
+    const thumbnailsDir = join(cacheDir, THUMBNAILS_DIR);
 
     const { gifs, issues } = await loadGifs(alfredClient.cache, { ...settings, query: alfredClient.input.trim() });
 
-    await pruneOldFiles(thumbnailsDir, CACHED_FILES_MAX_AGE);
+    await Promise.all([
+      pruneOldFiles(thumbnailsDir, CACHED_FILES_MAX_AGE),
+      pruneOldFiles(join(cacheDir, GIFS_DIR), CACHED_FILES_MAX_AGE),
+    ]);
     const thumbnails = await loadThumbnails(gifs, thumbnailsDir);
 
     alfredClient.output({

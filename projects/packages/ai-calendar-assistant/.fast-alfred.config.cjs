@@ -32,7 +32,7 @@ Events keep their time zone, so a New York meeting shows at the right time anywh
 2. Describe the task in natural language (e.g., "remind me to call the bank tomorrow at 9am").
 3. Press Enter to create the reminder.
 
-A reminder with a time gets an alert at that time, a reminder with only a date becomes an all-day reminder, and a reminder with no date at all is simply added to your list. Reminders go to your default list unless you name one in the workflow settings.
+Reminders go to your default list unless you name one in the workflow settings.
 
 Repeats work too, like "every Monday at 9" or "every day until Friday".
 

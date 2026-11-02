@@ -43,6 +43,19 @@ const GRAPHQL_RESPONSE = {
         },
       ],
     },
+    assigned: {
+      nodes: [
+        {
+          number: 15287,
+          title: 'Refresh schedules',
+          url: 'https://github.com/Mirovia-Security/backend/pull/15287',
+          isDraft: false,
+          headRefName: 'POC-29991/schedule-refresh',
+          isCrossRepository: false,
+          repository: { nameWithOwner: 'Mirovia-Security/backend' },
+        },
+      ],
+    },
   },
 };
 
@@ -59,7 +72,7 @@ describe('pull-requests.service', () => {
   });
 
   describe('loadPullRequests', () => {
-    it("should flatten mine then review, keeping gh's order", async () => {
+    it("should flatten mine, review then assigned, keeping gh's order", async () => {
       mockExecFile(JSON.stringify(GRAPHQL_RESPONSE));
       const { loadPullRequests } = await import('./pull-requests.service');
 
@@ -70,6 +83,7 @@ describe('pull-requests.service', () => {
         ['mine', 3],
         ['mine', 2],
         ['review', 9],
+        ['assigned', 15287],
       ]);
       expect(prs[0]).toMatchObject({ nameWithOwner: 'avivbens/alfredo', isDraft: true, headRefName: 'feat/launcher' });
       expect(execFile).toHaveBeenCalledWith(
@@ -77,6 +91,21 @@ describe('pull-requests.service', () => {
         ['api', 'graphql', '-f', expect.stringMatching(/^query=query \{/)],
         expect.any(Function),
       );
+    });
+
+    it('should list assigned pull requests after review requests, tagged assigned', async () => {
+      mockExecFile(JSON.stringify(GRAPHQL_RESPONSE));
+      const { loadPullRequests } = await import('./pull-requests.service');
+
+      const { prs } = await loadPullRequests('/opt/homebrew/bin/gh');
+
+      expect(prs.at(-1)).toMatchObject({
+        source: 'assigned',
+        number: 15287,
+        nameWithOwner: 'mirovia-security/backend',
+        headRefName: 'POC-29991/schedule-refresh',
+      });
+      expect(prs.map(({ source }) => source)).toEqual(['mine', 'mine', 'review', 'assigned']);
     });
 
     it('should report gh-missing without spawning', async () => {

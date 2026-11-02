@@ -1,3 +1,4 @@
+import { matches } from 'fast-alfred';
 import { describe, expect, it, vi } from 'vitest';
 import type { Worktree } from '@alfredo/git-worktrees';
 import type { Clone } from '../models/clone.schema';
@@ -47,8 +48,14 @@ describe('pr-match.service', () => {
       expect(toPrStates([toPr()], [APP], checkouts)).toEqual([{ pr: toPr(), clone: APP }]);
     });
 
-    it('should search by title, repo and #number', () => {
-      expect(toSearchText(toPr())).toBe('Add login owner/app #7');
+    it('should search by title, repo, #number and branch', () => {
+      expect(toSearchText(toPr())).toBe('Add login owner/app #7 feat/login');
+    });
+
+    it('should match the branch name when typing', () => {
+      const pr = toPr({ headRefName: 'POC-29991/schedule-refresh' });
+
+      expect(matches('POC-29991/schedule-refresh', [pr], toSearchText)).toEqual([pr]);
     });
 
     it('should leave both empty when no clone has the repo', () => {
@@ -69,13 +76,18 @@ describe('pr-match.service', () => {
       expect(toPrStates([toPr()], [longer, APP], {})[0]).toMatchObject({ clone: APP });
     });
 
-    it('should list a PR that is both mine and a review request once, as mine', () => {
-      const mine = toPr();
-      const review = toPr({ source: 'review' });
+    it('should keep one entry per PR, preferring mine, then review, then assigned', () => {
+      const prs = [toPr({ source: 'assigned' }), toPr({ source: 'review' }), toPr({ source: 'mine' })];
 
-      const states = toPrStates([review, mine], [APP], {});
+      const states = toPrStates(prs, [APP], {});
 
       expect(states.map(({ pr }) => pr.source)).toEqual(['mine']);
+    });
+
+    it('should keep the review entry over an assigned one', () => {
+      const states = toPrStates([toPr({ source: 'assigned' }), toPr({ source: 'review' })], [APP], {});
+
+      expect(states.map(({ pr }) => pr.source)).toEqual(['review']);
     });
   });
 

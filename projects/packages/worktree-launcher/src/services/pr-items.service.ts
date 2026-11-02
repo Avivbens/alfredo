@@ -7,6 +7,11 @@ import type { PrState } from './pr-match.service';
 /** The typings omit `shift`, which Alfred accepts. */
 type ItemMods = NonNullable<AlfredListItem['mods']> & { shift?: { arg: string; subtitle: string } };
 
+const SOURCE_PREFIX: Partial<Record<PrState['pr']['source'], string>> = {
+  review: 'Review · ',
+  assigned: 'Assigned · ',
+};
+
 function toIssueItem(issue: LauncherIssue, home: string): AlfredListItem {
   switch (issue.kind) {
     case 'gh-missing': {
@@ -65,7 +70,7 @@ function toMods({ pr, clone }: PrState, shift: NonNullable<ItemMods['shift']>): 
 
 function toPrItem(state: PrState, home: string): AlfredListItem {
   const { pr, clone } = state;
-  const prefix = `${pr.source === 'review' ? 'Review · ' : ''}${pr.isDraft ? 'Draft · ' : ''}`;
+  const prefix = `${SOURCE_PREFIX[pr.source] ?? ''}${pr.isDraft ? 'Draft · ' : ''}`;
   const subtitle = `${prefix}${pr.nameWithOwner} #${pr.number} · ${toLocation(state, home)}`;
   const shift = { arg: toArg(pr, 'browser'), subtitle: 'Open the pull request in the browser' };
   const mods = toMods(state, shift);

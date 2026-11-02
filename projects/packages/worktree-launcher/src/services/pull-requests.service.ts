@@ -17,6 +17,7 @@ const graphqlResponseSchema = z.object({
   data: z.object({
     mine: z.object({ nodes: z.array(z.unknown()) }),
     review: z.object({ nodes: z.array(z.unknown()) }),
+    assigned: z.object({ nodes: z.array(z.unknown()) }),
   }),
 });
 
@@ -51,8 +52,9 @@ export async function loadPullRequests(): Promise<PullRequestResult> {
     const { data } = graphqlResponseSchema.parse(JSON.parse(output));
     const mine = toPullRequests(data.mine.nodes, 'mine');
     const review = toPullRequests(data.review.nodes, 'review');
+    const assigned = toPullRequests(data.assigned.nodes, 'assigned');
 
-    return { prs: [...mine, ...review], issues: [] };
+    return { prs: [...mine, ...review, ...assigned], issues: [] };
   } catch (error) {
     const issue = toIssue(error);
 

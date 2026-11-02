@@ -33,7 +33,7 @@ describe('chrome-tabs.service', () => {
       const script = runAppleScriptMock.mock.calls[0]?.[0] ?? '';
       expect(script.indexOf('running()')).toBeGreaterThanOrEqual(0);
       expect(script.indexOf('running()')).toBeLessThan(script.indexOf('windows('));
-      expect(script).toContain("mode() !== 'incognito'");
+      expect(script).toMatch(/mode\(\) !== ["']incognito["']/);
     });
 
     it('should return the windows of a running Chrome', async () => {

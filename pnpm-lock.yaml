@@ -339,7 +339,14 @@ importers:
 
   projects/libs/run-applescript: {}
 
-  projects/libs/terminal-session: {}
+  projects/libs/terminal-session:
+    dependencies:
+      '@alfredo/command-injection':
+        specifier: workspace:*
+        version: link:../command-injection
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../run-applescript
 
   projects/libs/updater: {}
 

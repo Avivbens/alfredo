@@ -62,12 +62,35 @@ export async function getCheckouts(repoPath: string): Promise<Worktree[]> {
   return [{ path: repoPath, branch: parseHead(head) }, ...linked];
 }
 
-export async function getRepoOfWorktree(path: string): Promise<string | null> {
+/** A linked worktree's `.git` is a file pointing at its admin dir. `resolve` also covers a relative pointer. */
+async function readAdminDir(path: string): Promise<string | null> {
   const dotGitFile = await readGitFile(inGitDir(path));
   const gitdir = dotGitFile && parseGitdirPointer(dotGitFile);
-  if (!gitdir) {
+
+  return gitdir ? resolve(path, gitdir) : null;
+}
+
+async function readLinkedHead(path: string): Promise<string | null> {
+  const adminDir = await readAdminDir(path);
+
+  return adminDir ? readGitFile(join(adminDir, 'HEAD')) : null;
+}
+
+/** A linked worktree resolves without its repo, since search results often hold the worktree alone. */
+export async function getCheckout(path: string): Promise<Worktree | null> {
+  const head = (await readGitFile(inGitDir(path, 'HEAD'))) ?? (await readLinkedHead(path));
+  if (head === null) {
     return null;
   }
 
-  return toRepoOfAdminDir(resolve(path, gitdir));
+  return { path, branch: parseHead(head) };
+}
+
+export async function getRepoOfWorktree(path: string): Promise<string | null> {
+  const adminDir = await readAdminDir(path);
+  if (!adminDir) {
+    return null;
+  }
+
+  return toRepoOfAdminDir(adminDir);
 }

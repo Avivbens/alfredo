@@ -1,10 +1,14 @@
 import type { AlfredListItem, IconService } from 'fast-alfred';
 import { basename } from 'node:path';
 import type { Worktree } from '@alfredo/git-worktrees';
-import { joinSubtitle, pluralize } from '../common/text.util';
+import { TREE_GLYPHS, joinSubtitle, pluralize } from '../common/text.util';
+import type { CheckoutLayer, StackHeaderEntry } from '../models/checkout-entry.model';
 import type { FileSearch } from '../models/file-search.model';
 import type { ResultRow } from '../models/result-row.model';
 import type { AppRouter } from '../models/routes.model';
+
+/** IconService has no key for CoreTypes' stacked-pages icon, so it is asked for by file name. */
+const STACK_ICON = 'MultipleItemsIcon';
 
 function toFileItem(path: string, icon: string, subtitle = path): AlfredListItem {
   return {
@@ -37,14 +41,35 @@ function toWorktreesItem(
   });
 }
 
+export function toStackHeaderItem({ title, subtitle }: StackHeaderEntry, icons: IconService): AlfredListItem {
+  const iconPath = icons.getIcon(STACK_ICON);
+
+  return { title: `${TREE_GLYPHS.header}${title}`, subtitle, valid: false, icon: { path: iconPath } };
+}
+
+function toLayerLabel({ position, size, prNumber }: CheckoutLayer): string {
+  return prNumber === undefined ? `${position}/${size}` : `${position}/${size} #${prNumber}`;
+}
+
+function toCheckoutSubtitle(branch: string, path: string, layer?: CheckoutLayer): string {
+  if (!layer) {
+    return joinSubtitle(branch, path);
+  }
+  const label = toLayerLabel(layer);
+
+  return joinSubtitle(label, branch, path);
+}
+
 export function toCheckoutItem(
   { path, branch }: Worktree,
   icons: IconService,
-  { dirty = false }: { dirty?: boolean } = {},
+  { dirty = false, layer, glyph = '' }: { dirty?: boolean; layer?: CheckoutLayer; glyph?: string } = {},
 ): AlfredListItem {
-  const item = toFileItem(path, icons.getIcon('genericFolder'), joinSubtitle(branch, path));
+  const subtitle = toCheckoutSubtitle(branch, path, layer);
+  const icon = icons.getIcon('genericFolder');
+  const item = toFileItem(path, icon, subtitle);
 
-  return { ...item, title: dirty ? `${item.title} ●` : item.title };
+  return { ...item, title: `${glyph}${item.title}${dirty ? ' ●' : ''}` };
 }
 
 export function toResultItems(row: ResultRow, icons: IconService, router: AppRouter): AlfredListItem[] {

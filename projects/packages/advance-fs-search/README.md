@@ -13,6 +13,7 @@ Search over your file system with [Alfred](https://www.alfredapp.com/).
 ## Features 🥷
 
 - Support VSCode as an editor
+- ↩ on a repo's ⎇ row lists its checkouts, and a stack's worktrees appear together under a header
 - Supported terminals:
   - iTerm2
   - Warp

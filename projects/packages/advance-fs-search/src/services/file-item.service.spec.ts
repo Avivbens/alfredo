@@ -2,7 +2,7 @@ import { IconService, RouterService } from 'fast-alfred';
 import { describe, expect, it } from 'vitest';
 import type { ResultRow } from '../models/result-row.model';
 import { type AppRouter, ROUTES } from '../models/routes.model';
-import { toCheckoutItem, toResultItems } from './file-item.service';
+import { toCheckoutItem, toResultItems, toStackHeaderItem } from './file-item.service';
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 const icons = new IconService();
@@ -111,6 +111,40 @@ describe('file-item.service', () => {
 
       expect(item).toMatchObject({ title: 'ios-shortcuts@m4-libraries', arg: `${REPO}@m4-libraries` });
       expect(item.subtitle).toBe(`fix/generator-nx-install · ${REPO}@m4-libraries`);
+    });
+
+    it.each([
+      ['with', { position: 3, size: 5, prNumber: 59 }, '3/5 #59'],
+      ['without', { position: 8, size: 8 }, '8/8'],
+    ])('should lead the subtitle of a stacked checkout with its layer, %s a pull request', (_, layer, label) => {
+      const item = toCheckoutItem({ path: `${REPO}@m4-libraries`, branch: 'feat/m4-libraries' }, icons, { layer });
+
+      expect(item.subtitle).toBe(`${label} · feat/m4-libraries · ${REPO}@m4-libraries`);
+    });
+
+    it('should lead the title with its tree glyph and keep ● after the folder name', () => {
+      const item = toCheckoutItem({ path: `${REPO}@m4-libraries`, branch: 'feat/m4-libraries' }, icons, {
+        dirty: true,
+        glyph: '└ ',
+      });
+
+      expect(item.title).toBe('└ ios-shortcuts@m4-libraries ●');
+    });
+  });
+
+  describe('toStackHeaderItem', () => {
+    it('should open the tree with a stack icon and no uid, arg or modifiers, so Alfred cannot action it', () => {
+      const item = toStackHeaderItem(
+        { kind: 'stack-header', title: 'Stack 68 · 3 worktrees', subtitle: '3 of 5 layers checked out' },
+        icons,
+      );
+
+      expect(item).toEqual({
+        title: '┌ Stack 68 · 3 worktrees',
+        subtitle: '3 of 5 layers checked out',
+        valid: false,
+        icon: { path: '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/MultipleItemsIcon.icns' },
+      });
     });
   });
 });

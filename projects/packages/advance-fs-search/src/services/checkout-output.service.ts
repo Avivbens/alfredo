@@ -1,26 +1,34 @@
-import { type AlfredScriptFilter, type IconService, matches } from 'fast-alfred';
-import { basename } from 'node:path';
-import type { Worktree } from '@alfredo/git-worktrees';
-import { getCheckouts } from '@alfredo/git-worktrees';
+import type { AlfredListItem, AlfredScriptFilter, IconService } from 'fast-alfred';
+import { getCheckouts, readLocalStacks } from '@alfredo/git-worktrees';
+import type { CheckoutEntry } from '../models/checkout-entry.model';
 import type { WorktreesRoute } from '../models/routes.model';
+import { toCheckoutEntries } from './checkout-groups.service';
 import { isDirty } from './dirty.service';
-import { toCheckoutItem } from './file-item.service';
+import { toCheckoutItem, toStackHeaderItem } from './file-item.service';
 
 export async function loadCheckoutOutput(
   { state, filter }: WorktreesRoute,
   icons: IconService,
 ): Promise<AlfredScriptFilter> {
-  const checkouts = await getCheckouts(state.repoPath);
+  const [checkouts, stacks] = await Promise.all([getCheckouts(state.repoPath), readLocalStacks(state.repoPath)]);
+  const entries = toCheckoutEntries(checkouts, stacks, filter);
 
-  const items = await Promise.all(
-    matches(filter, checkouts, toSearchText).map(async (checkout) =>
-      toCheckoutItem(checkout, icons, { dirty: await isDirty(checkout.path) }),
-    ),
-  );
+  const items = await Promise.all(entries.map((entry) => toCheckoutEntryItem(entry, icons)));
 
-  return { items };
+  /** Alfred re-sorts rows that carry a uid by its usage knowledge, which would split a stack's rows apart. */
+  return { items, skipknowledge: true };
 }
 
-function toSearchText({ path, branch }: Worktree): string {
-  return `${basename(path)} ${branch}`;
+async function toCheckoutEntryItem(entry: CheckoutEntry, icons: IconService): Promise<AlfredListItem> {
+  switch (entry.kind) {
+    case 'stack-header': {
+      return toStackHeaderItem(entry, icons);
+    }
+    case 'checkout': {
+      const { checkout, layer, glyph } = entry;
+      const dirty = await isDirty(checkout.path);
+
+      return toCheckoutItem(checkout, icons, { dirty, layer, glyph });
+    }
+  }
 }

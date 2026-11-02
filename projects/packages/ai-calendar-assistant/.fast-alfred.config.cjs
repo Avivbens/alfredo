@@ -24,6 +24,8 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 2. Enter the event details in natural language (e.g., "Meeting with John next Friday at 2pm for like 2-3 hours").
 3. Press Enter to create the event in your calendar.
 
+Events keep their time zone, so a New York meeting shows at the right time anywhere. Set \`Event alert (minutes before)\` for an alert before each event.
+
 ### Reminders
 
 1. Type \`re\` in Alfred (configurable in the workflow settings).

@@ -15,6 +15,12 @@ export const SettingsSchema = LlmSettingsSchema.extend({
   should_open_new_reminder: alfredSchemas.checkbox().default(false),
   agenda_calendars: alfredSchemas.lines().default([]),
   agenda_show_reminders: alfredSchemas.checkbox().default(true),
+  event_alert_minutes: z
+    .string()
+    .default('')
+    .refine((value) => value.trim() === '' || /^[1-9]\d*$/.test(value.trim()), {
+      message: 'Must be a positive whole number of minutes, or empty',
+    }),
 }).transform((env) => ({
   ...toLlmSettings(env, DEFAULT_DEBOUNCE_TIME),
   sliceAmount: env.slice_amount,
@@ -27,4 +33,5 @@ export const SettingsSchema = LlmSettingsSchema.extend({
   openNewReminder: env.should_open_new_reminder,
   agendaCalendars: env.agenda_calendars,
   agendaShowReminders: env.agenda_show_reminders,
+  eventAlertMinutes: env.event_alert_minutes.trim() === '' ? undefined : Number(env.event_alert_minutes.trim()),
 }));

@@ -22,6 +22,7 @@ describe('settings.model', () => {
           should_open_new_reminder: '0',
           agenda_calendars: ' Work \n\nHome\n',
           agenda_show_reminders: '0',
+          event_alert_minutes: '10',
         }),
       ).toEqual({
         token: 'sk-123',
@@ -36,6 +37,7 @@ describe('settings.model', () => {
         openNewReminder: false,
         agendaCalendars: ['Work', 'Home'],
         agendaShowReminders: false,
+        eventAlertMinutes: 10,
       });
     });
 
@@ -49,7 +51,16 @@ describe('settings.model', () => {
         reminderListName: undefined,
         agendaCalendars: [],
         agendaShowReminders: true,
+        eventAlertMinutes: undefined,
       });
+    });
+
+    it.each(['abc', '0', '-5', '1.5'])('should reject the alert minutes %s', (value) => {
+      expect(() => SettingsSchema.parse({ event_alert_minutes: value })).toThrow();
+    });
+
+    it('should read a blank alert as undefined', () => {
+      expect(SettingsSchema.parse({ event_alert_minutes: '  ' }).eventAlertMinutes).toBeUndefined();
     });
   });
 });

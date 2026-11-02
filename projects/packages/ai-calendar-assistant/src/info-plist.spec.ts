@@ -27,7 +27,7 @@ describe('info.plist', () => {
     });
   });
 
-  describe.each(['agenda-action'])('%s run script', (entry) => {
+  describe.each(['agenda-action', 'create-event'])('%s run script', (entry) => {
     it('should post its output as a notification only when there is one, so a failure is never silent', async () => {
       const workflow = await loadWorkflow();
       const runScript = workflow.objects.find(

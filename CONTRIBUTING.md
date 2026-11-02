@@ -59,8 +59,8 @@ Libraries are pnpm workspace packages named `@alfredo/<your-library-name>`. To u
 ### Important Notes
 
 - Resolve all TODOs in the generated code
-- Add the `info.plist` file of your workflow
-- Test the workflow with the `nx run <your-workflow-name>:serve` command
+- Build your workflow from the generated starter: an `info.plist` with one script filter that runs `src/main/<your-workflow-name>.ts`, so the workflow lints and builds from its first commit
+- Open it in Alfred with the `nx run <your-workflow-name>:serve` command and edit the `info.plist` there
 
 ---
 

@@ -4,14 +4,14 @@ import { join } from 'node:path';
 import { getCacheDir } from '../common/cache-dir.util';
 import { messageOf } from '../common/error.util';
 import { PREVIEWS_DIR } from '../config/constants';
-import { PreviewDownloadsSchema } from '../models/preview.schema';
+import { previewDownloadsSchema } from '../models/preview.schema';
 import { loadPreviews } from '../services/preview.service';
 
 (async () => {
   const alfredClient = new FastAlfred();
 
   try {
-    const downloads = alfredSchemas.json(PreviewDownloadsSchema).parse(alfredClient.input);
+    const downloads = alfredSchemas.json(previewDownloadsSchema).parse(alfredClient.input);
 
     await loadPreviews(downloads, join(getCacheDir(alfredClient), PREVIEWS_DIR));
   } catch (error) {

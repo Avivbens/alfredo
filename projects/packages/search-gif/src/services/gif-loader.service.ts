@@ -3,7 +3,7 @@ import { setTimeout } from 'node:timers/promises';
 import { messageOf } from '../common/error.util';
 import { CACHE_LAST_SEARCH_KEY, SEARCH_CACHE_TTL, SEARCH_DEBOUNCE_MS } from '../config/constants';
 import type { GifIssue } from '../models/gif-issue.schema';
-import { type GiphyGif, LastSearchSchema } from '../models/giphy-gif.schema';
+import { type GiphyGif, lastSearchSchema } from '../models/giphy-gif.schema';
 import { GiphyRequestError } from '../models/giphy-request-error.model';
 import { type SearchParams, searchGifs } from './giphy-api.service';
 
@@ -41,7 +41,7 @@ export async function loadGifs(cache: Cache, params: SearchParams): Promise<Load
 async function getGifs(cache: Cache, params: SearchParams): Promise<GiphyGif[]> {
   const key = toSearchKey(params);
 
-  const lastSearch = LastSearchSchema.safeParse(cache.get(CACHE_LAST_SEARCH_KEY));
+  const lastSearch = lastSearchSchema.safeParse(cache.get(CACHE_LAST_SEARCH_KEY));
   if (lastSearch.success && lastSearch.data.key === key) {
     return lastSearch.data.gifs;
   }

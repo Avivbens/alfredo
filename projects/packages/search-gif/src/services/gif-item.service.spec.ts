@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CopyPayloadSchema } from '../models/copy-payload.schema';
+import { copyPayloadSchema } from '../models/copy-payload.schema';
 import type { GiphyGif } from '../models/giphy-gif.schema';
 import { toGifItem } from './gif-item.service';
 
@@ -17,7 +17,7 @@ describe('gif-item.service', () => {
     it('should hand ↩ the rendition ⇧ plays, so a preloaded preview doubles as the copy', () => {
       const { arg } = toGifItem(HOPE_GIF);
 
-      expect(CopyPayloadSchema.parse(JSON.parse(String(arg)))).toEqual({
+      expect(copyPayloadSchema.parse(JSON.parse(String(arg)))).toEqual({
         id: '3o7TKSjRrfIPjeiVyM',
         url: DOWNSIZED_URL,
       });

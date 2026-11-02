@@ -1,5 +1,5 @@
 import { GIPHY_SEARCH_URL } from '../config/constants';
-import { type GiphyGif, GiphySearchResponseSchema } from '../models/giphy-gif.schema';
+import { type GiphyGif, giphySearchResponseSchema } from '../models/giphy-gif.schema';
 import { GiphyRequestError } from '../models/giphy-request-error.model';
 import type { Settings } from '../models/settings.schema';
 
@@ -13,5 +13,5 @@ export async function searchGifs({ apiKey, query, resultsLimit, rating }: Search
     throw new GiphyRequestError(response.status, `GIPHY search failed with HTTP ${response.status}`);
   }
 
-  return GiphySearchResponseSchema.parse(await response.json()).data;
+  return giphySearchResponseSchema.parse(await response.json()).data;
 }

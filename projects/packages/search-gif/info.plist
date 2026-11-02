@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>bundleid</key>
+    <string>com.alfredapp.avivbens.search-gif</string>
+    <key>category</key>
+    <string>Productivity</string>
+    <key>connections</key>
+    <dict>
+      <key>4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <true></true>
+          <key>destinationuid</key>
+          <string>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+    </dict>
+    <key>createdby</key>
+    <string>Aviv Ben Shahar</string>
+    <key>description</key>
+    <string>Search GIPHY for GIFs and copy them straight from Alfred 🎬</string>
+    <key>disabled</key>
+    <false></false>
+    <key>name</key>
+    <string>Search Gif</string>
+    <key>objects</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>autopaste</key>
+          <false></false>
+          <key>clipboardtext</key>
+          <string>{query}</string>
+          <key>ignoredynamicplaceholders</key>
+          <false></false>
+          <key>transient</key>
+          <false></false>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.clipboard</string>
+        <key>uid</key>
+        <string>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>alfredfiltersresults</key>
+          <false></false>
+          <key>alfredfiltersresultsmatchmode</key>
+          <integer>0</integer>
+          <key>argumenttreatemptyqueryasnil</key>
+          <false></false>
+          <key>argumenttrimmode</key>
+          <integer>0</integer>
+          <key>argumenttype</key>
+          <integer>1</integer>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>keyword</key>
+          <string>{var:gif_keyword}</string>
+          <key>queuedelaycustom</key>
+          <integer>3</integer>
+          <key>queuedelayimmediatelyinitially</key>
+          <true></true>
+          <key>queuedelaymode</key>
+          <integer>0</integer>
+          <key>queuemode</key>
+          <integer>2</integer>
+          <key>runningsubtext</key>
+          <string>Searching GIPHY...</string>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/search-gifs.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>subtext</key>
+          <string>Powered By GIPHY</string>
+          <key>title</key>
+          <string>Search GIPHY</string>
+          <key>type</key>
+          <integer>11</integer>
+          <key>withspace</key>
+          <true></true>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.input.scriptfilter</string>
+        <key>uid</key>
+        <string>4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71</string>
+        <key>version</key>
+        <integer>3</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+    </array>
+    <key>readme</key>
+    <string>#### Thank you for using Search Gif! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+Search GIPHY for GIFs right from Alfred, with a thumbnail next to every result.
+
+- ⇧ plays the GIF large in Quick Look
+- ↩ copies the GIF URL, and Alfred stays open so you can copy another one
+
+## Usage
+
+`gif &lt;query&gt;` - Search GIPHY, e.g. `gif hope`
+
+The keyword is configurable in the workflow settings.
+
+## Setup
+
+The workflow searches with your own GIPHY API key:
+1. Create an app at https://developers.giphy.com/dashboard and copy its API key.
+1. Paste the key in the workflow configuration.
+
+A new key starts as a beta key, which allows 100 GIPHY calls an hour - each pause while you type spends one.
+
+Powered By GIPHY.
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
+    <key>uidata</key>
+    <dict>
+      <key>4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71</key>
+      <dict>
+        <key>xpos</key>
+        <integer>75</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <dict>
+        <key>xpos</key>
+        <integer>555</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>0</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_4AF80EAE-0CE7-4EC8-BD1B-7BD3CE83CB71_to_2AE1E2D5-FFD6-488E-B60A-F906C0320D88</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>345</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+    </dict>
+    <key>userconfigurationconfig</key>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>gif</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string></string>
+        <key>label</key>
+        <string>Search GIFs keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>gif_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Create a free key at developers.giphy.com/dashboard</string>
+        <key>label</key>
+        <string>GIPHY API key</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>giphy_api_key</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>defaultvalue</key>
+          <integer>20</integer>
+          <key>markercount</key>
+          <integer>10</integer>
+          <key>maxvalue</key>
+          <integer>50</integer>
+          <key>minvalue</key>
+          <integer>5</integer>
+          <key>onlystoponmarkers</key>
+          <true></true>
+          <key>showmarkers</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>How many GIFs a search shows</string>
+        <key>label</key>
+        <string>Number of results</string>
+        <key>type</key>
+        <string>slider</string>
+        <key>variable</key>
+        <string>results_limit</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>pg-13</string>
+          <key>pairs</key>
+          <array>
+            <array>
+              <string>G</string>
+              <string>g</string>
+            </array>
+            <array>
+              <string>PG</string>
+              <string>pg</string>
+            </array>
+            <array>
+              <string>PG-13</string>
+              <string>pg-13</string>
+            </array>
+            <array>
+              <string>R</string>
+              <string>r</string>
+            </array>
+          </array>
+        </dict>
+        <key>description</key>
+        <string>The highest GIPHY content rating to show</string>
+        <key>label</key>
+        <string>Content rating</string>
+        <key>type</key>
+        <string>popupbutton</string>
+        <key>variable</key>
+        <string>rating</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
+    </array>
+    <key>version</key>
+    <string>1.0.0</string>
+    <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
+  </dict>
+</plist>

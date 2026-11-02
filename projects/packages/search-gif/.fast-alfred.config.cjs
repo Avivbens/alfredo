@@ -9,11 +9,26 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Features
 
-// TODO
+Search GIPHY for GIFs right from Alfred, with a thumbnail next to every result.
+
+- ⇧ plays the GIF large in Quick Look
+- ↩ copies the GIF URL, and Alfred stays open so you can copy another one
 
 ## Usage
 
-// TODO
+\`gif <query>\` - Search GIPHY, e.g. \`gif hope\`
+
+The keyword is configurable in the workflow settings.
+
+## Setup
+
+The workflow searches with your own GIPHY API key:
+1. Create an app at https://developers.giphy.com/dashboard and copy its API key.
+1. Paste the key in the workflow configuration.
+
+A new key starts as a beta key, which allows 100 GIPHY calls an hour - each pause while you type spends one.
+
+Powered By GIPHY.
 
 To view the workflow codebase, click here:
 ${homepage}
@@ -34,6 +49,7 @@ module.exports = {
   },
   workflowMetadata: {
     name: 'Search Gif',
+    category: 'Productivity',
     createdby: author.name,
     webaddress: homepage,
     description,

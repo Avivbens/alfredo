@@ -9,7 +9,7 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Features
 
-List your open pull requests and review requests via the keyword 'wt'. Pressing Enter opens the pull request's git worktree in your editor, creating it first if it does not exist yet.
+List your open pull requests, review requests and pull requests assigned to you via the keyword 'wt'; typing matches the title, repo, number or branch. Pressing Enter opens the pull request's git worktree in your editor, creating it first if it does not exist yet.
 
 You can also start an agent session in the worktree, or paste a pull request URL to open that one.
 
@@ -18,7 +18,7 @@ Start a new task with the keyword 'wtn' followed by a task name: pick a repo and
 ## Usage
 
 1. Open Alfred and type 'wt' followed by a space
-1. Type part of a title, repo or number to filter, or paste a pull request URL (e.g., 'wt https://github.com/owner/repo/pull/123')
+1. Type part of a title, repo, number or branch to filter, or paste a pull request URL (e.g., 'wt https://github.com/owner/repo/pull/123')
 1. Press Enter to open the worktree in your editor, creating it if needed
 1. Press Command + Enter to start a new agent session in the worktree
 1. Press Option + Enter to resume the last agent session in the worktree

@@ -81,6 +81,19 @@ describe('pr-items.service', () => {
       ]);
     });
 
+    it('should prefix assigned pull requests', () => {
+      const assigned = toPr({
+        source: 'assigned',
+        number: 15287,
+        nameWithOwner: 'mirovia-security/backend',
+        url: 'https://github.com/Mirovia-Security/backend/pull/15287',
+      });
+
+      const [item] = toPrItems([{ pr: assigned }], [], HOME);
+
+      expect(item?.subtitle).toMatch(/^Assigned · mirovia-security\/backend #15287/);
+    });
+
     it('should put issue rows first', () => {
       const items = toPrItems(
         [{ pr: toPr() }],

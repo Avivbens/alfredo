@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { parseGitdirPointer, parseHead, toRepoOfAdminDir } from './git-metadata.util';
+import { parseGitdirPointer, parseHead, toRepoOfAdminDir } from './git-metadata';
 
 const REPO = '/Users/me/dev/ios-shortcuts';
 
 /** The HEAD of `ios-shortcuts@m5-shortcut-api`, as git writes it for a detached checkout. */
 const DETACHED_SHA = 'c66d5dc8682ac2044bf7f4ba9a037faefa67b8f1';
 
-describe('git-metadata.util', () => {
+describe('git-metadata', () => {
   describe('parseHead', () => {
     it('should keep slashes in the branch name', () => {
       expect(parseHead('ref: refs/heads/fix/generator-nx-install')).toBe('fix/generator-nx-install');

@@ -1,7 +1,7 @@
 import { access, readFile, readdir } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
-import { parseGitdirPointer, parseHead, toRepoOfAdminDir } from '../common/git-metadata.util';
-import type { Worktree } from '../models/worktree.model';
+import { parseGitdirPointer, parseHead, toRepoOfAdminDir } from './git-metadata';
+import type { Worktree } from './worktree.model';
 
 function inGitDir(checkoutPath: string, ...segments: string[]): string {
   return join(checkoutPath, '.git', ...segments);

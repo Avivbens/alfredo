@@ -1,3 +1,14 @@
+## 3.1.3 (2026-11-02)
+
+### 🩹 Fixes
+
+- **kill-process:** keep the selected process across reruns ([995f9fd](https://github.com/Avivbens/alfredo/commit/995f9fd))
+- **kill-process:** keep the selected port across reruns ([9116de2](https://github.com/Avivbens/alfredo/commit/9116de2))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.1.2 (2026-10-31)
 
 ### 🩹 Fixes

@@ -20,6 +20,8 @@ describe('settings.model', () => {
           map_provider: 'off',
           reminder_list_name: '  Errands  ',
           should_open_new_reminder: '0',
+          agenda_calendars: ' Work \n\nHome\n',
+          agenda_show_reminders: '0',
         }),
       ).toEqual({
         token: 'sk-123',
@@ -32,6 +34,8 @@ describe('settings.model', () => {
         mapProvider: MapProvider.OFF,
         reminderListName: 'Errands',
         openNewReminder: false,
+        agendaCalendars: ['Work', 'Home'],
+        agendaShowReminders: false,
       });
     });
 
@@ -43,6 +47,8 @@ describe('settings.model', () => {
         openEventPlatform: OpenEventPlatform.APPLE_CALENDAR,
         mapProvider: MapProvider.OFF,
         reminderListName: undefined,
+        agendaCalendars: [],
+        agendaShowReminders: true,
       });
     });
   });

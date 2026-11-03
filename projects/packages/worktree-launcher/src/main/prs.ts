@@ -7,7 +7,8 @@ import { settingsSchema } from '../models/settings.model';
 import { toListItems, toPrListOutput } from '../services/items/pr-items.service';
 import { loadPullRequestList } from '../services/pull-requests/pr-search.service';
 import { loadClones } from '../services/repos/clones.service';
-import { loadListEntries, toOpenLayers } from '../services/stacks/pr-list.service';
+import { toOpenLayers } from '../services/stacks/stack-groups.util';
+import { loadListEntries } from '../services/stacks/stacks.service';
 
 (async () => {
   const alfredClient = new FastAlfred();

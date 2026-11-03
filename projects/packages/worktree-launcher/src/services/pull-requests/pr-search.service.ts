@@ -5,7 +5,7 @@ import { cachedPullRequestsSchema } from '../../models/cached-prs.schema';
 import type { PrIssue, PullRequest } from '../../models/pull-request.schema';
 import type { Cache } from '../system/cache.service';
 import { loadCached } from '../system/cache.service';
-import { toSearchText } from './pr-match.service';
+import { toSearchText } from './pr-match.util';
 import { loadPullRequests, lookupPullRequest } from './pull-requests.service';
 
 type PrSearchResult = { all: PullRequest[]; matched: PullRequest[]; issues: PrIssue[] };

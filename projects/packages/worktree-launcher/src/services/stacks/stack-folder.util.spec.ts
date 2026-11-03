@@ -1,9 +1,6 @@
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import type { Worktree } from '@alfredo/git-worktrees';
-import { pickStackFolder, readLocalStackBranches, toLocalStackBranches, toStackPath } from './stack-folder.service';
+import { pickStackFolder, toLocalStackBranches, toStackPath } from './stack-folder.util';
 
 const STACK = ['feat/a', 'feat/b', 'feat/c'];
 const CLONE_PATH = '/w/repo';
@@ -13,7 +10,7 @@ function toCheckout(path: string, branch: string): Worktree {
   return { path, branch };
 }
 
-describe('stack-folder.service', () => {
+describe('stack-folder.util', () => {
   describe('toStackPath', () => {
     it('should name the folder beside the clone after the stack number', () => {
       expect(toStackPath('/w/repo', 7)).toBe(STACK_PATH);
@@ -100,46 +97,6 @@ describe('stack-folder.service', () => {
       ];
 
       expect(toLocalStackBranches(stacks, ['feat/x'])).toEqual(['feat/x', 'feat/local-top']);
-    });
-  });
-
-  describe('readLocalStackBranches', () => {
-    let repo: string;
-
-    beforeEach(async () => {
-      repo = await mkdtemp(join(tmpdir(), 'stack-folder-'));
-      await mkdir(join(repo, '.git'));
-    });
-
-    afterEach(async () => {
-      await rm(repo, { recursive: true, force: true });
-    });
-
-    it('should add the local-only top branch of a stack that holds a known branch', async () => {
-      const file = {
-        schemaVersion: 1,
-        stacks: [
-          { number: 50, branches: [{ branch: 'feat/a', pullRequest: { number: 48 } }] },
-          { branches: [{ branch: 'feat/x' }, { branch: 'feat/local-top' }] },
-          { branches: [{ branch: 'feat/unrelated' }] },
-        ],
-      };
-      await writeFile(join(repo, '.git', 'gh-stack'), JSON.stringify(file));
-
-      expect(await readLocalStackBranches(repo, ['feat/x'])).toEqual(['feat/x', 'feat/local-top']);
-    });
-
-    it('should return nothing when no local stack holds a given branch', async () => {
-      await writeFile(
-        join(repo, '.git', 'gh-stack'),
-        JSON.stringify({ schemaVersion: 1, stacks: [{ branches: [{ branch: 'feat/x' }] }] }),
-      );
-
-      expect(await readLocalStackBranches(repo, ['feat/y'])).toEqual([]);
-    });
-
-    it('should return nothing when the file is missing', async () => {
-      expect(await readLocalStackBranches(repo, ['feat/x'])).toEqual([]);
     });
   });
 });

@@ -7,10 +7,12 @@ import { pickFreePath } from '../../common/worktree-name.util';
 import type { Clone } from '../../models/clone.schema';
 import type { StackAction } from '../../models/launch-action.schema';
 import type { WorktreeResult } from '../../models/worktree-result.schema';
+import { addBranchWorktree, fastForwardBranch, hasLocalBranch } from '../git-refs/branch.service';
+import { toFetchRefspec } from '../git-refs/branch.util';
 import { loadRebaseBranches } from '../stacks/rebase-branches.service';
-import { pickStackFolder, readLocalStackBranches, toStackPath } from '../stacks/stack-folder.service';
+import { pickStackFolder, toStackPath } from '../stacks/stack-folder.util';
+import { readLocalStackBranches } from '../stacks/stacks.service';
 import { runGit } from '../system/git.service';
-import { addBranchWorktree, fastForwardBranch, hasLocalBranch, toFetchRefspec } from './pr-worktree.service';
 
 const STATUS_TIMEOUT_MS = secondsToMilliseconds(2);
 

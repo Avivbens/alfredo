@@ -3,8 +3,8 @@ import { isPathTaken } from '../../common/path-exists.util';
 import { pickFreePath, toWorktreeName, toWorktreePath } from '../../common/worktree-name.util';
 import type { Clone } from '../../models/clone.schema';
 import type { WorktreeResult } from '../../models/worktree-result.schema';
+import { toFetchRefspec } from '../git-refs/branch.util';
 import { runGit } from '../system/git.service';
-import { toFetchRefspec } from './pr-worktree.service';
 
 /** `--no-track` keeps the new branch from pushing to, or being compared with, the trunk it started from. */
 export async function ensureTaskWorktree(clone: Clone, branch: string, trunk: string): Promise<WorktreeResult> {

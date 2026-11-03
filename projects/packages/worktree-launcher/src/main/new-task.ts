@@ -3,10 +3,10 @@ import { homedir } from 'node:os';
 import { registerUpdater } from '@alfredo/updater';
 import { ROUTES } from '../models/routes.model';
 import { settingsSchema } from '../models/settings.model';
-import { loadClones } from '../services/clones.service';
-import { toListItems } from '../services/pr-items.service';
-import { loadRecentRepos, sortByRecent } from '../services/recent-repos.service';
-import { toRepoItems, toTaskItems } from '../services/task-items.service';
+import { toListItems } from '../services/items/pr-items.service';
+import { toRepoItems, toTaskItems } from '../services/items/task-items.service';
+import { loadClones } from '../services/repos/clones.service';
+import { loadRecentRepos, sortByRecent } from '../services/repos/recent-repos.service';
 
 (async () => {
   const alfredClient = new FastAlfred();

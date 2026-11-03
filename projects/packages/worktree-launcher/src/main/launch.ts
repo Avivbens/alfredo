@@ -1,8 +1,8 @@
 import { FastAlfred } from 'fast-alfred';
 import { launchActionSchema } from '../models/launch-action.schema';
 import { settingsSchema } from '../models/settings.model';
-import { launch } from '../services/launch.service';
-import { recordRecentRepo } from '../services/recent-repos.service';
+import { launch } from '../services/launch/launch.service';
+import { recordRecentRepo } from '../services/repos/recent-repos.service';
 
 (async () => {
   const alfredClient = new FastAlfred();

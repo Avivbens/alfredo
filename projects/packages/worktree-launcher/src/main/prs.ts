@@ -4,10 +4,10 @@ import { registerUpdater } from '@alfredo/updater';
 import { parsePrRef } from '../common/pr-ref.util';
 import type { LauncherIssue } from '../models/launcher-issue.schema';
 import { settingsSchema } from '../models/settings.model';
-import { loadClones } from '../services/clones.service';
-import { toListItems, toPrListOutput } from '../services/pr-items.service';
-import { loadListEntries, toOpenLayers } from '../services/pr-list.service';
-import { loadPullRequestList } from '../services/pr-search.service';
+import { toListItems, toPrListOutput } from '../services/items/pr-items.service';
+import { loadPullRequestList } from '../services/pull-requests/pr-search.service';
+import { loadClones } from '../services/repos/clones.service';
+import { loadListEntries, toOpenLayers } from '../services/stacks/pr-list.service';
 
 (async () => {
   const alfredClient = new FastAlfred();

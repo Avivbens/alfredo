@@ -3,9 +3,8 @@ import type { Worktree } from '@alfredo/git-worktrees';
 import type { Clone } from '../../models/clone.schema';
 import type { StackAction } from '../../models/launch-action.schema';
 import type { PullRequest } from '../../models/pull-request.schema';
-import type { PrState } from '../pull-requests/pr-match.service';
-import type { ListEntry } from './pr-list.service';
-import { loadListEntries, loadStackClone, toListEntries, toOpenLayers } from './pr-list.service';
+import { toOpenLayers } from './stack-groups.util';
+import { loadListEntries, loadStackClone, readLocalStackBranches } from './stacks.service';
 
 const { getCheckouts, readLocalStacks, loadRebaseBranches } = vi.hoisted(() => ({
   getCheckouts: vi.fn(),
@@ -79,76 +78,7 @@ function mockRebasing(branch: string): void {
   );
 }
 
-function toSummary(entries: ListEntry[]): (number | number[])[] {
-  return entries.map((entry) =>
-    entry.kind === 'pr' ? entry.state.pr.number : entry.group.layers.map(({ pr }) => pr.number),
-  );
-}
-
-describe('pr-list.service', () => {
-  describe('toListEntries', () => {
-    it("should group a stack's layers bottom to top, where its first layer appeared", () => {
-      const states: PrState[] = [
-        { pr: toPr({ number: 1 }) },
-        { pr: toLayer(3) },
-        { pr: toPr({ number: 2 }) },
-        { pr: toLayer(1) },
-        { pr: toLayer(2) },
-      ];
-
-      const entries = toListEntries(states);
-
-      expect(toSummary(entries)).toEqual([1, [67, 58, 59], 2]);
-      expect(entries[1]).toEqual({
-        kind: 'stack',
-        group: { number: 68, size: 3, nameWithOwner: 'avivbens/alfredo', layers: [states[3], states[4], states[1]] },
-      });
-    });
-
-    it('should keep stacks of other numbers and other repos apart', () => {
-      const states: PrState[] = [
-        { pr: toLayer(1) },
-        { pr: toLayer(1, { number: 70, stack: { number: 70, size: 1, position: 1 } }) },
-        { pr: toLayer(1, { number: 5, nameWithOwner: 'avivbens/other' }) },
-        { pr: toLayer(2) },
-      ];
-
-      expect(toSummary(toListEntries(states))).toEqual([[67, 58], [70], [5]]);
-    });
-
-    it('should keep a stack with one open layer as a group, so its label stays while the stack drains', () => {
-      const [entry] = toListEntries([{ pr: toLayer(3) }]);
-
-      expect(entry).toMatchObject({ kind: 'stack', group: { number: 68, size: 3 } });
-    });
-
-    it('should list a stack with a fork layer as plain rows, in place', () => {
-      const states: PrState[] = [
-        { pr: toLayer(2) },
-        { pr: toPr({ number: 1 }) },
-        { pr: toLayer(1, { isCrossRepository: true }) },
-      ];
-
-      expect(toListEntries(states)).toEqual(states.map((state) => ({ kind: 'pr', state })));
-    });
-
-    it('should list a stack as plain rows when typing hid its fork layer', () => {
-      const states: PrState[] = [{ pr: toLayer(2) }];
-      const openLayers = toOpenLayers([toLayer(1, { isCrossRepository: true }), toLayer(2)]);
-
-      expect(toListEntries(states, openLayers)).toEqual([{ kind: 'pr', state: states[0] }]);
-    });
-  });
-
-  describe('toOpenLayers', () => {
-    it('should keep one entry per open position, bottom to top, keyed by repo and stack number', () => {
-      const openLayers = toOpenLayers([toPr(), toLayer(2, { source: 'mine' }), toLayer(3), toLayer(1), toLayer(2)]);
-
-      expect([...openLayers.keys()]).toEqual(['avivbens/alfredo#68']);
-      expect(openLayers.get('avivbens/alfredo#68')?.map(({ number }) => number)).toEqual([67, 58, 59]);
-    });
-  });
-
+describe('stacks.service', () => {
   describe('loadListEntries', () => {
     it("should take the longer clone holding the stack's folder, even when typing hid the layer it is on", async () => {
       const folder: Worktree = { path: `${ARCHIVE.path}@stack-68`, branch: 'feat/layer-3' };
@@ -275,6 +205,24 @@ describe('pr-list.service', () => {
       );
       expect(getCheckouts).not.toHaveBeenCalled();
       expect(readLocalStacks).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('readLocalStackBranches', () => {
+    it('should add the local-only top branch of a stack that holds a known branch', async () => {
+      readLocalStacks.mockResolvedValue([
+        { number: 50, branches: [{ branch: 'feat/a', pullRequest: { number: 48 } }] },
+        { branches: [{ branch: 'feat/x' }, { branch: 'feat/local-top' }] },
+        { branches: [{ branch: 'feat/unrelated' }] },
+      ]);
+
+      expect(await readLocalStackBranches(CLONE.path, ['feat/x'])).toEqual(['feat/x', 'feat/local-top']);
+    });
+
+    it('should return nothing when no local stack holds a given branch', async () => {
+      readLocalStacks.mockResolvedValue([{ branches: [{ branch: 'feat/x' }] }]);
+
+      expect(await readLocalStackBranches(CLONE.path, ['feat/y'])).toEqual([]);
     });
   });
 });

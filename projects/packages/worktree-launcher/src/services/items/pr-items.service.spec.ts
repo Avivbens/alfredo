@@ -3,9 +3,9 @@ import { describe, expect, it } from 'vitest';
 import type { LaunchAction } from '../../models/launch-action.schema';
 import { launchActionSchema } from '../../models/launch-action.schema';
 import type { PullRequest } from '../../models/pull-request.schema';
-import type { PrState } from '../pull-requests/pr-match.service';
-import type { ListEntry, StackGroup, StackedPullRequest } from '../stacks/pr-list.service';
-import { toOpenLayers } from '../stacks/pr-list.service';
+import type { PrState } from '../pull-requests/pr-match.util';
+import type { ListEntry, StackGroup, StackedPullRequest } from '../stacks/stack-groups.util';
+import { toOpenLayers } from '../stacks/stack-groups.util';
 import { toListItems, toPrListOutput } from './pr-items.service';
 
 const HOME = '/Users/me';

@@ -3,9 +3,9 @@ import { toHomeRelative } from '../../common/home-path.util';
 import type { PrAction, StackAction } from '../../models/launch-action.schema';
 import type { LauncherIssue } from '../../models/launcher-issue.schema';
 import type { PullRequest } from '../../models/pull-request.schema';
-import type { PrState } from '../pull-requests/pr-match.service';
-import type { ListEntry, OpenLayers, StackGroup, StackedPullRequest } from '../stacks/pr-list.service';
-import { findOpenLayers } from '../stacks/pr-list.service';
+import type { PrState } from '../pull-requests/pr-match.util';
+import type { ListEntry, OpenLayers, StackGroup, StackedPullRequest } from '../stacks/stack-groups.util';
+import { findOpenLayers } from '../stacks/stack-groups.util';
 
 /** The typings omit `shift`, which Alfred accepts. */
 type ItemMods = NonNullable<AlfredListItem['mods']> & { shift?: { arg: string; subtitle: string } };

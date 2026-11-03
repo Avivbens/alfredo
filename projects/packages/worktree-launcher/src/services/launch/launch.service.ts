@@ -9,7 +9,7 @@ import type { WorktreeResult } from '../../models/worktree-result.schema';
 import { getTrunk } from '../git-refs/trunk.service';
 import { loadPrStates } from '../pull-requests/pr-match.service';
 import { findClones } from '../repos/clone-index.service';
-import { loadStackClone } from '../stacks/pr-list.service';
+import { loadStackClone } from '../stacks/stacks.service';
 import { toCommandError } from '../system/git.service';
 import { detectInstallCommand, runInstallInBackground } from '../system/install.service';
 import { ensurePrWorktree } from '../worktrees/pr-worktree.service';

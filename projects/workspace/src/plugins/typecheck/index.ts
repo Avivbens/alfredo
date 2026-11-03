@@ -1,4 +1,5 @@
-import { basename } from 'node:path';
+import { existsSync } from 'node:fs';
+import { basename, join } from 'node:path';
 import {
   CreateNodes,
   CreateNodesContext,
@@ -17,16 +18,22 @@ const findTsconfig = (configFilePath: string) => {
   return filename;
 };
 
+const SPEC_TSCONFIG = 'tsconfig.spec.json';
+
 function buildTypecheckTarget(
   configFilePath: string,
   _options: unknown,
-  _context: CreateNodesContext,
+  context: CreateNodesContext,
 ): CreateNodesResult {
   const projectRoot = configFilePath.split('/').slice(0, -1).join('/');
 
   const tsconfig = findTsconfig(configFilePath);
 
   if (!tsconfig) return {};
+
+  /** Vitest strips types without checking them, so a project's specs are only type-checked here. */
+  const hasSpecs = existsSync(join(context.workspaceRoot, projectRoot, SPEC_TSCONFIG));
+  const tsconfigs = hasSpecs ? [tsconfig, SPEC_TSCONFIG] : [tsconfig];
 
   const target: TargetConfiguration = {
     executor: 'nx:run-commands',
@@ -35,7 +42,7 @@ function buildTypecheckTarget(
     outputs: [], // absolutely no files written
     options: {
       cwd: `{projectRoot}`,
-      command: `tsc -p ${tsconfig} --noEmit`,
+      commands: tsconfigs.map((config) => `tsc -p ${config} --noEmit`),
       parallel: false,
       color: true,
     },

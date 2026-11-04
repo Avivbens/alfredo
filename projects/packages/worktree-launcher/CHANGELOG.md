@@ -1,3 +1,14 @@
+## 1.2.0 (2026-11-04)
+
+### 🚀 Features
+
+- **worktree-launcher:** show an empty state when no pull request is listed ([cdcce84](https://github.com/Avivbens/alfredo/commit/cdcce84))
+- **worktree-launcher:** add the workflow icon ([4bf4f32](https://github.com/Avivbens/alfredo/commit/4bf4f32))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.0 (2026-11-04)
 
 ### 🚀 Features

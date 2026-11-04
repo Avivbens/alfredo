@@ -30,6 +30,9 @@ import { loadListEntries } from '../services/stacks/stacks.service';
     if (!clones.length) {
       issues.push({ kind: 'no-clones', roots: settings.repo_roots, depth: settings.scan_depth });
     }
+    if (!entries.length && !prIssues.length) {
+      issues.push({ kind: 'no-prs', filter: input.trim() });
+    }
 
     const items = toListItems(entries, issues, homedir(), openLayers);
     const visible = items.slice(0, settings.slice_amount);

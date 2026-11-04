@@ -152,6 +152,30 @@ describe('pr-items.service', () => {
       expect(items.slice(0, 4).every((item) => item.valid === false)).toBe(true);
     });
 
+    it('should show an empty state when no pull request is open', () => {
+      const items = toListItems([], [{ kind: 'no-prs', filter: '' }], HOME);
+
+      expect(items).toEqual([
+        {
+          title: 'No open pull requests',
+          subtitle: 'Your pull requests, review requests and assigned pull requests show here',
+          valid: false,
+        },
+      ]);
+    });
+
+    it('should name the filter when no pull request matches it', () => {
+      const items = toListItems([], [{ kind: 'no-prs', filter: 'agenda' }], HOME);
+
+      expect(items).toEqual([
+        {
+          title: 'No pull request matches "agenda"',
+          subtitle: 'Change the filter, or paste a pull request URL',
+          valid: false,
+        },
+      ]);
+    });
+
     it('should head a stack with a label only, giving its number, repo name, open layer count and folder', () => {
       const entry = toStack([1, 2, 3], 3, { folder: { path: STACK_FOLDER, branch: 'feat/layer-1' } });
 

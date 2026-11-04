@@ -78,3 +78,7 @@ The branch is `feat/<name>`, in lowercase with dashes. Type `fix/` or `migration
 | Agent resume args     | `--continue`    | Added to the command to resume the last session                      |
 | Install dependencies  | on              | Runs the package manager install after creating a worktree           |
 | Number of results     | `20`            | How many rows to show                                                |
+
+## Demo
+
+![Pull requests and stacks](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/worktree-launcher/usage.png)

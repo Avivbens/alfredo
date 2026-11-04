@@ -54,3 +54,9 @@ Incognito windows are skipped. The first time you run it, macOS asks to let Alfr
 ### Enter a bookmark via incognito mode:
 
 ![Alfred Search Bookmark](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/search-bookmark/incognito.png)
+
+<br>
+
+### Copy open tabs with keyword `tabs`:
+
+![Alfred Search Bookmark](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/search-bookmark/tabs.png)

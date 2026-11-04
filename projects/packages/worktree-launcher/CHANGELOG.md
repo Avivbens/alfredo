@@ -1,3 +1,13 @@
+## 1.2.1 (2026-11-04)
+
+### 🩹 Fixes
+
+- **worktree-launcher:** shorten the workflow and package readmes ([c166b03](https://github.com/Avivbens/alfredo/commit/c166b03))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.0 (2026-11-04)
 
 ### 🚀 Features

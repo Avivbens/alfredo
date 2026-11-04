@@ -503,6 +503,7 @@ Search over your file system with [Alfred](https://www.alfredapp.com/).
   - iTerm2
   - Warp
   - Terminal.app
+- Git checkout rows, in the search and in the ⎇ list, end with ● when they have uncommitted changes (untracked files count)
 
 ## Usage
 
@@ -908,7 +909,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>2.4.1</string>
+    <string>2.5.0</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

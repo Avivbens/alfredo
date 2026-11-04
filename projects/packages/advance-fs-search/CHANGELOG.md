@@ -1,3 +1,13 @@
+## 2.5.0 (2026-11-04)
+
+### 🚀 Features
+
+- **advance-fs-search:** mark dirty checkouts ([3400748](https://github.com/Avivbens/alfredo/commit/3400748))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.4.1 (2026-10-31)
 
 ### 🩹 Fixes

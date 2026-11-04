@@ -37,6 +37,21 @@ function toIssueItem(issue: LauncherIssue, home: string): AlfredListItem {
         valid: false,
       };
     }
+    case 'no-prs': {
+      if (!issue.filter) {
+        return {
+          title: 'No open pull requests',
+          subtitle: 'Your pull requests, review requests and assigned pull requests show here',
+          valid: false,
+        };
+      }
+
+      return {
+        title: `No pull request matches "${issue.filter}"`,
+        subtitle: 'Change the filter, or paste a pull request URL',
+        valid: false,
+      };
+    }
   }
 }
 

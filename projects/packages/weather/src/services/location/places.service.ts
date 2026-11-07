@@ -1,10 +1,10 @@
 import { matches } from 'fast-alfred';
+import type { Cache } from '@alfredo/cache';
 import { toErrorMessage } from '../../common/error.util';
 import type { ResolvedPlace } from '../../models/place.model';
 import type { Settings } from '../../models/settings.model';
 import type { WeatherIssue } from '../../models/weather-issue.schema';
 import { geocodeSavedName } from '../open-meteo/geocoding.service';
-import type { Cache } from '../system/cache.service';
 import { loadCurrentPlace } from './ip-location.service';
 import { parseSavedPlace } from './saved-places.service';
 

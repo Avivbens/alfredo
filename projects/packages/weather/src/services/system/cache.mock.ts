@@ -1,5 +1,5 @@
 import { vi } from 'vitest';
-import type { Cache } from './cache.service';
+import type { Cache } from '@alfredo/cache';
 
 /** `vi.fn()` cannot express the generic `get<T>`, so the fake is cast once here instead of in every spec */
 export function toMapCache(entries: Record<string, unknown> = {}) {

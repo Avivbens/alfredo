@@ -1,9 +1,9 @@
+import type { Cache } from '@alfredo/cache';
 import { toErrorMessage } from '../../common/error.util';
 import { FORECASTS_CACHE_KEY, FORECAST_FRESH_MS, FORECAST_KEEP_MS } from '../../config/constants';
 import type { CachedForecast, Forecast } from '../../models/open-meteo.schema';
 import type { Coordinates } from '../../models/place.model';
 import { fetchForecasts } from '../open-meteo/forecast.service';
-import type { Cache } from '../system/cache.service';
 import {
   type FetchedForecasts,
   type ForecastMap,

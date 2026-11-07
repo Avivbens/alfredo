@@ -1,10 +1,10 @@
 import type { AlfredListItem } from 'fast-alfred';
+import type { Cache } from '@alfredo/cache';
 import { toErrorMessage } from '../../common/error.util';
 import { MIN_SEARCH_LENGTH } from '../../config/constants';
 import type { GeocodingResult } from '../../models/open-meteo.schema';
 import type { AppRouter } from '../../models/routes.model';
 import { searchCities } from '../open-meteo/geocoding.service';
-import type { Cache } from '../system/cache.service';
 import { type Icons, toIssueItem } from './issue-items.service';
 import type { SearchRows } from './search-items.model';
 

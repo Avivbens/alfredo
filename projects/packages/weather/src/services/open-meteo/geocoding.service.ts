@@ -1,4 +1,5 @@
 import { setTimeout } from 'node:timers/promises';
+import { type Cache, loadCached } from '@alfredo/cache';
 import {
   CITY_SEARCHES_CACHE_KEY,
   CITY_SEARCH_COUNT,
@@ -9,7 +10,6 @@ import {
 } from '../../config/constants';
 import { type GeocodingResult, geocodingResponseSchema } from '../../models/open-meteo.schema';
 import { type Place, placeSchema } from '../../models/place.model';
-import { type Cache, loadCached } from '../system/cache.service';
 import { fetchJson } from '../system/http.service';
 import { type SearchMap, searchMapSchema } from './geocoding.model';
 

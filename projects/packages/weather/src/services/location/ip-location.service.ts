@@ -1,8 +1,8 @@
 import { z } from 'zod';
+import { type Cache, loadCached } from '@alfredo/cache';
 import { GEO_JS_URL, IP_LOCATION_CACHE_KEY, IP_LOCATION_TTL, IP_WHO_IS_URL } from '../../config/constants';
 import { geoJsSchema, ipWhoIsSchema } from '../../models/ip-location.schema';
 import { type Place, placeSchema } from '../../models/place.model';
-import { type Cache, loadCached } from '../system/cache.service';
 import { fetchJson } from '../system/http.service';
 
 async function fromIpWhoIs(): Promise<Place> {

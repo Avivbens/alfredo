@@ -1,10 +1,9 @@
 import { matches } from 'fast-alfred';
+import { type Cache, loadCached } from '@alfredo/cache';
 import type { PrRef } from '../../common/pr-ref.util';
 import { MIN_REFETCH_AGE_MS, PRS_CACHE_KEY, PRS_CACHE_TTL } from '../../config/constants';
 import { cachedPullRequestsSchema } from '../../models/cached-prs.schema';
 import type { PrIssue, PullRequest } from '../../models/pull-request.schema';
-import type { Cache } from '../system/cache.service';
-import { loadCached } from '../system/cache.service';
 import { toSearchText } from './pr-match.util';
 import { loadPullRequests, lookupPullRequest } from './pull-requests.service';
 

@@ -1,8 +1,8 @@
+import type { Cache } from '@alfredo/cache';
 import { MAX_RECENT_REPOS, RECENT_REPOS_KEY } from '../../config/constants';
 import type { Clone } from '../../models/clone.schema';
 import type { RecentRepos } from '../../models/recent-repos.schema';
 import { recentReposSchema } from '../../models/recent-repos.schema';
-import type { Cache } from '../system/cache.service';
 
 export function sortByRecent(clones: Clone[], recent: RecentRepos): Clone[] {
   const entries = clones.map((clone) => [clone.path, clone] as const);

@@ -1,6 +1,6 @@
 {
   "name": "weather",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Weather forecast for your saved places and current location, up to 16 days ahead 🌦️",
   "keywords": [
     "alfred",

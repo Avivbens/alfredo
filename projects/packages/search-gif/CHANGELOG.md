@@ -1,3 +1,13 @@
+## 1.1.1 (2026-11-07)
+
+### 🩹 Fixes
+
+- **search-gif:** hand the preview downloads to the preload over stdin ([bd3e663](https://github.com/Avivbens/alfredo/commit/bd3e663))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.0 (2026-11-02)
 
 ### 🚀 Features

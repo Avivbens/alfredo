@@ -1,3 +1,7 @@
+## 1.3.2 (2026-11-07)
+
+This was a version bump only for table-plus-db to align it with other projects, there were no code changes.
+
 ## 1.3.1 (2025-08-16)
 
 ### 🩹 Fixes

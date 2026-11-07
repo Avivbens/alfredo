@@ -1,3 +1,7 @@
+## 3.1.4 (2026-11-07)
+
+This was a version bump only for kill-process to align it with other projects, there were no code changes.
+
 ## 3.1.3 (2026-11-02)
 
 ### 🩹 Fixes

@@ -1,3 +1,7 @@
+## 1.3.1 (2026-11-07)
+
+This was a version bump only for toggle-audio-output to align it with other projects, there were no code changes.
+
 ## 1.3.0 (2026-10-21)
 
 ### 🚀 Features

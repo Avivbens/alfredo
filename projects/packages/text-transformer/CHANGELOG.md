@@ -1,3 +1,7 @@
+## 6.0.3 (2026-11-07)
+
+This was a version bump only for text-transformer to align it with other projects, there were no code changes.
+
 ## 6.0.2 (2026-10-31)
 
 ### 🩹 Fixes

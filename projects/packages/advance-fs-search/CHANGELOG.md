@@ -1,3 +1,7 @@
+## 2.5.1 (2026-11-07)
+
+This was a version bump only for advance-fs-search to align it with other projects, there were no code changes.
+
 ## 2.5.0 (2026-11-04)
 
 ### 🚀 Features

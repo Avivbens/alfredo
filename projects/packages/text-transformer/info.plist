@@ -18,7 +18,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -41,7 +41,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -64,7 +64,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -87,7 +87,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -110,7 +110,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -133,7 +133,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -156,7 +156,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -179,7 +179,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -215,7 +215,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -238,7 +238,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -274,7 +274,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -287,7 +287,7 @@
           <string>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_47B45BC6-EA28-4EFD-8A39-E2FC7283C0E7</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -307,7 +307,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -319,7 +319,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -361,7 +361,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -381,7 +381,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -393,7 +393,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -435,7 +435,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -455,7 +455,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -467,7 +467,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -509,7 +509,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -529,7 +529,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -541,7 +541,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -620,7 +620,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -640,7 +640,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -652,7 +652,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -694,7 +694,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -714,7 +714,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -726,7 +726,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -768,7 +768,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -788,7 +788,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -800,7 +800,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -842,7 +842,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -862,7 +862,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -874,7 +874,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -916,7 +916,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -936,7 +936,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -948,7 +948,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -990,7 +990,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -1010,7 +1010,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -1022,7 +1022,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -1064,7 +1064,7 @@
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -1084,7 +1084,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -1096,7 +1096,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+          <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -1876,7 +1876,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -1895,7 +1895,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -1940,7 +1940,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -1959,7 +1959,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2004,7 +2004,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2023,7 +2023,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2068,7 +2068,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2087,7 +2087,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2164,7 +2164,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2183,7 +2183,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2228,7 +2228,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2247,7 +2247,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2292,7 +2292,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2311,7 +2311,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2356,7 +2356,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2375,7 +2375,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2420,7 +2420,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2439,7 +2439,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2484,7 +2484,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2503,7 +2503,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2548,7 +2548,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+        <string>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -2567,7 +2567,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</string>
+              <string>__fast-alfred_managed__v2_condition_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -2790,7 +2790,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Snooze Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_9A15D0E2-7D63-41A4-BC56-51F20740BA9B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>290</integer>
@@ -2808,7 +2808,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_6F2D236E-D961-42DC-ACF2-7C025CA92966_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>290</integer>
@@ -2826,7 +2826,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_8F3894EF-9FDA-4943-9C83-1229F6B9B94C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>290</integer>
@@ -2844,7 +2844,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_B9150C05-6465-4A8C-91F7-D6929176F398_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2871,7 +2871,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_6E523DAD-C6B9-4EE2-B1D6-7584F77ACB47_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>815</integer>
@@ -2889,7 +2889,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_447D4706-CD87-4906-BEC9-0FF66C275109_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2907,7 +2907,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_EE606C47-F1A2-4EB0-9F0C-90C92E31684C_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2925,7 +2925,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_8DABCE20-D9F1-4273-955C-63727E3CC3CC_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2943,7 +2943,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_51E26301-EF4F-4798-A7BB-A0E960219851_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2961,7 +2961,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_B8B394C4-6075-4F0C-B8C2-01E31B8550DF_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -2979,7 +2979,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Conditional Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1</key>
+      <key>__fast-alfred_managed__v2_conditional_from_63CC1099-CED7-4DE9-982B-41AEBBF7F81B_to_C2F456BE-EA1B-4DCF-8F6F-9462C3D002D1_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>585</integer>
@@ -3384,7 +3384,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>6.0.2</string>
+    <string>6.0.3</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

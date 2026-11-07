@@ -1,3 +1,7 @@
+## 4.0.1 (2026-11-07)
+
+This was a version bump only for engage-contact to align it with other projects, there were no code changes.
+
 # 4.0.0 (2026-10-31)
 
 ### 🚀 Features

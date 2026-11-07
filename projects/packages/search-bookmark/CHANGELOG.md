@@ -1,3 +1,7 @@
+## 3.3.1 (2026-11-07)
+
+This was a version bump only for search-bookmark to align it with other projects, there were no code changes.
+
 ## 3.3.0 (2026-11-02)
 
 ### 🚀 Features

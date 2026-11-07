@@ -18,7 +18,7 @@
           <key>vitoclose</key>
           <true></true>
           <key>destinationuid</key>
-          <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+          <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</string>
         </dict>
         <dict>
           <key>modifiers</key>
@@ -31,7 +31,7 @@
           <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_6AB66B56-9E80-4EB2-8898-E52C26FA0E66</string>
         </dict>
       </array>
-      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</key>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</key>
       <array>
         <dict>
           <key>modifiers</key>
@@ -51,7 +51,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_workflow-update</string>
         </dict>
@@ -63,7 +63,7 @@
           <key>vitoclose</key>
           <false></false>
           <key>sourceoutputuid</key>
-          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+          <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</string>
           <key>destinationuid</key>
           <string>__fast-alfred_managed__v2_updater_snooze</string>
         </dict>
@@ -257,7 +257,7 @@
         <key>type</key>
         <string>alfred.workflow.utility.conditional</string>
         <key>uid</key>
-        <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+        <string>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</string>
         <key>version</key>
         <integer>1</integer>
         <key>config</key>
@@ -276,7 +276,7 @@
               <key>outputlabel</key>
               <string>Managed versions updates</string>
               <key>uid</key>
-              <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</string>
+              <string>__fast-alfred_managed__v2_condition_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</string>
             </dict>
           </array>
           <key>elselabel</key>
@@ -381,7 +381,7 @@ https://github.com/Avivbens/alfredo</string>
         <key>note</key>
         <string>Snooze Updates Helper</string>
       </dict>
-      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39</key>
+      <key>__fast-alfred_managed__v2_conditional_from_25207757-A5EF-4D58-9006-05FC11CBBF2E_to_B961F107-1F93-4B98-9043-12ECB1641A39_mod_1048576</key>
       <dict>
         <key>xpos</key>
         <integer>295</integer>
@@ -473,7 +473,7 @@ https://github.com/Avivbens/alfredo</string>
       </dict>
     </array>
     <key>version</key>
-    <string>1.2.0</string>
+    <string>1.2.1</string>
     <key>webaddress</key>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>

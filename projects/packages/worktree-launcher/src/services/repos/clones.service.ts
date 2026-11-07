@@ -1,10 +1,10 @@
 import { z } from 'zod';
+import { type Cache, loadCached } from '@alfredo/cache';
 import { CLONES_CACHE_TTL } from '../../config/constants';
 import { cloneSchema } from '../../models/clone.schema';
 import type { Clone } from '../../models/clone.schema';
 import type { Settings } from '../../models/settings.model';
-import type { Cache } from '../system/cache.service';
-import { loadCached, toClonesCacheKey } from '../system/cache.service';
+import { toClonesCacheKey } from '../system/cache.service';
 import { findClones } from './clone-index.service';
 
 export async function readEachClone<T>(

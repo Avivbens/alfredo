@@ -1,8 +1,8 @@
 import { minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Cache } from '@alfredo/cache';
 import { MIN_REFETCH_AGE_MS } from '../../config/constants';
 import type { PullRequest } from '../../models/pull-request.schema';
-import type { Cache } from '../system/cache.service';
 import { shouldRefetch } from './pr-search.service';
 
 const { loadPullRequests, lookupPullRequest } = vi.hoisted(() => ({

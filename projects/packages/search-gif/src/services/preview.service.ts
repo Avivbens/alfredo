@@ -1,9 +1,12 @@
 import type { AlfredScriptFilter } from 'fast-alfred';
+import { alfredSchemas } from 'fast-alfred/schemas';
 import { spawn } from 'node:child_process';
 import { join } from 'node:path';
+import type { Readable } from 'node:stream';
+import { text } from 'node:stream/consumers';
 import { PRELOAD_CONCURRENCY, PREVIEW_MAX_RERUNS, PREVIEW_RERUN_SECONDS } from '../config/constants';
 import type { GiphyGif } from '../models/giphy-gif.schema';
-import type { PreviewDownload, PreviewRerunVariables } from '../models/preview.schema';
+import { type PreviewDownload, type PreviewRerunVariables, previewDownloadsSchema } from '../models/preview.schema';
 import { downloadFile, isFile } from './files.service';
 
 export function toPreviewDownload({ id, images }: GiphyGif): PreviewDownload {
@@ -32,9 +35,24 @@ export async function loadPreviews(downloads: PreviewDownload[], dir: string): P
   await Promise.all(Array.from({ length: PRELOAD_CONCURRENCY }, () => downloadNext(queue, dir)));
 }
 
-/** Detached, so the downloads outlive this run - Alfred kills the list's script on the next keystroke. */
+/**
+ * Detached, so the downloads outlive this run - Alfred kills the list's script on the next keystroke.
+ * They go over stdin, since an endpoint security agent kills `node` when long text sits on its command line.
+ */
 export function startPreload(script: string, downloads: PreviewDownload[]): void {
-  spawn(process.execPath, [script, JSON.stringify(downloads)], { detached: true, stdio: 'ignore' }).unref();
+  const child = spawn(process.execPath, [script], { detached: true, stdio: ['pipe', 'ignore', 'ignore'] });
+  const payload = JSON.stringify(downloads);
+
+  // A preload that dies before reading only costs the previews, never the list
+  child.stdin.on('error', () => undefined);
+  child.stdin.end(payload);
+  child.unref();
+}
+
+export async function readPreloadDownloads(input: Readable): Promise<PreviewDownload[]> {
+  const raw = await text(input);
+
+  return alfredSchemas.json(previewDownloadsSchema).parse(raw);
 }
 
 export function countPreviewReruns({ preview_query, preview_reruns }: PreviewRerunVariables, query: string): number {

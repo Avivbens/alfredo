@@ -13,6 +13,7 @@ import { describeWeather } from '../../common/weather-code.util';
 import { RETRY_RERUN_SECONDS } from '../../config/constants';
 import type { Forecast } from '../../models/open-meteo.schema';
 import type { ResolvedPlace } from '../../models/place.model';
+import type { AppRouter } from '../../models/routes.model';
 import type { ForecastResult } from '../forecast/forecast-store.model';
 import { type PlaceEntry, isPlaceEntry } from '../location/places.service';
 import { type Icons, toIssueItem } from './issue-items.service';
@@ -40,7 +41,13 @@ function toTodaySegments({ daily, utc_offset_seconds }: Forecast, now: number): 
   ];
 }
 
-export function toPlaceItem(place: ResolvedPlace, result: ForecastResult, icons: Icons, now: number): AlfredListItem {
+export function toPlaceItem(
+  place: ResolvedPlace,
+  result: ForecastResult,
+  icons: Icons,
+  now: number,
+  router: AppRouter,
+): AlfredListItem {
   if (result.kind === 'failed') {
     return toIssueItem({ kind: 'request-failed', name: place.name, message: result.message }, icons);
   }
@@ -53,12 +60,14 @@ export function toPlaceItem(place: ResolvedPlace, result: ForecastResult, icons:
     formatWind(forecast.current.wind_speed_10m, forecast.current.wind_direction_10m, null),
   ]);
 
-  return {
+  const { name, latitude, longitude } = place;
+  return router.link('days', {
+    label: name,
+    state: { name, latitude, longitude },
     title,
     subtitle,
-    valid: false,
     text: { copy: `${title} · ${subtitle}`, largetype: `${title}\n${subtitle}` },
-  };
+  });
 }
 
 /** `results` holds one forecast per place entry, in order, as `loadForecasts` returns them */
@@ -67,6 +76,7 @@ export function toPlacesOutput(
   results: ForecastResult[],
   icons: Icons,
   now: number,
+  router: AppRouter,
 ): AlfredScriptFilter {
   const resultOf = new Map(entries.filter(isPlaceEntry).map((entry, index) => [entry, results[index]]));
   const items = entries.map((entry) => {
@@ -75,7 +85,7 @@ export function toPlacesOutput(
     }
 
     const result = resultOf.get(entry) ?? { kind: 'failed', message: 'No forecast was loaded' };
-    return toPlaceItem(entry.place, result, icons, now);
+    return toPlaceItem(entry.place, result, icons, now, router);
   });
 
   /** A failed location lookup is left out: it is cached like a found one, so the IP services are asked at most every 15 minutes */

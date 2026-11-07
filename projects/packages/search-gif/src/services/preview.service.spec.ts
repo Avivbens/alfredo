@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { Readable } from 'node:stream';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PRELOAD_CONCURRENCY, PREVIEW_MAX_RERUNS, PREVIEW_RERUN_SECONDS } from '../config/constants';
 import type { GiphyGif } from '../models/giphy-gif.schema';
@@ -9,15 +10,23 @@ import {
   getLocalPreviews,
   getPendingPreviews,
   loadPreviews,
+  readPreloadDownloads,
   shouldStartPreload,
   startPreload,
   toPreviewDownload,
   toPreviewRerun,
 } from './preview.service';
 
-const { spawnMock, unrefMock } = vi.hoisted(() => {
+const { spawnMock, stdinEndMock, stdinOnMock, unrefMock } = vi.hoisted(() => {
   const unrefMock = vi.fn();
-  return { unrefMock, spawnMock: vi.fn(() => ({ unref: unrefMock })) };
+  const stdinEndMock = vi.fn();
+  const stdinOnMock = vi.fn();
+  return {
+    unrefMock,
+    stdinEndMock,
+    stdinOnMock,
+    spawnMock: vi.fn(() => ({ unref: unrefMock, stdin: { end: stdinEndMock, on: stdinOnMock } })),
+  };
 });
 
 vi.mock('node:child_process', () => ({ spawn: spawnMock }));
@@ -126,12 +135,42 @@ describe('preview.service', () => {
 
       startPreload('/workflow/esbuild/preload-previews.js', downloads);
 
-      expect(spawnMock).toHaveBeenCalledWith(
-        process.execPath,
-        ['/workflow/esbuild/preload-previews.js', JSON.stringify(downloads)],
-        { detached: true, stdio: 'ignore' },
-      );
+      expect(spawnMock).toHaveBeenCalledWith(process.execPath, ['/workflow/esbuild/preload-previews.js'], {
+        detached: true,
+        stdio: ['pipe', 'ignore', 'ignore'],
+      });
       expect(unrefMock).toHaveBeenCalled();
+    });
+
+    it('should hand the downloads over stdin, since an endpoint agent kills node with 4 KB of JSON in its arguments', () => {
+      const downloads = Array.from({ length: 20 }, (_, index) => toPreviewDownload(toGif(`gif-${index}`)));
+
+      startPreload('/workflow/esbuild/preload-previews.js', downloads);
+
+      expect(stdinEndMock).toHaveBeenCalledWith(JSON.stringify(downloads));
+    });
+
+    it('should absorb a stdin write error, so a preload that dies before reading never crashes the list', () => {
+      startPreload('/workflow/esbuild/preload-previews.js', PENDING);
+
+      expect(stdinOnMock).toHaveBeenCalledWith('error', expect.any(Function));
+    });
+  });
+
+  describe('readPreloadDownloads', () => {
+    it('should parse the downloads startPreload writes to stdin', async () => {
+      const downloads = [toPreviewDownload(toGif('hope')), toPreviewDownload(toGif('wish'))];
+      const input = Readable.from([JSON.stringify(downloads)]);
+
+      const read = await readPreloadDownloads(input);
+
+      expect(read).toEqual(downloads);
+    });
+
+    it('should reject a payload that is not a list of downloads', async () => {
+      const input = Readable.from(['{"id":"hope"}']);
+
+      await expect(readPreloadDownloads(input)).rejects.toThrow();
     });
   });
 

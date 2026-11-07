@@ -1,8 +1,10 @@
 import { format } from 'date-fns';
+import { RouterService } from 'fast-alfred';
 import { describe, expect, it } from 'vitest';
 import { RETRY_RERUN_SECONDS } from '../../config/constants';
 import { NOW, makeForecast } from '../../models/open-meteo.mock';
 import type { ResolvedPlace } from '../../models/place.model';
+import { ROUTES } from '../../models/routes.model';
 import type { ForecastResult } from '../forecast/forecast-store.model';
 import type { PlaceEntry } from '../location/places.service';
 import { toIssueItem } from './issue-items.service';
@@ -12,6 +14,10 @@ import { toPlaceItem, toPlacesOutput } from './place-items.service';
 const CURRENT: ResolvedPlace = { name: '📍 Tel Aviv', latitude: 32.08, longitude: 34.78, source: 'current' };
 const HAIFA: ResolvedPlace = { name: 'Haifa', latitude: 32.81, longitude: 34.99, source: 'saved' };
 
+function toRouter() {
+  return new RouterService(ROUTES, '', undefined);
+}
+
 function fresh(forecast = makeForecast()): ForecastResult {
   return { kind: 'fresh', forecast, fetchedAt: NOW };
 }
@@ -19,7 +25,7 @@ function fresh(forecast = makeForecast()): ForecastResult {
 describe('place-items.service', () => {
   describe('toPlaceItem', () => {
     it("should show the current conditions and today's numbers", () => {
-      const item = toPlaceItem(CURRENT, fresh(), ICONS, NOW);
+      const item = toPlaceItem(CURRENT, fresh(), ICONS, NOW, toRouter());
 
       const title = '📍 Tel Aviv · 18° ⛈️ Thunderstorm';
       const subtitle = 'H 20° L 18° · Rain 100% 38 mm · UV 4.6 · Wind 6 km/h WSW';
@@ -27,14 +33,28 @@ describe('place-items.service', () => {
         title,
         subtitle,
         valid: false,
+        autocomplete: '› 📍 Tel Aviv ',
         text: { copy: `${title} · ${subtitle}`, largetype: `${title}\n${subtitle}` },
+      });
+    });
+
+    it('should open the days of the place with its coordinates', () => {
+      const router = toRouter();
+
+      toPlaceItem(CURRENT, fresh(), ICONS, NOW, router);
+
+      const next = new RouterService(ROUTES, '› 📍 Tel Aviv', router.toVariables()?.fast_alfred_routes);
+      expect(next.match()).toEqual({
+        name: 'days',
+        state: { name: '📍 Tel Aviv', latitude: 32.08, longitude: 34.78 },
+        filter: '',
       });
     });
 
     it('should mark a stale forecast with the time it was fetched', () => {
       const fetchedAt = Date.parse('2026-11-07T12:05:00Z');
 
-      const item = toPlaceItem(CURRENT, { kind: 'stale', forecast: makeForecast(), fetchedAt }, ICONS, NOW);
+      const item = toPlaceItem(CURRENT, { kind: 'stale', forecast: makeForecast(), fetchedAt }, ICONS, NOW, toRouter());
 
       expect(item.subtitle).toBe(
         `Offline · updated ${format(fetchedAt, 'HH:mm')} · H 20° L 18° · Rain 100% 38 mm · UV 4.6 · Wind 6 km/h WSW`,
@@ -50,13 +70,19 @@ describe('place-items.service', () => {
       });
       sydney.daily.temperature_2m_max[1] = 25;
 
-      const item = toPlaceItem({ ...HAIFA, name: 'Sydney' }, fresh(sydney), ICONS, NOW);
+      const item = toPlaceItem({ ...HAIFA, name: 'Sydney' }, fresh(sydney), ICONS, NOW, toRouter());
 
       expect(item.subtitle).toMatch(/^H 25° L 18°/);
     });
 
     it('should leave out the day numbers when the cached forecast no longer has today', () => {
-      const item = toPlaceItem(HAIFA, fresh(makeForecast({ startDate: '2026-11-05', days: 2 })), ICONS, NOW);
+      const item = toPlaceItem(
+        HAIFA,
+        fresh(makeForecast({ startDate: '2026-11-05', days: 2 })),
+        ICONS,
+        NOW,
+        toRouter(),
+      );
 
       expect(item.subtitle).toBe('Wind 6 km/h WSW');
     });
@@ -66,14 +92,14 @@ describe('place-items.service', () => {
       forecast.current.temperature_2m = null;
       forecast.daily.uv_index_max[0] = null;
 
-      const item = toPlaceItem(HAIFA, fresh(forecast), ICONS, NOW);
+      const item = toPlaceItem(HAIFA, fresh(forecast), ICONS, NOW, toRouter());
 
       expect(item.title).toBe('Haifa · ⛈️ Thunderstorm');
       expect(item.subtitle).toBe('H 20° L 18° · Rain 100% 38 mm · Wind 6 km/h WSW');
     });
 
     it('should show a failed forecast as an issue row', () => {
-      const item = toPlaceItem(CURRENT, { kind: 'failed', message: 'fetch failed' }, ICONS, NOW);
+      const item = toPlaceItem(CURRENT, { kind: 'failed', message: 'fetch failed' }, ICONS, NOW, toRouter());
 
       expect(item).toEqual(
         toIssueItem({ kind: 'request-failed', name: '📍 Tel Aviv', message: 'fetch failed' }, ICONS),
@@ -89,7 +115,7 @@ describe('place-items.service', () => {
     ];
 
     it('should keep issues in place and pair each place with its result', () => {
-      const output = toPlacesOutput(entries, [fresh(), fresh()], ICONS, NOW);
+      const output = toPlacesOutput(entries, [fresh(), fresh()], ICONS, NOW, toRouter());
 
       expect(output.skipknowledge).toBe(true);
       expect(output.rerun).toBeUndefined();
@@ -104,8 +130,8 @@ describe('place-items.service', () => {
       const stale: ForecastResult = { kind: 'stale', forecast: makeForecast(), fetchedAt: NOW };
       const failed: ForecastResult = { kind: 'failed', message: 'fetch failed' };
 
-      expect(toPlacesOutput(entries, [fresh(), stale], ICONS, NOW).rerun).toBe(RETRY_RERUN_SECONDS);
-      expect(toPlacesOutput(entries, [failed, fresh()], ICONS, NOW).rerun).toBe(RETRY_RERUN_SECONDS);
+      expect(toPlacesOutput(entries, [fresh(), stale], ICONS, NOW, toRouter()).rerun).toBe(RETRY_RERUN_SECONDS);
+      expect(toPlacesOutput(entries, [failed, fresh()], ICONS, NOW, toRouter()).rerun).toBe(RETRY_RERUN_SECONDS);
     });
 
     it('should rerun when a saved name could not be looked up', () => {
@@ -114,14 +140,14 @@ describe('place-items.service', () => {
         issue: { kind: 'request-failed', name: 'Haifa', message: 'fetch failed' },
       };
 
-      expect(toPlacesOutput([failedName], [], ICONS, NOW).rerun).toBe(RETRY_RERUN_SECONDS);
+      expect(toPlacesOutput([failedName], [], ICONS, NOW, toRouter()).rerun).toBe(RETRY_RERUN_SECONDS);
     });
 
     it('should not rerun for an unknown name or an undetected location', () => {
       const notFound: PlaceEntry = { kind: 'issue', issue: { kind: 'place-not-found', name: 'Nowhere' } };
       const noLocation: PlaceEntry = { kind: 'issue', issue: { kind: 'location-unavailable' } };
 
-      expect(toPlacesOutput([notFound, noLocation], [], ICONS, NOW).rerun).toBeUndefined();
+      expect(toPlacesOutput([notFound, noLocation], [], ICONS, NOW, toRouter()).rerun).toBeUndefined();
     });
   });
 });

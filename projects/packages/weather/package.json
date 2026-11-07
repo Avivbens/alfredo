@@ -15,6 +15,7 @@
     "email": "avivbens87@gmail.com"
   },
   "dependencies": {
+    "@alfredo/cache": "workspace:*",
     "@alfredo/updater": "workspace:*"
   }
 }

@@ -331,6 +331,8 @@ importers:
 
   projects/libs/active-app: {}
 
+  projects/libs/cache: {}
+
   projects/libs/command-injection: {}
 
   projects/libs/git-worktrees: {}
@@ -457,12 +459,18 @@ importers:
 
   projects/packages/weather:
     dependencies:
+      '@alfredo/cache':
+        specifier: workspace:*
+        version: link:../../libs/cache
       '@alfredo/updater':
         specifier: workspace:*
         version: link:../../libs/updater
 
   projects/packages/worktree-launcher:
     dependencies:
+      '@alfredo/cache':
+        specifier: workspace:*
+        version: link:../../libs/cache
       '@alfredo/command-injection':
         specifier: workspace:*
         version: link:../../libs/command-injection

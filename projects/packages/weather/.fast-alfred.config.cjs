@@ -12,12 +12,14 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 - Shows the weather where you are and at your saved places
 - Today's high and low, rain, UV index and wind at a glance
 - A forecast of up to 16 days for each place, with every field of a day in Large Type
+- An hour-by-hour view of any day
 
 ## Usage
 
 1. Type \`weather\` in Alfred
 1. Type part of a place name to filter the list
 1. Press ↩ on a place to see its days, and \`⌘L\` on a day to see every field
+1. Press ↩ on a day to see it hour by hour
 
 Add places in the workflow configuration, one per line: a name like \`Haifa\`, or \`Label: lat, lon\`.
 

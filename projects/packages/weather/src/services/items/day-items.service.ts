@@ -16,22 +16,17 @@ import {
   joinSegments,
   toPlaceNow,
 } from '../../common/labels.util';
+import { valueAt } from '../../common/series.util';
 import { describeWeather } from '../../common/weather-code.util';
 import { RETRY_RERUN_SECONDS } from '../../config/constants';
 import type { Forecast } from '../../models/open-meteo.schema';
 import type { Place } from '../../models/place.model';
+import type { AppRouter } from '../../models/routes.model';
 import type { ForecastResult, LoadedForecast } from '../forecast/forecast-store.model';
 import { type Icons, toIssueItem } from './issue-items.service';
+import { toItemText, toTextItem } from './text-item.service';
 
 type Daily = Forecast['daily'];
-
-function valueAt(series: Array<number | null>, index: number): number | null {
-  return series[index] ?? null;
-}
-
-function toTextItem(title: string, subtitle: string, largetype = `${title}\n${subtitle}`): AlfredListItem {
-  return { title, subtitle, valid: false, text: { copy: `${title} · ${subtitle}`, largetype } };
-}
 
 export function toNowItem(result: LoadedForecast): AlfredListItem {
   const { current } = result.forecast;
@@ -158,9 +153,13 @@ export function toDayLargeType(forecast: Forecast, index: number, today: string)
   );
 }
 
-export function toDayItems(forecast: Forecast, now: number): AlfredListItem[] {
+export function toDayItems(place: Place, forecast: Forecast, now: number, router: AppRouter): AlfredListItem[] {
   const { daily } = forecast;
+  const { name, latitude, longitude } = place;
   const today = toPlaceNow(forecast.utc_offset_seconds, now).slice(0, 10);
+
+  /** `toVariables()` keeps only this run's links, so without this the days route is lost when filtering or going back from hours */
+  router.link('days', { label: name, state: { name, latitude, longitude }, title: name });
 
   return daily.time.flatMap((date, index) => {
     const range = formatRange(valueAt(daily.temperature_2m_min, index), valueAt(daily.temperature_2m_max, index));
@@ -169,8 +168,18 @@ export function toDayItems(forecast: Forecast, now: number): AlfredListItem[] {
       return [];
     }
 
-    const title = `${formatDayLabel(date, today)} ${describeWeather(code).emoji} ${range}`;
-    return [toTextItem(title, toDaySubtitle(daily, index), toDayLargeType(forecast, index, today))];
+    const dayLabel = formatDayLabel(date, today);
+    const title = `${dayLabel} ${describeWeather(code).emoji} ${range}`;
+    const subtitle = toDaySubtitle(daily, index);
+    return [
+      router.link('hours', {
+        label: `${name} › ${dayLabel}`,
+        state: { name, latitude, longitude, date },
+        title,
+        subtitle,
+        text: toItemText(title, subtitle, toDayLargeType(forecast, index, today)),
+      }),
+    ];
   });
 }
 
@@ -180,13 +189,14 @@ export function toDaysOutput(
   icons: Icons,
   now: number,
   filter: string,
+  router: AppRouter,
 ): AlfredScriptFilter {
   if (result.kind === 'failed') {
     const issue = toIssueItem({ kind: 'request-failed', name: place.name, message: result.message }, icons);
     return { items: [issue], skipknowledge: true, rerun: RETRY_RERUN_SECONDS };
   }
 
-  const items = [toNowItem(result), ...toDayItems(result.forecast, now)];
+  const items = [toNowItem(result), ...toDayItems(place, result.forecast, now, router)];
   return {
     items: matches(filter, items, ({ title }) => title),
     skipknowledge: true,

@@ -31,6 +31,15 @@ describe('issue-items.service', () => {
       });
     });
 
+    it('should say a day has no hourly forecast', () => {
+      expect(toIssueItem({ kind: 'no-hours', name: 'Tel Aviv' }, ICONS)).toEqual({
+        title: 'No hourly forecast for this day',
+        subtitle: 'Open-Meteo has no hours for Tel Aviv on this day yet',
+        valid: false,
+        icon: { path: 'info.png' },
+      });
+    });
+
     it('should show a failed request with its reason', () => {
       const issue = { kind: 'request-failed', name: 'Haifa', message: 'fetch failed' } as const;
 

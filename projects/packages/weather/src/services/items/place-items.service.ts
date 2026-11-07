@@ -17,6 +17,7 @@ import type { AppRouter } from '../../models/routes.model';
 import type { ForecastResult } from '../forecast/forecast-store.model';
 import { type PlaceEntry, isPlaceEntry } from '../location/places.service';
 import { type Icons, toIssueItem } from './issue-items.service';
+import { toItemText } from './text-item.service';
 
 function toPlaceTitle(name: string, { current }: Forecast): string {
   const { emoji, label } = describeWeather(current.weather_code, current.is_day !== 0);
@@ -66,7 +67,7 @@ export function toPlaceItem(
     state: { name, latitude, longitude },
     title,
     subtitle,
-    text: { copy: `${title} · ${subtitle}`, largetype: `${title}\n${subtitle}` },
+    text: toItemText(title, subtitle),
   });
 }
 

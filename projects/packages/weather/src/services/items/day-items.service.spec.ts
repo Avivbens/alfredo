@@ -1,12 +1,19 @@
 import { format } from 'date-fns';
+import { RouterService } from 'fast-alfred';
 import { describe, expect, it } from 'vitest';
+import { toRouteLabel } from '../../common/route.util';
 import { RETRY_RERUN_SECONDS } from '../../config/constants';
 import { NOW, makeForecast } from '../../models/open-meteo.mock';
+import { ROUTES } from '../../models/routes.model';
 import { toDayItems, toDayLargeType, toDaysOutput, toNowItem } from './day-items.service';
 import { toIssueItem } from './issue-items.service';
 import { ICONS } from './items.mock';
 
 const PLACE = { name: 'Tel Aviv', latitude: 32.08, longitude: 34.78 };
+function toRouter() {
+  return new RouterService(ROUTES, '', undefined);
+}
+
 const DAY_SUBTITLE = 'Rain 100% 38 mm · UV 4.6 · Wind 12 km/h SW, gusts 32 · Sun 06:02 - 16:46';
 
 describe('day-items.service', () => {
@@ -32,7 +39,7 @@ describe('day-items.service', () => {
 
   describe('toDayItems', () => {
     it('should show one row per day from today', () => {
-      const items = toDayItems(makeForecast(), NOW);
+      const items = toDayItems(PLACE, makeForecast(), NOW, toRouter());
 
       expect(items.map(({ title }) => title)).toEqual([
         'Today ⛈️ 18° / 20°',
@@ -47,26 +54,80 @@ describe('day-items.service', () => {
       forecast.daily.temperature_2m_max[2] = null;
       forecast.daily.uv_index_max[1] = null;
 
-      const items = toDayItems(forecast, NOW);
+      const items = toDayItems(PLACE, forecast, NOW, toRouter());
 
       expect(items).toHaveLength(2);
       expect(items[1]?.subtitle).toBe('Rain 100% 38 mm · Wind 12 km/h SW, gusts 32 · Sun 06:02 - 16:46');
     });
 
     it('should drop the days before the place’s today from an older forecast', () => {
-      const items = toDayItems(makeForecast({ startDate: '2026-11-06' }), NOW);
+      const items = toDayItems(PLACE, makeForecast({ startDate: '2026-11-06' }), NOW, toRouter());
 
       expect(items[0]?.title).toBe('Today ⛈️ 18° / 20°');
       expect(items).toHaveLength(2);
     });
 
     it('should copy the row and show every field in Large Type', () => {
-      const [today] = toDayItems(makeForecast(), NOW);
+      const [today] = toDayItems(PLACE, makeForecast(), NOW, toRouter());
 
       expect(today?.text).toEqual({
         copy: `Today ⛈️ 18° / 20° · ${DAY_SUBTITLE}`,
         largetype: toDayLargeType(makeForecast(), 0, '2026-11-07'),
       });
+    });
+  });
+
+  describe('toDayItems routing', () => {
+    it('should keep its own route and link every day to its hours', () => {
+      const router = toRouter();
+
+      toDayItems(PLACE, makeForecast(), NOW, router);
+
+      const routes = JSON.parse(router.toVariables()?.fast_alfred_routes ?? '{}');
+      expect(Object.keys(routes)).toEqual([
+        '› Tel Aviv',
+        '› Tel Aviv › Today',
+        '› Tel Aviv › Tomorrow',
+        '› Tel Aviv › Mon 9 Nov',
+      ]);
+    });
+
+    it('should still match the days while filtering, and a day once picked', () => {
+      const router = toRouter();
+      toDayItems(PLACE, makeForecast(), NOW, router);
+      const routes = router.toVariables()?.fast_alfred_routes;
+
+      expect(new RouterService(ROUTES, '› Tel Aviv sat', routes).match()).toEqual({
+        name: 'days',
+        state: PLACE,
+        filter: 'sat',
+      });
+      expect(new RouterService(ROUTES, '› Tel Aviv › Today', routes).match()).toEqual({
+        name: 'hours',
+        state: { ...PLACE, date: '2026-11-07' },
+        filter: '',
+      });
+    });
+  });
+
+  describe('clashing labels', () => {
+    it('should keep the days of a place whose label was made unique', () => {
+      const parisFrance = { name: 'Paris', latitude: 48.85, longitude: 2.35 };
+      const parisTexas = { name: 'Paris', latitude: 33.66, longitude: -95.55 };
+      const root = toRouter();
+      root.link('days', { label: parisFrance.name, state: parisFrance, title: 'Paris' });
+      root.link('days', { label: parisTexas.name, state: parisTexas, title: 'Paris' });
+
+      const input = '› Paris (2)';
+      const router = new RouterService(ROUTES, input, root.toVariables()?.fast_alfred_routes);
+      const route = router.match();
+      expect(route?.state).toEqual(parisTexas);
+
+      const place = { ...parisTexas, name: toRouteLabel(input, route?.filter ?? '') };
+      toDaysOutput(place, { kind: 'fresh', forecast: makeForecast(), fetchedAt: NOW }, ICONS, NOW, '', router);
+
+      const next = new RouterService(ROUTES, '› Paris (2) tom', router.toVariables()?.fast_alfred_routes);
+      expect(next.match()).toEqual({ name: 'days', state: { ...parisTexas, name: 'Paris (2)' }, filter: 'tom' });
     });
   });
 
@@ -93,6 +154,7 @@ describe('day-items.service', () => {
         ICONS,
         NOW,
         'tom',
+        toRouter(),
       );
 
       expect(output.items.map(({ title }) => title)).toEqual(['Tomorrow ⛈️ 18° / 20°']);
@@ -101,14 +163,21 @@ describe('day-items.service', () => {
     });
 
     it('should rerun while the forecast is stale', () => {
-      const output = toDaysOutput(PLACE, { kind: 'stale', forecast: makeForecast(), fetchedAt: NOW }, ICONS, NOW, '');
+      const output = toDaysOutput(
+        PLACE,
+        { kind: 'stale', forecast: makeForecast(), fetchedAt: NOW },
+        ICONS,
+        NOW,
+        '',
+        toRouter(),
+      );
 
       expect(output.items).toHaveLength(4);
       expect(output.rerun).toBe(RETRY_RERUN_SECONDS);
     });
 
     it('should show a failed forecast as one issue row and rerun', () => {
-      const output = toDaysOutput(PLACE, { kind: 'failed', message: 'fetch failed' }, ICONS, NOW, '');
+      const output = toDaysOutput(PLACE, { kind: 'failed', message: 'fetch failed' }, ICONS, NOW, '', toRouter());
 
       expect(output.items).toEqual([
         toIssueItem({ kind: 'request-failed', name: 'Tel Aviv', message: 'fetch failed' }, ICONS),

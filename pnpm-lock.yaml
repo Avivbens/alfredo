@@ -455,6 +455,12 @@ importers:
         specifier: workspace:*
         version: link:../../libs/updater
 
+  projects/packages/weather:
+    dependencies:
+      '@alfredo/updater':
+        specifier: workspace:*
+        version: link:../../libs/updater
+
   projects/packages/worktree-launcher:
     dependencies:
       '@alfredo/command-injection':

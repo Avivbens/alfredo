@@ -11,5 +11,8 @@
   "author": {
     "name": "Aviv Ben Shahar",
     "email": "avivbens87@gmail.com"
+  },
+  "dependencies": {
+    "@alfredo/updater": "workspace:*"
   }
 }

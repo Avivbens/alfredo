@@ -4,12 +4,159 @@
   <dict>
     <key>bundleid</key>
     <string>com.alfredapp.avivbens.weather</string>
+    <key>category</key>
+    <string>Tools</string>
     <key>connections</key>
-    <dict></dict>
+    <dict>
+      <key>5B450E7E-4A7B-4953-8918-C22712483F38</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>1048576</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>524288</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>11B408A3-0936-48F5-800E-49369614631E</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>11B408A3-0936-48F5-800E-49369614631E</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</key>
+      <array>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>destinationuid</key>
+          <string>11B408A3-0936-48F5-800E-49369614631E</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        </dict>
+        <dict>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+          <key>sourceoutputuid</key>
+          <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</string>
+          <key>destinationuid</key>
+          <string>__fast-alfred_managed__v2_updater_snooze</string>
+        </dict>
+      </array>
+    </dict>
     <key>createdby</key>
-    <string></string>
+    <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string></string>
+    <string>Weather forecast for your saved places and current location, up to 16 days ahead 🌦️</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -32,7 +179,7 @@
           <key>escaping</key>
           <integer>102</integer>
           <key>keyword</key>
-          <string>weather</string>
+          <string>{var:weather_keyword}</string>
           <key>queuedelaycustom</key>
           <integer>3</integer>
           <key>queuedelayimmediatelyinitially</key>
@@ -40,7 +187,7 @@
           <key>queuedelaymode</key>
           <integer>0</integer>
           <key>queuemode</key>
-          <integer>1</integer>
+          <integer>2</integer>
           <key>runningsubtext</key>
           <string></string>
           <key>script</key>
@@ -50,7 +197,7 @@
           <key>scriptfile</key>
           <string></string>
           <key>subtext</key>
-          <string></string>
+          <string>Forecast for your places and current location</string>
           <key>title</key>
           <string>Weather</string>
           <key>type</key>
@@ -65,11 +212,191 @@
         <key>version</key>
         <integer>3</integer>
       </dict>
+      <dict>
+        <key>config</key>
+        <dict></dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.junction</string>
+        <key>uid</key>
+        <string>11B408A3-0936-48F5-800E-49369614631E</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_workflow-update</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/workflow-update.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.action.script</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_updater_snooze</string>
+        <key>version</key>
+        <integer>2</integer>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
+          <key>escaping</key>
+          <integer>102</integer>
+          <key>script</key>
+          <string>./esbuild/assets/run-node.sh esbuild/assets/snooze.js "$1"</string>
+          <key>scriptargtype</key>
+          <integer>1</integer>
+          <key>scriptfile</key>
+          <string></string>
+          <key>type</key>
+          <integer>11</integer>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
+      <dict>
+        <key>type</key>
+        <string>alfred.workflow.utility.conditional</string>
+        <key>uid</key>
+        <string>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</string>
+        <key>version</key>
+        <integer>1</integer>
+        <key>config</key>
+        <dict>
+          <key>conditions</key>
+          <array>
+            <dict>
+              <key>inputstring</key>
+              <string>{query}</string>
+              <key>matchcasesensitive</key>
+              <false></false>
+              <key>matchmode</key>
+              <integer>4</integer>
+              <key>matchstring</key>
+              <string>__fast-alfred_managed__</string>
+              <key>outputlabel</key>
+              <string>Managed versions updates</string>
+              <key>uid</key>
+              <string>__fast-alfred_managed__v2_condition_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</string>
+            </dict>
+          </array>
+          <key>elselabel</key>
+          <string>Default Behavior</string>
+          <key>hideelse</key>
+          <false></false>
+        </dict>
+      </dict>
     </array>
     <key>readme</key>
-    <string></string>
+    <string>#### Thank you for using Weather! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+- Shows the weather where you are and at your saved places
+- Today's high and low, rain, UV index and wind at a glance
+
+## Usage
+
+1. Type `weather` in Alfred
+1. Type part of a place name to filter the list
+
+Add places in the workflow configuration, one per line: a name like `Haifa`, or `Label: lat, lon`.
+
+Weather data by Open-Meteo (CC BY 4.0). The current location comes from your IP address.
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
     <dict>
+      <key>11B408A3-0936-48F5-800E-49369614631E</key>
+      <dict>
+        <key>note</key>
+        <string>Rows only open views, so nothing acts here; the connections let fast-alfred route its update row</string>
+        <key>xpos</key>
+        <integer>475</integer>
+        <key>ypos</key>
+        <integer>75</integer>
+      </dict>
       <key>5B450E7E-4A7B-4953-8918-C22712483F38</key>
       <dict>
         <key>xpos</key>
@@ -77,12 +404,141 @@
         <key>ypos</key>
         <integer>75</integer>
       </dict>
+      <key>__fast-alfred_managed__v2_updater_workflow-update</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>0</integer>
+        <key>note</key>
+        <string>Workflow Update Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_updater_snooze</key>
+      <dict>
+        <key>xpos</key>
+        <integer>1940</integer>
+        <key>ypos</key>
+        <integer>220</integer>
+        <key>note</key>
+        <string>Snooze Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>75</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_1048576</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>295</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
+      <key>__fast-alfred_managed__v2_conditional_from_5B450E7E-4A7B-4953-8918-C22712483F38_to_11B408A3-0936-48F5-800E-49369614631E_mod_524288</key>
+      <dict>
+        <key>xpos</key>
+        <integer>295</integer>
+        <key>ypos</key>
+        <integer>515</integer>
+        <key>note</key>
+        <string>Conditional Updates Helper</string>
+      </dict>
     </dict>
     <key>userconfigurationconfig</key>
-    <array></array>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string>weather</string>
+          <key>placeholder</key>
+          <string></string>
+          <key>required</key>
+          <true></true>
+          <key>trim</key>
+          <true></true>
+        </dict>
+        <key>description</key>
+        <string>Opens the forecast</string>
+        <key>label</key>
+        <string>Keyword</string>
+        <key>type</key>
+        <string>textfield</string>
+        <key>variable</key>
+        <string>weather_keyword</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <string></string>
+          <key>placeholder</key>
+          <string>Haifa
+Office: 32.08, 34.78</string>
+          <key>required</key>
+          <false></false>
+          <key>trim</key>
+          <true></true>
+          <key>verticalsize</key>
+          <integer>4</integer>
+        </dict>
+        <key>description</key>
+        <string>One per line: a place name, or Label: lat, lon</string>
+        <key>label</key>
+        <string>Saved places</string>
+        <key>type</key>
+        <string>textarea</string>
+        <key>variable</key>
+        <string>saved_places</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Show the weather where you are</string>
+        </dict>
+        <key>description</key>
+        <string>Found from your IP address</string>
+        <key>label</key>
+        <string>Current location</string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>show_current_location</string>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
+    </array>
     <key>version</key>
     <string>1.0.0</string>
     <key>webaddress</key>
-    <string></string>
+    <string>https://github.com/Avivbens/alfredo</string>
   </dict>
 </plist>

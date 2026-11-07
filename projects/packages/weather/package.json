@@ -1,11 +1,13 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Weather forecast for your saved places and current location, up to 16 days ahead 🌦️",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "weather",
+    "forecast",
+    "open-meteo"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {

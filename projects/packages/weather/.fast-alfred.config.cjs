@@ -9,11 +9,17 @@ This workflow has been created using Fast Alfred, a user-friendly workflow build
 
 ## Features
 
-// TODO
+- Shows the weather where you are and at your saved places
+- Today's high and low, rain, UV index and wind at a glance
 
 ## Usage
 
-// TODO
+1. Type \`weather\` in Alfred
+1. Type part of a place name to filter the list
+
+Add places in the workflow configuration, one per line: a name like \`Haifa\`, or \`Label: lat, lon\`.
+
+Weather data by Open-Meteo (CC BY 4.0). The current location comes from your IP address.
 
 To view the workflow codebase, click here:
 ${homepage}
@@ -34,6 +40,7 @@ module.exports = {
   },
   workflowMetadata: {
     name: 'Weather',
+    category: 'Tools',
     createdby: author.name,
     webaddress: homepage,
     description,

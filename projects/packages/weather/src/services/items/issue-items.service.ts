@@ -29,6 +29,14 @@ export function toIssueItem(issue: WeatherIssue, icons: Icons): AlfredListItem {
         icon: { path: icons.getIcon('warning') },
       };
 
+    case 'no-hours':
+      return {
+        title: 'No hourly forecast for this day',
+        subtitle: `Open-Meteo has no hours for ${issue.name} on this day yet`,
+        valid: false,
+        icon: { path: icons.getIcon('info') },
+      };
+
     case 'request-failed':
       return {
         title: `⚠️ ${issue.name}: couldn't load the weather`,

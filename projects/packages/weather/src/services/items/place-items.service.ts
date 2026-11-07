@@ -17,6 +17,7 @@ import type { AppRouter } from '../../models/routes.model';
 import type { ForecastResult } from '../forecast/forecast-store.model';
 import { type PlaceEntry, isPlaceEntry } from '../location/places.service';
 import { type Icons, toIssueItem } from './issue-items.service';
+import type { SearchRows } from './search-items.model';
 import { toItemText } from './text-item.service';
 
 function toPlaceTitle(name: string, { current }: Forecast): string {
@@ -78,6 +79,7 @@ export function toPlacesOutput(
   icons: Icons,
   now: number,
   router: AppRouter,
+  search: SearchRows = { items: [], failed: false },
 ): AlfredScriptFilter {
   const resultOf = new Map(entries.filter(isPlaceEntry).map((entry, index) => [entry, results[index]]));
   const items = entries.map((entry) => {
@@ -92,6 +94,7 @@ export function toPlacesOutput(
   /** A failed location lookup is left out: it is cached like a found one, so the IP services are asked at most every 15 minutes */
   const retrying =
     results.some(({ kind }) => kind !== 'fresh') ||
-    entries.some((entry) => !isPlaceEntry(entry) && entry.issue.kind === 'request-failed');
-  return { items, skipknowledge: true, ...(retrying && { rerun: RETRY_RERUN_SECONDS }) };
+    entries.some((entry) => !isPlaceEntry(entry) && entry.issue.kind === 'request-failed') ||
+    search.failed;
+  return { items: [...items, ...search.items], skipknowledge: true, ...(retrying && { rerun: RETRY_RERUN_SECONDS }) };
 }

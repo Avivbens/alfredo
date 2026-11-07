@@ -40,6 +40,16 @@ describe('issue-items.service', () => {
       });
     });
 
+    it('should show a failed city search with its reason', () => {
+      expect(toIssueItem({ kind: 'search-failed', message: 'fetch failed' }, ICONS)).toEqual({
+        title: '⚠️ City search failed',
+        subtitle: 'fetch failed',
+        valid: false,
+        text: { copy: 'fetch failed', largetype: 'fetch failed' },
+        icon: { path: 'error.png' },
+      });
+    });
+
     it('should show a failed request with its reason', () => {
       const issue = { kind: 'request-failed', name: 'Haifa', message: 'fetch failed' } as const;
 

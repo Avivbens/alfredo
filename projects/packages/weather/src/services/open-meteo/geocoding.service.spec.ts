@@ -1,7 +1,12 @@
+import { hoursToMilliseconds } from 'date-fns';
+import { setTimeout } from 'node:timers/promises';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { GEOCODE_TTL } from '../../config/constants';
+import { CITY_SEARCHES_CACHE_KEY, CITY_SEARCH_DEBOUNCE_MS, CITY_SEARCH_TTL, GEOCODE_TTL } from '../../config/constants';
+import { NOW } from '../../models/open-meteo.mock';
 import { toMapCache } from '../system/cache.mock';
-import { geocodeSavedName, searchPlaces } from './geocoding.service';
+import { geocodeSavedName, searchCities, searchPlaces } from './geocoding.service';
+
+vi.mock('node:timers/promises', () => ({ setTimeout: vi.fn() }));
 
 const HAIFA = { name: 'Haifa', latitude: 32.81303, longitude: 34.99928, country: 'Israel', admin1: 'Haifa District' };
 
@@ -40,6 +45,45 @@ describe('geocoding.service', () => {
       fetchMock.mockImplementation(async () => toJsonResponse({}));
 
       await expect(searchPlaces('Nowhere', 5)).resolves.toEqual([]);
+    });
+  });
+
+  describe('searchCities', () => {
+    it('should wait for typing to settle, then search for five cities and cache them', async () => {
+      const { cache, fake } = toMapCache();
+
+      const results = await searchCities(cache, ' Hai ', NOW);
+
+      expect(setTimeout).toHaveBeenCalledWith(CITY_SEARCH_DEBOUNCE_MS);
+      expect(new URL(String(fetchMock.mock.calls[0]?.[0])).searchParams.get('count')).toBe('5');
+      expect(new URL(String(fetchMock.mock.calls[0]?.[0])).searchParams.get('name')).toBe('Hai');
+      expect(fake.setWithTTL).toHaveBeenCalledWith(
+        CITY_SEARCHES_CACHE_KEY,
+        { hai: { fetchedAt: NOW, results } },
+        { maxAge: CITY_SEARCH_TTL },
+      );
+    });
+
+    it('should answer a repeated search from the cache without waiting', async () => {
+      const { cache } = toMapCache({
+        [CITY_SEARCHES_CACHE_KEY]: { hai: { fetchedAt: NOW - hoursToMilliseconds(1), results: [HAIFA] } },
+      });
+
+      await expect(searchCities(cache, 'hai', NOW)).resolves.toEqual([HAIFA]);
+      expect(setTimeout).not.toHaveBeenCalled();
+      expect(fetchMock).not.toHaveBeenCalled();
+    });
+
+    it('should keep every search under one key and drop those older than a day', async () => {
+      const recent = { fetchedAt: NOW - hoursToMilliseconds(2), results: [] };
+      const { cache, store } = toMapCache({
+        [CITY_SEARCHES_CACHE_KEY]: { tel: recent, par: { fetchedAt: NOW - hoursToMilliseconds(25), results: [] } },
+      });
+
+      await searchCities(cache, 'hai', NOW);
+
+      expect([...store.keys()]).toEqual([CITY_SEARCHES_CACHE_KEY]);
+      expect(store.get(CITY_SEARCHES_CACHE_KEY)).toEqual({ tel: recent, hai: { fetchedAt: NOW, results: [HAIFA] } });
     });
   });
 

@@ -32,4 +32,22 @@ The weather forecast for your saved places and your current location, up to 16 d
 | Saved places     | empty     | One per line: a place name like `Haifa`, or `Label: lat, lon` |
 | Current location | on        | Shows the weather where you are, found from your IP address   |
 
+## Demo
+
+### Your places
+
+![Your places](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/weather/main-screen.png)
+
+### Find any city
+
+![Find any city](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/weather/search-place.png)
+
+### The days of a place
+
+![The days of a place](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/weather/weekly-screen.png)
+
+### A day hour by hour
+
+![A day hour by hour](https://raw.githubusercontent.com/avivbens/alfredo/HEAD/demo/weather/daily-screen.png)
+
 Weather data by [Open-Meteo](https://open-meteo.com) (CC BY 4.0). The current location comes from your IP address.

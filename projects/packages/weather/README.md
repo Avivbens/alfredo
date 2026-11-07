@@ -20,7 +20,7 @@ The weather forecast for your saved places and your current location, up to 16 d
 ## Usage
 
 1. Open Alfred and type `weather`
-1. Type part of a place name to filter the list
+1. Type part of a place name to filter the list, or any city to find it
 1. Press ↩ on a place to see its days, and `⌘L` on a day to see every field
 1. Press ↩ on a day to see it hour by hour
 

@@ -8,6 +8,7 @@ import { loadForecasts } from '../services/forecast/forecast-store.service';
 import { toDaysOutput } from '../services/items/day-items.service';
 import { toHoursOutput } from '../services/items/hour-items.service';
 import { toPlacesOutput } from '../services/items/place-items.service';
+import { loadSearchRows } from '../services/items/search-items.service';
 import { filterPlaceEntries, isPlaceEntry, resolvePlaces } from '../services/location/places.service';
 
 const NOT_LOADED: ForecastResult = { kind: 'failed', message: 'No forecast was loaded' };
@@ -38,11 +39,15 @@ const NOT_LOADED: ForecastResult = { kind: 'failed', message: 'No forecast was l
         break;
       }
 
+      /** No route open: the places list, plus any-city search while typing */
       default: {
         const entries = filterPlaceEntries(await resolvePlaces(cache, settings), input);
         const places = entries.filter(isPlaceEntry).map(({ place }) => place);
-        const results = await loadForecasts(cache, places, now);
-        alfredClient.output(toPlacesOutput(entries, results, icons, now, router));
+        const [results, search] = await Promise.all([
+          loadForecasts(cache, places, now),
+          loadSearchRows(cache, input, router, icons, now),
+        ]);
+        alfredClient.output(toPlacesOutput(entries, results, icons, now, router, search));
       }
     }
   } catch (error) {

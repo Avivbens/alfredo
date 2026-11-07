@@ -37,6 +37,15 @@ export function toIssueItem(issue: WeatherIssue, icons: Icons): AlfredListItem {
         icon: { path: icons.getIcon('info') },
       };
 
+    case 'search-failed':
+      return {
+        title: '⚠️ City search failed',
+        subtitle: issue.message,
+        valid: false,
+        text: { copy: issue.message, largetype: issue.message },
+        icon: { path: icons.getIcon('error') },
+      };
+
     case 'request-failed':
       return {
         title: `⚠️ ${issue.name}: couldn't load the weather`,

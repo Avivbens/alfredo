@@ -149,5 +149,28 @@ describe('place-items.service', () => {
 
       expect(toPlacesOutput([notFound, noLocation], [], ICONS, NOW, toRouter()).rerun).toBeUndefined();
     });
+
+    it('should list the city search rows after the places', () => {
+      const search = { title: 'Paris · Île-de-France, France', valid: false };
+
+      const output = toPlacesOutput(entries, [fresh(), fresh()], ICONS, NOW, toRouter(), {
+        items: [search],
+        failed: false,
+      });
+
+      expect(output.items.map(({ title }) => title)).toEqual([
+        'No place named "Nowhere"',
+        'Haifa · 18° ⛈️ Thunderstorm',
+        'Office · 18° ⛈️ Thunderstorm',
+        'Paris · Île-de-France, France',
+      ]);
+      expect(output.rerun).toBeUndefined();
+    });
+
+    it('should rerun when the city search failed', () => {
+      const output = toPlacesOutput([], [], ICONS, NOW, toRouter(), { items: [], failed: true });
+
+      expect(output.rerun).toBe(RETRY_RERUN_SECONDS);
+    });
   });
 });

@@ -1,6 +1,6 @@
 import { $ } from 'zurk';
 import { BatteryFetchResult, BatteryFetchResultSchema } from '../models/battery-fetch-result.model';
-import { ensurePasswordlessSudo } from './sudo-setup.service';
+import { POWERMETRICS_ARGS, POWERMETRICS_BIN, ensurePasswordlessSudo } from './sudo-setup.service';
 
 /**
  * Fetches battery/energy impact data for all running processes
@@ -20,15 +20,11 @@ export async function fetchBatteryData(): Promise<BatteryFetchResult> {
       });
     }
 
-    // Execute powermetrics with sudo
-    // --samplers tasks: Only collect task/process data
-    // --show-process-energy: Include energy impact column
-    // -n 1: Take only 1 sample
-    // -i 2500: Sample interval 2.5 seconds (provides accurate energy measurements)
+    /** The path and arguments must match the sudoers rule exactly, or sudo asks for a password it can't get here. */
     const { stdout, stderr } = await $({
       timeout: 6000, // 6 second timeout (allows for 2.5s sampling + buffer)
       nothrow: true,
-    })`sudo powermetrics --samplers tasks --show-process-energy -n 1 -i 2500`;
+    })`sudo -n ${POWERMETRICS_BIN} ${POWERMETRICS_ARGS}`;
 
     if (stderr && !stdout) {
       return BatteryFetchResultSchema.parse({

@@ -94,7 +94,7 @@ export const eventCreatorAppleScript = (calendarName: string, event: CalendarEve
     descriptionParts.push(escapeAppleScriptString(description));
   }
   if (timeZone && timeZone !== getCurrentTimezone()) {
-    descriptionParts.push(`Timezone: ${timeZone}`);
+    descriptionParts.push(escapeAppleScriptString(`Timezone: ${timeZone}`));
   }
   if (descriptionParts.length > 0) {
     properties.push(`description:"${descriptionParts.join('\\n\\n')}"`);

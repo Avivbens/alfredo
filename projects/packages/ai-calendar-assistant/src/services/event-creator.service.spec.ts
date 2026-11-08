@@ -164,6 +164,14 @@ describe('event-creator.service', () => {
       expect(script).not.toContain('Timezone:');
     });
 
+    it('should escape the timezone, since the model fills it from selected text that can carry AppleScript', () => {
+      const tzEvent: CalendarEvent = { ...baseEvent, timeZone: 'X" & (do shell script "id") & "' };
+
+      const script = eventCreatorAppleScript(calendarName, tzEvent, false);
+
+      expect(script).toContain(`description:"Timezone: X\\" & (do shell script \\"id\\") & \\""`);
+    });
+
     it('should escape quotes and newlines so model output cannot break the script', () => {
       const quotedEvent: CalendarEvent = {
         ...baseEvent,

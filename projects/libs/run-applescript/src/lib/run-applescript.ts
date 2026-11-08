@@ -6,7 +6,7 @@ const execFileAsync = promisify(execFile);
 export interface RunAppleScriptOptions {
   humanReadableOutput?: boolean;
   language?: 'AppleScript' | 'JavaScript';
-  /** Must not start with `-`, or osascript parses it as an option, so callers pass JSON. */
+  /** osascript stops parsing options at the `-` script name, so an argument starting with `-e` stays data, never script. */
   args?: string[];
 }
 
@@ -21,8 +21,12 @@ export async function runAppleScript(
   const languageArguments = language === 'JavaScript' ? ['-l', 'JavaScript'] : [];
   const outputArguments = humanReadableOutput ? [] : ['-ss'];
 
-  const argv = [...languageArguments, ...outputArguments, '-e', script, ...args];
+  const argv = [...languageArguments, ...outputArguments, '-', ...args];
 
-  const { stdout } = await execFileAsync('osascript', argv);
+  /** Security agents SIGKILL osascript when about 1 KB of script sits on its command line, so the script goes over stdin. */
+  const execution = execFileAsync('osascript', argv);
+  execution.child.stdin?.end(script);
+
+  const { stdout } = await execution;
   return stdout.trim();
 }

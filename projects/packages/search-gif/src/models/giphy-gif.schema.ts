@@ -1,14 +1,12 @@
 import { z } from 'zod';
+import { gifIdSchema } from './gif-id.schema';
 
 const renditionSchema = z.object({ url: z.url() });
 const optionalRenditionSchema = renditionSchema.optional().catch(undefined);
 
-/**
- * GIPHY leaves renditions out, or sends them without a URL, so only `original` is required and a broken optional one is dropped.
- * The id names the cached files, so only a plain name passes, never one that could climb out of the cache folder.
- */
+/** GIPHY leaves renditions out, or sends them without a URL, so only `original` is required and a broken optional one is dropped. */
 export const giphyGifSchema = z.object({
-  id: z.string().regex(/^[\w-]+$/),
+  id: gifIdSchema,
   title: z.string(),
   images: z.object({
     original: renditionSchema,

@@ -2,8 +2,9 @@
 name: Semantic Release Report 📝
 on: pull_request
 
+# The job only reads the repo and rewrites its PR comment
 permissions:
-  contents: write
+  contents: read
   issues: write
   pull-requests: write
 

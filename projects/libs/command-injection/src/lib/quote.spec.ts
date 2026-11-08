@@ -59,9 +59,19 @@ describe('quote', () => {
     });
 
     describe('quote characters', () => {
-      it('should escape single quotes', () => {
-        expect(quote("hello'world")).toBe(`$'hello\\'world'`);
-        expect(quote("it's")).toBe(`$'it\\'s'`);
+      it('should write single quotes as octal, since bash history expansion reads a backslash quote as the end of the quote', () => {
+        expect(quote("hello'world")).toBe(`$'hello\\047world'`);
+        expect(quote("it's")).toBe(`$'it\\047s'`);
+      });
+
+      it('should write bangs as octal, so no shell can read them as history expansion', () => {
+        expect(quote('wow!')).toBe(`$'wow\\041'`);
+      });
+
+      it('should keep a branch name crafted against bash history expansion inside its quote', () => {
+        expect(quote("/dev/repo@x'!#;open${IFS}-a${IFS}Calculator;#")).toBe(
+          `$'/dev/repo@x\\047\\041#;open\${IFS}-a\${IFS}Calculator;#'`,
+        );
       });
 
       it('should escape double quotes', () => {
@@ -70,7 +80,7 @@ describe('quote', () => {
       });
 
       it('should escape mixed quotes', () => {
-        expect(quote(`hello"world'test`)).toBe(`$'hello\\"world\\'test'`);
+        expect(quote(`hello"world'test`)).toBe(`$'hello\\"world\\047test'`);
       });
     });
 
@@ -136,14 +146,14 @@ describe('quote', () => {
 
       it('should handle all escape characters together', () => {
         const input = `test\\\n\r\t\f\v\0"'`;
-        const expected = `$'test\\\\\\n\\r\\t\\f\\v\\0\\"\\''`;
+        const expected = `$'test\\\\\\n\\r\\t\\f\\v\\0\\"\\047'`;
         expect(quote(input)).toBe(expected);
       });
     });
 
     describe('edge cases', () => {
       it('should handle strings with only special characters', () => {
-        expect(quote('!@#$%^&*()')).toBe(`$'!@#$%^&*()'`);
+        expect(quote('!@#$%^&*()')).toBe(`$'\\041@#$%^&*()'`);
       });
 
       it('should handle Unicode characters', () => {

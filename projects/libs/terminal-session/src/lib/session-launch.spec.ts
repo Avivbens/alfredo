@@ -64,7 +64,7 @@ describe('toSessionLaunch', () => {
     /** Command substitution, a backtick pair, both quotes and a backslash: everything a path could escape with. */
     const HOSTILE_PATH = String.raw`/tmp/$(touch x)` + '`id`' + String.raw`"\'`;
     /** The shell word is one ANSI-C quoted string, then every backslash and quote is escaped again for AppleScript. */
-    const HOSTILE_LINE = String.raw`cd $'/tmp/$(touch x)` + '`id`' + String.raw`\\\"\\\\\\'' && claude`;
+    const HOSTILE_LINE = String.raw`cd $'/tmp/$(touch x)` + '`id`' + String.raw`\\\"\\\\\\047' && claude`;
 
     function readAppleScriptString(script: string, prefix: string): string | undefined {
       const literal = script.split(prefix)[1]?.match(/^((?:[^"\\]|\\.)*)"/)?.[1];
@@ -75,7 +75,9 @@ describe('toSessionLaunch', () => {
     function readShellWord(line: string): string | undefined {
       const word = line.match(/^cd \$'((?:[^'\\]|\\.)*)' && claude$/)?.[1];
 
-      return word?.replace(/\\(.)/g, '$1');
+      return word?.replace(/\\([0-7]{3}|.)/g, (_, escaped: string) =>
+        escaped.length === 3 ? String.fromCharCode(parseInt(escaped, 8)) : escaped,
+      );
     }
 
     it.each([

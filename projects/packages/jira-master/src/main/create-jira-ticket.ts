@@ -1,8 +1,11 @@
 import { FastAlfred } from 'fast-alfred';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { JiraTicketSchema } from '../models/jira-ticket.model';
 import { SettingsSchema } from '../models/settings.model';
 import { createJiraIssue } from '../services/jira-api.service';
+
+const execFileAsync = promisify(execFile);
 
 (async () => {
   const alfredClient = new FastAlfred();
@@ -18,7 +21,8 @@ import { createJiraIssue } from '../services/jira-api.service';
 
     const result = await createJiraIssue(jira, ticket);
 
-    exec(`open "${result.url}"`);
+    /** The URL carries the key Jira returned, so it goes to `open` as an argument, never through a shell. */
+    await execFileAsync('open', [result.url]);
   } catch (error) {
     alfredClient.error(error);
   }

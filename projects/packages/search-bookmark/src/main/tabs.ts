@@ -11,7 +11,13 @@ import { loadTabsOutput } from '../services/tabs-items.service';
   const settings = alfredClient.env.parse(SettingsSchema);
 
   try {
-    const tabs = await loadChromeTabs();
+    /** Reading the selection costs a second osascript, and only the rows shown before a query use it. */
+    const withSelection = !alfredClient.input.trim();
+    const tabs = await loadChromeTabs({ withSelection });
+    if (tabs.debugLogs.length) {
+      alfredClient.log(tabs.debugLogs.join('\n'));
+    }
+
     const output = await loadTabsOutput(tabs, alfredClient.input, settings);
 
     alfredClient.output(output);

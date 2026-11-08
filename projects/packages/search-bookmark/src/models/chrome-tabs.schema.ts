@@ -30,7 +30,16 @@ export type FocusTabArgs = z.infer<typeof focusTabArgsSchema>;
 
 export type SearchedTab = ChromeTab & FocusTabArgs;
 
+/** Chrome's scripting dictionary only knows the active tab, so the cmd and shift-click selection comes from the accessibility tree. */
+export const tabStripSchema = z.object({ titles: z.array(z.string()), selected: z.array(z.boolean()) });
+export type TabStrip = z.infer<typeof tabStripSchema>;
+
+export type TabStripRead = { kind: 'skipped' } | { kind: 'read'; strip: TabStrip } | { kind: 'failed'; reason: string };
+
 export interface ChromeTabsLoad {
   windows: ChromeWindow[];
+  selectedTabs: ChromeTab[];
   issues: ChromeTabsIssue[];
+  /** Failures that would add a row to every run, such as missing Accessibility access, so only Alfred's debugger shows them. */
+  debugLogs: string[];
 }

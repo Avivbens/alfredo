@@ -7,7 +7,7 @@ export function toMarkdownLink({ title, url }: ChromeTab): string {
   return `[${label}](${href})`;
 }
 
-export function toWindowMarkdown({ tabs }: ChromeWindow): string {
+export function toWindowMarkdown({ tabs }: Pick<ChromeWindow, 'tabs'>): string {
   return tabs.map((tab) => `- ${toMarkdownLink(tab)}`).join('\n');
 }
 

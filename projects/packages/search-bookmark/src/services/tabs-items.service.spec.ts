@@ -103,9 +103,44 @@ describe('tabs-items.service', () => {
     });
 
     it('should disable cmd on scope rows, since only a single tab can be focused', () => {
-      const items = toScopeItems(windows);
+      const front = windows[0]?.tabs ?? [];
+      const items = toScopeItems(windows, front.slice(0, 2));
 
       expect(items.every((item) => item.mods?.cmd?.valid === false)).toBe(true);
+    });
+
+    it('should lead with a row that copies the selected tabs when two or more are selected', () => {
+      const front = buildWindow(1, 4);
+      const [selected, ...rest] = toScopeItems(
+        [front],
+        front.tabs.filter((_, index) => index % 2 === 1),
+      );
+
+      expect(selected?.title).toBe('Copy selected tabs');
+      expect(selected?.subtitle).toBe('2 tabs · selected in the window in front');
+      expect(selected?.arg).toBe('- [Tab 1-2](https://example.dev/1/2)\n- [Tab 1-4](https://example.dev/1/4)');
+      expect(rest.map(({ title }) => title)).toEqual(['Copy current tab', 'Copy this window']);
+    });
+
+    it('should lead with the selected tabs row when several windows are open too', () => {
+      const front = windows[0]?.tabs ?? [];
+      const items = toScopeItems(windows, front.slice(0, 3));
+
+      expect(items.map(({ title }) => title)).toEqual([
+        'Copy selected tabs',
+        'Copy current tab',
+        'Copy this window',
+        'Copy all windows',
+        'Copy another window',
+        'Copy another window',
+      ]);
+    });
+
+    it('should leave out the selected tabs row for a single selected tab, which Copy current tab covers', () => {
+      const front = buildWindow(1, 4);
+      const items = toScopeItems([front], front.tabs.slice(0, 1));
+
+      expect(items.map(({ title }) => title)).toEqual(['Copy current tab', 'Copy this window']);
     });
   });
 
@@ -151,21 +186,44 @@ describe('tabs-items.service', () => {
 
   describe('loadTabsOutput', () => {
     it("should show only the issue row when Chrome isn't running", async () => {
-      const { items } = await loadTabsOutput({ windows: [], issues: [{ kind: 'not-running' }] }, '', settings);
+      const { items } = await loadTabsOutput(
+        { windows: [], selectedTabs: [], issues: [{ kind: 'not-running' }], debugLogs: [] },
+        '',
+        settings,
+      );
 
       expect(items.map(({ title }) => title)).toEqual(["Chrome isn't running"]);
     });
 
     it('should show No open tabs when every window was incognito', async () => {
-      const { items } = await loadTabsOutput({ windows: [], issues: [{ kind: 'no-tabs' }] }, 'alfredo', settings);
+      const { items } = await loadTabsOutput(
+        { windows: [], selectedTabs: [], issues: [{ kind: 'no-tabs' }], debugLogs: [] },
+        'alfredo',
+        settings,
+      );
 
       expect(items.map(({ title }) => title)).toEqual(['No open tabs']);
     });
 
     it('should show the scope rows when no query is typed', async () => {
-      const { items } = await loadTabsOutput({ windows: [buildWindow(1, 2)], issues: [] }, '', settings);
+      const { items } = await loadTabsOutput(
+        { windows: [buildWindow(1, 2)], selectedTabs: [], issues: [], debugLogs: [] },
+        '',
+        settings,
+      );
 
       expect(items.map(({ title }) => title)).toEqual(['Copy current tab', 'Copy this window']);
+    });
+
+    it('should show the selected tabs row when no query is typed and tabs are selected', async () => {
+      const front = buildWindow(1, 3);
+      const { items } = await loadTabsOutput(
+        { windows: [front], selectedTabs: front.tabs.slice(1), issues: [], debugLogs: [] },
+        '',
+        settings,
+      );
+
+      expect(items.map(({ title }) => title)).toEqual(['Copy selected tabs', 'Copy current tab', 'Copy this window']);
     });
 
     it('should search tabs by title when a query is typed', async () => {
@@ -181,16 +239,24 @@ describe('tabs-items.service', () => {
         },
       ];
 
-      const { items } = await loadTabsOutput({ windows, issues: [] }, 'alfredo', settings);
+      const { items } = await loadTabsOutput(
+        { windows, selectedTabs: [], issues: [], debugLogs: [] },
+        'alfredo',
+        settings,
+      );
 
       expect(items.map(({ title }) => title)).toEqual(['Alfredo workflows']);
     });
 
     it('should cap the matches at the slice amount', async () => {
-      const { items } = await loadTabsOutput({ windows: [buildWindow(1, 5)], issues: [] }, 'tab', {
-        ...settings,
-        sliceAmount: 2,
-      });
+      const { items } = await loadTabsOutput(
+        { windows: [buildWindow(1, 5)], selectedTabs: [], issues: [], debugLogs: [] },
+        'tab',
+        {
+          ...settings,
+          sliceAmount: 2,
+        },
+      );
 
       expect(items).toHaveLength(2);
     });

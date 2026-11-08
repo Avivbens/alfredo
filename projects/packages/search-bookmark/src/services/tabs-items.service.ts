@@ -1,6 +1,7 @@
 import type { AlfredListItem, AlfredScriptFilter } from 'fast-alfred';
 import type { z } from 'zod';
 import type {
+  ChromeTab,
   ChromeTabsIssue,
   ChromeTabsLoad,
   ChromeWindow,
@@ -25,11 +26,29 @@ export function toSearchedTabs(windows: ChromeWindow[]): SearchedTab[] {
   return windows.flatMap(({ id, tabs }) => tabs.map((tab, index) => ({ ...tab, windowId: id, tabIndex: index + 1 })));
 }
 
-export function toScopeItems(windows: ChromeWindow[]): AlfredListItem[] {
+/** A single selected tab is the active one, which Copy current tab already covers. */
+function toSelectedItems(selectedTabs: ChromeTab[]): AlfredListItem[] {
+  if (selectedTabs.length < 2) {
+    return [];
+  }
+
+  return [
+    {
+      title: 'Copy selected tabs',
+      subtitle: `${pluralize(selectedTabs.length, 'tab')} · selected in the window in front`,
+      arg: toWindowMarkdown({ tabs: selectedTabs }),
+      mods: { cmd: SCOPE_CMD_MOD },
+    },
+  ];
+}
+
+export function toScopeItems(windows: ChromeWindow[], selectedTabs: ChromeTab[] = []): AlfredListItem[] {
   const [front] = windows;
   if (!front) {
     return [];
   }
+
+  const selectedItems = toSelectedItems(selectedTabs);
 
   const frontItem: AlfredListItem = {
     title: 'Copy this window',
@@ -51,7 +70,7 @@ export function toScopeItems(windows: ChromeWindow[]): AlfredListItem[] {
     : [];
 
   if (windows.length < 2) {
-    return [...currentItems, frontItem];
+    return [...selectedItems, ...currentItems, frontItem];
   }
 
   /** Windows come front to back, so Window 1 is the front row and only Window 2 to N get their own row. */
@@ -69,6 +88,7 @@ export function toScopeItems(windows: ChromeWindow[]): AlfredListItem[] {
   });
 
   return [
+    ...selectedItems,
     ...currentItems,
     frontItem,
     {
@@ -115,14 +135,14 @@ export function toIssueItem(issue: ChromeTabsIssue): AlfredListItem {
 }
 
 export async function loadTabsOutput(
-  { windows, issues }: ChromeTabsLoad,
+  { windows, selectedTabs, issues }: ChromeTabsLoad,
   query: string,
   { sliceAmount, fuzzyThreshold }: TabsSettings,
 ): Promise<AlfredScriptFilter> {
   const issueItems = issues.map(toIssueItem);
 
   if (!query.trim()) {
-    return { items: [...issueItems, ...toScopeItems(windows)] };
+    return { items: [...issueItems, ...toScopeItems(windows, selectedTabs)] };
   }
 
   const matches = await fuzzySearch(

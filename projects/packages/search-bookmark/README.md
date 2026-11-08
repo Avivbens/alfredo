@@ -8,34 +8,20 @@
 
 ## Description
 
-Search browser bookmarks via the keyword 'bm'. Once you select a bookmark, it will be opened in the dedicated browser.
+Search your bookmarks across Chrome profiles with 'bm', and copy your open tabs as Markdown links with 'tabs'.
 
-## Features 🥷
+## Search bookmarks
 
-Incognito mode will be opened with the dedicated browser as well.
-
-## Usage
-
-1. Open Alfred and type 'bm' followed by a space
-1. Type the name of the bookmark you want to search for (e.g., 'bm google')
-1. The list of bookmarks will be displayed along with the corresponding bookmark directories structure
-1. Select the bookmark from the list of results
-1. Press Enter to open the bookmark in the dedicated browser
-1. To open the bookmark in incognito mode, press Command + Enter
+1. Type 'bm' in Alfred, then part of a bookmark's name
+2. Press Enter to open it in its Chrome profile, or Command + Enter to open it in incognito
 
 ## Copy open tabs
 
-Copy your open Chrome tabs as Markdown links via the keyword 'tabs'. You can change the keyword in the workflow configuration.
+1. Type 'tabs' in Alfred
+2. Press Enter on a row to copy the selected tabs, the current tab, a window or all windows as Markdown links
+3. Or type a word to find a tab: Enter copies it, Command + Enter switches to it
 
-1. Open Alfred and type 'tabs' followed by a space
-1. Press Enter on 'Copy current tab' to copy the active tab of the front window as a link
-1. Press Enter on 'Copy this window' to copy the tabs of the window in front
-1. Press Enter on 'Copy all windows' to copy every window, grouped under a heading per window
-1. Press Enter on 'Copy another window' to copy any other window, shown with its active tab's title
-1. Type a word to search your open tabs, and press Enter to copy the tab as a link
-1. To switch to a searched tab, press Command + Enter
-
-Incognito windows are skipped. The first time you run it, macOS asks to let Alfred control Google Chrome.
+To copy only some tabs, Command or Shift-click them in Chrome first. That row needs Alfred under Accessibility in System Settings.
 
 ## Examples
 

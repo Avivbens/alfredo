@@ -1,10 +1,22 @@
-import { existsSync, writeFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir, userInfo } from 'node:os';
 import { join } from 'node:path';
 import { $ } from 'zurk';
 
 const SUDOERS_PATH = '/etc/sudoers.d/powermetrics';
-const POWERMETRICS_BIN = '/usr/bin/powermetrics';
+export const POWERMETRICS_BIN = '/usr/bin/powermetrics';
+
+/** One 2.5s sample of per-process energy, the only invocation the sudoers rule allows. */
+export const POWERMETRICS_ARGS = ['--samplers', 'tasks', '--show-process-energy', '-n', '1', '-i', '2500'];
+
+/** Earlier versions installed the rule without arguments, and it stays until replaced. */
+const ARGUMENTLESS_RULE = /(^|[\s,:])\/usr\/bin\/powermetrics\s*(,|$)/m;
+
+/** A rule without arguments also allows `-o <file>`, which writes any file as root, so it names the exact sampling. */
+export function toSudoersRule(username: string): string {
+  return `${username} ALL=(root) NOPASSWD: ${POWERMETRICS_BIN} ${POWERMETRICS_ARGS.join(' ')}`;
+}
 
 /**
  * Builds the one-time command the user must run in a real terminal to enable
@@ -16,31 +28,25 @@ const POWERMETRICS_BIN = '/usr/bin/powermetrics';
 export function getSetupCommand(): string {
   const { username } = userInfo();
   return (
-    `echo '${username} ALL=(root) NOPASSWD: ${POWERMETRICS_BIN}' | sudo tee ${SUDOERS_PATH} > /dev/null && ` +
-    `sudo chmod 0440 ${SUDOERS_PATH}`
+    `echo '${toSudoersRule(username)}' | sudo tee ${SUDOERS_PATH} > /dev/null && ` + `sudo chmod 0440 ${SUDOERS_PATH}`
   );
 }
 
 /**
- * Checks whether `sudo powermetrics` runs WITHOUT prompting for a password.
- *
- * Uses `sudo -n` (non-interactive): sudo exits non-zero and never blocks on a
- * prompt when a password would be required, so this can neither hang nor pop a
- * dialog. Unlike a bare `powermetrics --help` (which succeeds for any user and
- * therefore never exercises sudo), this actually tests the privileged path the
- * battery feature depends on.
+ * `sudo -n -l` answers without running anything or prompting, so the check can neither hang nor
+ * start a sample. It passes only once the sampling is allowed and no argument-less rule remains.
  */
 async function checkPasswordlessSudo(): Promise<boolean> {
   if (!existsSync(SUDOERS_PATH)) {
     return false;
   }
 
-  const { status } = await $({
-    timeout: 2000,
-    nothrow: true,
-  })`sudo -n ${POWERMETRICS_BIN} --help`;
+  const [listing, sampling] = await Promise.all([
+    $({ timeout: 2000, nothrow: true })`sudo -n -l`,
+    $({ timeout: 2000, nothrow: true })`sudo -n -l ${POWERMETRICS_BIN} ${POWERMETRICS_ARGS}`,
+  ]);
 
-  return status === 0;
+  return sampling.status === 0 && !ARGUMENTLESS_RULE.test(listing.stdout);
 }
 
 /**
@@ -52,30 +58,33 @@ async function checkPasswordlessSudo(): Promise<boolean> {
  * read a password); the zurk timeout is only a hang guard. Either way we
  * confirm the outcome with {@link checkPasswordlessSudo} rather than trusting
  * the install's exit status.
+ *
+ * The rule is written into a fresh `mkdtemp` directory with an exclusive create, so no other
+ * user can plant or swap it, and visudo checks it first, since a broken file locks sudo itself.
  */
 async function setupPasswordlessSudo(): Promise<boolean> {
+  const { username } = userInfo();
+  if (!username) {
+    return false;
+  }
+
+  const dir = await mkdtemp(join(tmpdir(), 'kill-process-sudoers-'));
   try {
-    const { username } = userInfo();
-    if (!username) {
+    const ruleFile = join(dir, 'powermetrics');
+    await writeFile(ruleFile, `${toSudoersRule(username)}\n`, { mode: 0o440, flag: 'wx' });
+
+    const check = await $({ timeout: 2000, nothrow: true })`/usr/sbin/visudo -cf ${ruleFile}`;
+    if (check.status !== 0) {
       return false;
     }
 
-    const sudoersContent = `${username} ALL=(root) NOPASSWD: ${POWERMETRICS_BIN}\n`;
-    const tempFile = join(tmpdir(), `powermetrics-sudoers-${Date.now()}`);
-    writeFileSync(tempFile, sudoersContent, { mode: 0o440 });
+    await $({ timeout: 30000, nothrow: true })`sudo install -m 0440 -o root -g wheel ${ruleFile} ${SUDOERS_PATH}`;
 
-    /**
-     * Move the rule into place as root. Prompts for a password once where the
-     * environment allows it (30s window); fails fast where it doesn't.
-     */
-    await $({
-      timeout: 30000,
-      nothrow: true,
-    })`sudo install -m 0440 -o root -g wheel ${tempFile} ${SUDOERS_PATH}`;
-
-    return checkPasswordlessSudo();
+    return await checkPasswordlessSudo();
   } catch {
     return false;
+  } finally {
+    await rm(dir, { recursive: true, force: true });
   }
 }
 

@@ -107,8 +107,9 @@ function toKeys(
   };
 }
 
-function toPrefix({ source, isDraft }: PullRequest): string {
-  return `${SOURCE_PREFIX[source] ?? ''}${isDraft ? 'Draft · ' : ''}`;
+/** A fork's worktree opens outside code beside the user's own repo, so its row says so before anything opens. */
+function toPrefix({ source, isCrossRepository, isDraft }: PullRequest): string {
+  return `${SOURCE_PREFIX[source] ?? ''}${isCrossRepository ? 'Fork · ' : ''}${isDraft ? 'Draft · ' : ''}`;
 }
 
 function toLocation({ clone, worktree }: Pick<PrState, 'clone' | 'worktree'>, home: string): string {

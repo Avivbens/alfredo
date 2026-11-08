@@ -116,6 +116,18 @@ describe('pr-items.service', () => {
       ]);
     });
 
+    it("should mark pull requests from forks, since their folder opens outside code next to the user's own repo", () => {
+      const states: PrState[] = [
+        { pr: toPr({ isCrossRepository: true }), clone: CLONE },
+        { pr: toPr({ source: 'review', isCrossRepository: true, isDraft: true }), clone: CLONE },
+      ];
+
+      expect(toListItems(toEntries(states), [], HOME).map((item) => item.subtitle)).toEqual([
+        'Fork · avivbens/alfredo #123 · no worktree',
+        'Review · Fork · Draft · avivbens/alfredo #123 · no worktree',
+      ]);
+    });
+
     it('should prefix assigned pull requests', () => {
       const assigned = toPr({
         source: 'assigned',

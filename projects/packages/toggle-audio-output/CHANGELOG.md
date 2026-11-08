@@ -1,3 +1,13 @@
+## 1.3.2 (2026-11-08)
+
+### 🩹 Fixes
+
+- **toggle-audio-output:** end osascript options before the airplay receiver name ([f4457f1](https://github.com/Avivbens/alfredo/commit/f4457f1))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.1 (2026-11-07)
 
 This was a version bump only for toggle-audio-output to align it with other projects, there were no code changes.

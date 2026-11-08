@@ -1,3 +1,13 @@
+## 2.0.4 (2026-11-08)
+
+### 🩹 Fixes
+
+- **jira-master:** open the created ticket without a shell ([86fb734](https://github.com/Avivbens/alfredo/commit/86fb734))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.0.3 (2026-11-07)
 
 This was a version bump only for jira-master to align it with other projects, there were no code changes.

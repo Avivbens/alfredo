@@ -1,3 +1,13 @@
+## 2.1.2 (2026-11-08)
+
+### 🩹 Fixes
+
+- **ai-calendar-assistant:** escape the time zone in the applescript fallback ([e6254f3](https://github.com/Avivbens/alfredo/commit/e6254f3))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.1.1 (2026-11-07)
 
 This was a version bump only for ai-calendar-assistant to align it with other projects, there were no code changes.

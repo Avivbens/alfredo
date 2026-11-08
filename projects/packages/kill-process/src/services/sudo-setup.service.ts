@@ -46,7 +46,21 @@ async function checkPasswordlessSudo(): Promise<boolean> {
     $({ timeout: 2000, nothrow: true })`sudo -n -l ${POWERMETRICS_BIN} ${POWERMETRICS_ARGS}`,
   ]);
 
+  if (listing.status !== 0) {
+    return await canSampleWithoutPassword();
+  }
+
   return sampling.status === 0 && !ARGUMENTLESS_RULE.test(listing.stdout);
+}
+
+/**
+ * A sudoers `listpw` setting can demand a password even to list rules, so on such hosts the sampling itself is
+ * the check, at the cost of one extra 2.5s sample, and an argument-less rule there cannot be told apart.
+ */
+async function canSampleWithoutPassword(): Promise<boolean> {
+  const { status } = await $({ timeout: 6000, nothrow: true })`sudo -n ${POWERMETRICS_BIN} ${POWERMETRICS_ARGS}`;
+
+  return status === 0;
 }
 
 /**

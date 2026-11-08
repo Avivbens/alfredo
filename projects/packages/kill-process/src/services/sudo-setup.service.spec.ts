@@ -35,15 +35,33 @@ function commands(): string[] {
 }
 
 /** Answers each command the way sudo and visudo would for the given installed rule. */
-function mockSudo({ listing, visudoOk = true }: { listing: () => string; visudoOk?: boolean }): void {
+function mockSudo({
+  listing,
+  visudoOk = true,
+  listingNeedsPassword = false,
+  samplingOk = true,
+}: {
+  listing: () => string;
+  visudoOk?: boolean;
+  listingNeedsPassword?: boolean;
+  samplingOk?: boolean;
+}): void {
   zurkTemplateLiteralFn.mockImplementation(async (pieces: TemplateStringsArray, ...args: unknown[]) => {
     const command = toCommand(pieces, ...args);
+    if (command.startsWith('sudo -n -l') && listingNeedsPassword) {
+      return { status: 1, stdout: '' };
+    }
+
     if (command === 'sudo -n -l') {
       return { status: 0, stdout: listing() };
     }
 
     if (command.startsWith('sudo -n -l ')) {
       return { status: listing().includes('powermetrics') ? 0 : 1, stdout: '' };
+    }
+
+    if (command === `sudo -n ${SAMPLING}`) {
+      return { status: samplingOk ? 0 : 1, stdout: '' };
     }
 
     if (command.startsWith('/usr/sbin/visudo')) {
@@ -92,6 +110,23 @@ describe('sudo-setup.service', () => {
       expect(commands()).toContain(
         'sudo install -m 0440 -o root -g wheel /tmp/kill-process-sudoers-abc/powermetrics /etc/sudoers.d/powermetrics',
       );
+    });
+
+    it('should run the sampling itself when the host needs a password even to list rules', async () => {
+      mockSudo({ listing: () => NARROW_LISTING, listingNeedsPassword: true });
+
+      await expect(ensurePasswordlessSudo()).resolves.toEqual({ success: true });
+      expect(commands()).toContain(`sudo -n ${SAMPLING}`);
+      expect(commands().some((command) => command.startsWith('sudo install'))).toBe(false);
+    });
+
+    it('should ask for the setup when the listing needs a password and the sampling is refused too', async () => {
+      mockSudo({ listing: () => '', listingNeedsPassword: true, samplingOk: false });
+
+      await expect(ensurePasswordlessSudo()).resolves.toMatchObject({
+        success: false,
+        setupCommand: getSetupCommand(),
+      });
     });
 
     it('should write the rule into a private directory, check it with visudo before installing, and remove it', async () => {

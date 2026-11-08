@@ -1,7 +1,8 @@
 import { alfredSchemas } from 'fast-alfred/schemas';
 import { z } from 'zod';
+import { gifIdSchema } from './gif-id.schema';
 
-export const previewDownloadSchema = z.object({ id: z.string(), url: z.url() });
+export const previewDownloadSchema = z.object({ id: gifIdSchema, url: z.url() });
 
 export type PreviewDownload = z.infer<typeof previewDownloadSchema>;
 

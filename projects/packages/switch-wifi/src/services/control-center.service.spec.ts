@@ -22,6 +22,14 @@ describe('control-center.service', () => {
       );
     });
 
+    it('should end the osascript options before the SSID, since anyone can broadcast a name starting with `-e`', async () => {
+      zurkTemplateLiteralFn.mockResolvedValue({ status: 0, stdout: 'joining\n', stderr: '' });
+
+      await joinNetwork('-eproperty p:do shell script"id"');
+
+      expect(zurkTemplateLiteralFn.mock.calls[0]?.[0]).toEqual(['osascript -e ', ' -- ', '']);
+    });
+
     it('should report a network that is already connected instead of pressing it again', async () => {
       zurkTemplateLiteralFn.mockResolvedValue({ status: 0, stdout: 'already-connected\n', stderr: '' });
 

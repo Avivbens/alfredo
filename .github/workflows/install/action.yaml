@@ -6,7 +6,7 @@ runs:
   using: composite
   steps:
     - name: 🖥️ Setup pnpm & Node
-      uses: pnpm/setup@v3
+      uses: pnpm/setup@fa36a5ef7dcdefc3a7cb25655c122e00cf6e636e # v3.1.2
       with:
         runtime: node@22
         install: false
@@ -17,5 +17,5 @@ runs:
         pnpm install --frozen-lockfile --ignore-scripts
 
     - name: 'Derive appropriate SHAs for base and head for `nx affected` commands'
-      uses: nrwl/nx-set-shas@v4
+      uses: nrwl/nx-set-shas@3e9ad7370203c1e93d109be57f3b72eb0eb511b1 # v4.4.0
       with: { main-branch-name: 'master' }

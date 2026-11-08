@@ -1,12 +1,28 @@
 import { glob } from 'glob';
+import { execFile } from 'node:child_process';
 import { readdir, stat } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { basename } from 'node:path';
-import { $ } from 'zurk';
-import { quote } from '@alfredo/command-injection';
+import { promisify } from 'node:util';
 import { FileSearch } from '../models/file-search.model';
 import { SearchOptions } from '../models/search-options.model';
 import { FILE_TYPE_TO_QUERY_STRING } from './search.config';
+
+const execFileAsync = promisify(execFile);
+
+const MDFIND_MAX_BUFFER = 10_000_000;
+
+/**
+ * mdfind runs without a shell, so the typed name only has to stay inside its Spotlight value,
+ * where `'` ends the value and `\` escapes.
+ */
+export function toMdfindArgs(name: string, fileTypeQuery: string, onlyIn: string[]): string[] {
+  const spotlightName = name.replace(/[\\']/g, '\\$&');
+  const nameQuery = `kMDItemFSName == '*${spotlightName}*'`;
+  const query = fileTypeQuery ? `${nameQuery} && ${fileTypeQuery}` : nameQuery;
+
+  return [...onlyIn.flatMap((path) => ['-onlyin', path]), query];
+}
 
 export async function searchInFileSystem(options: SearchOptions): Promise<FileSearch[]> {
   const {
@@ -36,23 +52,9 @@ export async function searchInFileSystem(options: SearchOptions): Promise<FileSe
   const filteredForced = forceIncludedPaths?.filter(filterFunction) ?? [];
   const filteredRootPaths = onlyIn?.filter(filterFunction) ?? [];
 
-  /**
-   * Handle search locations
-   */
   const parsedOnlyIn = (onlyIn ?? []).map((path) => path.replace('~', homedir()));
-  const onlyInFlags = parsedOnlyIn.map((path) => `-onlyin '${path}'`);
-  const onlyInLocationsQuery = onlyInFlags.join(' ');
-
-  /**
-   * Handle file types
-   */
-  const fileTypeQuery = FILE_TYPE_TO_QUERY_STRING[type];
-
-  const nameFilterQuery = `"kMDItemFSName == '*${quote(name)}*' ${fileTypeQuery ? `&& ${fileTypeQuery}` : ``}"`;
-  const { stdout } = await $({
-    spawnOpts: { maxBuffer: 10_000_000 },
-    args: [onlyInLocationsQuery, nameFilterQuery],
-  })`mdfind`;
+  const mdfindArgs = toMdfindArgs(name, FILE_TYPE_TO_QUERY_STRING[type], parsedOnlyIn);
+  const { stdout } = await execFileAsync('mdfind', mdfindArgs, { maxBuffer: MDFIND_MAX_BUFFER });
 
   /**
    * Parse the output of mdfind command

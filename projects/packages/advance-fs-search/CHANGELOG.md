@@ -1,3 +1,13 @@
+## 2.5.2 (2026-11-08)
+
+### 🩹 Fixes
+
+- **advance-fs-search:** run mdfind without a shell ([8527001](https://github.com/Avivbens/alfredo/commit/8527001))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 2.5.1 (2026-11-07)
 
 This was a version bump only for advance-fs-search to align it with other projects, there were no code changes.

@@ -1,3 +1,15 @@
+## 3.1.5 (2026-11-08)
+
+### 🩹 Fixes
+
+- **kill-process:** check the powermetrics rule by sampling where listing needs a password ([0865a29](https://github.com/Avivbens/alfredo/commit/0865a29))
+- **kill-process:** pin the passwordless powermetrics rule to its sampling arguments ([9b5b56a](https://github.com/Avivbens/alfredo/commit/9b5b56a))
+- **kill-process:** signal the process without a kill command ([b3a2be0](https://github.com/Avivbens/alfredo/commit/b3a2be0))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.1.4 (2026-11-07)
 
 This was a version bump only for kill-process to align it with other projects, there were no code changes.

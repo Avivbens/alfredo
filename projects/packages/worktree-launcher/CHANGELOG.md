@@ -1,3 +1,13 @@
+## 1.3.0 (2026-11-08)
+
+### 🚀 Features
+
+- **worktree-launcher:** label pull requests from forks ([3d7e68a](https://github.com/Avivbens/alfredo/commit/3d7e68a))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.2.3 (2026-11-08)
 
 This was a version bump only for worktree-launcher to align it with other projects, there were no code changes.

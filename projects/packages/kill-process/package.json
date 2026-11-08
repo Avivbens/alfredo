@@ -1,6 +1,6 @@
 {
   "name": "kill-process",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Efficiently search and kill processes on your Mac ⚔️",
   "keywords": [
     "alfred",

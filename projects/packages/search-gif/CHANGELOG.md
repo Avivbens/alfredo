@@ -1,3 +1,14 @@
+## 1.1.3 (2026-11-08)
+
+### 🩹 Fixes
+
+- **search-gif:** check gif ids in the copy and preview payloads too ([a17eea2](https://github.com/Avivbens/alfredo/commit/a17eea2))
+- **search-gif:** accept only plain giphy ids as file names ([c7497bb](https://github.com/Avivbens/alfredo/commit/c7497bb))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.1.2 (2026-11-08)
 
 This was a version bump only for search-gif to align it with other projects, there were no code changes.

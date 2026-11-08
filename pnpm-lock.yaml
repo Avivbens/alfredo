@@ -354,9 +354,6 @@ importers:
 
   projects/packages/advance-fs-search:
     dependencies:
-      '@alfredo/command-injection':
-        specifier: workspace:*
-        version: link:../../libs/command-injection
       '@alfredo/git-worktrees':
         specifier: workspace:*
         version: link:../../libs/git-worktrees

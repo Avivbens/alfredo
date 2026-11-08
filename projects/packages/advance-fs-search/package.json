@@ -14,7 +14,6 @@
     "email": "avivbens87@gmail.com"
   },
   "dependencies": {
-    "@alfredo/command-injection": "workspace:*",
     "@alfredo/git-worktrees": "workspace:*",
     "@alfredo/updater": "workspace:*"
   }

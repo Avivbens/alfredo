@@ -1,3 +1,7 @@
+## 2.1.3 (2026-11-08)
+
+This was a version bump only for ai-calendar-assistant to align it with other projects, there were no code changes.
+
 ## 2.1.2 (2026-11-08)
 
 ### 🩹 Fixes

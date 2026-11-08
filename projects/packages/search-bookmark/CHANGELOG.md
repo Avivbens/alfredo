@@ -1,3 +1,13 @@
+## 3.4.0 (2026-11-08)
+
+### 🚀 Features
+
+- **search-bookmark:** copy the tabs selected in chrome ([a754a77](https://github.com/Avivbens/alfredo/commit/a754a77))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.3.1 (2026-11-07)
 
 This was a version bump only for search-bookmark to align it with other projects, there were no code changes.

@@ -1,6 +1,6 @@
 {
   "name": "search-gif",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Search GIPHY for GIFs and copy them straight from Alfred 🎬",
   "keywords": [
     "alfred",

@@ -1,3 +1,7 @@
+## 1.1.2 (2026-11-08)
+
+This was a version bump only for search-gif to align it with other projects, there were no code changes.
+
 ## 1.1.1 (2026-11-07)
 
 ### 🩹 Fixes

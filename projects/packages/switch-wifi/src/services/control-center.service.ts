@@ -99,7 +99,8 @@ export async function joinNetwork(ssid: string): Promise<JoinOutcome> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= CONTROL_CENTER_ATTEMPTS; attempt++) {
-    const result = await $({ nothrow: true })`osascript -e ${JOIN_NETWORK_SCRIPT} ${ssid}`;
+    /** `--` ends osascript's options, or a broadcast SSID starting with `-e` would be read as more script. */
+    const result = await $({ nothrow: true })`osascript -e ${JOIN_NETWORK_SCRIPT} -- ${ssid}`;
     if (result.status === 0) {
       return JoinOutcomeSchema.parse(result.stdout.trim());
     }

@@ -1,18 +1,14 @@
 import { FastAlfred } from 'fast-alfred';
-import { $ } from 'zurk';
-import { CallbackPayload } from '../models/callback-payload.model';
+import { callbackPayloadSchema } from '../models/callback-payload.model';
 
 (async () => {
   const alfredClient = new FastAlfred();
 
   try {
-    const { pid, shouldForceKill }: CallbackPayload = JSON.parse(alfredClient.input);
-    const args = [shouldForceKill ? '-9' : '', String(pid)].filter(Boolean);
+    const { pid, shouldForceKill } = callbackPayloadSchema.parse(JSON.parse(alfredClient.input));
 
-    const { stderr } = await $({ args, nothrow: true })`kill`;
-    if (stderr) {
-      throw new Error(stderr);
-    }
+    /** Signalling from node runs no `kill` command, so nothing in the payload reaches a shell. */
+    process.kill(pid, shouldForceKill ? 'SIGKILL' : 'SIGTERM');
   } catch (error) {
     alfredClient.error(error);
   }

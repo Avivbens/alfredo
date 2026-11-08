@@ -153,7 +153,8 @@ export async function streamToAirPlay(receiver: string): Promise<void> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= AIRPLAY_SELECT_ATTEMPTS; attempt++) {
-    const result = await $({ nothrow: true })`osascript -e ${SELECT_RECEIVER_SCRIPT} ${receiver}`;
+    /** `--` ends osascript's options, or an advertised name starting with `-e` would be read as more script. */
+    const result = await $({ nothrow: true })`osascript -e ${SELECT_RECEIVER_SCRIPT} -- ${receiver}`;
     if (result.status === 0) {
       return;
     }

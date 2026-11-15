@@ -1,3 +1,13 @@
+## 1.4.0 (2026-11-15)
+
+### 🚀 Features
+
+- **worktree-launcher:** point at the layer a stack's folder has checked out ([68e42e0](https://github.com/Avivbens/alfredo/commit/68e42e0))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 1.3.0 (2026-11-08)
 
 ### 🚀 Features

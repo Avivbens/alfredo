@@ -188,30 +188,30 @@ describe('pr-items.service', () => {
       ]);
     });
 
-    it('should head a stack with a label only, giving its number, repo name, open layer count and folder', () => {
+    it('should head a stack with a label only, giving its number, repo name, open layer count, pointer and folder', () => {
       const entry = toStack([1, 2, 3], 3, { folder: { path: STACK_FOLDER, branch: 'feat/layer-1' } });
 
       const [header, ...layers] = toListItems([entry], [], HOME);
 
       expect(header).toEqual({
-        title: '┌ Stack 68 · alfredo · 3 PRs',
+        title: '┌ Stack 68 · alfredo · 3 PRs · → 1/3 #67',
         subtitle: '~/dev/alfredo@stack-68',
         valid: false,
       });
       expect(layers.map(({ title, subtitle, uid }) => ({ title, subtitle, uid }))).toEqual([
         {
-          title: '│ 1/3 · Layer 1',
+          title: '→ 1/3 · Layer 1',
           subtitle: 'avivbens/alfredo #67 · ~/dev/alfredo@stack-68',
           uid: 'https://github.com/avivbens/alfredo/pull/67',
         },
         {
           title: '│ 2/3 · Layer 2',
-          subtitle: 'avivbens/alfredo #58 · on #67 · ~/dev/alfredo@stack-68 (on 1/3)',
+          subtitle: 'avivbens/alfredo #58 · on #67 · ~/dev/alfredo@stack-68',
           uid: 'https://github.com/avivbens/alfredo/pull/58',
         },
         {
           title: '└ 3/3 · Layer 3',
-          subtitle: 'avivbens/alfredo #59 · on #58 · ~/dev/alfredo@stack-68 (on 1/3)',
+          subtitle: 'avivbens/alfredo #59 · on #58 · ~/dev/alfredo@stack-68',
           uid: 'https://github.com/avivbens/alfredo/pull/59',
         },
       ]);
@@ -238,23 +238,36 @@ describe('pr-items.service', () => {
       expect(toAction(toShiftArg(layer))).toEqual({ kind: 'pr', pr: toLayer(2, 3), mode: 'browser' });
     });
 
-    it('should label a layer with the layer below it and the layer its folder is on', () => {
+    it('should point at the layer its folder is on, even as the last row', () => {
       const entry = toStack([1, 2, 3, 4, 5, 6], 6, { folder: { path: STACK_FOLDER, branch: 'feat/layer-6' } });
 
-      const [, , layer] = toListItems([entry], [], HOME);
+      const items = toListItems([entry], [], HOME);
 
-      expect(layer).toMatchObject({
+      expect(items[0]?.title).toBe('┌ Stack 68 · alfredo · 6 PRs · → 6/6 #64');
+      expect(items[2]).toMatchObject({
         title: '│ 2/6 · Layer 2',
-        subtitle: 'avivbens/alfredo #58 · on #67 · ~/dev/alfredo@stack-68 (on 6/6)',
+        subtitle: 'avivbens/alfredo #58 · on #67 · ~/dev/alfredo@stack-68',
       });
+      expect(items.at(-1)?.title).toBe('→ 6/6 · Layer 6');
     });
 
-    it("should name the folder's branch when it is not a layer", () => {
+    it("should name the folder's branch in the header when it is not a layer", () => {
       const entry = toStack([1, 2], 2, { folder: { path: STACK_FOLDER, branch: 'fix/other' } });
 
-      const [, layer] = toListItems([entry], [], HOME);
+      const items = toListItems([entry], [], HOME);
 
-      expect(layer?.subtitle).toBe('avivbens/alfredo #67 · ~/dev/alfredo@stack-68 (on fix/other)');
+      expect(items[0]?.title).toBe('┌ Stack 68 · alfredo · 2 PRs · → fix/other');
+      expect(items.filter(({ title }) => title.startsWith('→'))).toEqual([]);
+      expect(items[1]?.subtitle).toBe('avivbens/alfredo #67 · ~/dev/alfredo@stack-68');
+    });
+
+    it('should keep the pointer in the header when typing hides the layer it points at', () => {
+      const openLayers = toOpenLayers([1, 2, 3].map((position) => toLayer(position, 3)));
+      const entry = toStack([2], 3, { folder: { path: STACK_FOLDER, branch: 'feat/layer-3' } });
+
+      const items = toListItems([entry], [], HOME, openLayers);
+
+      expect(items.map(({ title }) => title)).toEqual(['┌ Stack 68 · alfredo · 3 PRs · → 3/3 #59', '└ 2/3 · Layer 2']);
     });
 
     it('should leave out on # when the layer below is not open', () => {

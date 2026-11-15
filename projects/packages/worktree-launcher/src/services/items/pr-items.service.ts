@@ -15,7 +15,7 @@ const SOURCE_PREFIX: Partial<Record<PrState['pr']['source'], string>> = {
   assigned: 'Assigned · ',
 };
 
-const TREE_GLYPHS = { header: '┌ ', member: '│ ', last: '└ ' } as const;
+const TREE_GLYPHS = { header: '┌ ', member: '│ ', last: '└ ', pointer: '→ ' } as const;
 
 function toIssueItem(issue: LauncherIssue, home: string): AlfredListItem {
   switch (issue.kind) {
@@ -132,37 +132,37 @@ function toPrItem(state: PrState, home: string): AlfredListItem {
   return { title: pr.title, subtitle, ...toKeys(shift, clone ? (mode) => toArg(pr, mode) : undefined), uid: pr.url };
 }
 
-function toHeaderItem(
-  { number, nameWithOwner, clone, folder }: StackGroup,
-  layers: StackedPullRequest[],
-  home: string,
-): AlfredListItem {
+/** Reads every open layer, not just the rows shown, since typing may hide the checked-out one. */
+function toPointer({ folder, size }: StackGroup, layers: StackedPullRequest[]): string | undefined {
+  if (!folder) {
+    return undefined;
+  }
+  const layer = layers.find(({ headRefName }) => headRefName === folder.branch);
+
+  return layer ? `${layer.stack.position}/${size} #${layer.number}` : folder.branch;
+}
+
+function toHeaderItem(group: StackGroup, layers: StackedPullRequest[], home: string): AlfredListItem {
+  const { number, nameWithOwner, clone, folder } = group;
   const slash = nameWithOwner.indexOf('/');
   const repo = nameWithOwner.slice(slash + 1);
   const subtitle = toLocation({ clone, worktree: folder }, home);
+  const pointer = toPointer(group, layers);
+  const suffix = pointer ? ` · ${TREE_GLYPHS.pointer}${pointer}` : '';
 
-  return { title: `${TREE_GLYPHS.header}Stack ${number} · ${repo} · ${layers.length} PRs`, subtitle, valid: false };
-}
-
-/** The folder holds one branch at a time, so each layer row says which layer it is on when that is another one. */
-function toLayerLocation(
-  pr: StackedPullRequest,
-  group: StackGroup,
-  layers: StackedPullRequest[],
-  home: string,
-): string {
-  const location = toLocation({ clone: group.clone, worktree: group.folder }, home);
-  const branch = group.folder?.branch;
-  if (!branch || branch === pr.headRefName) {
-    return location;
-  }
-  const layer = layers.find(({ headRefName }) => headRefName === branch);
-
-  return `${location} (on ${layer ? `${layer.stack.position}/${group.size}` : branch})`;
+  return {
+    title: `${TREE_GLYPHS.header}Stack ${number} · ${repo} · ${layers.length} PRs${suffix}`,
+    subtitle,
+    valid: false,
+  };
 }
 
 /** The group holds only the layers typing left, so the last of them closes the stack's tree. */
 function toLayerGlyph(state: StackGroup['layers'][number], group: StackGroup): string {
+  if (group.folder?.branch === state.pr.headRefName) {
+    return TREE_GLYPHS.pointer;
+  }
+
   return state === group.layers.at(-1) ? TREE_GLYPHS.last : TREE_GLYPHS.member;
 }
 
@@ -176,7 +176,8 @@ function toLayerItem(
   const { position } = pr.stack;
   const below = layers.find(({ stack }) => stack.position === position - 1);
   const on = below ? ` · on #${below.number}` : '';
-  const subtitle = `${toPrefix(pr)}${pr.nameWithOwner} #${pr.number}${on} · ${toLayerLocation(pr, group, layers, home)}`;
+  const location = toLocation({ clone: group.clone, worktree: group.folder }, home);
+  const subtitle = `${toPrefix(pr)}${pr.nameWithOwner} #${pr.number}${on} · ${location}`;
   const shift = { arg: toArg(pr, 'browser'), subtitle: 'Open the pull request in the browser' };
 
   return {

@@ -37,7 +37,7 @@ The [GitHub CLI](https://cli.github.com) (`gh`), logged in with `gh auth login`.
 
 ## Stacked pull requests
 
-The pull requests of one GitHub stack show together under a `Stack` header. ↩ on any layer opens the stack's folder, `<repo>@stack-<n>`, on that layer.
+The pull requests of one GitHub stack show together under a `Stack` header. ↩ on any layer opens the stack's folder, `<repo>@stack-<n>`, on that layer. An arrow marks the layer the folder has checked out, and the header names it.
 
 ## New task
 

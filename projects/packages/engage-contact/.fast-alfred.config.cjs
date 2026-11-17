@@ -20,12 +20,12 @@ Supported apps:
 
 ## Usage
 
-\`ecw\` - WhatsApp
-\`ecs\` - SMS
-\`ecc\` - Call
-\`ecm\` - Mail
-\`ecfa\` - FaceTime Audio
-\`ecf\` - FaceTime Video
+- \`ecw\` - WhatsApp
+- \`ecs\` - SMS
+- \`ecc\` - Call
+- \`ecm\` - Mail
+- \`ecfa\` - FaceTime Audio
+- \`ecf\` - FaceTime Video
 
 To view the workflow codebase, click here:
 ${homepage}

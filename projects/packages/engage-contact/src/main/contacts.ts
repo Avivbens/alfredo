@@ -16,7 +16,8 @@ import { searchContacts } from '../services/search.service';
     const [searchTerm, platform] = ContactsInputsSchema.parse(alfredClient.inputs);
     const { countryCode, sliceAmount, fuzzyThreshold } = alfredClient.env.parse(SettingsSchema);
 
-    const contacts: IContact[] = getContacts(alfredClient).filter((contact) => hasPlatformField(contact, platform));
+    const allContacts: IContact[] = await getContacts(alfredClient);
+    const contacts = allContacts.filter((contact) => hasPlatformField(contact, platform));
 
     const filteredContacts = await searchContacts(contacts, searchTerm, sliceAmount, fuzzyThreshold);
 

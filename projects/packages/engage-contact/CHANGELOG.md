@@ -1,3 +1,14 @@
+## 4.0.2 (2026-11-17)
+
+### 🩹 Fixes
+
+- **engage-contact:** list the keywords in the workflow readme ([8fc986b](https://github.com/Avivbens/alfredo/commit/8fc986b))
+- **engage-contact:** clear the download quarantine before loading the contacts addon ([ab369bb](https://github.com/Avivbens/alfredo/commit/ab369bb))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 4.0.1 (2026-11-07)
 
 This was a version bump only for engage-contact to align it with other projects, there were no code changes.

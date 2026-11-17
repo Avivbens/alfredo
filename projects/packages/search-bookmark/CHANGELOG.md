@@ -1,3 +1,13 @@
+## 3.4.1 (2026-11-17)
+
+### 🩹 Fixes
+
+- **search-bookmark:** wrap the keywords in backticks in the workflow readme ([aabd62e](https://github.com/Avivbens/alfredo/commit/aabd62e))
+
+### ❤️ Thank You
+
+- Aviv Ben Shahar
+
 ## 3.4.0 (2026-11-08)
 
 ### 🚀 Features

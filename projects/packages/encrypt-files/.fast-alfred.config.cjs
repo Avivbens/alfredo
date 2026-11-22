@@ -5,15 +5,17 @@ const { env } = require('node:process');
 const README = `
 #### Thank you for using Encrypt Files! ✨
 
-This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
-
 ## Features
 
-// TODO
+Pack the files and folders you select into one zip, encrypted with AES-256 behind a password.
 
 ## Usage
 
-// TODO
+Select files or folders in Finder, open Alfred's action menu and choose \`Encrypt with Password\`.
+Type the password twice, and the zip appears next to the first selected item.
+
+The names of the files inside the zip stay readable without the password - only their contents are encrypted.
+To open it, use any unzip app with AES support, such as Keka, The Unarchiver or 7-Zip.
 
 To view the workflow codebase, click here:
 ${homepage}
@@ -25,12 +27,6 @@ ${homepage}
 module.exports = {
   bundlerOptions: {
     targetDir: resolve(__dirname, '../../../', 'dist', env.NX_TASK_TARGET_PROJECT, 'esbuild'),
-  },
-  updates: {
-    bundleHelpers: true,
-    userConfiguration: {
-      checkUpdatesCheckbox: true,
-    },
   },
   workflowMetadata: {
     name: 'Encrypt Files',

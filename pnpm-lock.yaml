@@ -335,6 +335,12 @@ importers:
 
   projects/libs/command-injection: {}
 
+  projects/libs/dialog:
+    dependencies:
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../run-applescript
+
   projects/libs/git-worktrees: {}
 
   projects/libs/llm: {}
@@ -378,6 +384,8 @@ importers:
       '@alfredo/updater':
         specifier: workspace:*
         version: link:../../libs/updater
+
+  projects/packages/encrypt-files: {}
 
   projects/packages/engage-contact:
     dependencies:

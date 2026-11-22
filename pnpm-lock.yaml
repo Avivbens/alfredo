@@ -396,12 +396,12 @@ importers:
 
   projects/packages/encrypt-files:
     dependencies:
+      '@alfredo/clipboard':
+        specifier: workspace:*
+        version: link:../../libs/clipboard
       '@alfredo/dialog':
         specifier: workspace:*
         version: link:../../libs/dialog
-      '@alfredo/run-applescript':
-        specifier: workspace:*
-        version: link:../../libs/run-applescript
 
   projects/packages/engage-contact:
     dependencies:

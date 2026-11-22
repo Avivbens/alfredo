@@ -1,5 +1,5 @@
 import { runInNewContext } from 'node:vm';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import type { DialogOptions } from './dialog.schema';
 import { buildDialogScript, showDialog } from './show-dialog';
 
@@ -129,6 +129,29 @@ describe('show-dialog', () => {
 
       expect(run).toThrow('Not authorized');
     });
+
+    it('should offer only the given buttons as the default button', () => {
+      type Options = Parameters<typeof buildDialogScript<'Cancel' | 'Encrypt'>>[0];
+
+      expectTypeOf<Options['defaultButton']>().toEqualTypeOf<'Cancel' | 'Encrypt'>();
+    });
+
+    it('should not widen the buttons to fit an unknown default button', () => {
+      const text = { title: 'T', message: 'm' };
+      function buildWithUnknownDefault(): string {
+        // @ts-expect-error - 'Delete' is not one of the buttons
+        return buildDialogScript({ ...text, buttons: ['Cancel', 'Encrypt'], defaultButton: 'Delete' });
+      }
+
+      expectTypeOf(buildWithUnknownDefault).returns.toBeString();
+    });
+
+    it('should refuse more than three buttons, since a macOS dialog shows at most three', () => {
+      const build = () =>
+        buildDialogScript({ title: 'T', message: 'm', buttons: ['A', 'B', 'C', 'D'], defaultButton: 'A' });
+
+      expect(build).toThrow();
+    });
   });
 
   describe('showDialog', () => {
@@ -150,6 +173,28 @@ describe('show-dialog', () => {
       const result = await showDialog(PASSWORD_DIALOG);
 
       expect(result).toEqual({ button: 'Encrypt', text: 'pw' });
+    });
+
+    it('should type the pressed button as one of the dialog buttons or Cancel', async () => {
+      runAppleScript.mockResolvedValue('{"button":"Encrypt","text":""}');
+
+      const result = await showDialog({
+        title: 'T',
+        message: 'm',
+        buttons: ['Later', 'Encrypt'],
+        defaultButton: 'Encrypt',
+      });
+
+      expectTypeOf(result.button).toEqualTypeOf<'Later' | 'Encrypt' | 'Cancel'>();
+      expect(result.button).toBe('Encrypt');
+    });
+
+    it('should reject an answer naming a button the dialog never had', async () => {
+      runAppleScript.mockResolvedValue('{"button":"Delete","text":""}');
+
+      const failure = await showDialog(PASSWORD_DIALOG).catch((error: unknown) => error);
+
+      expect((failure as Error).message).toBe('The dialog answered in an unexpected way');
     });
 
     it.each([

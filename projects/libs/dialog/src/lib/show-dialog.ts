@@ -1,5 +1,6 @@
+import { z } from 'zod';
 import { runAppleScript } from '@alfredo/run-applescript';
-import { dialogResultSchema } from './dialog.schema';
+import { CANCEL_BUTTON, dialogOptionsSchema, dialogResultSchema } from './dialog.schema';
 import type { DialogOptions, DialogResult } from './dialog.schema';
 
 /**
@@ -17,7 +18,8 @@ const ANSWER_FIELDS = {
 };
 
 /** Every value goes in through `JSON.stringify`, so quotes, backslashes and newlines can't break the script */
-export function buildDialogScript({ title, message, buttons, defaultButton, answer }: DialogOptions): string {
+export function buildDialogScript<Button extends string>(dialog: DialogOptions<Button>): string {
+  const { title, message, buttons, defaultButton, answer } = dialogOptionsSchema.parse(dialog);
   const answerFields = answer ? ANSWER_FIELDS[answer] : {};
   const options = { withTitle: title, buttons, defaultButton, ...answerFields };
 
@@ -33,24 +35,26 @@ try {
   if (error.errorNumber !== ${USER_CANCELED}) {
     throw error;
   }
-  result = { button: 'Cancel', text: '' };
+  result = { button: ${JSON.stringify(CANCEL_BUTTON)}, text: '' };
 }
 JSON.stringify(result);
 `;
 }
 
 /** The raw answer can hold a typed secret, and a parse error would quote it to whoever shows the error */
-function parseDialogResult(raw: string): DialogResult {
+function parseDialogResult<Button extends string>(raw: string, buttons: readonly Button[]): DialogResult<Button> {
+  const resultSchema = dialogResultSchema.extend({ button: z.enum([CANCEL_BUTTON, ...buttons]) });
+
   try {
-    return dialogResultSchema.parse(JSON.parse(raw));
+    return resultSchema.parse(JSON.parse(raw));
   } catch {
     throw new Error('The dialog answered in an unexpected way');
   }
 }
 
-export async function showDialog(options: DialogOptions): Promise<DialogResult> {
-  const script = buildDialogScript(options);
+export async function showDialog<Button extends string>(dialog: DialogOptions<Button>): Promise<DialogResult<Button>> {
+  const script = buildDialogScript(dialog);
   const raw = await runAppleScript(script, { language: 'JavaScript' });
 
-  return parseDialogResult(raw);
+  return parseDialogResult(raw, dialog.buttons);
 }

@@ -6,13 +6,38 @@
     <string>com.alfredapp.avivbens.encrypt-files</string>
     <key>connections</key>
     <dict>
-      <key>D67E8B4F-44DF-4E76-8F7B-EE90F012F81D</key>
-      <array></array>
+      <key>A59CC301-334F-4319-8BAB-E1535D2EDE01</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>B18E44E9-D09A-4584-931C-AA18EE901A32</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
+      <key>B18E44E9-D09A-4584-931C-AA18EE901A32</key>
+      <array>
+        <dict>
+          <key>destinationuid</key>
+          <string>479FD7F6-73AE-4FE9-A04D-6F478714AA7D</string>
+          <key>modifiers</key>
+          <integer>0</integer>
+          <key>modifiersubtext</key>
+          <string></string>
+          <key>vitoclose</key>
+          <false></false>
+        </dict>
+      </array>
     </dict>
     <key>createdby</key>
     <string>Aviv Ben Shahar</string>
+    <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string>TODO</string>
+    <string>Encrypt files and folders into a password-protected AES-256 zip, straight from Alfred's action menu 🔒</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -22,74 +47,106 @@
       <dict>
         <key>config</key>
         <dict>
-          <key>alfredfiltersresults</key>
-          <false></false>
-          <key>alfredfiltersresultsmatchmode</key>
-          <integer>0</integer>
-          <key>argumenttreatemptyqueryasnil</key>
-          <false></false>
-          <key>argumenttrimmode</key>
-          <integer>0</integer>
-          <key>argumenttype</key>
+          <key>acceptsfiles</key>
+          <true></true>
+          <key>acceptsmulti</key>
           <integer>1</integer>
+          <key>acceptstext</key>
+          <false></false>
+          <key>acceptsurls</key>
+          <false></false>
+          <key>name</key>
+          <string>Encrypt with Password</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.trigger.universalaction</string>
+        <key>uid</key>
+        <string>A59CC301-334F-4319-8BAB-E1535D2EDE01</string>
+        <key>version</key>
+        <integer>1</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>concurrently</key>
+          <false></false>
           <key>escaping</key>
           <integer>102</integer>
-          <key>keyword</key>
-          <string>encrypt-files</string>
-          <key>queuedelaycustom</key>
-          <integer>3</integer>
-          <key>queuedelayimmediatelyinitially</key>
-          <true></true>
-          <key>queuedelaymode</key>
-          <integer>0</integer>
-          <key>queuemode</key>
-          <integer>1</integer>
-          <key>runningsubtext</key>
-          <string></string>
           <key>script</key>
-          <string>./esbuild/assets/run-node.sh esbuild/encrypt-files.js "$1"</string>
+          <string>./esbuild/assets/run-node.sh esbuild/encrypt-files.js "$@"</string>
           <key>scriptargtype</key>
           <integer>1</integer>
           <key>scriptfile</key>
           <string></string>
-          <key>subtext</key>
-          <string></string>
-          <key>title</key>
-          <string>Encrypt Files</string>
           <key>type</key>
           <integer>11</integer>
-          <key>withspace</key>
-          <true></true>
         </dict>
         <key>type</key>
-        <string>alfred.workflow.input.scriptfilter</string>
+        <string>alfred.workflow.action.script</string>
         <key>uid</key>
-        <string>D67E8B4F-44DF-4E76-8F7B-EE90F012F81D</string>
+        <string>B18E44E9-D09A-4584-931C-AA18EE901A32</string>
         <key>version</key>
-        <integer>3</integer>
+        <integer>2</integer>
+      </dict>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>lastpathcomponent</key>
+          <false></false>
+          <key>onlyshowifquerypopulated</key>
+          <true></true>
+          <key>removeextension</key>
+          <false></false>
+          <key>text</key>
+          <string>{query}</string>
+          <key>title</key>
+          <string>Encrypt Files</string>
+        </dict>
+        <key>type</key>
+        <string>alfred.workflow.output.notification</string>
+        <key>uid</key>
+        <string>479FD7F6-73AE-4FE9-A04D-6F478714AA7D</string>
+        <key>version</key>
+        <integer>1</integer>
       </dict>
     </array>
     <key>readme</key>
     <string>#### Thank you for using Encrypt Files! ✨
 
-This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
-
 ## Features
 
-// TODO
+Pack the files and folders you select into one zip, encrypted with AES-256 behind a password.
 
 ## Usage
 
-// TODO
+Select files or folders in Finder, open Alfred's action menu and choose `Encrypt with Password`.
+Type the password twice, and the zip appears next to the first selected item.
+
+The names of the files inside the zip stay readable without the password - only their contents are encrypted.
+To open it, use any unzip app with AES support, such as Keka, The Unarchiver or 7-Zip.
 
 To view the workflow codebase, click here:
 https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
     <dict>
-      <key>D67E8B4F-44DF-4E76-8F7B-EE90F012F81D</key>
+      <key>479FD7F6-73AE-4FE9-A04D-6F478714AA7D</key>
+      <dict>
+        <key>xpos</key>
+        <integer>475</integer>
+        <key>ypos</key>
+        <integer>75</integer>
+      </dict>
+      <key>A59CC301-334F-4319-8BAB-E1535D2EDE01</key>
       <dict>
         <key>xpos</key>
         <integer>75</integer>
+        <key>ypos</key>
+        <integer>75</integer>
+      </dict>
+      <key>B18E44E9-D09A-4584-931C-AA18EE901A32</key>
+      <dict>
+        <key>xpos</key>
+        <integer>275</integer>
         <key>ypos</key>
         <integer>75</integer>
       </dict>
@@ -119,6 +176,7 @@ https://github.com/Avivbens/alfredo</string>
     <key>version</key>
     <string>1.0.0</string>
     <key>webaddress</key>
+    <string>https://github.com/Avivbens/alfredo</string>
     <string>https://github.com/Avivbens/alfredo</string>
   </dict>
 </plist>

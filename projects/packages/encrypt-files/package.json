@@ -1,11 +1,14 @@
 {
   "name": "encrypt-files",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "Encrypt files and folders into a password-protected AES-256 zip, straight from Alfred's action menu 🔒",
   "keywords": [
     "alfred",
     "workflow",
-    "TODO"
+    "encrypt",
+    "zip",
+    "password",
+    "aes"
   ],
   "homepage": "https://github.com/Avivbens/alfredo",
   "author": {

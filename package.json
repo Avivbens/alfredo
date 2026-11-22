@@ -31,6 +31,7 @@
     "@langchain/core": "^1.2.18",
     "@langchain/google-genai": "^2.3.2",
     "@langchain/openai": "^1.6.2",
+    "@zip.js/zip.js": "^2.25.0",
     "date-fns": "^4.4.0",
     "fast-alfred": "^2.10.0",
     "fuse.js": "^7.5.0",

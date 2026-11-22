@@ -333,6 +333,12 @@ importers:
 
   projects/libs/cache: {}
 
+  projects/libs/clipboard:
+    dependencies:
+      '@alfredo/run-applescript':
+        specifier: workspace:*
+        version: link:../run-applescript
+
   projects/libs/command-injection: {}
 
   projects/libs/dialog:

@@ -28,13 +28,18 @@ const REPORT_TEXT = 'Quarterly report\n';
 const OLD_DATE = new Date('2020-01-02T03:04:06Z');
 const NEW_DATE = new Date('2026-11-22T10:20:30Z');
 
-async function readEntries(path: string): Promise<Entry[]> {
-  const data = await readFile(path);
+async function openZip(data: Uint8Array): Promise<Entry[]> {
   const reader = new ZipReader(new BlobReader(new Blob([data])));
   const entries = await reader.getEntries();
   await reader.close();
 
   return entries;
+}
+
+async function readEntries(path: string): Promise<Entry[]> {
+  const data = await readFile(path);
+
+  return openZip(data);
 }
 
 function isFileEntry(entry: Entry): entry is FileEntry {
@@ -163,6 +168,68 @@ describe('zip-writer.service', () => {
 
       await expect(writing).rejects.toMatchObject({ code: 'EACCES' });
       expect(writeStreams.map(({ destroyed }) => destroyed)).toEqual([true]);
+    });
+
+    describe('with hidden names', () => {
+      it('should list only Contents.zip, encrypted with AES-256', async () => {
+        const destination = join(out, 'Archive.zip');
+
+        await writeEncryptedZip(sources, destination, PASSWORD, { hideNames: true });
+
+        const entries = await readEntries(destination);
+        expect(entries.map(({ filename }) => filename)).toEqual(['Contents.zip']);
+        expect(entries[0]?.encrypted).toBe(true);
+        expect(entries[0]?.zipCrypto).toBe(false);
+        expect(entries[0]?.extraFieldAES?.strength).toBe(3);
+      });
+
+      it('should hold a plain zip with every file inside', async () => {
+        const destination = join(out, 'Archive.zip');
+
+        await writeEncryptedZip(sources, destination, PASSWORD, { hideNames: true });
+
+        const outer = await readEntries(destination);
+        const contents = await readContent(outer, 'Contents.zip', PASSWORD);
+        const inner = await openZip(contents);
+        const report = await readContent(inner, 'Report.txt', '');
+        const image = await readContent(inner, 'Photos/image.bin', '');
+        expect(inner.map(({ filename }) => filename)).toEqual(['Report.txt', 'Photos/', 'Photos/image.bin']);
+        expect(inner.some(({ encrypted }) => encrypted)).toBe(false);
+        expect(report.toString()).toBe(REPORT_TEXT);
+        expect(image.equals(binary)).toBe(true);
+      });
+
+      it('should reject a wrong password', async () => {
+        const destination = join(out, 'Archive.zip');
+
+        await writeEncryptedZip(sources, destination, PASSWORD, { hideNames: true });
+
+        const outer = await readEntries(destination);
+        const reading = readContent(outer, 'Contents.zip', 'wrong-password');
+        await expect(reading).rejects.toThrow(/Invalid password/);
+      });
+
+      it('should never put the plain zip on disk', async () => {
+        const destination = join(out, 'Archive.zip');
+
+        await writeEncryptedZip(sources, destination, PASSWORD, { hideNames: true });
+
+        const left = await readdir(out);
+        const outer = await readEntries(destination);
+        expect(left).toEqual(['Archive.zip']);
+        expect(outer.map(({ filename }) => filename)).toEqual(['Contents.zip']);
+      });
+
+      it('should fail without hanging, name the unreadable file and leave nothing behind', async () => {
+        const destination = join(out, 'Archive.zip');
+        await chmod(join(dir, 'Report.txt'), 0o000);
+
+        const writing = writeEncryptedZip(sources, destination, PASSWORD, { hideNames: true });
+
+        await expect(writing).rejects.toMatchObject({ code: 'EACCES', path: join(dir, 'Report.txt') });
+        const left = await readdir(out);
+        expect(left).toEqual([]);
+      });
     });
   });
 });

@@ -4,6 +4,7 @@ import { toFailureMessage } from '../common/failure-message.util';
 import { toItemsLabel } from '../common/items-label.util';
 import { notify } from '../common/notify.util';
 import { findFreePath, toArchiveName } from '../common/output-path.util';
+import { settingsSchema } from '../models/settings.model';
 import { collectEntries } from '../services/collect-entries.service';
 import { promptPassword } from '../services/password-prompt.service';
 import { revealInFinder } from '../services/reveal.service';
@@ -27,14 +28,15 @@ import { writeEncryptedZip } from '../services/zip-writer.service';
       return;
     }
 
-    const archiveName = toArchiveName(paths);
+    const { hide_file_names: hideNames } = alfredClient.env.parse(settingsSchema);
+    const archiveName = toArchiveName(paths, hideNames);
     const destination = await findFreePath(dirname(first), archiveName);
     const choice = await promptPassword(paths.length, basename(destination));
     if (choice.kind === 'cancelled') {
       return;
     }
 
-    await writeEncryptedZip(sources, destination, choice.password);
+    await writeEncryptedZip(sources, destination, choice.password, { hideNames });
     await revealInFinder(destination);
 
     const summary = `Encrypted ${toItemsLabel(paths.length)} → ${basename(destination)}`;

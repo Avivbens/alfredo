@@ -1,7 +1,7 @@
 import { randomInt } from 'node:crypto';
 
 /** No 0, O, o, 1, l or I, so the password survives being read aloud or retyped on a phone */
-const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
 const GROUPS = 3;
 const GROUP_LENGTH = 6;
 

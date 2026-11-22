@@ -24,7 +24,8 @@ async function askPassword(message: string): Promise<string | null> {
 }
 
 async function askTyped(intro: string, issue: PasswordIssue | null): Promise<PasswordChoice> {
-  const message = issue ? `${intro}\n${PASSWORD_ISSUE_TEXT[issue]}` : intro;
+  const issueLine = issue ? `\n${PASSWORD_ISSUE_TEXT[issue]}` : '';
+  const message = `${intro}${issueLine}`;
   const first = await askPassword(message);
   if (first === null) {
     return CANCELLED;

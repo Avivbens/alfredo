@@ -36,7 +36,10 @@ import { writeEncryptedZip } from '../services/zip-writer.service';
 
     await writeEncryptedZip(sources, destination, choice.password);
     await revealInFinder(destination);
-    notify(`Encrypted ${toItemsLabel(paths.length)} → ${basename(destination)}`);
+
+    const summary = `Encrypted ${toItemsLabel(paths.length)} → ${basename(destination)}`;
+    const clipboardNote = choice.kind === 'generated' ? ' - the password is on the clipboard' : '';
+    notify(`${summary}${clipboardNote}`);
   } catch (error) {
     notify(toFailureMessage(error));
   }

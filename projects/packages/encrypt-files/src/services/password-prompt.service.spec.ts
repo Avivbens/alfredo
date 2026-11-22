@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { promptPassword } from './password-prompt.service';
 
-const { showDialog, generatePassword, copyConcealed } = vi.hoisted(() => ({
+const { showDialog, generatePassword, copyToClipboard } = vi.hoisted(() => ({
   showDialog: vi.fn(),
   generatePassword: vi.fn(),
-  copyConcealed: vi.fn(),
+  copyToClipboard: vi.fn(),
 }));
 vi.mock('@alfredo/dialog', () => ({ showDialog }));
 vi.mock('../common/password-generator.util', () => ({ generatePassword }));
-vi.mock('./clipboard.service', () => ({ copyConcealed }));
+vi.mock('@alfredo/clipboard', () => ({ copyToClipboard }));
 
 const GENERATED = 'Hk3qzP-r7Tmwd-9xLbaS';
 
@@ -23,8 +23,8 @@ function shownMessages(): string[] {
 describe('password-prompt.service', () => {
   beforeEach(() => {
     showDialog.mockReset();
-    copyConcealed.mockReset();
-    copyConcealed.mockResolvedValue(undefined);
+    copyToClipboard.mockReset();
+    copyToClipboard.mockResolvedValue(undefined);
     generatePassword.mockReset();
     generatePassword.mockReturnValue(GENERATED);
   });
@@ -49,7 +49,7 @@ describe('password-prompt.service', () => {
       const choice = await promptPassword(2, 'Archive.zip');
 
       expect(choice).toEqual({ kind: 'generated', password: GENERATED });
-      expect(copyConcealed).toHaveBeenCalledWith(GENERATED);
+      expect(copyToClipboard).toHaveBeenCalledWith(GENERATED, { sensitive: true });
       expect(showDialog.mock.calls[1]?.[0]).toEqual({
         title: 'Encrypt Files',
         message: `Password copied to the clipboard:\n${GENERATED}\n\nShare it with whoever opens the zip.`,

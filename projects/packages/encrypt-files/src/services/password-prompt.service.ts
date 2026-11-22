@@ -1,3 +1,4 @@
+import { copyToClipboard } from '@alfredo/clipboard';
 import { showDialog } from '@alfredo/dialog';
 import { toItemsLabel } from '../common/items-label.util';
 import { generatePassword } from '../common/password-generator.util';
@@ -5,7 +6,6 @@ import { PASSWORD_ISSUE_TEXT, checkPassword } from '../common/password.util';
 import type { PasswordIssue } from '../common/password.util';
 import { DIALOG_TITLE } from '../config/constants';
 import type { PasswordChoice } from '../models/password-choice.model';
-import { copyConcealed } from './clipboard.service';
 
 const ENCRYPT = 'Encrypt';
 const GENERATE = 'Generate';
@@ -13,7 +13,7 @@ const CANCELLED: PasswordChoice = { kind: 'cancelled' };
 
 async function askGenerated(): Promise<PasswordChoice> {
   const password = generatePassword();
-  await copyConcealed(password);
+  await copyToClipboard(password, { sensitive: true });
 
   const message = `Password copied to the clipboard:\n${password}\n\nShare it with whoever opens the zip.`;
   const reply = await showDialog({

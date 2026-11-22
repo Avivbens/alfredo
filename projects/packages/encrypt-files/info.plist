@@ -5,11 +5,14 @@
     <key>bundleid</key>
     <string>com.alfredapp.avivbens.encrypt-files</string>
     <key>connections</key>
-    <dict></dict>
+    <dict>
+      <key>D67E8B4F-44DF-4E76-8F7B-EE90F012F81D</key>
+      <array></array>
+    </dict>
     <key>createdby</key>
-    <string></string>
+    <string>Aviv Ben Shahar</string>
     <key>description</key>
-    <string></string>
+    <string>TODO</string>
     <key>disabled</key>
     <false></false>
     <key>name</key>
@@ -67,7 +70,20 @@
       </dict>
     </array>
     <key>readme</key>
-    <string></string>
+    <string>#### Thank you for using Encrypt Files! ✨
+
+This workflow has been created using Fast Alfred, a user-friendly workflow builder that simplifies the process of creating Alfred workflows.
+
+## Features
+
+// TODO
+
+## Usage
+
+// TODO
+
+To view the workflow codebase, click here:
+https://github.com/Avivbens/alfredo</string>
     <key>uidata</key>
     <dict>
       <key>D67E8B4F-44DF-4E76-8F7B-EE90F012F81D</key>
@@ -79,10 +95,30 @@
       </dict>
     </dict>
     <key>userconfigurationconfig</key>
-    <array></array>
+    <array>
+      <dict>
+        <key>config</key>
+        <dict>
+          <key>default</key>
+          <true></true>
+          <key>required</key>
+          <false></false>
+          <key>text</key>
+          <string>Check for workflow updates ✨</string>
+        </dict>
+        <key>description</key>
+        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <key>label</key>
+        <string></string>
+        <key>type</key>
+        <string>checkbox</string>
+        <key>variable</key>
+        <string>__fastalfred_managed__checkupdates</string>
+      </dict>
+    </array>
     <key>version</key>
     <string>1.0.0</string>
     <key>webaddress</key>
-    <string></string>
+    <string>https://github.com/Avivbens/alfredo</string>
   </dict>
 </plist>

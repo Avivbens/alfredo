@@ -1,12 +1,26 @@
 import { randomBytes } from 'node:crypto';
+import type { WriteStream } from 'node:fs';
 import { chmod, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { BlobReader, Uint8ArrayWriter, ZipReader } from '@zip.js/zip.js';
 import type { Entry, FileEntry } from '@zip.js/zip.js';
 import type { ZipSource } from '../models/zip-source.model';
 import { writeEncryptedZip } from './zip-writer.service';
+
+const { writeStreams } = vi.hoisted(() => ({ writeStreams: [] as WriteStream[] }));
+vi.mock('node:fs', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('node:fs')>();
+  return {
+    ...actual,
+    createWriteStream: (...args: Parameters<typeof actual.createWriteStream>): WriteStream => {
+      const stream = actual.createWriteStream(...args);
+      writeStreams.push(stream);
+      return stream;
+    },
+  };
+});
 
 const PASSWORD = 'correct-horse';
 const REPORT_TEXT = 'Quarterly report\n';
@@ -139,6 +153,16 @@ describe('zip-writer.service', () => {
       await expect(writing).rejects.toMatchObject({ code: 'EACCES', path: join(dir, 'Report.txt') });
       const left = await readdir(out);
       expect(left).toEqual([]);
+    });
+
+    it('should close the output file when a source fails, so no file handle stays open', async () => {
+      writeStreams.length = 0;
+      await chmod(join(dir, 'Report.txt'), 0o000);
+
+      const writing = writeEncryptedZip(sources, join(out, 'Archive.zip'), PASSWORD);
+
+      await expect(writing).rejects.toMatchObject({ code: 'EACCES' });
+      expect(writeStreams.map(({ destroyed }) => destroyed)).toEqual([true]);
     });
   });
 });

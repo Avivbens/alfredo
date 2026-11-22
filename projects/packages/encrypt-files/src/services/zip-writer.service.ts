@@ -23,15 +23,21 @@ async function addSource(writer: ZipWriter<unknown>, source: ZipSource, password
   await writer.add(source.entryName, content, { password, encryptionStrength: AES_256, zip64, ...metadata });
 }
 
+/** Destroyed only on failure: on success `close()` flushes it, and destroying it there could cut off the last write */
 async function writeZip(sources: ZipSource[], path: string, password: string): Promise<void> {
-  const output = Writable.toWeb(createWriteStream(path));
-  const writer = new ZipWriter(output);
+  const file = createWriteStream(path);
+  const writer = new ZipWriter(Writable.toWeb(file));
 
-  for (const source of sources) {
-    await addSource(writer, source, password);
+  try {
+    for (const source of sources) {
+      await addSource(writer, source, password);
+    }
+
+    await writer.close();
+  } catch (error) {
+    file.destroy();
+    throw error;
   }
-
-  await writer.close();
 }
 
 export async function writeEncryptedZip(sources: ZipSource[], destination: string, password: string): Promise<void> {

@@ -20,19 +20,25 @@ describe('output-path.util', () => {
 
   describe('toArchiveName', () => {
     it('should name a single file after its full name, like Finder', () => {
-      const name = toArchiveName(['/t/Report.pdf']);
+      const name = toArchiveName(['/t/Report.pdf'], false);
 
       expect(name).toBe('Report.pdf.zip');
     });
 
     it('should ignore a trailing slash on a folder', () => {
-      const name = toArchiveName(['/t/Photos/']);
+      const name = toArchiveName(['/t/Photos/'], false);
 
       expect(name).toBe('Photos.zip');
     });
 
     it('should name several items Archive.zip', () => {
-      const name = toArchiveName(['/t/a', '/t/b']);
+      const name = toArchiveName(['/t/a', '/t/b'], false);
+
+      expect(name).toBe('Archive.zip');
+    });
+
+    it('should not leak a file name through the zip name when names are hidden', () => {
+      const name = toArchiveName(['/t/Report.pdf'], true);
 
       expect(name).toBe('Archive.zip');
     });

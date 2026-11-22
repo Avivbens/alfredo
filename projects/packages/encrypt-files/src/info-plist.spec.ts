@@ -7,6 +7,7 @@ type WorkflowObject = { type: string; uid: string; config: Record<string, unknow
 type Workflow = {
   objects: WorkflowObject[];
   connections: Record<string, { destinationuid: string }[]>;
+  userconfigurationconfig?: { type: string; variable: string; label: string; config: Record<string, unknown> }[];
 };
 
 async function loadWorkflow(): Promise<Workflow> {
@@ -64,6 +65,19 @@ describe('info.plist', () => {
       text: '{query}',
       onlyshowifquerypopulated: true,
       title: 'Encrypt Files',
+    });
+  });
+
+  it('should offer Hide file names as a setting that starts off', async () => {
+    const workflow = await loadWorkflow();
+    const settings = workflow.userconfigurationconfig ?? [];
+
+    expect(settings).toHaveLength(1);
+    expect(settings[0]).toMatchObject({
+      type: 'checkbox',
+      variable: 'hide_file_names',
+      label: 'Hide file names',
+      config: { default: false },
     });
   });
 

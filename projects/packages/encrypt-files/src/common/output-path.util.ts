@@ -9,9 +9,9 @@ export function withSuffix(name: string, count: number): string {
   return `${stem} ${count}${extension}`;
 }
 
-/** Follows Finder's Compress: one item keeps its full name, several become Archive.zip */
-export function toArchiveName(paths: string[]): string {
-  if (paths.length !== 1) {
+/** Follows Finder's Compress (one item keeps its full name), except that hidden names must not leak through the zip's own name */
+export function toArchiveName(paths: string[], hideNames: boolean): string {
+  if (hideNames || paths.length !== 1) {
     return ARCHIVE_NAME;
   }
 

@@ -123,6 +123,7 @@ Type the password twice, and the zip appears next to the first selected item.
 Or press `Generate` for a strong password - it is copied to the clipboard without landing in clipboard history.
 
 The names of the files inside the zip stay readable without the password - only their contents are encrypted.
+Turn on `Hide file names` in the workflow settings to hide them too - recipients then unzip twice.
 To open it, use any unzip app with AES support, such as Keka, The Unarchiver or 7-Zip.
 
 To view the workflow codebase, click here:
@@ -157,20 +158,20 @@ https://github.com/Avivbens/alfredo</string>
         <key>config</key>
         <dict>
           <key>default</key>
-          <true></true>
+          <false></false>
           <key>required</key>
           <false></false>
           <key>text</key>
-          <string>Check for workflow updates ✨</string>
+          <string>Hide the names inside the zip</string>
         </dict>
         <key>description</key>
-        <string>Uncheck this checkbox if you'd like to ignore updates</string>
+        <string>Wrap the files in a plain Contents.zip inside the encrypted Archive.zip, so nobody can list them without the password. Recipients unzip twice.</string>
         <key>label</key>
-        <string></string>
+        <string>Hide file names</string>
         <key>type</key>
         <string>checkbox</string>
         <key>variable</key>
-        <string>__fastalfred_managed__checkupdates</string>
+        <string>hide_file_names</string>
       </dict>
     </array>
     <key>version</key>

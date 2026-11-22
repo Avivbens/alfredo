@@ -16,6 +16,7 @@ Type the password twice, and the zip appears next to the first selected item.
 Or press \`Generate\` for a strong password - it is copied to the clipboard without landing in clipboard history.
 
 The names of the files inside the zip stay readable without the password - only their contents are encrypted.
+Turn on \`Hide file names\` in the workflow settings to hide them too - recipients then unzip twice.
 To open it, use any unzip app with AES support, such as Keka, The Unarchiver or 7-Zip.
 
 To view the workflow codebase, click here:
